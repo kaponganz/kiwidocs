@@ -1,0 +1,39 @@
+[book]
+authors = ["Anton P. Linevich"]
+language = "en"
+multilingual = false
+src = "src"
+title = "БпАК KIWI"
+
+[output.html]
+#theme = "theme"
+default-theme = "light"
+preferred-dark-theme = "navy"
+smart-punctuation = true
+mathjax-support = false
+copy-fonts = true
+#additional-css = ["custom.css", "custom2.css"]
+#additional-js = ["custom.js"]
+no-section-label = false
+#git-repository-url = "https://github.com/rust-lang/mdBook"
+#git-repository-icon = "fa-github"
+#edit-url-template = "https://github.com/rust-lang/mdBook/edit/master/guide/{path}"
+#site-url = "/example-book/"
+#cname = "myproject.rs"
+input-404 = "not-found.md"
+
+[output.html.print]
+enable = true    # include support for printable output
+page-break = true # insert page-break after each chapter
+
+[output.html.search]
+enable = true            # enables the search feature
+limit-results = 30       # maximum number of search results
+teaser-word-count = 30   # number of words used for a search result teaser
+use-boolean-and = true   # multiple search terms must all match
+boost-title = 2          # ranking boost factor for matches in headers
+boost-hierarchy = 1      # ranking boost factor for matches in page names
+boost-paragraph = 1      # ranking boost factor for matches in text
+expand = true            # partial words will match longer terms
+heading-split-level = 3  # link results to heading levels
+copy-js = true           # include Javascript code for search
