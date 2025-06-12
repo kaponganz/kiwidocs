@@ -3,7 +3,7 @@ authors = ["Anton P. Linevich"]
 language = "en"
 multilingual = false
 src = "src"
-title = "БпАК KIWI"
+title = "Kiwi"
 
 [output.html]
 #theme = "theme"
