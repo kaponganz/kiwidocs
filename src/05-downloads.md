@@ -2,7 +2,7 @@
 
 ## KIWIF405 Betaflight 4.6.0
 
-[betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex](../download/f405/battle-3b8afd531_betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex)
+[betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex](download/f405/battle-9a90d05-betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex)
 
 ## KIWIF7.1 Betaflight 4.6.0
 
@@ -12,4 +12,4 @@
 
 ## ArduPilot downloads
 
-[Ardupilot-dev KiwiF405](../download/f405/ardupilot-kiwiF405.zip)
+[Ardupilot-dev_kiwif405.zip](download/f405/ardupilot-kiwiF405/ardupilot-dev_kiwif405.zip)
