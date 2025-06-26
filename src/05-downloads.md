@@ -13,3 +13,5 @@
 ## ArduPilot downloads
 
 [Ardupilot-dev_kiwif405.zip](download/f405/ardupilot-kiwiF405/ardupilot-dev_kiwif405.zip)
+[arducopter_with_bl.hex](download/f405/ardupilot-kiwiF405/arducopter_with_bl.hex)
+[arduplane_with_bl.hex](download/f405/ardupilot-kiwiF405/arduplane_with_bl.hex)
