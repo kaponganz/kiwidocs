@@ -10,10 +10,10 @@
 
 [7 inch preset for KIWIF722rev1](../docs/download/f722_1/BF460-7INCH_KAPONGA_KIWIF71.txt)
 
-## ArduPilot downloads
+## ArduPilot 4.6 downloads
 
-[ardupilot-kiwif405-4.6.0.zip](../docs/download/f405/ardupilot-kiwiF405/ardupilot-kiwif405-4.6.0.zip)
+[ardupilot-kiwif405-4.6.0.zip](download/f405/ardupilot-kiwiF405/ardupilot-kiwif405-4.6.0.zip)
 
-[arducopter_with_bl.hex](../docs/download/f405/ardupilot-kiwiF405/arducopter_with_bl.hex)
+[arducopter_with_bl.hex](download/f405/ardupilot-kiwiF405/arducopter_with_bl.hex)
 
-[arduplane_with_bl.hex](../docs/download/f405/ardupilot-kiwiF405/arduplane_with_bl.hex)
+[arduplane_with_bl.hex](download/f405/ardupilot-kiwiF405/arduplane_with_bl.hex)
