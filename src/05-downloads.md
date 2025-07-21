@@ -1,4 +1,4 @@
-# Downloads for KIWI controllers
+# Downloads for KIWI Flight Autoplitot Computers
 
 ## KIWIF405 Betaflight
 

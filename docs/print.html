@@ -153,14 +153,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="welcome"><a class="header" href="#welcome">Welcome</a></h1>
-<p>Welcome to the official documentation for Kaponga Systems.</p>
-<p>This site provides comprehensive technical resources for Kaponga products, including the Kiwi flight controller series and companion modules. Inside, you’ll find hardware specifications, pinouts, setup procedures, firmware integration guides, and system-level configuration references.</p>
-<p>Whether you’re building from scratch, integrating custom sensors, or tuning for flight performance, this documentation is designed to support your development process from start to finish.</p>
-<p>For feedback, corrections, or suggestions, please contact us at support@kaponga.nz</p>
-<hr />
-<p><strong>Next:</strong> <a href="02-kiwif405.html">KiwiF4 Flight Controller</a></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
+                        <h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
 <p><img src="kiwi-GS.png" alt="kiwi-GS.png" /></p>
 <h2 id="Призначення"><a class="header" href="#Призначення">Призначення</a></h2>
 <p>Комплект наземної станції керування FPV дроном призначений для забезпечення безпеки операторів дронів.</p>
@@ -264,81 +257,136 @@ Ground Board ↔ Antenna Board через екранований кабель Ca
 <li>Біля щогли залишати запас.</li>
 <li>Перевіряти видимість з дронів.</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="fpv-Польотний-контролер-kiwi-f40"><a class="header" href="#fpv-Польотний-контролер-kiwi-f40">FPV Польотний контролер KIWI F4.0</a></h1>
-<h2 id="Опис"><a class="header" href="#Опис">Опис</a></h2>
-<p>KIWI F4.0 — це універсальний польотний контролер на базі STM32F405 для FPV, крил та автономних платформ. Контролер
-поєднує точну інерційну сенсорику, підтримку OSD, вбудований Blackbox, а також релейні виходи для керування зовнішніми
-модулями. Підтримка як Betaflight, так і ArduPilot дозволяє використовувати плату у широкому спектрі сценаріїв.</p>
-<p>KIWI F4.0 — це надійна платформа для побудови FPV-дронів, літальних апаратів та спеціалізованих автономних систем з
-підтримкою Betaflight і ArduPilot. Завдяки гнучкості в підключенні реле, сенсорів та телеметрії, контролер готовий до
-роботи в умовах реальних місій.</p>
-<h2 id="Особливості"><a class="header" href="#Особливості">Особливості</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="flight-controller-board-kiwi-f405-6s-configuration"><a class="header" href="#flight-controller-board-kiwi-f405-6s-configuration">Flight Controller Board: KIWI F405 6S Configuration</a></h1>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<p>The KIWI F4.0 is a versatile STM32F405-based flight controller designed for FPV, fixed-wing aircraft, and autonomous
+platforms. It integrates precise inertial sensing, OSD support, built-in Blackbox logging, and relay outputs for
+controlling external modules. With support for both Betaflight and ArduPilot, the board can be deployed across a wide
+range of use cases.</p>
+<p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems. Its flexible
+support for relays, sensors, and telemetry makes it ready for real-world mission environments.</p>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
-<li>Індустріальний IMU Invensense ICM-42688P з зовнішнім тактовим генератором</li>
-<li>Барометр Bosch BMP388 для вимірювання висоти</li>
-<li>Вбудована флеш-пам’ять чорного ящика 128Мбіт (W25Q128FV)</li>
-<li>OSD-чіп MAX7456 для накладання телеметрії на аналогове відео</li>
-<li>Високоточний моніторинг струму і напруги через ADC (VBAT, CURRENT)</li>
-<li>GPIO-керовані релейні виходи для живлення VTX, камер, або піротехнічних систем</li>
-<li>4 моторні PWM виходи + 6 каналів для сервоприводів</li>
-<li>USB Type-C з підтримкою DFU для прошивки</li>
-<li>Повна підтримка CRSF / ELRS з телеметрією (RSSI, LQ, SNR, Power)</li>
+<li>Industrial-grade Invensense ICM-42688P IMU with external clock</li>
+<li>Bosch BMP388 barometer for altitude measurement</li>
+<li>Built-in 128Mbit Blackbox flash memory (W25Q128FV)</li>
+<li>MAX7456 OSD chip for overlaying telemetry on analog video</li>
+<li>High-precision voltage and current monitoring via ADC</li>
+<li>GPIO-controlled relay outputs for powering VTX, cameras, or pyrotechnic systems</li>
+<li>4 PWM outputs for motors and 6 channels for servos</li>
+<li>USB Type-C with DFU support for firmware updates</li>
+<li>Full CRSF / ELRS support with telemetry (RSSI, LQ, SNR, Power)</li>
 </ul>
-<h2 id="Технічні-характеристики-1"><a class="header" href="#Технічні-характеристики-1">Технічні характеристики</a></h2>
+<h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
 <ul>
-<li>MCU: STM32F405RG (168 МГц)</li>
-<li>IMU: ICM-42688P з зовнішнім годинником</li>
-<li>Барометр: Bosch BMP388</li>
+<li>MCU: STM32F405RG (168 MHz)</li>
+<li>IMU: ICM-42688P with external clock</li>
+<li>Barometer: Bosch BMP388</li>
 <li>OSD: MAX7456</li>
-<li>Флеш пам’ять: W25Q128FV (128Мбіт)</li>
-<li>Порти:
+<li>Flash: W25Q128FV (128 Mbit)</li>
+<li>Ports:
 <ul>
-<li>5x UART (ESAD, RC, GPS, VTX, ESC/MSP)</li>
-<li>1x I2C</li>
-<li>3x SPI (OSD, IMU, FLASH)</li>
-<li>ADC: VBAT (PC0), CURR (PC1)</li>
+<li>5× UART (ESAD, RC, GPS, VTX, ESC/MSP)</li>
+<li>1× I2C</li>
+<li>3× SPI (OSD, IMU, FLASH)</li>
+<li>ADC: VBAT, CURRENT</li>
 </ul>
 </li>
 <li>PWM:
 <ul>
-<li>4 моторних канали (PC6–PC9)</li>
-<li>6 сервових каналів (PA8, PA9, PB0, PB1, PB10, PB11)</li>
+<li>4 motor channels</li>
+<li>6 servo channels</li>
 </ul>
 </li>
-<li>GPIO реле:
+<li>GPIO relays:
 <ul>
-<li>X1 (PA4), X2 (PC15), X3 (PC14), X4 (PA10)</li>
+<li>4 relay outputs: X1, X2, X3, X4 (controlled via GPIO)</li>
 </ul>
 </li>
-<li>Інтерфейси:
+<li>Interfaces:
 <ul>
-<li>USB Type-C (PA11/PA12)</li>
-<li>SWD для дебагу (PA13/PA14)</li>
+<li>USB Type-C</li>
+<li>SWD debug interface</li>
 </ul>
 </li>
-<li>Розміри:
+<li>Dimensions:
 <ul>
-<li>36×36 мм</li>
-<li>Кріплення: 30.5×30.5 мм</li>
+<li>36×36 mm</li>
+<li>Mounting: 30.5×30.5 mm</li>
 </ul>
 </li>
-<li>Світлодіод: PC2 (STATUS)</li>
+<li>Status LED indicator</li>
 </ul>
-<h2 id="Застосування"><a class="header" href="#Застосування">Застосування</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="flight-controller-board-kiwi-f405-12s-configuration"><a class="header" href="#flight-controller-board-kiwi-f405-12s-configuration">Flight Controller Board: KIWI F405 12S Configuration</a></h1>
+<p><img src="kiwif405-12s.jpeg" alt="kiwif405-12s.jpeg" /></p>
+<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<p>KIWI F4.0 is a versatile flight controller based on the STM32F405, designed for FPV, wings, and autonomous platforms.<br />
+The controller combines precision inertial sensing, OSD support, built-in Blackbox, and relay outputs for controlling
+external modules.<br />
+Support for both Betaflight and ArduPilot allows this board to be used in a wide range of applications.</p>
+<p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems with full support
+for Betaflight and ArduPilot.<br />
+Thanks to flexible relay, sensor, and telemetry connectivity, the controller is ready for real-world mission use.</p>
+<h2 id="features-1"><a class="header" href="#features-1">Features</a></h2>
 <ul>
-<li>FPV дрони та літаки з аналоговим відео</li>
-<li>Автономні платформи з вимогами до GPS-навігації, стабілізації</li>
-<li>Спеціальні проєкти з потребою керування зовнішніми реле</li>
-<li>Системи з вбудованим логуванням та інерційною діагностикою</li>
+<li>Industrial-grade IMU Invensense ICM-42688P with external clock</li>
+<li>Bosch BMP388 barometer for altitude measurement</li>
+<li>Integrated 128Mbit Blackbox flash memory (W25Q128FV)</li>
+<li>MAX7456 OSD chip for overlaying telemetry on analog video</li>
+<li>High-precision voltage and current monitoring via ADC (VBAT, CURRENT)</li>
+<li>GPIO-controlled relay outputs for powering VTX, cameras, or pyrotechnic systems</li>
+<li>4 motor PWM outputs + 6 servo channels</li>
+<li>USB Type-C with DFU firmware flashing support</li>
+<li>Full CRSF / ELRS telemetry support (RSSI, LQ, SNR, Power)</li>
+</ul>
+<h2 id="technical-specifications-1"><a class="header" href="#technical-specifications-1">Technical Specifications</a></h2>
+<ul>
+<li>MCU: STM32F405RG (168 MHz)</li>
+<li>IMU: ICM-42688P with external oscillator</li>
+<li>Barometer: Bosch BMP388</li>
+<li>OSD: MAX7456</li>
+<li>Flash Memory: W25Q128FV (128 Mbit)</li>
+<li>Ports:
+<ul>
+<li>5x UART (ESAD, RC, GPS, VTX, ESC/MSP)</li>
+<li>1x I2C</li>
+<li>3x SPI (OSD, IMU, FLASH)</li>
+<li>ADC: VBAT, CURR</li>
+</ul>
+</li>
+<li>PWM:
+<ul>
+<li>4 motor channels</li>
+<li>6 servo channels</li>
+</ul>
+</li>
+<li>GPIO Relays:
+<ul>
+<li><strong>U1, U2, U3, F+ (controlled via GPIO)</strong></li>
+</ul>
+</li>
+<li>Interfaces:
+<ul>
+<li>USB Type-C</li>
+<li>SWD for debugging</li>
+</ul>
+</li>
+<li>Dimensions:
+<ul>
+<li>36×36 mm</li>
+<li>Mounting: 30.5×30.5 mm</li>
+</ul>
+</li>
+<li>LED: Heartbeat indicator</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="fpv-Польотний-контролер-kiwi-f722"><a class="header" href="#fpv-Польотний-контролер-kiwi-f722">FPV Польотний контролер KIWI F722</a></h1>
-<h2 id="Опис-1"><a class="header" href="#Опис-1">Опис</a></h2>
+<h2 id="Опис"><a class="header" href="#Опис">Опис</a></h2>
 <p>KIWI F722 — це високопродуктивний контролер польоту для FPV та автономних дронів, розроблений для максимального рівня
 точності, стабільності та надійності. Підтримка популярних прошивок Betaflight та iNAV дозволяє легко адаптувати
 контролер до різних сценаріїв використання.</p>
 <p>KIWI F722 — це рішення для тих, хто шукає виняткову стабільність, розширені можливості підключення та готовність до
 будь-яких викликів у FPV та автономних польотах.</p>
-<h2 id="Особливості-1"><a class="header" href="#Особливості-1">Особливості</a></h2>
+<h2 id="Особливості"><a class="header" href="#Особливості">Особливості</a></h2>
 <ul>
 <li>Наднизькошумний IMU TDK ICM-42688 з зовнішнім тактовим генератором</li>
 <li>Присвячена фільтрація живлення для IMU для ще кращої точності</li>
@@ -351,7 +399,7 @@ Ground Board ↔ Antenna Board через екранований кабель Ca
 <li>Підтримка підключення двох VTX з можливістю перемикання живлення</li>
 <li>Пряма підтримка Betaflight ESC (Plug &amp; Play)</li>
 </ul>
-<h2 id="Технічні-характеристики-2"><a class="header" href="#Технічні-характеристики-2">Технічні характеристики</a></h2>
+<h2 id="Технічні-характеристики-1"><a class="header" href="#Технічні-характеристики-1">Технічні характеристики</a></h2>
 <ul>
 <li>MCU: STM32F722RET6 (216 МГц)</li>
 <li>IMU: ICM-42688 з зовнішнім годинником</li>
@@ -377,13 +425,13 @@ Ground Board ↔ Antenna Board через екранований кабель Ca
 <li>Кріплення: 30.5×30.5 мм (стандартне для FPV)</li>
 <li>Габарити: 39×39 мм</li>
 </ul>
-<h2 id="Застосування-1"><a class="header" href="#Застосування-1">Застосування</a></h2>
+<h2 id="Застосування"><a class="header" href="#Застосування">Застосування</a></h2>
 <ul>
 <li>FPV-квадрокоптери та літальні апарати</li>
 <li>Автономні безпілотники для розвідки, доставки, моніторингу</li>
 <li>Робототехнічні платформи з вимогами до точного управління</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="downloads-for-kiwi-controllers"><a class="header" href="#downloads-for-kiwi-controllers">Downloads for KIWI controllers</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="downloads-for-kiwi-flight-autoplitot-computers"><a class="header" href="#downloads-for-kiwi-flight-autoplitot-computers">Downloads for KIWI Flight Autoplitot Computers</a></h1>
 <h2 id="kiwif405-betaflight"><a class="header" href="#kiwif405-betaflight">KIWIF405 Betaflight</a></h2>
 <p><a href="download/f405/battle-betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4.hex">betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4.hex</a>
 <a href="download/f405/battle-9a90d05-betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex">betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex</a></p>
