@@ -153,7 +153,36 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
+                        <h1 id="summary"><a class="header" href="#summary">Summary</a></h1>
+<p>Welcome to the official documentation for Kaponga Systems.</p>
+<p>This site provides comprehensive technical resources for Kaponga products, including the KIWI flight controller series
+and companion modules. Inside, you’ll find hardware specifications, pinouts, setup procedures, firmware integration
+guides, and system-level configuration references.</p>
+<p>Whether you’re building from scratch, integrating custom sensors, or tuning for flight performance, this documentation
+is designed to support your development process from start to finish.</p>
+<p>For feedback, corrections, or suggestions, please contact us at support@kaponga.nz</p>
+<h3 id="welcome"><a class="header" href="#welcome">Welcome</a></h3>
+<ul>
+<li><a href="./SUMMARY.html">Introduction</a></li>
+</ul>
+<h3 id="uav-electronics"><a class="header" href="#uav-electronics">UAV Electronics</a></h3>
+<ul>
+<li><a href="./04-kiwiground.html">Ground Station - KIWI GCS Kit</a></li>
+<li><a href="./06-drobodrone.html">DroboDrone</a></li>
+<li><a href="">SmartESAD System</a></li>
+</ul>
+<h3 id="flight-controllers"><a class="header" href="#flight-controllers">Flight Controllers</a></h3>
+<ul>
+<li><a href="./02-kiwif405.html">Flight Controller - KIWI F405 6S </a></li>
+<li><a href="./02.1-kiwif405.html">Flight Controller - KIWI F405 12S </a></li>
+<li><a href="./03-kiwif722.html">Flight Controller - KIWI F722 6S</a></li>
+</ul>
+<h3 id="downloads"><a class="header" href="#downloads">Downloads</a></h3>
+<ul>
+<li><a href="./05-downloads.html">Firmware Downloads</a></li>
+</ul>
+<hr />
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
 <p><img src="kiwi-GS.png" alt="kiwi-GS.png" /></p>
 <h2 id="Призначення"><a class="header" href="#Призначення">Призначення</a></h2>
 <p>Комплект наземної станції керування FPV дроном призначений для забезпечення безпеки операторів дронів.</p>
@@ -257,6 +286,111 @@ Ground Board ↔ Antenna Board через екранований кабель Ca
 <li>Біля щогли залишати запас.</li>
 <li>Перевіряти видимість з дронів.</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="drobodrone-Плата-для-керування-піротехнічними-системами"><a class="header" href="#drobodrone-Плата-для-керування-піротехнічними-системами">Drobodrone: Плата для керування піротехнічними системами</a></h1>
+<h2 id="Опис"><a class="header" href="#Опис">Опис</a></h2>
+<p><strong>Drobodrone</strong> — це універсальна та безпечна плата для керування піротехнічними навантаженнями (парашути, феєрверки, маркери тощо), призначена для інтеграції у складі FPV, UAV та інших безпілотних систем. Підтримує до 4 незалежних каналів підриву з високим рівнем безпеки.</p>
+<p>Плата підтримує багаторазове використання і може бути повністю перепрограмована для кастомних сценаріїв.</p>
+<hr />
+<h2 id="Основні-функції"><a class="header" href="#Основні-функції">Основні функції</a></h2>
+<ul>
+<li>
+<p><strong>4 незалежні канали підриву</strong><br />
+Призначені для запуску різних піротехнічних систем. Кожен канал має апаратний ключ для запобігання хибному спрацюванню.</p>
+</li>
+<li>
+<p><strong>Інтерфейси керування:</strong></p>
+<ul>
+<li><strong>PWM IN x2:</strong>
+<ul>
+<li><em>ARM:</em> активує систему (захист знято)</li>
+<li><em>FIRE:</em> активує підрив (при активному ARM)</li>
+<li>PWM активується при ширині імпульсу 1800–2000us</li>
+</ul>
+</li>
+<li><strong>UART (SmartESAD):</strong>
+<ul>
+<li>Для передачі телеметрії, контролю статусу та розширеного керування</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Аудіо сигналізація:</strong><br />
+Вбудований динамік інформує про поточний статус (наприклад: озброєно, відмова, успішне спрацювання).</p>
+</li>
+<li>
+<p><strong>Світлова сигналізація:</strong><br />
+Три яскраві LED інформують про стан системи: Ready / Armed / Fired / Error</p>
+</li>
+<li>
+<p><strong>Механічна чека (запобіжник):</strong><br />
+Фізичне роз’єднання для запобігання спрацювання під час транспортування чи підготовки.</p>
+</li>
+<li>
+<p><strong>Інтерфейс живлення:</strong></p>
+<ul>
+<li>Живлення від 5V</li>
+<li>Спрацювання елементів від 20V</li>
+<li>Захист від перенапруги, короткого замикання</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="Безпекові-елементи"><a class="header" href="#Безпекові-елементи">Безпекові елементи</a></h2>
+<p>Система побудована за принципом <em>багаторівневого захисту</em>:</p>
+<ol>
+<li><strong>Механічний вимикач-запобіжник</strong> — фізично розриває ланцюг.</li>
+<li><strong>PWM-сигнал типу ARM</strong> — не дозволяє спрацювання без команди.</li>
+<li><strong>Таймер самозахисту</strong> — автоматичне вимкнення при відсутності FIRE протягом заданого часу.</li>
+<li><strong>Апаратні ключі</strong> — унеможливлюють коротке замикання або хибне спрацювання.</li>
+<li><strong>Світлова та звукова індикація</strong> — для візуального та звукового контролю статусу.</li>
+</ol>
+<hr />
+<h2 id="Сумісність-з-автопілотами"><a class="header" href="#Сумісність-з-автопілотами">Сумісність з автопілотами</a></h2>
+<p>Плата легко інтегрується з будь-яким автопілотом, який має PWM-виходи або UART-порти:</p>
+<div class="table-wrapper"><table><thead><tr><th>Платформа</th><th>Метод інтеграції</th></tr></thead><tbody>
+<tr><td>ArduPilot</td><td><code>SERVOx_FUNCTION = 94/95, 51-66</code></td></tr>
+<tr><td>Betaflight</td><td><code>RESOURCE</code> + <code>SERVO</code> конфігурація</td></tr>
+<tr><td>iNAV</td><td><code>Servo Mixer</code> + <code>Modes</code></td></tr>
+<tr><td>INDI/Custom</td><td>PWM або UART SmartESAD</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>PWM-сигнал може бути поданий з пульта, автопілота або окремого модуля запуску.</p>
+</blockquote>
+<hr />
+<h2 id="Розєми-та-підключення"><a class="header" href="#Розєми-та-підключення">Роз’єми та підключення</a></h2>
+<ul>
+<li><strong>Pyro Out x4:</strong> спеціальні піротехнічні конектори</li>
+<li><strong>PWM IN x2:</strong> пади для пайки</li>
+<li><strong>UART:</strong> пади для пайки</li>
+<li><strong>5V In:</strong> пади для живлення</li>
+<li><strong>GND, Status LED, Speaker:</strong> окремі виходи</li>
+</ul>
+<p>Плати мають великі, зручні контактні майданчики, які легко інтегрувати навіть у щільну проводку.</p>
+<hr />
+<h2 id="Кастомізація"><a class="header" href="#Кастомізація">Кастомізація</a></h2>
+<p>Плата підтримує:</p>
+<ul>
+<li><strong>Перепрошивку MCU</strong> через стандартний bootloader</li>
+<li><strong>Зміну логіки ARM/FIRE</strong></li>
+<li><strong>Зміну таймерів, режимів індикації</strong></li>
+<li><strong>Підтримку альтернативних протоколів (за потреби)</strong></li>
+</ul>
+<hr />
+<h2 id="Інтеграція-Швидкий-старт"><a class="header" href="#Інтеграція-Швидкий-старт">Інтеграція: Швидкий старт</a></h2>
+<ol>
+<li>Підключіть 5V живлення та землю</li>
+<li>Підключіть <strong>PWM ARM</strong> та <strong>PWM FIRE</strong> від автопілота</li>
+<li>Підключіть піротехнічні канали</li>
+<li>Встановіть механічну чеку</li>
+<li>На землі подайте ARM &gt; FIRE у потрібний момент</li>
+<li>Перевірте LED та аудіо сигналізацію</li>
+<li>Опціонально підключіть UART до Companion Computer або логера</li>
+</ol>
+<hr />
+<h2 id="Примітка"><a class="header" href="#Примітка">Примітка</a></h2>
+<p>Перед польотом завжди перевіряйте стан чека, сигналів, підключення піроканалів та акумулятора. Не залишайте плату в режимі ARM без нагляду.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="flight-controller-board-kiwi-f405-6s-configuration"><a class="header" href="#flight-controller-board-kiwi-f405-6s-configuration">Flight Controller Board: KIWI F405 6S Configuration</a></h1>
 <h2 id="description"><a class="header" href="#description">Description</a></h2>
 <p>The KIWI F4.0 is a versatile STM32F405-based flight controller designed for FPV, fixed-wing aircraft, and autonomous
@@ -380,7 +514,7 @@ Thanks to flexible relay, sensor, and telemetry connectivity, the controller is 
 <li>LED: Heartbeat indicator</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="fpv-Польотний-контролер-kiwi-f722"><a class="header" href="#fpv-Польотний-контролер-kiwi-f722">FPV Польотний контролер KIWI F722</a></h1>
-<h2 id="Опис"><a class="header" href="#Опис">Опис</a></h2>
+<h2 id="Опис-1"><a class="header" href="#Опис-1">Опис</a></h2>
 <p>KIWI F722 — це високопродуктивний контролер польоту для FPV та автономних дронів, розроблений для максимального рівня
 точності, стабільності та надійності. Підтримка популярних прошивок Betaflight та iNAV дозволяє легко адаптувати
 контролер до різних сценаріїв використання.</p>

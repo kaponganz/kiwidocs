@@ -1,7 +1,7 @@
 [book]
 authors = ["Anton P. Linevich"]
 language = "en"
-multilingual = false
+multilingual = true
 src = "src"
 title = "Kiwi"
 

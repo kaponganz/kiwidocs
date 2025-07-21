@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Ground Station - KIWI GCS Kit - Kiwi</title>
+        <title>Introduction - Kiwi</title>
 
 
         <!-- Custom HTML head -->
@@ -152,117 +152,42 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
-<p><img src="kiwi-GS.png" alt="kiwi-GS.png" /></p>
-<h2 id="Призначення"><a class="header" href="#Призначення">Призначення</a></h2>
-<p>Комплект наземної станції керування FPV дроном призначений для забезпечення безпеки операторів дронів.</p>
-<p>Комплект є основою для побудови інфраструктури наземної станції.</p>
-<h2 id="Склад"><a class="header" href="#Склад">Склад</a></h2>
-<p>Комплект складається з двох основних плат:</p>
+                        <h1 id="summary"><a class="header" href="#summary">Summary</a></h1>
+<p>Welcome to the official documentation for Kaponga Systems.</p>
+<p>This site provides comprehensive technical resources for Kaponga products, including the KIWI flight controller series
+and companion modules. Inside, you’ll find hardware specifications, pinouts, setup procedures, firmware integration
+guides, and system-level configuration references.</p>
+<p>Whether you’re building from scratch, integrating custom sensors, or tuning for flight performance, this documentation
+is designed to support your development process from start to finish.</p>
+<p>For feedback, corrections, or suggestions, please contact us at support@kaponga.nz</p>
+<h3 id="welcome"><a class="header" href="#welcome">Welcome</a></h3>
 <ul>
-<li><strong>Ground Board</strong> (плата оператора) — 1 шт</li>
-<li><strong>Antenna Board</strong> (плата щогли) — 1 шт</li>
-<li><strong>JR Board</strong> (адаптер для підключення до пульта RC)</li>
-<li><strong>Технічна документація</strong> — 1 шт</li>
-<li><em>Кабель Cat5e або Cat6 не входить до комплекту</em></li>
+<li><a href="./SUMMARY.html">Introduction</a></li>
 </ul>
-<p>Плата оператора розміщується у бліндажі або в пункті керування дронами.<br />
-Плата щогли встановлюється поблизу антени.<br />
-З’єднання між ними здійснюється екранованим кабелем “вита пара” довжиною до <strong>300 м</strong>.</p>
-<h2 id="Функції"><a class="header" href="#Функції">Функції</a></h2>
+<h3 id="uav-electronics"><a class="header" href="#uav-electronics">UAV Electronics</a></h3>
 <ul>
-<li>Перетворення керуючого сигналу <strong>S.Port</strong> → <strong>UART</strong> і назад.</li>
-<li>Передача <strong>аналогового відео CVBS</strong> з VRX до бліндажу.</li>
-<li><strong>Підсилення відеосигналу</strong> та його перетворення в цифровий потік.</li>
-<li>Живлення передавального модуля та VRX <strong>до 26В</strong>.</li>
+<li><a href="./04-kiwiground.html">Ground Station - KIWI GCS Kit</a></li>
+<li><a href="./06-drobodrone.html">DroboDrone</a></li>
+<li><a href="">SmartESAD System</a></li>
 </ul>
-<h2 id="Переваги-kiwi-ground-station-kit"><a class="header" href="#Переваги-kiwi-ground-station-kit">Переваги Kiwi Ground Station Kit</a></h2>
+<h3 id="flight-controllers"><a class="header" href="#flight-controllers">Flight Controllers</a></h3>
 <ul>
-<li>Надійна передача до <strong>600 м</strong> без ретрансляторів.</li>
-<li>Один кабель передає живлення, відео, та керування.</li>
-<li>Можливість живлення щогли локально або по кабелю.</li>
-<li>Вбудовані <strong>DC-DC стабілізатори 5V, 9V, 12V</strong> на щоглі.</li>
-<li>4 відеовиходи без затримки.</li>
-<li>Підтримка <strong>UART / CRSF</strong>.</li>
-<li>Мінімальна кількість з’єднань.</li>
-<li>Робота в діапазоні температур <strong>-20°C до +60°C</strong>.</li>
+<li><a href="./02-kiwif405.html">Flight Controller - KIWI F405 6S </a></li>
+<li><a href="./02.1-kiwif405.html">Flight Controller - KIWI F405 12S </a></li>
+<li><a href="./03-kiwif722.html">Flight Controller - KIWI F722 6S</a></li>
 </ul>
-<h2 id="Поширені-сценарії-використання"><a class="header" href="#Поширені-сценарії-використання">Поширені сценарії використання</a></h2>
+<h3 id="downloads"><a class="header" href="#downloads">Downloads</a></h3>
 <ul>
-<li>Мобільні наземні станції для FPV-дронів</li>
-<li>Розвідувальні комплекси з щоглою до 10 м</li>
-<li>Модернізація старих систем зв’язку</li>
-<li>Системи спостереження у складних умовах</li>
+<li><a href="./05-downloads.html">Firmware Downloads</a></li>
 </ul>
-<h2 id="Технічні-характеристики"><a class="header" href="#Технічні-характеристики">Технічні характеристики</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Параметр</th><th>Значення</th></tr></thead><tbody>
-<tr><td>З’єднання між платами</td><td>Екранована вита пара (T568B)</td></tr>
-<tr><td>Максимальна довжина кабелю</td><td>до 300 м</td></tr>
-<tr><td>Живлення по кабелю</td><td>до 150 м без підвищення</td></tr>
-<tr><td>Робоча напруга живлення</td><td>3S–12S (12–50 В)</td></tr>
-<tr><td>Передача даних</td><td>UART / CRSF</td></tr>
-<tr><td>Передача відео</td><td>CVBS (аналог)</td></tr>
-<tr><td>Відеовиходи</td><td>4 на Ground Board</td></tr>
-<tr><td>Робоча температура</td><td>-20°C … +60°C</td></tr>
-<tr><td>Стабілізатори на щоглі</td><td>5V, 9V, 12V (DC-DC)</td></tr>
-</tbody></table>
-</div>
-<h2 id="Схема-підключення"><a class="header" href="#Схема-підключення">Схема підключення</a></h2>
-<p><strong>Ground Board:</strong></p>
-<ul>
-<li>Video1 → FPV окуляри</li>
-<li>Video2 → Монітор</li>
-<li>Video3 → DVR</li>
-<li>Video4 → USB відео стрім (запис/трансляція)</li>
-<li>UART → Пульт або ПК</li>
-</ul>
-<p><strong>Antenna Board:</strong></p>
-<ul>
-<li>TX (наприклад, ELRS TX)</li>
-<li>VRX (аналоговий приймач)</li>
-</ul>
-<p><strong>Зʼєднання:</strong><br />
-Ground Board ↔ Antenna Board через екранований кабель Cat5e/Cat6 до 300 м</p>
-<h2 id="Живлення-та-втрати-напруги"><a class="header" href="#Живлення-та-втрати-напруги">Живлення та втрати напруги</a></h2>
-<h3 id="Стабілізація-на-щоглі"><a class="header" href="#Стабілізація-на-щоглі">Стабілізація на щоглі</a></h3>
-<p>На платі Antenna Board встановлені DC-DC перетворювачі:</p>
-<ul>
-<li>5V — для VRX</li>
-<li>9V — для спеціальних пристроїв</li>
-<li>12V — для передавача</li>
-</ul>
-<h3 id="Втрати-на-довгих-кабелях-1А-навантаження"><a class="header" href="#Втрати-на-довгих-кабелях-1А-навантаження">Втрати на довгих кабелях (1А навантаження)</a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Довжина</th><th>Втрати (6S)</th><th>Втрати (12S)</th><th>Напруга на щоглі (6S / 12S)</th></tr></thead><tbody>
-<tr><td>100 м</td><td>~3.6 В</td><td>~3.6 В</td><td>21.6 В / 46.8 В</td></tr>
-<tr><td>200 м</td><td>~7.2 В</td><td>~7.2 В</td><td>18.0 В / 43.2 В</td></tr>
-<tr><td>300 м</td><td>~10.8 В</td><td>~10.8 В</td><td>14.4 В / 39.6 В</td></tr>
-</tbody></table>
-</div>
-<h2 id="Інструкція-з-експлуатації"><a class="header" href="#Інструкція-з-експлуатації">Інструкція з експлуатації</a></h2>
-<ol>
-<li>Підключіть окуляри, монітор, DVR та USB відео стрім до Ground Board.</li>
-<li>Підключіть пульт або ПК через UART.</li>
-<li>Підключіть живлення 6S або 12S.</li>
-<li>З’єднайте Ground ↔ Antenna через кабель.</li>
-<li>Підключіть VRX та TX до Antenna Board.</li>
-<li>Увімкніть систему.</li>
-</ol>
-<h2 id="Рекомендації-щодо-прокладання-і-маскування-кабелю"><a class="header" href="#Рекомендації-щодо-прокладання-і-маскування-кабелю">Рекомендації щодо прокладання і маскування кабелю</a></h2>
-<ul>
-<li>Прокладати вздовж укриттів (дерева, рельєф, стіни).</li>
-<li>Уникати відкритих ділянок.</li>
-<li>Маскувати або фарбувати кабель.</li>
-<li>Фіксувати до землі або прокладати у кожусі.</li>
-<li>Біля щогли залишати запас.</li>
-<li>Перевіряти видимість з дронів.</li>
-</ul>
+<hr />
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
 
-                            <a rel="next prefetch" href="02-kiwif405.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="04-kiwiground.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -273,7 +198,7 @@ Ground Board ↔ Antenna Board через екранований кабель Ca
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
 
-                    <a rel="next prefetch" href="02-kiwif405.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="04-kiwiground.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
