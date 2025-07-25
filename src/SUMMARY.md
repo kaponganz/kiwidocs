@@ -1,9 +1,10 @@
-# Summary
+# KIWI Flight Systems Manual
 
-Welcome to the official documentation for Kaponga Systems.
+Welcome to the official documentation for KIWI Systems. Engineered with precision. Inspired by a bird that never gave
+up.
 
-This site provides comprehensive technical resources for Kaponga products, including the KIWI flight controller series
-and companion modules. Inside, you'll find hardware specifications, pinouts, setup procedures, firmware integration
+Inside, you'll find hardware specifications, pinouts, setup
+procedures, firmware integration
 guides, and system-level configuration references.
 
 Whether you're building from scratch, integrating custom sensors, or tuning for flight performance, this documentation

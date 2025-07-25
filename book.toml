@@ -3,7 +3,7 @@ authors = ["Anton P. Linevich"]
 language = "en"
 multilingual = true
 src = "src"
-title = "Kiwi"
+title = "KIWI Flight Systems Documentation"
 
 [output.html]
 #theme = "theme"
