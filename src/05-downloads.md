@@ -4,20 +4,20 @@
 
 ### KIWIF405 6S
 
-[betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4.hex](download/f405/battle-betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4.hex)
-[betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex](download/f405/battle-9a90d05-betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex)
+[betaflight_4.5.2_KAPONGA_KIWIF4.hex](download/f405/battle-betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4.hex)
+[betaflight_4.6.0_KAPONGA_KIWIF4.hex](download/f405/battle-9a90d05-betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex)
 
 ### KIWIF405 12S
 
-[betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4_12S.hex](download/f405/battle-betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4_12S.hex)
+[betaflight_4.5.2_KAPONGA_KIWIF4_12S.hex](download/f405/battle-betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4_12S.hex)
 
 ### KIWIF722rev1
 
-[battle_betaflight_4.5.2_STM32F7X2_KAPONGA_KIWIF71.hex](../download/f722_1/battle_betaflight_4.5.2_STM32F7X2_KAPONGA_KIWIF71.hex)
+[battle_betaflight_4.5.2_KAPONGA_KIWIF71.hex](download/f722_1/battle_betaflight_4.5.2_STM32F7X2_KAPONGA_KIWIF71.hex)
 
-[battle-betaflight_4.6.0_STM32F7X2_KAPONGA_KIWIF71.hex](../download/f722_1/battle-betaflight_4.6.0_STM32F7X2_KAPONGA_KIWIF71.hex)
+[battle-betaflight_4.6.0_KAPONGA_KIWIF71.hex](download/f722_1/battle-betaflight_4.6.0_STM32F7X2_KAPONGA_KIWIF71.hex)
 
-[Preset 7inch KIWIF722rev1](../docs/download/f722_1/BF460-7INCH_KAPONGA_KIWIF71.txt)
+[Preset 7inch KIWIF722rev1](download/f722_1/BF460-7INCH_KAPONGA_KIWIF71.txt)
 
 ## ArduPilot Downloads
 
