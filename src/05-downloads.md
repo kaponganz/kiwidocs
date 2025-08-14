@@ -22,10 +22,7 @@
 
 ## ArduPilot Downloads
 
-[KiwiF405_12S.zip](download/f405/ardupilot-KiwiF405_12S.zip)
+[KiwiF405-12S.zip](download/KiwiF405-12S.zip)
 
-[KiwiF405_6S.zip](download/f405/ardupilot-kiwiF405/ardupilot-kiwif405-4.6.0.zip)
 
-[KiwiF405_6S arducopter_with_bl.hex](download/f405/ardupilot-kiwiF405/arducopter_with_bl.hex)
-
-[KiwiF405_6S arduplane_with_bl.hex](download/f405/ardupilot-kiwiF405/arduplane_with_bl.hex)
+[KiwiF405-6S.zip](download/KiwiF405-6S.zip)
