@@ -2,27 +2,22 @@
 
 ## Betaflight Downloads
 
-### KIWIF405 6S
+#### Firmware
 
-[betaflight_4.5.2_KAPONGA_KIWIF4.hex](download/f405/battle-betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4.hex)
+[betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF70.hex](download/battle_flight/betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF70.hex)
 
-[betaflight_4.6.0_KAPONGA_KIWIF4.hex](download/f405/battle-9a90d05-betaflight_4.6.0_STM32F405_KAPONGA_KIWIF4.hex)
+[betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF71.hex](download/battle_flight/betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF71.hex)
 
-### KIWIF405 12S
+[betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4.hex](download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4.hex)
 
-[betaflight_4.5.2_KAPONGA_KIWIF4_12S.hex](download/f405/battle-betaflight_4.5.2_STM32F405_KAPONGA_KIWIF4_12S.hex)
+[betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex](download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex)
 
-### KIWIF722rev1
+#### Presets
 
-[battle_betaflight_4.5.2_KAPONGA_KIWIF71.hex](download/f722_1/battle_betaflight_4.5.2_STM32F7X2_KAPONGA_KIWIF71.hex)
-
-[battle-betaflight_4.6.0_KAPONGA_KIWIF71.hex](download/f722_1/battle-betaflight_4.6.0_STM32F7X2_KAPONGA_KIWIF71.hex)
-
-[Preset 7inch KIWIF722rev1](download/f722_1/BF460-7INCH_KAPONGA_KIWIF71.txt)
+[BF460-7INCH_KAPONGA_KIWIF71.txt](download/battle_flight/BF460-7INCH_KAPONGA_KIWIF71.txt)
 
 ## ArduPilot Downloads
 
 [KiwiF405-12S.zip](download/KiwiF405-12S.zip)
-
 
 [KiwiF405-6S.zip](download/KiwiF405-6S.zip)
