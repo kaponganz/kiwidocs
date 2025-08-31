@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Introduction - KIWI Flight Systems Documentation</title>
+        <title>Flight Controller - KIWI H743 12S - KIWI Flight Systems Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -152,44 +152,134 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="kiwi-flight-systems-manual"><a class="header" href="#kiwi-flight-systems-manual">KIWI Flight Systems Manual</a></h1>
-<p>Welcome to the official documentation for KIWI Systems. Engineered with precision. Inspired by a bird that never gave
-up.</p>
-<p>Inside, you’ll find hardware specifications, pinouts, setup
-procedures, firmware integration
-guides, and system-level configuration references.</p>
-<p>Whether you’re building from scratch, integrating custom sensors, or tuning for flight performance, this documentation
-is designed to support your development process from start to finish.</p>
-<p>For feedback, corrections, or suggestions, please contact us at support@kaponga.nz</p>
-<h3 id="welcome"><a class="header" href="#welcome">Welcome</a></h3>
+                        <h1 id="kiwih743-flight-controller"><a class="header" href="#kiwih743-flight-controller">KiwiH743 Flight Controller</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The <strong>KiwiH743</strong> is a high-performance flight controller based on the STM32H743 MCU, designed for advanced UAV
+applications. It combines powerful processing, flexible connectivity, and rich sensor support, optimized for ArduPilot
+firmware.</p>
+<p>It is the next generation of the KiwiF405 family, offering 2MB flash, 480 MHz CPU clock, extended UART/SPI/I2C buses,
+and support for dual IMUs, barometer, and OSD integration.</p>
+<hr />
+<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
 <ul>
-<li><a href="./SUMMARY.html">Introduction</a></li>
+<li>ArduPilot <a href="download/KiwiH743.zip">KiwiH743.zip</a></li>
+<li>Betaflight</li>
 </ul>
-<h3 id="uav-electronics"><a class="header" href="#uav-electronics">UAV Electronics</a></h3>
+<h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
+<h3 id="processor"><a class="header" href="#processor">Processor</a></h3>
 <ul>
-<li><a href="./04-kiwiground.html">Ground Station - KIWI GCS Kit</a></li>
-<li><a href="./06-drobodrone.html">DroboDrone</a></li>
-<li><a href="">SmartESAD System</a></li>
+<li>MCU: STM32H743VIT6</li>
+<li>Architecture: ARM Cortex-M7</li>
+<li>Max Frequency: 480 MHz</li>
+<li>Flash: 2048 KB (2 MB)</li>
+<li>FPU: Single-precision, hardware accelerated</li>
 </ul>
-<h3 id="flight-controllers"><a class="header" href="#flight-controllers">Flight Controllers</a></h3>
+<h3 id="clock--timing"><a class="header" href="#clock--timing">Clock &amp; Timing</a></h3>
 <ul>
-<li><a href="./02.1-kiwif405-6s.html">Flight Controller - KIWI F405 6S </a></li>
-<li><a href="./02.2-kiwif405-12S.html">Flight Controller - KIWI F405 12S </a></li>
-<li><a href="./02.3-kiwif722.html">Flight Controller - KIWI F722 6S</a></li>
-<li><a href="./02.4-kiwih743.html">Flight Controller - KIWI H743 12S</a></li>
+<li>Crystal Frequency: 16 MHz external oscillator</li>
 </ul>
-<h3 id="downloads"><a class="header" href="#downloads">Downloads</a></h3>
+<h3 id="memory--storage"><a class="header" href="#memory--storage">Memory &amp; Storage</a></h3>
+<hr />
+<h2 id="connectivity"><a class="header" href="#connectivity">Connectivity</a></h2>
+<h3 id="usb-uart-spi-peripherals"><a class="header" href="#usb-uart-spi-peripherals">USB, UART, SPI Peripherals</a></h3>
 <ul>
-<li><a href="./05-downloads.html">Firmware Downloads</a></li>
+<li>USB OTG1 (Mavlink)</li>
+<li>USB OTG2 HiSpeed (Serial)</li>
+<li>7 hardware UARTs</li>
+<li>Dedicated functions:
+<ul>
+<li>UART8: RC input (SBUS/DSM)</li>
+<li>Others available for GPS, telemetry, peripherals</li>
+</ul>
+</li>
+<li>SPI1 bus available for external peripherals</li>
 </ul>
 <hr />
+<h2 id="sensors"><a class="header" href="#sensors">Sensors</a></h2>
+<ul>
+<li>IMU1: ICM-42688P</li>
+<li>IMU2: ICM-45686</li>
+<li>Barometer: BMP388</li>
+<li>External compass support: yes (I²C probing enabled)</li>
+</ul>
+<hr />
+<h2 id="rc-input--pwm-outputs"><a class="header" href="#rc-input--pwm-outputs">RC Input / PWM Outputs</a></h2>
+<h3 id="rc-input"><a class="header" href="#rc-input">RC Input</a></h3>
+<ul>
+<li>Supported protocols: CRSF, DSM, and others</li>
+</ul>
+<h3 id="pwm-outputs"><a class="header" href="#pwm-outputs">PWM Outputs</a></h3>
+<ul>
+<li>Total: up to 13 PWM channels</li>
+<li>Motors: 8 channels</li>
+<li>Servos: 4 channels (or 8 channels with 4 motors)</li>
+<li>DSHOT: supported 4 motor outputs (bidirectional)</li>
+</ul>
+<hr />
+<h2 id="power-monitoring"><a class="header" href="#power-monitoring">Power Monitoring</a></h2>
+<ul>
+<li>Battery Voltage sense (12S)</li>
+<li>Battery Current sense (12S)</li>
+<li>Default monitor type: Analog</li>
+</ul>
+<hr />
+<h2 id="dataflash--logging"><a class="header" href="#dataflash--logging">DataFlash &amp; Logging</a></h2>
+<ul>
+<li>Flash Logging enabled: yes</li>
+<li>DataFlash: 16 MB</li>
+</ul>
+<hr />
+<h2 id="osd"><a class="header" href="#osd">OSD</a></h2>
+<ul>
+<li>OSD Type: Integrated (MAX7456-compatible)</li>
+</ul>
+<hr />
+<h2 id="debug--development"><a class="header" href="#debug--development">Debug &amp; Development</a></h2>
+<ul>
+<li>SWD Pins:
+<ul>
+<li>PA13: JTMS-SWDIO</li>
+<li>PA14: JTCK-SWCLK</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="leds--indicators"><a class="header" href="#leds--indicators">LEDs &amp; Indicators</a></h2>
+<ul>
+<li>Status LED: PE4 (active-low)</li>
+</ul>
+<hr />
+<h2 id="advanced-features"><a class="header" href="#advanced-features">Advanced Features</a></h2>
+<ul>
+<li>Visual odometry integration: enabled</li>
+<li>External AHRS support</li>
+<li>GPS moving baseline enabled</li>
+<li>Gyro FFT enabled (vibration analysis)</li>
+<li>INS temperature calibration enabled</li>
+<li>Guided (NoGPS) supported</li>
+</ul>
+<hr />
+<h2 id="default-frame--modes"><a class="header" href="#default-frame--modes">Default Frame &amp; Modes</a></h2>
+<ul>
+<li>Default frame: Quadcopter X (FRAME_TYPE=12, Betaflight-X motor order)</li>
+<li>Flight modes enabled by default:
+<ul>
+<li>Guided (NoGPS)</li>
+<li>FlowHold</li>
+<li>OpticalFlow</li>
+</ul>
+</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="02.3-kiwif722.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
-                            <a rel="next prefetch" href="04-kiwiground.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="05-downloads.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -199,8 +289,11 @@ is designed to support your development process from start to finish.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="02.3-kiwif722.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
-                    <a rel="next prefetch" href="04-kiwiground.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="05-downloads.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

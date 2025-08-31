@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Flight Controller - KIWI F405 12S  - KIWI Flight Systems Documentation</title>
+        <title>Flight Controller - KIWI F405 6S  - KIWI Flight Systems Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -152,17 +152,76 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="flight-controller---kiwi-f405-12s"><a class="header" href="#flight-controller---kiwi-f405-12s">Flight Controller - KIWI F405 12S</a></h1>
+                        <h1 id="flight-controller-board-kiwi-f405-6s-configuration"><a class="header" href="#flight-controller-board-kiwi-f405-6s-configuration">Flight Controller Board: KIWI F405 6S Configuration</a></h1>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<p>The KIWI F4.0 is a versatile STM32F405-based flight controller designed for FPV, fixed-wing aircraft, and autonomous
+platforms. It integrates precise inertial sensing, OSD support, built-in Blackbox logging, and relay outputs for
+controlling external modules. With support for both Betaflight and ArduPilot, the board can be deployed across a wide
+range of use cases.</p>
+<p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems. Its flexible
+support for relays, sensors, and telemetry makes it ready for real-world mission environments.</p>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<ul>
+<li>Industrial-grade Invensense ICM-42688P IMU with external clock</li>
+<li>Bosch BMP388 barometer for altitude measurement</li>
+<li>Built-in 128Mbit Blackbox flash memory (W25Q128FV)</li>
+<li>MAX7456 OSD chip for overlaying telemetry on analog video</li>
+<li>High-precision voltage and current monitoring via ADC</li>
+<li>GPIO-controlled relay outputs for powering VTX, cameras, or pyrotechnic systems</li>
+<li>4 PWM outputs for motors and 6 channels for servos</li>
+<li>USB Type-C with DFU support for firmware updates</li>
+<li>Full CRSF / ELRS support with telemetry (RSSI, LQ, SNR, Power)</li>
+</ul>
+<h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
+<ul>
+<li>MCU: STM32F405RG (168 MHz)</li>
+<li>IMU: ICM-42688P with external clock</li>
+<li>Barometer: Bosch BMP388</li>
+<li>OSD: MAX7456</li>
+<li>Flash: W25Q128FV (128 Mbit)</li>
+<li>Ports:
+<ul>
+<li>5× UART (ESAD, RC, GPS, VTX, ESC/MSP)</li>
+<li>1× I2C</li>
+<li>3× SPI (OSD, IMU, FLASH)</li>
+<li>ADC: VBAT, CURRENT</li>
+</ul>
+</li>
+<li>PWM:
+<ul>
+<li>4 motor channels</li>
+<li>6 servo channels</li>
+</ul>
+</li>
+<li>GPIO relays:
+<ul>
+<li>4 relay outputs: X1, X2, X3, X4 (controlled via GPIO)</li>
+</ul>
+</li>
+<li>Interfaces:
+<ul>
+<li>USB Type-C</li>
+<li>SWD debug interface</li>
+</ul>
+</li>
+<li>Dimensions:
+<ul>
+<li>36×36 mm</li>
+<li>Mounting: 30.5×30.5 mm</li>
+</ul>
+</li>
+<li>Status LED indicator</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="02-kiwif405.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="06-drobodrone.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="03-kiwif722.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="02.2-kiwif405-12S.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -172,11 +231,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="02-kiwif405.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="06-drobodrone.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="03-kiwif722.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="02.2-kiwif405-12S.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
