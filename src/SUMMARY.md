@@ -22,6 +22,10 @@ For feedback, corrections, or suggestions, please contact us at support@kaponga.
 - [DroboDrone](./06-drobodrone.md)
 - [SmartESAD System]()
 
+### Sensors
+
+- [PyroMiner](07-mine1.md)
+
 ### Flight Controllers
 
 - [Flight Controller - KIWI F405 6S ](./02.1-kiwif405-6s.md)
