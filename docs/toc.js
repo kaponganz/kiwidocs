@@ -10,7 +10,7 @@ class MDBookSidebarScrollbox extends HTMLElement {
     connectedCallback() {
         this.innerHTML = '<ol class="chapter"><li class="chapter-item expanded "><a href="SUMMARY.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="04-kiwiground.html"><strong aria-hidden="true">2.</strong> Ground Station - KIWI GCS Kit</a></li><li class="chapter-item expanded "><a href="06-drobodrone.html"><strong aria-hidden="true">3.</strong> DroboDrone</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> SmartESAD System</div></li><li class="chapter-item expanded "><a href="02-kiwif405.html"><strong aria-hidden="true">5.</strong> Flight Controller - KIWI F405 6S </a></li><li class="chapter-item expanded "><a href="02.1-kiwif405.html"><strong aria-hidden="true">6.</strong> Flight Controller - KIWI F405 12S </a></li><li class="chapter-item expanded "><a href="03-kiwif722.html"><strong aria-hidden="true">7.</strong> Flight Controller - KIWI F722 6S</a></li><li class="chapter-item expanded "><a href="05-downloads.html"><strong aria-hidden="true">8.</strong> Firmware Downloads</a></li><li class="chapter-item expanded affix "><li class="spacer"></li></ol>';
         // Set the current, active page, and reveal it if it's hidden
-        let current_page = document.location.href.toString().split("#")[0];
+        let current_page = document.location.href.toString().split("#")[0].split("?")[0];
         if (current_page.endsWith("/")) {
             current_page += "index.html";
         }

@@ -24,9 +24,10 @@ For feedback, corrections, or suggestions, please contact us at support@kaponga.
 
 ### Flight Controllers
 
-- [Flight Controller - KIWI F405 6S ](./02-kiwif405.md)
-- [Flight Controller - KIWI F405 12S ](./02.1-kiwif405.md)
-- [Flight Controller - KIWI F722 6S](./03-kiwif722.md)
+- [Flight Controller - KIWI F405 6S ](./02.1-kiwif405-6s.md)
+- [Flight Controller - KIWI F405 12S ](./02.2-kiwif405-12S.md)
+- [Flight Controller - KIWI F722 6S](./02.3-kiwif722.md)
+- [Flight Controller - KIWI H743 12S](./02.4-kiwih743.md)
 
 ### Downloads
 
