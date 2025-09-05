@@ -1,6 +1,6 @@
 build:
 	mdbook build -d ./docs/
 
-srv:
+s:
 	mdbook serve -d ./docs/
 
