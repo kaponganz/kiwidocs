@@ -162,6 +162,14 @@ Support for both Betaflight and ArduPilot allows this board to be used in a wide
 <p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems with full support
 for Betaflight and ArduPilot.<br />
 Thanks to flexible relay, sensor, and telemetry connectivity, the controller is ready for real-world mission use.</p>
+<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
+<ul>
+<li>ArduPilot <a href="download/KiwiF405-12S.zip">KiwiH743.zip</a></li>
+<li>Betaflight <a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">4.5.3</a></li>
+</ul>
+<h2 id="pinout-diagram"><a class="header" href="#pinout-diagram">Pinout Diagram</a></h2>
+<p><a href="kiwif405.png">(Click to zoom in)</a></p>
+<p><a href="kiwif405.png"><img src="kiwif405.png" width="200"></a></p>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li>Industrial-grade IMU Invensense ICM-42688P with external clock</li>
@@ -219,11 +227,11 @@ Thanks to flexible relay, sensor, and telemetry connectivity, the controller is 
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="02.1-kiwif405-6s.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="07-mine1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="02.3-kiwif722.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="02.4-kiwih743.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -233,33 +241,17 @@ Thanks to flexible relay, sensor, and telemetry connectivity, the controller is 
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="02.1-kiwif405-6s.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="07-mine1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="02.3-kiwif722.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="02.4-kiwih743.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 

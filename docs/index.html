@@ -177,10 +177,13 @@ is designed to support your development process from start to finish.</p>
 </ul>
 <h3 id="flight-controllers"><a class="header" href="#flight-controllers">Flight Controllers</a></h3>
 <ul>
-<li><a href="./02.1-kiwif405-6s.html">Flight Controller - KIWI F405 6S </a></li>
 <li><a href="./02.2-kiwif405-12S.html">Flight Controller - KIWI F405 12S </a></li>
-<li><a href="./02.3-kiwif722.html">Flight Controller - KIWI F722 6S</a></li>
 <li><a href="./02.4-kiwih743.html">Flight Controller - KIWI H743 12S</a></li>
+</ul>
+<h4 id="flight-controllers-obsolete"><a class="header" href="#flight-controllers-obsolete">Flight Controllers (Obsolete)</a></h4>
+<ul>
+<li><a href="./02.1-kiwif405-6s.html">Flight Controller - KIWI F405 6S </a></li>
+<li><a href="./02.3-kiwif722.html">Flight Controller - KIWI F722 6S</a></li>
 </ul>
 <h3 id="downloads"><a class="header" href="#downloads">Downloads</a></h3>
 <ul>
@@ -211,22 +214,6 @@ is designed to support your development process from start to finish.</p>
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
