@@ -1,0 +1,989 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>KIWI Flight Systems</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">KIWI Flight Systems</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="kiwi-flight-systems-manual"><a class="header" href="#kiwi-flight-systems-manual">KIWI Flight Systems Manual</a></h1>
+<p>Welcome to the official documentation for KIWI Systems. Engineered with precision. Inspired by a bird that never gave
+up.</p>
+<p>Inside, you’ll find hardware specifications, pinouts, setup
+procedures, firmware integration
+guides, and system-level configuration references.</p>
+<p>Whether you’re building from scratch, integrating custom sensors, or tuning for flight performance, this documentation
+is designed to support your development process from start to finish.</p>
+<p>For feedback, corrections, or suggestions, please contact us at support@kaponga.nz</p>
+<h3 id="welcome"><a class="header" href="#welcome">Welcome</a></h3>
+<ul>
+<li><a href="./SUMMARY.html">Introduction</a></li>
+</ul>
+<h3 id="uav-electronics"><a class="header" href="#uav-electronics">UAV Electronics</a></h3>
+<ul>
+<li><a href="./04-kiwiground.html">Ground Station - KIWI GCS Kit</a></li>
+<li><a href="./06-drobodrone.html">DroboDrone</a></li>
+<li><a href="">SmartESAD System</a></li>
+</ul>
+<h3 id="sensors"><a class="header" href="#sensors">Sensors</a></h3>
+<ul>
+<li><a href="07-mine1.html">PyroMiner</a></li>
+</ul>
+<h3 id="flight-controllers"><a class="header" href="#flight-controllers">Flight Controllers</a></h3>
+<ul>
+<li><a href="./02.2-kiwif405-12S.html">Flight Controller - KIWI F405 12S </a></li>
+<li><a href="./02.4-kiwih743.html">Flight Controller - KIWI H743 12S</a></li>
+</ul>
+<h4 id="flight-controllers-obsolete"><a class="header" href="#flight-controllers-obsolete">Flight Controllers (Obsolete)</a></h4>
+<ul>
+<li><a href="./02.1-kiwif405-6s.html">Flight Controller - KIWI F405 6S </a></li>
+<li><a href="./02.3-kiwif722.html">Flight Controller - KIWI F722 6S</a></li>
+</ul>
+<h3 id="downloads"><a class="header" href="#downloads">Downloads</a></h3>
+<ul>
+<li><a href="./05-downloads.html">Firmware Downloads</a></li>
+</ul>
+<hr />
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
+<p><img src="kiwi-GS.png" alt="kiwi-GS.png" /></p>
+<h2 id="Призначення"><a class="header" href="#Призначення">Призначення</a></h2>
+<p>Комплект наземної станції керування FPV дроном призначений для забезпечення безпеки операторів дронів.</p>
+<p>Комплект є основою для побудови інфраструктури наземної станції.</p>
+<h2 id="Склад"><a class="header" href="#Склад">Склад</a></h2>
+<p>Комплект складається з двох основних плат:</p>
+<ul>
+<li><strong>Ground Board</strong> (плата оператора) — 1 шт</li>
+<li><strong>Antenna Board</strong> (плата щогли) — 1 шт</li>
+<li><strong>JR Board</strong> (адаптер для підключення до пульта RC)</li>
+<li><strong>Технічна документація</strong> — 1 шт</li>
+<li><em>Кабель Cat5e або Cat6 не входить до комплекту</em></li>
+</ul>
+<p>Плата оператора розміщується у бліндажі або в пункті керування дронами.<br />
+Плата щогли встановлюється поблизу антени.<br />
+З’єднання між ними здійснюється екранованим кабелем “вита пара” довжиною до <strong>300 м</strong>.</p>
+<h2 id="Функції"><a class="header" href="#Функції">Функції</a></h2>
+<ul>
+<li>Перетворення керуючого сигналу <strong>S.Port</strong> → <strong>UART</strong> і назад.</li>
+<li>Передача <strong>аналогового відео CVBS</strong> з VRX до бліндажу.</li>
+<li><strong>Підсилення відеосигналу</strong> та його перетворення в цифровий потік.</li>
+<li>Живлення передавального модуля та VRX <strong>до 26В</strong>.</li>
+</ul>
+<h2 id="Переваги-kiwi-ground-station-kit"><a class="header" href="#Переваги-kiwi-ground-station-kit">Переваги Kiwi Ground Station Kit</a></h2>
+<ul>
+<li>Надійна передача до <strong>600 м</strong> без ретрансляторів.</li>
+<li>Один кабель передає живлення, відео, та керування.</li>
+<li>Можливість живлення щогли локально або по кабелю.</li>
+<li>Вбудовані <strong>DC-DC стабілізатори 5V, 9V, 12V</strong> на щоглі.</li>
+<li>4 відеовиходи без затримки.</li>
+<li>Підтримка <strong>UART / CRSF</strong>.</li>
+<li>Мінімальна кількість з’єднань.</li>
+<li>Робота в діапазоні температур <strong>-20°C до +60°C</strong>.</li>
+</ul>
+<h2 id="Поширені-сценарії-використання"><a class="header" href="#Поширені-сценарії-використання">Поширені сценарії використання</a></h2>
+<ul>
+<li>Мобільні наземні станції для FPV-дронів</li>
+<li>Розвідувальні комплекси з щоглою до 10 м</li>
+<li>Модернізація старих систем зв’язку</li>
+<li>Системи спостереження у складних умовах</li>
+</ul>
+<h2 id="Технічні-характеристики"><a class="header" href="#Технічні-характеристики">Технічні характеристики</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Параметр</th><th>Значення</th></tr></thead><tbody>
+<tr><td>З’єднання між платами</td><td>Екранована вита пара (T568B)</td></tr>
+<tr><td>Максимальна довжина кабелю</td><td>до 300 м</td></tr>
+<tr><td>Живлення по кабелю</td><td>до 150 м без підвищення</td></tr>
+<tr><td>Робоча напруга живлення</td><td>3S–12S (12–50 В)</td></tr>
+<tr><td>Передача даних</td><td>UART / CRSF</td></tr>
+<tr><td>Передача відео</td><td>CVBS (аналог)</td></tr>
+<tr><td>Відеовиходи</td><td>4 на Ground Board</td></tr>
+<tr><td>Робоча температура</td><td>-20°C … +60°C</td></tr>
+<tr><td>Стабілізатори на щоглі</td><td>5V, 9V, 12V (DC-DC)</td></tr>
+</tbody></table>
+</div>
+<h2 id="Схема-підключення"><a class="header" href="#Схема-підключення">Схема підключення</a></h2>
+<p><strong>Ground Board:</strong></p>
+<ul>
+<li>Video1 → FPV окуляри</li>
+<li>Video2 → Монітор</li>
+<li>Video3 → DVR</li>
+<li>Video4 → USB відео стрім (запис/трансляція)</li>
+<li>UART → Пульт або ПК</li>
+</ul>
+<p><strong>Antenna Board:</strong></p>
+<ul>
+<li>TX (наприклад, ELRS TX)</li>
+<li>VRX (аналоговий приймач)</li>
+</ul>
+<p><strong>Зʼєднання:</strong><br />
+Ground Board ↔ Antenna Board через екранований кабель Cat5e/Cat6 до 300 м</p>
+<h2 id="Живлення-та-втрати-напруги"><a class="header" href="#Живлення-та-втрати-напруги">Живлення та втрати напруги</a></h2>
+<h3 id="Стабілізація-на-щоглі"><a class="header" href="#Стабілізація-на-щоглі">Стабілізація на щоглі</a></h3>
+<p>На платі Antenna Board встановлені DC-DC перетворювачі:</p>
+<ul>
+<li>5V — для VRX</li>
+<li>9V — для спеціальних пристроїв</li>
+<li>12V — для передавача</li>
+</ul>
+<h3 id="Втрати-на-довгих-кабелях-1А-навантаження"><a class="header" href="#Втрати-на-довгих-кабелях-1А-навантаження">Втрати на довгих кабелях (1А навантаження)</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Довжина</th><th>Втрати (6S)</th><th>Втрати (12S)</th><th>Напруга на щоглі (6S / 12S)</th></tr></thead><tbody>
+<tr><td>100 м</td><td>~3.6 В</td><td>~3.6 В</td><td>21.6 В / 46.8 В</td></tr>
+<tr><td>200 м</td><td>~7.2 В</td><td>~7.2 В</td><td>18.0 В / 43.2 В</td></tr>
+<tr><td>300 м</td><td>~10.8 В</td><td>~10.8 В</td><td>14.4 В / 39.6 В</td></tr>
+</tbody></table>
+</div>
+<h2 id="Інструкція-з-експлуатації"><a class="header" href="#Інструкція-з-експлуатації">Інструкція з експлуатації</a></h2>
+<ol>
+<li>Підключіть окуляри, монітор, DVR та USB відео стрім до Ground Board.</li>
+<li>Підключіть пульт або ПК через UART.</li>
+<li>Підключіть живлення 6S або 12S.</li>
+<li>З’єднайте Ground ↔ Antenna через кабель.</li>
+<li>Підключіть VRX та TX до Antenna Board.</li>
+<li>Увімкніть систему.</li>
+</ol>
+<h2 id="Рекомендації-щодо-прокладання-і-маскування-кабелю"><a class="header" href="#Рекомендації-щодо-прокладання-і-маскування-кабелю">Рекомендації щодо прокладання і маскування кабелю</a></h2>
+<ul>
+<li>Прокладати вздовж укриттів (дерева, рельєф, стіни).</li>
+<li>Уникати відкритих ділянок.</li>
+<li>Маскувати або фарбувати кабель.</li>
+<li>Фіксувати до землі або прокладати у кожусі.</li>
+<li>Біля щогли залишати запас.</li>
+<li>Перевіряти видимість з дронів.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="drobodrone-Плата-для-керування-піротехнічними-системами"><a class="header" href="#drobodrone-Плата-для-керування-піротехнічними-системами">Drobodrone: Плата для керування піротехнічними системами</a></h1>
+<p><img src="drobodrone.png" alt="image" /></p>
+<h2 id="Купити-на-kiwidrone"><a class="header" href="#Купити-на-kiwidrone">Купити: <a href="https://kiwidrone.com.ua/drobodrone/">на kiwidrone</a></a></h2>
+<h2 id="Опис"><a class="header" href="#Опис">Опис</a></h2>
+<p><strong>Drobodrone</strong> — це універсальна та безпечна плата для керування піротехнічними навантаженнями (парашути, феєрверки, маркери тощо), призначена для інтеграції у складі FPV, UAV та інших безпілотних систем. Підтримує до 4 незалежних каналів підриву з високим рівнем безпеки.</p>
+<p>Плата підтримує багаторазове використання і може бути повністю перепрограмована для кастомних сценаріїв.</p>
+<hr />
+<h2 id="Основні-функції"><a class="header" href="#Основні-функції">Основні функції</a></h2>
+<ul>
+<li>
+<p><strong>4 незалежні канали підриву</strong><br />
+Призначені для запуску різних піротехнічних систем. Кожен канал має апаратний ключ для запобігання хибному спрацюванню.</p>
+</li>
+<li>
+<p><strong>Інтерфейси керування:</strong></p>
+<ul>
+<li><strong>PWM IN x2:</strong>
+<ul>
+<li><em>ARM:</em> активує систему (захист знято)</li>
+<li><em>FIRE:</em> активує підрив (при активному ARM)</li>
+<li>PWM активується при ширині імпульсу 1800–2000us</li>
+</ul>
+</li>
+<li><strong>UART (SmartESAD):</strong>
+<ul>
+<li>Для передачі телеметрії, контролю статусу та розширеного керування</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Аудіо сигналізація:</strong><br />
+Вбудований динамік інформує про поточний статус (наприклад: озброєно, відмова, успішне спрацювання).</p>
+</li>
+<li>
+<p><strong>Світлова сигналізація:</strong><br />
+Три яскраві LED інформують про стан системи: Ready / Armed / Fired / Error</p>
+</li>
+<li>
+<p><strong>Механічна чека (запобіжник):</strong><br />
+Фізичне роз’єднання для запобігання спрацювання під час транспортування чи підготовки.</p>
+</li>
+<li>
+<p><strong>Інтерфейс живлення:</strong></p>
+<ul>
+<li>Живлення від 5V</li>
+<li>Спрацювання елементів від 20V</li>
+<li>Захист від перенапруги, короткого замикання</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="Безпекові-елементи"><a class="header" href="#Безпекові-елементи">Безпекові елементи</a></h2>
+<p>Система побудована за принципом <em>багаторівневого захисту</em>:</p>
+<ol>
+<li><strong>Механічний вимикач-запобіжник</strong> — фізично розриває ланцюг.</li>
+<li><strong>PWM-сигнал типу ARM</strong> — не дозволяє спрацювання без команди.</li>
+<li><strong>Таймер самозахисту</strong> — автоматичне вимкнення при відсутності FIRE протягом заданого часу.</li>
+<li><strong>Апаратні ключі</strong> — унеможливлюють коротке замикання або хибне спрацювання.</li>
+<li><strong>Світлова та звукова індикація</strong> — для візуального та звукового контролю статусу.</li>
+</ol>
+<hr />
+<h2 id="Сумісність-з-автопілотами"><a class="header" href="#Сумісність-з-автопілотами">Сумісність з автопілотами</a></h2>
+<p>Плата легко інтегрується з будь-яким автопілотом, який має PWM-виходи або UART-порти:</p>
+<div class="table-wrapper"><table><thead><tr><th>Платформа</th><th>Метод інтеграції</th></tr></thead><tbody>
+<tr><td>ArduPilot</td><td><code>SERVOx_FUNCTION = 94/95, 51-66</code></td></tr>
+<tr><td>Betaflight</td><td><code>RESOURCE</code> + <code>SERVO</code> конфігурація</td></tr>
+<tr><td>iNAV</td><td><code>Servo Mixer</code> + <code>Modes</code></td></tr>
+<tr><td>INDI/Custom</td><td>PWM або UART SmartESAD</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>PWM-сигнал може бути поданий з пульта, автопілота або окремого модуля запуску.</p>
+</blockquote>
+<hr />
+<h2 id="Розєми-та-підключення"><a class="header" href="#Розєми-та-підключення">Роз’єми та підключення</a></h2>
+<ul>
+<li><strong>Pyro Out x4:</strong> спеціальні піротехнічні конектори</li>
+<li><strong>PWM IN x2:</strong> пади для пайки</li>
+<li><strong>UART:</strong> пади для пайки</li>
+<li><strong>5V In:</strong> пади для живлення</li>
+<li><strong>GND, Status LED, Speaker:</strong> окремі виходи</li>
+</ul>
+<p>Плати мають великі, зручні контактні майданчики, які легко інтегрувати навіть у щільну проводку.</p>
+<hr />
+<h2 id="Кастомізація"><a class="header" href="#Кастомізація">Кастомізація</a></h2>
+<p>Плата підтримує:</p>
+<ul>
+<li><strong>Перепрошивку MCU</strong> через стандартний bootloader</li>
+<li><strong>Зміну логіки ARM/FIRE</strong></li>
+<li><strong>Зміну таймерів, режимів індикації</strong></li>
+<li><strong>Підтримку альтернативних протоколів (за потреби)</strong></li>
+</ul>
+<hr />
+<h2 id="Інтеграція-Швидкий-старт"><a class="header" href="#Інтеграція-Швидкий-старт">Інтеграція: Швидкий старт</a></h2>
+<ol>
+<li>Підключіть 5V живлення та землю</li>
+<li>Підключіть <strong>PWM ARM</strong> та <strong>PWM FIRE</strong> від автопілота</li>
+<li>Підключіть піротехнічні канали</li>
+<li>Встановіть механічну чеку</li>
+<li>На землі подайте ARM &gt; FIRE у потрібний момент</li>
+<li>Перевірте LED та аудіо сигналізацію</li>
+<li>Опціонально підключіть UART до Companion Computer або логера</li>
+</ol>
+<hr />
+<h2 id="Примітка"><a class="header" href="#Примітка">Примітка</a></h2>
+<p>Перед польотом завжди перевіряйте стан чека, сигналів, підключення піроканалів та акумулятора. Не залишайте плату в режимі ARM без нагляду.</p>
+<hr />
+<h2 id="Індикатори-станів-Керування"><a class="header" href="#Індикатори-станів-Керування">Індикатори станів. Керування</a></h2>
+<p>Комбінація помаранчевого 🟠 та зеленого діодів 🟢 – індикатор поточного стану плати.
+<br>Червоний діод 🔴 сигналізує про помилку, яку має усунути оператор.
+<br>Помилки можливі в будʼякому зі станів плати. Щоб плата могла перейти в наступний стан, спершу треба усунути всі помилки.</p>
+<ul>
+<li>🔴🔴🔴🔴🔴🔴 (постійно світиться) – плата не отримує валідний <strong>PWM ARM</strong> чи <strong>PWM ARM</strong> сигнал, можливо проблема пайки зʼєднання з польотним контроллером.</li>
+<li>🔴🔴⚪️⚪️🔴🔴 (повільно блимає, 1 раз на секунду, 1гц) – треба відтиснути <strong>PWM ARM</strong>.</li>
+<li>🔴⚪️🔴⚪️🔴⚪️ (швидко блимає, 3 рази на секунду, 3гц) – треба відтиснути <strong>PWM FIRE</strong>.</li>
+</ul>
+<p><strong>PWM</strong>: 0 ≤ invalid &lt; 900 ≤ valid=0 ≤ 1800 &lt; valid=1 &lt; 2000 ≤ invalid</p>
+<p>Для початку роботи:</p>
+<ul>
+<li>плата має “бачити пульт”: отримувати валідні <strong>PWM ARM</strong> та <strong>PWM FIRE</strong> (900 &lt; pwm ширина &lt; 2000)</li>
+<li><strong>PWM ARM</strong> має бути у положені disarm (0, false, low, відтиснуте, вимкнене, ненатиснуте)</li>
+<li><strong>PWM FIRE</strong> має бути у положені nofire (0, false, low, відтиснуте, вимкнене, ненатиснуте)</li>
+<li>вставити запобіжник (чеку)</li>
+</ul>
+<p>Стани:</p>
+<p><strong>(1) Безпечно. Вітання 🔔</strong>:
+<br>🔴🔴🔴🔴🔴🔴
+<br>🟠🟠🟠🟠🟠🟠
+<br>🟢🟢🟢🟢🟢🟢
+<br>Триває секунду після подачі живлення, далі автоматично переходить в <strong>(2) Очікую Запобіжник</strong></p>
+<p><strong>(2) Безпечно. Очікую запобіжник</strong>:
+<br>⚪️⚪️⚪️⚪️⚪️⚪️
+<br>🟢⚪️🟢⚪️🟢⚪️
+<br>Чекає поки оператор вставить чеку, далі переходить в <strong>(3) Запобіжник</strong></p>
+<p><strong>(3) Безпечно. Запобіжник</strong>:
+<br>⚪️⚪️⚪️⚪️⚪️⚪️
+<br>🟢🟢🟢🟢🟢🟢
+<br>Чекає поки оператор усуне чеку, далі переходить в <strong>(4) Таймер</strong></p>
+<p><strong>(4) Безпечно. Таймер</strong>:
+<br>⚪️⚪️⚪️⚪️⚪️⚪️
+<br>🟢🟢⚪️⚪️🟢🟢
+<br>Можливо вставити чеку щоб повернутись в <strong>(3) Запобіжник</strong>
+<br>Триває 60 секунд. Дає час відійти після усунення чеки. Далі переходить в <strong>(5) Очікую Заряд</strong></p>
+<p><strong>(5) Уважно. Очікую Заряд</strong>:
+<br>🟠🟠⚪️⚪️🟠🟠
+<br>Можливо вставити чеку щоб повернутись в <strong>(3) Запобіжник</strong>
+<br>Чекає на <strong>PWM ARM</strong> від оператора, далі ~секунду заряджає 🔔 і переходить в <strong>(6) Заряджено</strong></p>
+<p><strong>(6) Небезпечно. Заряджено 🔔</strong>:
+<br>🟠⚪️🟠⚪️🟠⚪️
+<br>Можливо вставити чеку щоб повернутись в <strong>(3) Запобіжник</strong>
+<br>Відтисни <strong>PWM ARM</strong> щоб розрядити і повернутись в <strong>(5) Очікую Заряд</strong>
+<br>Натисни <strong>PWM FIRE</strong> щоб зробити <strong>(7) Постріл</strong>.</p>
+<p><strong>(7) Небезпечно. Постріл</strong>:
+<br>🔴🔴🔴🔴🔴🔴
+<br>🟠🟠🟠🟠🟠🟠
+<br>🟢🟢🟢🟢🟢🟢
+<br>Постріл триває 100ms і автоматично переходить в <strong>(5) Очікую Заряд</strong>, який одразу переходить в <strong>(6) Заряджено</strong> якщо не відтискати <strong>PWM ARM</strong>.
+<br>Задля безпеки, для наступного пострілу треба відтиснути <strong>PWM FIRE</strong>, про що нагадає помилка 🔴⚪️🔴⚪️🔴⚪️.
+<br>4 незалежні канали підриву <code>1234</code> поділені на 2 групи по 2 канали в кожній <code>12 34</code>.
+Постріл підриває поточну активну группу (2 канали одночасно), і готує наступну групу для наступного пострілу. I так по-колу. Тобто постріли <code>1 2 3 4 5 6</code> здетонують канали <code>12 34 12 34 12 34</code>.</p>
+<p>Тобто послідовність роботи така:
+<br>підготовка: power arm=0 fire=0 вставили_чеку вийняли_чеку 60сек
+<br>робота: arm=1 fire=1 fire=0 fire=1
+<br>додому: fire=0 arm=0</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="Ініціатор-для-мін-універсальний"><a class="header" href="#Ініціатор-для-мін-універсальний">Ініціатор для мін універсальний</a></h1>
+<img src="mine1.png" height="248">
+<h2 id="Призначення-1"><a class="header" href="#Призначення-1">Призначення</a></h2>
+<p>Ініціатор споряджається у протитанкові або протипіхотні міни типу ПOM, ПМН-3, ОЗМ-72, МОН-50, ТМ-62, ПТМ-3, ПТМ-4 тощо.</p>
+<h3 id="Основні-задачі"><a class="header" href="#Основні-задачі">Основні задачі</a></h3>
+<ul>
+<li>мінування під’їзних шляхів наступу ворожих військ;</li>
+<li>міна-пастка;</li>
+<li>підрив міни при скиді з БПЛА.</li>
+</ul>
+<p>Електроніка міни забезпечує безпеку сапера, який встановлює міну вручну, або пілота дрона, який виконує віддалений скид міни, за рахунок двох (у випадку підключення приймача команд – трьох) запобіжників.</p>
+<p>Міна проектується з метою унеможливити її знешкодження крім фізичного дистанційного знищення. Вона реагує на найменші рухи чи повороти корпусу, а також наближення феромагнітних предметів (бронежилет, зброя, інструменти тощо) при спробі знищення.</p>
+<p>Електроніка може встановлюватись у корпуси стандартних серійних мін, щоб ворожий сапер вважав, що він має справу з відомою міною натискної дії (пастка для сапера).</p>
+<p>Встановлення опційного приймача команд дозволяє підірвати міну при наближенні до місця її розташування групи ворожої піхоти чи техніки. При переході у наступ можливість віддаленого керування дозволяє оперативно розмінувати шлях наступу дружніх підрозділів.</p>
+<h2 id="Переваги"><a class="header" href="#Переваги">Переваги</a></h2>
+<ul>
+<li>кілька датчиків цілі;</li>
+<li>можливість зміни програми відповідно до задач;</li>
+<li>віддалене керування (опція);</li>
+<li>неможливість деактивації без пульта;</li>
+<li>можливість пастки з відкладеним вибухом.</li>
+</ul>
+<h2 id="Конструкція"><a class="header" href="#Конструкція">Конструкція</a></h2>
+<ul>
+<li>корпус;</li>
+<li>кришка;</li>
+<li>плата з електронними компонентами (16×44×10 мм);</li>
+<li>механічний запобіжник;</li>
+<li>елемент живлення;</li>
+<li>приймальна антена (опціонально);</li>
+<li>вибухова речовина;</li>
+<li>вражаючі елементи;</li>
+<li>електродетонатор.</li>
+</ul>
+<h2 id="Датчики-цілі"><a class="header" href="#Датчики-цілі">Датчики цілі</a></h2>
+<p>Спрацювання ініціатора відбувається у випадках:</p>
+<ul>
+<li>натискання (8–20 кг);</li>
+<li>замикання сухого контакту;</li>
+<li>переміщення, поворот або нахил міни;</li>
+<li>удар з будь-якого напрямку;</li>
+<li>спроба розібрати корпус;</li>
+<li>зміна магнітного поля, у тому числі наближення феромагнітних об’єктів та металошукачів;</li>
+<li>сигнал від пульта керування (опціонально);</li>
+<li>самознищення за таймером та при розряді батареї нижче критичного рівня.</li>
+</ul>
+<p>Керування з пульта: напряму або через ретранслятор. Можливий вибірковий підрив або підрив групи мін.</p>
+<h2 id="Запобіжники"><a class="header" href="#Запобіжники">Запобіжники</a></h2>
+<ul>
+<li><strong>Механічний</strong> – чека.</li>
+<li><strong>Електронний</strong> – таймер затримки зведення, програмується від 2 хвилин до кількох годин. Таймер обнуляється при найменших рухах міни. Для переведення у бойовий стан вимагається, щоб міна лежала нерухомо протягом усього часу роботи таймера. Це дозволяє витягнути чеку і встановлювати міну вручну або за допомогою дрона без ризику підриву.</li>
+<li><strong>Електронний</strong> – активація з пульта (за наявності приймача).</li>
+</ul>
+<h2 id="Живлення"><a class="header" href="#Живлення">Живлення</a></h2>
+<ul>
+<li>літієва батарея типу 18650 або 2–3 елементи АА/ААА;</li>
+<li>струм споживання – менше 1 мА;</li>
+<li>час безперервної роботи у режимі очікування: до 30 діб залежно від типу батареї;</li>
+<li>при комплектуванні приймачем команд – до 10 діб;</li>
+<li>можливе самознищення при падінні напруги нижче критичного рівня.</li>
+</ul>
+<h2 id="Установка"><a class="header" href="#Установка">Установка</a></h2>
+<ul>
+<li>вручну;</li>
+<li>скид з БПЛА;</li>
+<li>доставка наземним дроном.</li>
+</ul>
+<h2 id="Принцип-роботи"><a class="header" href="#Принцип-роботи">Принцип роботи</a></h2>
+<p>Після установки або скиду, акселерометр та магнетометр запам’ятовують поточне положення міни відносно вектора прискорення та магнітного поля Землі.</p>
+<ul>
+<li>Зміна положення фіксується акселерометром,</li>
+<li>поворот – гіроскопом,</li>
+<li>зміна магнітного поля – магнетометром.</li>
+</ul>
+<p>Перевищення встановлених порогів призводить до підриву.</p>
+<h2 id="Заплановані-удосконалення-у-версії-20"><a class="header" href="#Заплановані-удосконалення-у-версії-20">Заплановані удосконалення у версії 2.0</a></h2>
+<ul>
+<li>інтегрований приймач команд у складі плати;</li>
+<li>покращений алгоритм енергозбереження;</li>
+<li>нові батареї типу LiCOCl₂ з температурним діапазоном від -60 до +80 °C та строком зберігання до 10 років.</li>
+</ul>
+<hr />
+<h1 id="universal-initiator-for-land-mines-pyromine"><a class="header" href="#universal-initiator-for-land-mines-pyromine">Universal initiator for land mines <strong>PyroMine</strong></a></h1>
+<h2 id="purpose"><a class="header" href="#purpose">Purpose</a></h2>
+<p>The initiator is designed for anti-tank and anti-personnel mines such as POM, PMN-3, OZM-72, MON-50, TM-62, PTM-3, PTM-4, etc.</p>
+<h3 id="main-tasks"><a class="header" href="#main-tasks">Main tasks</a></h3>
+<ul>
+<li>mining the supply lines of enemy troops;</li>
+<li>trap mine;</li>
+<li>detonation of a mine when dropped from a UAV.</li>
+</ul>
+<p>The electronics ensure the safety of the sapper who installs the mine manually or the UAV pilot who performs the drop, thanks to two fuses (or three with command receiver).</p>
+<p>The initiator is designed to make neutralization impossible except by remote destruction. It reacts to even slight movements, tilts, or the approach of ferromagnetic objects.</p>
+<p>It can be mounted into standard mine bodies so that enemy sappers mistake it for a known pressure mine (booby trap).</p>
+<p>With an optional command receiver, the mine can be detonated upon the approach of enemy infantry or vehicles. During an offensive, remote control allows quick clearance of friendly paths.</p>
+<h2 id="advantages"><a class="header" href="#advantages">Advantages</a></h2>
+<ul>
+<li>multiple target sensors;</li>
+<li>reprogrammable for specific missions;</li>
+<li>remote control (optional);</li>
+<li>impossible to deactivate without remote unit;</li>
+<li>trap with delayed explosion.</li>
+</ul>
+<h2 id="design"><a class="header" href="#design">Design</a></h2>
+<ul>
+<li>body;</li>
+<li>cover;</li>
+<li>PCB with electronics (16×44×10 mm);</li>
+<li>mechanical fuse;</li>
+<li>battery;</li>
+<li>receiving antenna (optional);</li>
+<li>explosive charge;</li>
+<li>fragments;</li>
+<li>electric detonator.</li>
+</ul>
+<h2 id="target-sensors"><a class="header" href="#target-sensors">Target sensors</a></h2>
+<p>The initiator is triggered by:</p>
+<ul>
+<li>pressing (8–20 kg);</li>
+<li>dry contact closing;</li>
+<li>moving, turning or tilting the mine;</li>
+<li>impact from any direction;</li>
+<li>disassembly attempt;</li>
+<li>magnetic field changes (ferromagnetic objects, metal detectors);</li>
+<li>remote signal (optional);</li>
+<li>self-destruction on timer or low battery.</li>
+</ul>
+<p>Remote control: direct or via repeater. Selective or grouped detonation.</p>
+<h2 id="fuses"><a class="header" href="#fuses">Fuses</a></h2>
+<ul>
+<li><strong>Mechanical</strong> – safety pin.</li>
+<li><strong>Electronic</strong> – arming delay timer (2 minutes to several hours). Reset on any movement, requires the mine to stay still to arm.</li>
+<li><strong>Electronic</strong> – remote activation (if receiver is installed).</li>
+</ul>
+<h2 id="power"><a class="header" href="#power">Power</a></h2>
+<ul>
+<li>lithium 18650 or 2–3 AA/AAA cells;</li>
+<li>consumption &lt;1 mA;</li>
+<li>standby operation up to 30 days;</li>
+<li>with command receiver – up to 10 days;</li>
+<li>optional self-destruction at critical voltage.</li>
+</ul>
+<h2 id="deployment"><a class="header" href="#deployment">Deployment</a></h2>
+<ul>
+<li>manual;</li>
+<li>UAV drop;</li>
+<li>ground drone delivery.</li>
+</ul>
+<h2 id="operation-principle"><a class="header" href="#operation-principle">Operation principle</a></h2>
+<p>After deployment, the accelerometer and magnetometer record initial orientation and field values.</p>
+<ul>
+<li>accelerometer detects movement,</li>
+<li>gyroscope detects rotation,</li>
+<li>magnetometer detects magnetic changes.</li>
+</ul>
+<p>Threshold exceedance results in detonation.</p>
+<h2 id="planned-improvements-in-version-20"><a class="header" href="#planned-improvements-in-version-20">Planned improvements in version 2.0</a></h2>
+<ul>
+<li>integrated command receiver on PCB;</li>
+<li>enhanced power-saving algorithms;</li>
+<li>new LiCOCl₂ batteries with -60 to +80 °C operating range and 10-year shelf life.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="flight-controller-board-kiwi-f405-12s-configuration"><a class="header" href="#flight-controller-board-kiwi-f405-12s-configuration">Flight Controller Board: KIWI F405 12S Configuration</a></h1>
+<p><img src="kiwif405-12s.jpeg" alt="kiwif405-12s.jpeg" /></p>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<p>KIWI F4.0 is a versatile flight controller based on the STM32F405, designed for FPV, wings, and autonomous platforms.<br />
+The controller combines precision inertial sensing, OSD support, built-in Blackbox, and relay outputs for controlling
+external modules.<br />
+Support for both Betaflight and ArduPilot allows this board to be used in a wide range of applications.</p>
+<p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems with full support
+for Betaflight and ArduPilot.<br />
+Thanks to flexible relay, sensor, and telemetry connectivity, the controller is ready for real-world mission use.</p>
+<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
+<ul>
+<li>ArduPilot <a href="download/KiwiF405-12S.zip">KiwiF405-12S.zip</a></li>
+<li>Betaflight <a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-4.5.3.zip</a></li>
+</ul>
+<h2 id="pinout-diagram"><a class="header" href="#pinout-diagram">Pinout Diagram</a></h2>
+<p><a href="kiwif405.png">(Click to zoom in)</a></p>
+<p><a href="kiwif405.png"><img src="kiwif405.png" width="200"></a></p>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<ul>
+<li>Industrial-grade IMU Invensense ICM-42688P with external clock</li>
+<li>Bosch BMP388 barometer for altitude measurement</li>
+<li>Integrated 128Mbit Blackbox flash memory (W25Q128FV)</li>
+<li>MAX7456 OSD chip for overlaying telemetry on analog video</li>
+<li>High-precision voltage and current monitoring via ADC (VBAT, CURRENT)</li>
+<li>GPIO-controlled relay outputs for powering VTX, cameras, or pyrotechnic systems</li>
+<li>4 motor PWM outputs + 6 servo channels</li>
+<li>USB Type-C with DFU firmware flashing support</li>
+<li>Full CRSF / ELRS telemetry support (RSSI, LQ, SNR, Power)</li>
+</ul>
+<h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
+<ul>
+<li>MCU: STM32F405RG (168 MHz)</li>
+<li>IMU: ICM-42688P with external oscillator</li>
+<li>Barometer: Bosch BMP388</li>
+<li>OSD: MAX7456</li>
+<li>Flash Memory: W25Q128FV (128 Mbit)</li>
+<li>Ports:
+<ul>
+<li>5x UART (ESAD, RC, GPS, VTX, ESC/MSP)</li>
+<li>1x I2C</li>
+<li>3x SPI (OSD, IMU, FLASH)</li>
+<li>ADC: VBAT, CURR</li>
+</ul>
+</li>
+<li>PWM:
+<ul>
+<li>4 motor channels</li>
+<li>6 servo channels</li>
+</ul>
+</li>
+<li>GPIO Relays:
+<ul>
+<li><strong>U1, U2, U3, F+ (controlled via GPIO)</strong></li>
+</ul>
+</li>
+<li>Interfaces:
+<ul>
+<li>USB Type-C</li>
+<li>SWD for debugging</li>
+</ul>
+</li>
+<li>Dimensions:
+<ul>
+<li>36×36 mm</li>
+<li>Mounting: 30.5×30.5 mm</li>
+</ul>
+</li>
+<li>LED: Heartbeat indicator</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kiwih743-12s-flight-controller"><a class="header" href="#kiwih743-12s-flight-controller">KiwiH743 12S Flight Controller</a></h1>
+<p><img src="KiwiH743.jpg" alt="KiwiH743.jpg" /></p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The <strong>KiwiH743</strong> is a high-performance flight controller based on the STM32H743 MCU, designed for advanced UAV
+applications. It combines powerful processing, flexible connectivity, and rich sensor support, optimized for ArduPilot
+firmware.</p>
+<p>It is the next generation of the KiwiF405 family, offering 2MB flash, 480 MHz CPU clock, extended UART/SPI/I2C buses,
+and support for dual IMUs, barometer, and OSD integration.</p>
+<hr />
+<h2 id="firmware-1"><a class="header" href="#firmware-1">Firmware</a></h2>
+<ul>
+<li>ArduPilot <a href="download/KiwiH743.zip">KiwiH743.zip</a></li>
+<li>Betaflight</li>
+</ul>
+<h2 id="technical-specifications-1"><a class="header" href="#technical-specifications-1">Technical Specifications</a></h2>
+<h3 id="processor-memory-clock"><a class="header" href="#processor-memory-clock">Processor, Memory, Clock</a></h3>
+<ul>
+<li>MCU: STM32H743VIT6</li>
+<li>Architecture: ARM Cortex-M7</li>
+<li>Max Frequency: 480 MHz</li>
+<li>Flash: 2048 KB (2 MB)</li>
+<li>FPU: Single-precision, hardware accelerated</li>
+<li>Crystal Frequency: 16 MHz external oscillator</li>
+<li>DataFlash: 16 MB</li>
+<li>OSD Type: Integrated (MAX7456-compatible)</li>
+</ul>
+<hr />
+<h2 id="connectivity"><a class="header" href="#connectivity">Connectivity</a></h2>
+<h3 id="usb-uart-spi-peripherals"><a class="header" href="#usb-uart-spi-peripherals">USB, UART, SPI Peripherals</a></h3>
+<ul>
+<li>USB OTG1 (Mavlink)</li>
+<li>USB OTG2 HiSpeed (Serial)</li>
+<li>7 hardware UARTs</li>
+<li>Dedicated functions:
+<ul>
+<li>UART8: RC input (SBUS/DSM)</li>
+<li>Others available for GPS, telemetry, peripherals</li>
+</ul>
+</li>
+<li>SPI1 bus available for external peripherals</li>
+</ul>
+<hr />
+<h2 id="sensors-1"><a class="header" href="#sensors-1">Sensors</a></h2>
+<ul>
+<li>IMU1: ICM-42688P</li>
+<li>IMU2: ICM-45686</li>
+<li>Barometer: BMP388</li>
+<li>External compass support: yes (I²C probing enabled)</li>
+</ul>
+<hr />
+<h2 id="rc-input--pwm-outputs"><a class="header" href="#rc-input--pwm-outputs">RC Input / PWM Outputs</a></h2>
+<h3 id="rc-input"><a class="header" href="#rc-input">RC Input</a></h3>
+<ul>
+<li>Supported protocols: CRSF, DSM, and others</li>
+</ul>
+<h3 id="pwm-outputs"><a class="header" href="#pwm-outputs">PWM Outputs</a></h3>
+<ul>
+<li>Total: up to 13 PWM channels</li>
+<li>Motors: 8 channels</li>
+<li>Servos: 4 channels (or 8 channels with 4 motors)</li>
+<li>DSHOT: supported 4 motor outputs (bidirectional)</li>
+</ul>
+<hr />
+<h3 id="relay-outputs"><a class="header" href="#relay-outputs">Relay Outputs</a></h3>
+<ul>
+<li>Camera switch (<code>PA8</code>)</li>
+<li>Relay1 (<code>PD4</code>)</li>
+<li>Relay2 (<code>PB7</code>)</li>
+</ul>
+<h2 id="power-monitoring"><a class="header" href="#power-monitoring">Power Monitoring</a></h2>
+<ul>
+<li>Battery Voltage sense (12S)</li>
+<li>Battery Current sense (12S)</li>
+<li>Default monitor type: Analog</li>
+</ul>
+<hr />
+<h2 id="debug--development"><a class="header" href="#debug--development">Debug &amp; Development</a></h2>
+<ul>
+<li>SWD Pins:
+<ul>
+<li><code>PA13</code>: JTMS-SWDIO</li>
+<li><code>PA14</code>: JTCK-SWCLK</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="leds--indicators"><a class="header" href="#leds--indicators">LEDs &amp; Indicators</a></h2>
+<ul>
+<li>Status LED: <code>PE4</code> (active-low)</li>
+</ul>
+<hr />
+<h2 id="advanced-features"><a class="header" href="#advanced-features">Advanced Features</a></h2>
+<ul>
+<li>Visual odometry integration: enabled</li>
+<li>External AHRS support</li>
+<li>GPS moving baseline enabled</li>
+<li>Gyro FFT enabled (vibration analysis)</li>
+<li>INS temperature calibration enabled</li>
+<li>Guided (NoGPS) supported</li>
+</ul>
+<hr />
+<h2 id="default-frame--modes"><a class="header" href="#default-frame--modes">Default Frame &amp; Modes</a></h2>
+<ul>
+<li>Default frame: Quadcopter X (FRAME_TYPE=12, Betaflight-X motor order)</li>
+<li>Flight modes enabled by default:
+<ul>
+<li>Guided (NoGPS)</li>
+<li>FlowHold</li>
+<li>OpticalFlow</li>
+</ul>
+</li>
+</ul>
+<h2 id="pinouts-and-schematics"><a class="header" href="#pinouts-and-schematics">Pinouts and schematics</a></h2>
+<h3 id="esc-pins"><a class="header" href="#esc-pins">ESC Pins</a></h3>
+<pre><code>1 - ESC Telemetry
+2 - ESC Current
+3 - Motor4
+4 - Motor3
+5 - Motor2
+6 - Motor1
+7 - VBAT
+8 - GND
+</code></pre>
+<img src="h743-esc-pinout.png" width="600">
+<div style="break-before: page; page-break-before: always;"></div><h1 id="flight-controller-board-kiwi-f405-6s-configuration"><a class="header" href="#flight-controller-board-kiwi-f405-6s-configuration">Flight Controller Board: KIWI F405 6S Configuration</a></h1>
+<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<p>The KIWI F4.0 is a versatile STM32F405-based flight controller designed for FPV, fixed-wing aircraft, and autonomous
+platforms. It integrates precise inertial sensing, OSD support, built-in Blackbox logging, and relay outputs for
+controlling external modules. With support for both Betaflight and ArduPilot, the board can be deployed across a wide
+range of use cases.</p>
+<p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems. Its flexible
+support for relays, sensors, and telemetry makes it ready for real-world mission environments.</p>
+<h2 id="features-1"><a class="header" href="#features-1">Features</a></h2>
+<ul>
+<li>Industrial-grade Invensense ICM-42688P IMU with external clock</li>
+<li>Bosch BMP388 barometer for altitude measurement</li>
+<li>Built-in 128Mbit Blackbox flash memory (W25Q128FV)</li>
+<li>MAX7456 OSD chip for overlaying telemetry on analog video</li>
+<li>High-precision voltage and current monitoring via ADC</li>
+<li>GPIO-controlled relay outputs for powering VTX, cameras, or pyrotechnic systems</li>
+<li>4 PWM outputs for motors and 6 channels for servos</li>
+<li>USB Type-C with DFU support for firmware updates</li>
+<li>Full CRSF / ELRS support with telemetry (RSSI, LQ, SNR, Power)</li>
+</ul>
+<h2 id="technical-specifications-2"><a class="header" href="#technical-specifications-2">Technical Specifications</a></h2>
+<ul>
+<li>MCU: STM32F405RG (168 MHz)</li>
+<li>IMU: ICM-42688P with external clock</li>
+<li>Barometer: Bosch BMP388</li>
+<li>OSD: MAX7456</li>
+<li>Flash: W25Q128FV (128 Mbit)</li>
+<li>Ports:
+<ul>
+<li>5× UART (ESAD, RC, GPS, VTX, ESC/MSP)</li>
+<li>1× I2C</li>
+<li>3× SPI (OSD, IMU, FLASH)</li>
+<li>ADC: VBAT, CURRENT</li>
+</ul>
+</li>
+<li>PWM:
+<ul>
+<li>4 motor channels</li>
+<li>6 servo channels</li>
+</ul>
+</li>
+<li>GPIO relays:
+<ul>
+<li>4 relay outputs: X1, X2, X3, X4 (controlled via GPIO)</li>
+</ul>
+</li>
+<li>Interfaces:
+<ul>
+<li>USB Type-C</li>
+<li>SWD debug interface</li>
+</ul>
+</li>
+<li>Dimensions:
+<ul>
+<li>36×36 mm</li>
+<li>Mounting: 30.5×30.5 mm</li>
+</ul>
+</li>
+<li>Status LED indicator</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fpv-Польотний-контролер-kiwi-f722"><a class="header" href="#fpv-Польотний-контролер-kiwi-f722">FPV Польотний контролер KIWI F722</a></h1>
+<h2 id="Опис-1"><a class="header" href="#Опис-1">Опис</a></h2>
+<p>KIWI F722 — це високопродуктивний контролер польоту для FPV та автономних дронів, розроблений для максимального рівня
+точності, стабільності та надійності. Підтримка популярних прошивок Betaflight та iNAV дозволяє легко адаптувати
+контролер до різних сценаріїв використання.</p>
+<p>KIWI F722 — це рішення для тих, хто шукає виняткову стабільність, розширені можливості підключення та готовність до
+будь-яких викликів у FPV та автономних польотах.</p>
+<h2 id="Особливості"><a class="header" href="#Особливості">Особливості</a></h2>
+<ul>
+<li>Наднизькошумний IMU TDK ICM-42688 з зовнішнім тактовим генератором</li>
+<li>Присвячена фільтрація живлення для IMU для ще кращої точності</li>
+<li>Вбудований барометр Bosch BMP388</li>
+<li>Чіп OSD для накладання даних на відео (AT7456E)</li>
+<li>Вбудована флеш-пам’ять чорного ящика 64Мбіт (W25Q128JVPQ)</li>
+<li>Підтримка роботи із зовнішніми сенсорами через UART та I2C</li>
+<li>GPIO керовані релейні виходи для живлення VTX, Raspberry Pi чи іншого обладнання</li>
+<li>Перемикання двох камер на борту</li>
+<li>Підтримка підключення двох VTX з можливістю перемикання живлення</li>
+<li>Пряма підтримка Betaflight ESC (Plug &amp; Play)</li>
+</ul>
+<h2 id="Технічні-характеристики-1"><a class="header" href="#Технічні-характеристики-1">Технічні характеристики</a></h2>
+<ul>
+<li>MCU: STM32F722RET6 (216 МГц)</li>
+<li>IMU: ICM-42688 з зовнішнім годинником</li>
+<li>Барометр: Bosch BMP388</li>
+<li>OSD: AT7456E</li>
+<li>Флеш пам’ять: W25Q128JVPQ (64Мбіт)</li>
+<li>Порти:
+<ul>
+<li>4x UART</li>
+<li>1x I2C</li>
+<li>2x PWM виходи для сервоприводів</li>
+<li>ADC: моніторинг VBAT та струму CURR</li>
+</ul>
+</li>
+<li>Живлення:
+<ul>
+<li>Вхід живлення: 6S акумулятор</li>
+<li>Вбудовані DC-DC конвертори: 5V 3A та 9V 3A</li>
+</ul>
+</li>
+<li>Світлодіодні індикатори: Power LED, MCU Status LED (PWM керовані)</li>
+<li>Роз’єми: JST-SH 1.0мм</li>
+<li>Кріплення: 30.5×30.5 мм (стандартне для FPV)</li>
+<li>Габарити: 39×39 мм</li>
+</ul>
+<h2 id="Застосування"><a class="header" href="#Застосування">Застосування</a></h2>
+<ul>
+<li>FPV-квадрокоптери та літальні апарати</li>
+<li>Автономні безпілотники для розвідки, доставки, моніторингу</li>
+<li>Робототехнічні платформи з вимогами до точного управління</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="downloads-for-kiwi-flight-autoplitot-computers"><a class="header" href="#downloads-for-kiwi-flight-autoplitot-computers">Downloads for KIWI Flight Autoplitot Computers</a></h1>
+<h2 id="betaflight-downloads"><a class="header" href="#betaflight-downloads">Betaflight Downloads</a></h2>
+<h4 id="firmware-2"><a class="header" href="#firmware-2">Firmware</a></h4>
+<p><a href="download/battle_flight/betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF70.hex">betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF70.hex</a></p>
+<p><a href="download/battle_flight/betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF71.hex">betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF71.hex</a></p>
+<p><a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4.hex">betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4.hex</a></p>
+<p><a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex">betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex</a></p>
+<h4 id="presets"><a class="header" href="#presets">Presets</a></h4>
+<p><a href="download/battle_flight/BF460-7INCH_KAPONGA_KIWIF71.txt">BF460-7INCH_KAPONGA_KIWIF71.txt</a></p>
+<h2 id="ardupilot-downloads"><a class="header" href="#ardupilot-downloads">ArduPilot Downloads</a></h2>
+<p><a href="download/KiwiF405-12S.zip">KiwiF405-12S.zip</a></p>
+<p><a href="download/KiwiF405-6S.zip">KiwiF405-6S.zip</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid.min.js"></script>
+        <script src="mermaid-init.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
