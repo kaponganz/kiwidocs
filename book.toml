@@ -1,9 +1,9 @@
 [book]
 authors = ["Anton P. Linevich"]
 language = "en"
-multilingual = false
+multilingual = true
 src = "src"
-title = "БпАК KIWI"
+title = "KIWI Flight Systems"
 
 [output.html]
 #theme = "theme"
@@ -21,6 +21,7 @@ no-section-label = false
 #site-url = "/example-book/"
 #cname = "myproject.rs"
 input-404 = "not-found.md"
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
 
 [output.html.print]
 enable = true    # include support for printable output
@@ -37,3 +38,8 @@ boost-paragraph = 1      # ranking boost factor for matches in text
 expand = true            # partial words will match longer terms
 heading-split-level = 3  # link results to heading levels
 copy-js = true           # include Javascript code for search
+
+[preprocessor]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
