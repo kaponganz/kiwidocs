@@ -24,20 +24,18 @@ For feedback, corrections, or suggestions, please contact us at support@kaponga.
 
 ### Sensors
 
+- [Kiwi-RM3100 CAN Compass](kiwi-rm3100.md)
 - [PyroMiner](07-mine1.md)
 
 ### Flight Controllers
 
 - [Flight Controller - KIWI F405 12S ](./02.2-kiwif405-12S.md)
 - [Flight Controller - KIWI H743 12S](./02.4-kiwih743.md)
+- [Flight Controller - KIWI H743-Wing](./kiwih743-wing.md)
 
 #### Flight Controllers (Obsolete)
 
 - [Flight Controller - KIWI F405 6S ](./02.1-kiwif405-6s.md)
 - [Flight Controller - KIWI F722 6S](./02.3-kiwif722.md)
-
-### Downloads
-
-- [Firmware Downloads](./05-downloads.md)
 
 -----------

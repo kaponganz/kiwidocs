@@ -1,0 +1,143 @@
+/* KIWI Flight Systems — custom overrides */
+
+/* ── Typography ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+:root {
+    --content-max-width: 960px;
+    --mono-font: 'JetBrains Mono', 'Source Code Pro', Consolas, monospace;
+    --kiwi-accent: #0d9488;
+    --kiwi-accent-light: #14b8a6;
+    --kiwi-accent-dark: #0f766e;
+}
+
+/* ── Light theme accent ── */
+.light, html:not(.js) {
+    --sidebar-active: var(--kiwi-accent);
+    --links: var(--kiwi-accent-dark);
+}
+
+.navy {
+    --sidebar-active: var(--kiwi-accent-light);
+    --links: var(--kiwi-accent-light);
+}
+
+.coal {
+    --sidebar-active: var(--kiwi-accent-light);
+    --links: var(--kiwi-accent-light);
+}
+
+.ayu {
+    --sidebar-active: var(--kiwi-accent-light);
+    --links: var(--kiwi-accent-light);
+}
+
+/* ── Page titles ── */
+.content main > h1:first-child {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    padding-bottom: 0.3em;
+    border-bottom: 3px solid var(--kiwi-accent);
+    margin-bottom: 0.8em;
+}
+
+h2 {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+/* ── Tables — tighter, more technical ── */
+table {
+    width: 100%;
+    font-size: 0.92em;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+table thead th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 8px 16px;
+}
+
+table td {
+    padding: 6px 16px;
+}
+
+/* ── Code blocks ── */
+code {
+    font-size: 0.85em !important;
+}
+
+pre {
+    border-radius: 6px;
+    padding: 1em !important;
+}
+
+/* Inline code */
+:not(pre) > code {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.88em !important;
+}
+
+/* ── Firmware download links ── */
+.content a[href$=".zip"] {
+    display: inline-block;
+    font-family: var(--mono-font);
+    font-size: 0.88em;
+    font-weight: 500;
+}
+
+/* ── Sidebar tweaks ── */
+.sidebar .chapter li a {
+    font-size: 0.95em;
+}
+
+.sidebar .chapter li.part-title {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.08em;
+    margin-top: 1.2em;
+    opacity: 0.7;
+}
+
+/* ── HR dividers — subtler ── */
+hr {
+    border: none;
+    border-top: 1px solid var(--table-border-color);
+    margin: 2em 0;
+}
+
+/* ── Images — subtle shadow ── */
+.content img {
+    border-radius: 4px;
+}
+
+/* ── Lists — slightly tighter ── */
+.content ul, .content ol {
+    padding-left: 1.5em;
+}
+
+.content li {
+    margin-bottom: 0.2em;
+}
+
+/* ── Menu bar title ── */
+.menu-title {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}

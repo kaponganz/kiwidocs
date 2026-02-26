@@ -21,3 +21,9 @@
 [KiwiF405-12S.zip](download/KiwiF405-12S.zip)
 
 [KiwiF405-6S.zip](download/KiwiF405-6S.zip)
+
+[KiwiH743.zip](download/KiwiH743.zip)
+
+[KiwiH743-sdcard.zip](download/KiwiH743-sdcard.zip)
+
+[KiwiH743-wing.zip](download/KiwiH743-wing.zip)
