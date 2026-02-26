@@ -39,8 +39,8 @@ Built around the STM32H743, the flight controller provides dual IMUs with hardwa
 - Analog + digital VTX output
 - STM32G4 OSD
 - SD card via SDMMC
-- 30.5 x 30.5 mm mounting holes
-- 39 x 39 mm board dimensions
+- 36.0 х 39.0 mm mounting holes
+- 40 x 42 mm board dimensions
 
 ---
 
