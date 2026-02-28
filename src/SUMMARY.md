@@ -1,6 +1,6 @@
 # KIWI Flight Systems Manual
 
-Welcome to the official documentation for KIWI Systems. Engineered with precision. Inspired by a bird that never gave
+Welcome to the official documentation for KIWI Flight Systems. Engineered with precision. Inspired by a bird that never gave
 up.
 
 Inside, you'll find hardware specifications, pinouts, setup

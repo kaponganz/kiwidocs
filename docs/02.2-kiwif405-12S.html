@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Flight Controller - KIWI F405 12S  - KIWI Systems</title>
+        <title>Flight Controller - KIWI F405 12S  - KIWI Flight Systems</title>
 
 
         <!-- Custom HTML head -->
@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-22f96dcb.js";
+            window.path_to_searchindex_js = "searchindex-e41e6279.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-5fc5a914.js"></script>
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">KIWI Systems</h1>
+                    <h1 class="menu-title">KIWI Flight Systems</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -190,6 +190,7 @@ Thanks to flexible relay, sensor, and telemetry connectivity, the controller is 
 <li>ArduPilot 4.6.2 <a href="download/KiwiF405-12S.zip">KiwiF405-12S.zip</a></li>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-4.5.3.zip</a></li>
 <li>Betaflight 2025.12.0 <a href="download/betaflight_2025.12.0-beta_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-2025.12.0-beta.zip</a></li>
+<li>Betaflight 2026.12.3 <a href="download/betaflight_2026.12.3-alpha_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-2026.12.3-alpha.zip</a></li>
 </ul>
 <h2 id="pinout-and-diagrams"><a class="header" href="#pinout-and-diagrams">Pinout and Diagrams</a></h2>
 <p><a href="kiwif405.png">(Click to zoom in)</a></p>
@@ -314,6 +315,45 @@ Thanks to flexible relay, sensor, and telemetry connectivity, the controller is 
 <li>SWCLK: PA14</li>
 </ul>
 <hr>
+<h2 id="premium-features"><a class="header" href="#premium-features">Premium Features</a></h2>
+<h3 id="kiwi-osd-pinio-elements-betaflight-202512"><a class="header" href="#kiwi-osd-pinio-elements-betaflight-202512">Kiwi OSD Pinio Elements (Betaflight 2025.12+)</a></h3>
+<p>Custom OSD text elements that change based on PINIO switch state (User 1–4 boxes). Each element displays configurable ON/OFF text labels, useful for showing relay status, arming indicators, or mission state on the OSD.</p>
+<h4 id="cli-settings"><a class="header" href="#cli-settings">CLI Settings</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Setting</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kiwi_osd_pinioN_text_on</code></td><td>Text shown when User N switch is active</td></tr>
+<tr><td><code>kiwi_osd_pinioN_text_off</code></td><td>Text shown when User N switch is inactive (use <code>-</code> to hide)</td></tr>
+<tr><td><code>kiwi_osd_pinioN_pos</code></td><td>OSD screen position (341 = hidden)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Where N is 1–4 corresponding to PINIO1–PINIO4.</p>
+<h4 id="example-setup"><a class="header" href="#example-setup">Example Setup</a></h4>
+<pre><code># Show SAFE/ARMED on OSD driven by User 2 switch
+set kiwi_osd_pinio2_text_on = ARMED
+set kiwi_osd_pinio2_text_off = SAFE
+set kiwi_osd_pinio2_pos = 2242
+
+# Show PARACHUTE only when User 3 switch is active, hidden when off
+set kiwi_osd_pinio3_text_on = PARACHUTE
+set kiwi_osd_pinio3_text_off = -
+set kiwi_osd_pinio3_pos = 2274
+
+# Assign User 2 to AUX3 switch (high position)
+aux 3 41 3 1700 2100 0 0
+
+# Assign User 3 to AUX2 switch (high position)
+aux 4 42 2 1700 2100 0 0
+
+save
+</code></pre>
+<h4 id="hardware-notes"><a class="header" href="#hardware-notes">Hardware Notes</a></h4>
+<p>On the KIWI F405 12S, only PINIO4 (PA4 / RELAY1) has a physical GPIO pin. PINIO1–3 are defined as NONE in the hardware config, but the OSD elements still work — the User box toggles the logical state, and the OSD text updates accordingly. No physical pin is needed for OSD-only use.</p>
+<hr>
 <h2 id="default-parameters"><a class="header" href="#default-parameters">Default Parameters</a></h2>
 <ul>
 <li>Frame: Quadcopter (FRAME_CLASS=1, FRAME_TYPE=3 BetaFlight X reversed)</li>
@@ -358,6 +398,22 @@ Thanks to flexible relay, sensor, and telemetry connectivity, the controller is 
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
         <script>

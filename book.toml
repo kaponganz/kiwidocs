@@ -2,7 +2,7 @@
 authors = ["Anton P. Linevich"]
 language = "en"
 src = "src"
-title = "KIWI Systems"
+title = "KIWI Flight Systems"
 
 [output.html]
 default-theme = "light"
