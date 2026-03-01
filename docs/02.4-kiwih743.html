@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e41e6279.js";
+            window.path_to_searchindex_js = "searchindex-98b2335b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-5fc5a914.js"></script>
@@ -227,25 +227,77 @@ and support for dual IMUs, barometer, and OSD integration.</p>
 <li>External compass support: yes (I²C probing enabled)</li>
 </ul>
 <hr>
-<h2 id="rc-input--pwm-outputs"><a class="header" href="#rc-input--pwm-outputs">RC Input / PWM Outputs</a></h2>
-<h3 id="rc-input"><a class="header" href="#rc-input">RC Input</a></h3>
-<ul>
-<li>Supported protocols: CRSF, DSM, and others</li>
-</ul>
+<h2 id="gpios-relays-and-aux"><a class="header" href="#gpios-relays-and-aux">GPIOs, Relays, and AUX</a></h2>
+<h3 id="dedicated-gpio-pads"><a class="header" href="#dedicated-gpio-pads">Dedicated GPIO Pads</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pad</th><th>Pin</th><th>GPIO</th><th>Default</th><th>ArduPilot Relay Config</th></tr>
+</thead>
+<tbody>
+<tr><td>CAM SW</td><td>PA8</td><td>100</td><td>RELAY1</td><td><code>RELAY1_PIN=100</code> (hwdef default)</td></tr>
+<tr><td>RELAY1</td><td>PD4</td><td>101</td><td>Output LOW</td><td><code>RELAY2_PIN=101</code>, <code>RELAY2_FUNC=1</code></td></tr>
+<tr><td>RELAY2</td><td>PB7</td><td>102</td><td>Output LOW</td><td><code>RELAY3_PIN=102</code>, <code>RELAY3_FUNC=1</code></td></tr>
+<tr><td>LED</td><td>PE4</td><td>90</td><td>Status LED</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>Note:</strong> <code>RELAY1_PIN</code> defaults to GPIO 100 (Camera Switch pad, PA8), not the pad labeled “RELAY1” (PD4, GPIO 101). This is set in the hwdef. Adjust if your wiring differs.</p>
+</blockquote>
 <h3 id="pwm-outputs"><a class="header" href="#pwm-outputs">PWM Outputs</a></h3>
-<ul>
-<li>Total: up to 13 PWM channels</li>
-<li>Motors: 8 channels</li>
-<li>Servos: 4 channels (or 8 channels with 4 motors)</li>
-<li>DSHOT: supported 4 motor outputs (bidirectional)</li>
-</ul>
+<p>RC input: SBUS/DSM on PE11.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th><th>DShot Bidir</th></tr>
+</thead>
+<tbody>
+<tr><td>PWM1</td><td>PC6</td><td>50</td><td>TIM3_CH1</td><td>Motor 1</td><td>Yes</td></tr>
+<tr><td>PWM2</td><td>PC7</td><td>51</td><td>TIM3_CH2</td><td>Motor 2</td><td>Yes</td></tr>
+<tr><td>PWM3</td><td>PC8</td><td>52</td><td>TIM3_CH3</td><td>Motor 3</td><td>Yes</td></tr>
+<tr><td>PWM4</td><td>PC9</td><td>53</td><td>TIM3_CH4</td><td>Motor 4</td><td>Yes</td></tr>
+<tr><td>PWM5</td><td>PD12</td><td>54</td><td>TIM4_CH1</td><td>Motor 5</td><td>No</td></tr>
+<tr><td>PWM6</td><td>PD13</td><td>55</td><td>TIM4_CH2</td><td>Motor 6</td><td>No</td></tr>
+<tr><td>PWM7</td><td>PD14</td><td>56</td><td>TIM4_CH3</td><td>Motor 7</td><td>No</td></tr>
+<tr><td>PWM8</td><td>PD15</td><td>57</td><td>TIM4_CH4</td><td>Motor 8</td><td>No</td></tr>
+<tr><td>PWM9</td><td>PA0</td><td>58</td><td>TIM5_CH1</td><td>Servo 1</td><td>No</td></tr>
+<tr><td>PWM10</td><td>PA1</td><td>59</td><td>TIM5_CH2</td><td>Servo 2</td><td>No</td></tr>
+<tr><td>PWM11</td><td>PA2</td><td>60</td><td>TIM5_CH3</td><td>Servo 3</td><td>No</td></tr>
+<tr><td>PWM12</td><td>PA3</td><td>61</td><td>TIM5_CH4</td><td>Servo 4</td><td>No</td></tr>
+<tr><td>PWM13</td><td>PE13</td><td>62</td><td>TIM1_CH3</td><td>Servo 5</td><td>No</td></tr>
+<tr><td>PWM14</td><td>PB8</td><td>63</td><td>TIM16_CH1</td><td>Servo 6</td><td>No</td></tr>
+</tbody>
+</table>
+</div>
+<p>PWM pins can be reassigned to GPIO via <code>SERVOn_FUNCTION=0</code> + <code>RELAYn_PIN=&lt;gpio&gt;</code>.</p>
+<h3 id="spare-adc"><a class="header" href="#spare-adc">Spare ADC</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th></tr>
+</thead>
+<tbody>
+<tr><td>PC1</td><td>SPARE2_ADC1 (analog input only)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="relay-usage"><a class="header" href="#relay-usage">Relay Usage</a></h3>
+<p><strong>MAVProxy:</strong></p>
+<pre><code>param set RELAY2_PIN 101
+param set RELAY2_FUNC 1
+relay set 0 1    # RELAY1 ON (CAM SW pad HIGH)
+relay set 0 0    # RELAY1 OFF
+relay set 1 1    # RELAY2 ON (RELAY1 pad HIGH)
+</code></pre>
+<p><strong>Mission waypoint:</strong> <code>DO_SET_RELAY</code> — relay number 0-based (0=RELAY1), setting 1=ON / 0=OFF.</p>
+<p><strong>Lua:</strong></p>
+<pre><code class="language-lua">relay:toggle(0)  -- toggle RELAY1 (CAM SW)
+relay:on(1)      -- RELAY2 ON (RELAY1 pad)
+relay:off(1)     -- RELAY2 OFF
+</code></pre>
+<p>All GPIO pads default LOW on boot. Use <code>RELAY_DEFAULT</code> params to set initial state.</p>
 <hr>
-<h3 id="relay-outputs"><a class="header" href="#relay-outputs">Relay Outputs</a></h3>
-<ul>
-<li>Camera switch (<code>PA8</code>)</li>
-<li>Relay1 (<code>PD4</code>)</li>
-<li>Relay2 (<code>PB7</code>)</li>
-</ul>
 <h2 id="power-monitoring"><a class="header" href="#power-monitoring">Power Monitoring</a></h2>
 <ul>
 <li>Battery Voltage sense (12S)</li>
@@ -337,22 +389,6 @@ and support for dual IMUs, barometer, and OSD integration.</p>
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

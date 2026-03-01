@@ -115,32 +115,69 @@ Built around the STM32H743, the flight controller provides dual IMUs with hardwa
 
 ---
 
-## PWM Outputs
+## GPIOs, Relays, and AUX
 
-### Motors (SERVO 1–8)
+### Dedicated GPIO Pads
 
-| Output | Pin | Timer |
-|---|---|---|
-| SERVO 1 | PA10 | |
-| SERVO 2 | PA9 | |
-| SERVO 3 | PA8 | |
-| SERVO 4 | PD15 | TIM4 CH4 |
-| SERVO 5 | PD14 | TIM4 CH3 |
-| SERVO 6 | PD13 | TIM4 CH2 |
-| SERVO 7 | PD12 | TIM4 CH1 |
-| SERVO 8 | PB1 | ADC1 IN5 |
+| Pad      | Pin  | GPIO | Default    | ArduPilot Relay Config                |
+|----------|------|------|------------|---------------------------------------|
+| CAM SW   | PE2  | 100  | RELAY1     | `RELAY1_PIN=100` (hwdef default)      |
+| RELAY 1  | PD3  | 101  | Output LOW | `RELAY2_PIN=101`, `RELAY2_FUNC=1`     |
+| RELAY 2  | PD4  | 102  | Output LOW | `RELAY3_PIN=102`, `RELAY3_FUNC=1`     |
+| AUX 1    | PD7  | 105  | Output LOW | `RELAY4_PIN=105`, `RELAY4_FUNC=1`     |
+| AUX 2    | PB3  | 106  | Output LOW | `RELAY5_PIN=106`, `RELAY5_FUNC=1`     |
+| AUX 3    | PE5  | 107  | Output LOW | —                                     |
+| AUX 4    | PC13 | 103  | Output LOW | Shared with VIDEO BOOT                |
+| VID NRST | PE3  | 104  | Output LOW | `RELAY6_PIN=104` (hwdef default)      |
+| CAN SIL  | PE4  | 70   | Output LOW | CAN silent mode                       |
+| BUZZER   | PA15 | 32   | Alarm      | —                                     |
+| LED      | PD11 | 90   | Status LED | —                                     |
 
-### Servos (SERVO 9–15)
+> **Note:** `RELAY1_PIN` defaults to GPIO 100 (Camera Switch, PE2). `RELAY6_PIN` defaults to GPIO 104 (VIDEO_NRST, PE3 — STM32G4 OSD reset, active low). RELAY 1/2 pads are 9/12V switched outputs.
 
-| Output | Pin | Timer |
-|---|---|---|
-| SERVO 9 | PB0 | |
-| SERVO 10 | PB4 | |
-| SERVO 11 | PB5 | |
-| SERVO 12 | PA3 | TIM5 CH4 |
-| SERVO 13 | PA2 | TIM5 CH3 |
-| SERVO 14 | PA1 | TIM5 CH2 |
-| SERVO 15 | PA0 | TIM5 CH1 |
+### PWM Outputs
+
+| Output   | Pin  | GPIO | Timer    | Function  |
+|----------|------|------|----------|-----------|
+| SERVO 1  | PA10 | 50   | TIM1_CH3 | Motor 1   |
+| SERVO 2  | PA9  | 51   | TIM1_CH2 | Motor 2   |
+| SERVO 3  | PA8  | 52   | TIM1_CH1 | Motor 3   |
+| SERVO 4  | PD15 | 53   | TIM4_CH4 | Motor 4   |
+| SERVO 5  | PD14 | 54   | TIM4_CH3 | Motor 5   |
+| SERVO 6  | PD13 | 55   | TIM4_CH2 | Motor 6   |
+| SERVO 7  | PD12 | 56   | TIM4_CH1 | Motor 7   |
+| SERVO 8  | PB1  | 57   | TIM3_CH4 | Motor 8   |
+| SERVO 9  | PB0  | 58   | TIM3_CH3 | Servo 1   |
+| SERVO 10 | PB4  | 59   | TIM3_CH1 | Servo 2   |
+| SERVO 11 | PB5  | 60   | TIM3_CH2 | Servo 3   |
+| SERVO 12 | PA3  | 61   | TIM5_CH4 | Servo 4   |
+| SERVO 13 | PA2  | 62   | TIM5_CH3 | Servo 5   |
+| SERVO 14 | PA1  | 63   | TIM5_CH2 | Servo 6   |
+| SERVO 15 | PA0  | 64   | TIM5_CH1 | Servo 7   |
+
+PWM pins can be reassigned to GPIO via `SERVOn_FUNCTION=0` + `RELAYn_PIN=<gpio>`.
+
+### Relay Usage
+
+**MAVProxy:**
+```
+param set RELAY2_PIN 101
+param set RELAY2_FUNC 1
+relay set 0 1    # RELAY1 ON (CAM SW HIGH)
+relay set 0 0    # RELAY1 OFF
+relay set 1 1    # RELAY2 ON (RELAY1 pad HIGH)
+```
+
+**Mission waypoint:** `DO_SET_RELAY` — relay number 0-based (0=RELAY1), setting 1=ON / 0=OFF.
+
+**Lua:**
+```lua
+relay:toggle(0)  -- toggle RELAY1 (CAM SW)
+relay:on(1)      -- RELAY2 ON (RELAY1 pad)
+relay:off(1)     -- RELAY2 OFF
+```
+
+All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial state.
 
 ---
 
@@ -154,20 +191,6 @@ Built around the STM32H743, the flight controller provides dual IMUs with hardwa
 | ADC 1 | PC1 | ADC1 IN11 |
 | ADC 2 | PC0 | ADC1 IN10 |
 | ADC 3 | PC2_C | ADC3 IN0 |
-
----
-
-## GPIOs, Relays, and AUX
-
-| Function | Pin | Notes |
-|---|---|---|
-| AUX 1 | PD7 | GPIO |
-| AUX 2 | PB3 | GPIO |
-| AUX 3 | PE5 | TIM15 CH1 |
-| AUX 4 | PC13 | Shared with VIDEO BOOT |
-| RELAY 1 | PD3 | 9/12V switched output |
-| RELAY 2 | PD4 | 9/12V switched output |
-| Camera switch | PE2 | Dual camera input select |
 
 ---
 
