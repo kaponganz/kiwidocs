@@ -195,6 +195,22 @@ All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial sta
 | ADC 2 | PC0 | ADC1 IN10 |
 | ADC 3 | PC2_C | ADC3 IN0 |
 
+### Sensor Calibration
+
+| Parameter | ArduPilot | Betaflight |
+|-----------|-----------|------------|
+| Voltage scale | `BATT_VOLT_MULT` = 21.0 | `voltage_meter_scale` = 210 |
+| Current scale | `BATT_AMP_PERVLT` = 142.9 | `current_meter_scale` = 100 |
+
+### Battery Voltage Thresholds (ArduPilot)
+
+| Parameter | 6S | 8S | 12S |
+|-----------|-----|-----|------|
+| Full charge | 25.2 V | 33.6 V | 50.4 V |
+| `BATT_ARM_VOLT` | 22.2 | 29.6 | 44.4 |
+| `BATT_LOW_VOLT` | 21.0 | 28.0 | 42.0 |
+| `BATT_CRT_VOLT` | 19.8 | 26.4 | 39.6 |
+
 ---
 
 ## Buses

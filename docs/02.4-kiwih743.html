@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-ebd5903f.js";
+            window.path_to_searchindex_js = "searchindex-3715e0c3.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-5fc5a914.js"></script>
@@ -302,10 +302,36 @@ relay:off(1)     -- RELAY2 OFF
 <hr>
 <h2 id="power-monitoring"><a class="header" href="#power-monitoring">Power Monitoring</a></h2>
 <ul>
-<li>Battery Voltage sense (12S)</li>
-<li>Battery Current sense (12S)</li>
+<li>Battery Voltage: PC5 (ADC1 IN8)</li>
+<li>Battery Current: PB1 (ADC1 IN5)</li>
 <li>Default monitor type: Analog</li>
 </ul>
+<h3 id="sensor-calibration"><a class="header" href="#sensor-calibration">Sensor Calibration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>ArduPilot</th><th>Betaflight</th></tr>
+</thead>
+<tbody>
+<tr><td>Voltage scale</td><td><code>BATT_VOLT_MULT</code> = 21.0</td><td><code>voltage_meter_scale</code> = 210</td></tr>
+<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 142.9</td><td><code>current_meter_scale</code> = 100</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="battery-voltage-thresholds-ardupilot"><a class="header" href="#battery-voltage-thresholds-ardupilot">Battery Voltage Thresholds (ArduPilot)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>6S</th><th>8S</th><th>12S</th></tr>
+</thead>
+<tbody>
+<tr><td>Full charge</td><td>25.2 V</td><td>33.6 V</td><td>50.4 V</td></tr>
+<tr><td><code>BATT_ARM_VOLT</code></td><td>22.2</td><td>29.6</td><td>44.4</td></tr>
+<tr><td><code>BATT_LOW_VOLT</code></td><td>21.0</td><td>28.0</td><td>42.0</td></tr>
+<tr><td><code>BATT_CRT_VOLT</code></td><td>19.8</td><td>26.4</td><td>39.6</td></tr>
+</tbody>
+</table>
+</div>
 <hr>
 <h2 id="debug--development"><a class="header" href="#debug--development">Debug &amp; Development</a></h2>
 <ul>
