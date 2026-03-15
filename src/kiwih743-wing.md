@@ -16,6 +16,33 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 
 ---
 
+## Premium Features
+
+### GPS-less Takeoff (ArduPlane)
+
+KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.
+
+**Parameters:**
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `FLIGHT_OPTIONS` | 32768 | Enable GPS-less takeoff |
+| `ARMING_CHECK` | 0 | Disable arming checks |
+| `TKOFF_ALT` | 50 | Target takeoff altitude (meters) |
+| `TKOFF_THR_MINACC` | 0 | No accelerometer trigger, timer only |
+| `TKOFF_THR_MINSPD` | 0 | No minimum ground speed required |
+| `TKOFF_THR_MAX` | 100 | Max throttle % during takeoff |
+| `TKOFF_THR_DELAY` | 2 | Delay before launch (0.2s) |
+
+**Procedure:**
+
+1. Power on, wait for EKF convergence
+2. Set home (from GPS before loss, or manually via MAVLink)
+3. Arm in FBWA mode
+4. Switch to TAKEOFF mode
+
+---
+
 ## Flight Controller
 
 
