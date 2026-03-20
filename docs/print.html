@@ -15,7 +15,7 @@
 
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/variables-84c1b2f5.css">
         <link rel="stylesheet" href="css/general-2459343d.css">
         <link rel="stylesheet" href="css/chrome-ae938929.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
@@ -29,7 +29,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/css/custom-c9be9f83.css">
+        <link rel="stylesheet" href="theme/css/custom-09c29ef6.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-b0656813.js";
+            window.path_to_searchindex_js = "searchindex-62e749a1.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-5fc5a914.js"></script>
+        <script src="toc-99fb4d68.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -192,6 +192,7 @@ is designed to support your development process from start to finish.</p>
 <h3 id="uav-electronics"><a class="header" href="#uav-electronics">UAV Electronics</a></h3>
 <ul>
 <li><a href="#kiwi-ground-station-kit">Ground Station - KIWI GCS Kit</a></li>
+<li><a href="#kiwi-antenna-tracker">Antenna Tracker - KIWI AT</a></li>
 <li><a href="#drobodrone-плата-для-керування-піротехнічними-системами">DroboDrone</a></li>
 <li><a href="#kiwi-flight-systems-manual">SmartESAD System</a></li>
 </ul>
@@ -326,9 +327,141 @@ is designed to support your development process from start to finish.</p>
 <li>Перевіряти видимість з дронів.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="kiwi-antenna-tracker"><a class="header" href="#kiwi-antenna-tracker">KIWI Antenna Tracker</a></h1>
+<p>Antenna tracking module for the KIWI Ground Station Kit. Receives MAVLink telemetry from the UAV and automatically points the antenna toward the aircraft. Based on the KiwiF405-12S flight controller running ArduPilot AntennaTracker firmware.</p>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<ul>
+<li><strong>Automatic antenna tracking</strong> — receives GPS coordinates from the UAV via MAVLink and drives a yaw servo to keep the antenna pointed</li>
+<li><strong>Precision encoder</strong> — high-resolution heading sensor for accurate yaw position feedback</li>
+<li><strong>GPS</strong> — onboard GPS for tracker’s own position reference</li>
+<li><strong>TBS Fusion VRX control</strong> — built-in serial integration for remote frequency control, RSSI monitoring, and band scanning</li>
+<li><strong>Single-servo yaw</strong> — continuous rotation servo on output 1</li>
+<li><strong>Plug-and-play</strong> — pre-configured defaults, connects directly to the Ground Station Kit</li>
+</ul>
+<h2 id="connections"><a class="header" href="#connections">Connections</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Port</th><th>Function</th><th>Default Protocol</th></tr>
+</thead>
+<tbody>
+<tr><td>USB</td><td>GCS / Configuration</td><td>MAVLink2</td></tr>
+<tr><td>SERIAL1</td><td>RC Input</td><td>SBUS/CRSF</td></tr>
+<tr><td>SERIAL2</td><td>MAVLink Telemetry</td><td>MAVLink2 (460800)</td></tr>
+<tr><td>SERIAL3</td><td>GPS</td><td>GPS (115200)</td></tr>
+<tr><td>SERIAL4</td><td>TBS Fusion VRX</td><td>VRX Serial (115200, half-duplex)</td></tr>
+<tr><td>SERIAL5</td><td>ESC Telemetry</td><td>ESC Telemetry</td></tr>
+<tr><td>PWM1</td><td>Yaw Servo</td><td>Continuous rotation</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="modes"><a class="header" href="#modes">Modes</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mode</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>MANUAL (0)</td><td>Direct servo control from RC</td></tr>
+<tr><td>STOP (1)</td><td>Hold current position</td></tr>
+<tr><td>SCAN (2)</td><td>Sweep back and forth searching for vehicle</td></tr>
+<tr><td>AUTO (10)</td><td>Track vehicle automatically using MAVLink GPS</td></tr>
+</tbody>
+</table>
+</div>
+<p>Default startup mode is MANUAL.</p>
+<h2 id="video-receiver-control"><a class="header" href="#video-receiver-control">Video Receiver Control</a></h2>
+<p>The tracker supports remote control of 5.8 GHz video receivers over SERIAL4. Two receivers are currently supported:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>VRX</th><th>VRX_ENABLE</th><th>Frequency Control</th><th>RSSI</th><th>Band Scan</th></tr>
+</thead>
+<tbody>
+<tr><td>TBS Fusion</td><td>2</td><td>Yes</td><td>Yes (dual RX)</td><td>Yes</td></tr>
+<tr><td>SteadyView X</td><td>3</td><td>Yes</td><td>No</td><td>No</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="tbs-fusion-vrx-integration"><a class="header" href="#tbs-fusion-vrx-integration">TBS Fusion VRX Integration</a></h2>
+<p>The tracker has built-in support for controlling a TBS Fusion 5.8 GHz video receiver over a single-wire UART connection (SERIAL4). No CAN bus or additional boards required.</p>
+<h3 id="wiring"><a class="header" href="#wiring">Wiring</a></h3>
+<p>One wire from TBS Fusion UART TX/RX to the tracker’s SERIAL4 pad. Half-duplex is pre-configured (<code>SERIAL4_OPTIONS=4</code>). Power the Fusion separately — only the data wire is needed.</p>
+<h3 id="features-1"><a class="header" href="#features-1">Features</a></h3>
+<p><strong>Real-time RSSI monitoring</strong> — dual-receiver signal strength (Receiver A and B) and current frequency are polled at 2 Hz and streamed to GCS as MAVLink <code>NAMED_VALUE_FLOAT</code> messages:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Message</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>VRXF</code></td><td>Current frequency (MHz)</td></tr>
+<tr><td><code>VRXA</code></td><td>RSSI Receiver A (0.0–1.0)</td></tr>
+<tr><td><code>VRXB</code></td><td>RSSI Receiver B (0.0–1.0)</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Remote frequency control</strong> — change the VRX operating frequency from GCS by setting the <code>VRX_FREQ</code> parameter (in MHz, e.g. 5800). The tracker confirms the change and reports back via GCS status message.</p>
+<p><strong>Frequency range scan</strong> — trigger a full-band scan from GCS to find active video transmitters. Scan results (RSSI per frequency) are delivered as a binary MAVLink <code>TUNNEL</code> message (<code>payload_type 60100</code>) for GCS-side visualization.</p>
+<h3 id="vrx-parameters"><a class="header" href="#vrx-parameters">VRX Parameters</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>VRX_ENABLE</td><td>2</td><td>0=Off, 2=TBS Fusion, 3=SteadyView X</td></tr>
+<tr><td>VRX_FREQ</td><td>5800</td><td>Operating frequency (MHz)</td></tr>
+<tr><td>VRX_ADDR</td><td>1</td><td>TBS Fusion serial address</td></tr>
+<tr><td>VRX_SCAN</td><td>0</td><td>Set to 1 to start scan, auto-resets to 0</td></tr>
+<tr><td>VRX_SCANLO</td><td>5200</td><td>Scan start frequency (MHz)</td></tr>
+<tr><td>VRX_SCANHI</td><td>6000</td><td>Scan stop frequency (MHz)</td></tr>
+<tr><td>VRX_SCANST</td><td>10</td><td>Scan step (MHz)</td></tr>
+<tr><td>VRX_SCANRX</td><td>0</td><td>Scan receiver (0=A, 1=B)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="scan-results-format"><a class="header" href="#scan-results-format">Scan Results Format</a></h3>
+<p>Scan results arrive as a <code>TUNNEL</code> message with <code>payload_type 60100</code>. Binary payload:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>start_freq</td><td>u16 LE</td><td>Start frequency (MHz)</td></tr>
+<tr><td>step</td><td>u8</td><td>Step size (MHz)</td></tr>
+<tr><td>count</td><td>u8</td><td>Number of entries</td></tr>
+<tr><td>rx</td><td>u8</td><td>Receiver (0=A, 1=B)</td></tr>
+<tr><td>rssi[]</td><td>u8[]</td><td>RSSI value per frequency step</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="steadyview-x-vrx-integration"><a class="header" href="#steadyview-x-vrx-integration">SteadyView X VRX Integration</a></h2>
+<p>Remote frequency control for the ImmersionRC SteadyView X receiver over SERIAL4. Set <code>VRX_ENABLE=3</code>.</p>
+<h3 id="wiring-1"><a class="header" href="#wiring-1">Wiring</a></h3>
+<p>Same as TBS Fusion — single wire from SteadyView X UART to SERIAL4 pad, half-duplex.</p>
+<h3 id="features-2"><a class="header" href="#features-2">Features</a></h3>
+<p><strong>Remote frequency control</strong> — change the VRX channel from GCS by setting the <code>VRX_FREQ</code> parameter (in MHz). RSSI monitoring and band scanning are not available on this receiver.</p>
+<h3 id="parameters"><a class="header" href="#parameters">Parameters</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>VRX_ENABLE</td><td>3</td><td>SteadyView X serial backend</td></tr>
+<tr><td>VRX_FREQ</td><td>5800</td><td>Operating frequency (MHz)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
+<p>ArduPilot AntennaTracker firmware for KiwiF405-12S-Tracker. Flash via Mission Planner or <code>apj</code> upload over USB.</p>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="drobodrone-плата-для-керування-піротехнічними-системами"><a class="header" href="#drobodrone-плата-для-керування-піротехнічними-системами">Drobodrone: Плата для керування піротехнічними системами</a></h1>
 <p><img src="drobodrone.png" alt="image"></p>
-<h2 id="купити-на-kiwidrone"><a class="header" href="#купити-на-kiwidrone">Купити: <a href="https://kiwidrone.com.ua/drobodrone/">на kiwidrone</a></a></h2>
+<p><a href="https://kiwidrone.com.ua/drobodrone/" target="_blank" class="buy-online">Buy Online</a>
+<a href="https://kiwidrone.com.ua/drobodrone/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
 <h2 id="опис"><a class="header" href="#опис">Опис</a></h2>
 <p><strong>Drobodrone</strong> — це універсальна та безпечна плата для керування піротехнічними навантаженнями (парашути, феєрверки, маркери тощо), призначена для інтеграції у складі FPV, UAV та інших безпілотних систем. Підтримує до 4 незалежних каналів підриву з високим рівнем безпеки.</p>
 <p>Плата підтримує багаторазове використання і може бути повністю перепрограмована для кастомних сценаріїв.</p>
@@ -498,7 +631,7 @@ is designed to support your development process from start to finish.</p>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>The <strong>Kiwi-RM3100</strong> is an external compass module based on the PNI RM3100 magnetometer, designed as a DroneCAN peripheral for ArduPilot-powered flight controllers. Built on the STM32F103 MCU, it connects to any CAN-enabled flight controller and provides high-precision heading data via the DroneCAN protocol.</p>
 <p>The RM3100 sensor offers superior magnetic resolution and noise performance compared to common QMC5883L or HMC5843 compasses, making it well-suited for applications where accurate heading is critical — long-range wings, survey drones, and missions in magnetically noisy environments.</p>
-<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
+<h2 id="firmware-1"><a class="header" href="#firmware-1">Firmware</a></h2>
 <ul>
 <li>ArduPilot AP_Periph <a href="download/KiwiF103-RM3100.zip">KiwiF103-RM3100.zip</a></li>
 </ul>
@@ -746,7 +879,7 @@ Support for both Betaflight and ArduPilot allows this board to be used in a wide
 <p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems with full support
 for Betaflight and ArduPilot.
 Thanks to flexible relay, sensor, and telemetry connectivity, the controller is ready for real-world mission use.</p>
-<h2 id="firmware-1"><a class="header" href="#firmware-1">Firmware</a></h2>
+<h2 id="firmware-2"><a class="header" href="#firmware-2">Firmware</a></h2>
 <ul>
 <li>ArduPilot 4.6.2 <a href="download/KiwiF405-12S.zip">KiwiF405-12S.zip</a></li>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-4.5.3.zip</a></li>
@@ -757,7 +890,7 @@ Thanks to flexible relay, sensor, and telemetry connectivity, the controller is 
 <p><a href="kiwif405.png">(Click to zoom in)</a></p>
 <p><a href="kiwif405.png"><img src="kiwif405.png" width="200"></a>
 <a href="f405-12s-topbot.png"><img src="f405-12s-topbot.png" width="200"></a></p>
-<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<h2 id="features-3"><a class="header" href="#features-3">Features</a></h2>
 <ul>
 <li>Industrial-grade IMU Invensense ICM-42688P with external clock</li>
 <li>Bosch BMP388 barometer for altitude measurement</li>
@@ -970,7 +1103,7 @@ firmware.</p>
 <p>It is the next generation of the KiwiF405 family, offering 2MB flash, 480 MHz CPU clock, extended UART/SPI/I2C buses,
 and support for dual IMUs, barometer, and OSD integration.</p>
 <hr>
-<h2 id="firmware-2"><a class="header" href="#firmware-2">Firmware</a></h2>
+<h2 id="firmware-3"><a class="header" href="#firmware-3">Firmware</a></h2>
 <ul>
 <li>ArduPilot <a href="download/KiwiH743.zip">KiwiH743.zip</a></li>
 <li>ArduPilot (SD card) <a href="download/KiwiH743-sdcard.zip">KiwiH743-sdcard.zip</a></li>
@@ -1172,7 +1305,7 @@ relay:off(1)     -- RELAY2 OFF
 <h2 id="overview-2"><a class="header" href="#overview-2">Overview</a></h2>
 <p>The <strong>KiwiH743-Wing</strong> is a Pixhawk-format flight controller system consisting of two boards: a Flight Controller and a Power Distribution Board (PDB). Designed for expendable quadcopters and long-range fixed-wing drones. Ready to use with Rover, Wing, Quadcopter, and Hexacopter configurations.</p>
 <hr>
-<h2 id="firmware-3"><a class="header" href="#firmware-3">Firmware</a></h2>
+<h2 id="firmware-4"><a class="header" href="#firmware-4">Firmware</a></h2>
 <ul>
 <li>ArduPilot <a href="download/KiwiH743-wing.zip">KiwiH743-wing.zip</a></li>
 <li>Betaflight</li>
@@ -1210,7 +1343,7 @@ relay:off(1)     -- RELAY2 OFF
 <img src="h743-wing-fc.jpg" width="350">
 <img src="h743-wing-fc-bot.jpg" width="350">
 <p>Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.</p>
-<h3 id="features-1"><a class="header" href="#features-1">Features</a></h3>
+<h3 id="features-4"><a class="header" href="#features-4">Features</a></h3>
 <ul>
 <li>STM32H743 MCU</li>
 <li>12S power supply</li>
@@ -1603,12 +1736,12 @@ controlling external modules. With support for both Betaflight and ArduPilot, th
 range of use cases.</p>
 <p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems. Its flexible
 support for relays, sensors, and telemetry makes it ready for real-world mission environments.</p>
-<h2 id="firmware-4"><a class="header" href="#firmware-4">Firmware</a></h2>
+<h2 id="firmware-5"><a class="header" href="#firmware-5">Firmware</a></h2>
 <ul>
 <li>ArduPilot <a href="download/KiwiF405-6S.zip">KiwiF405-6S.zip</a></li>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4.hex">BF-4.5.3.hex</a></li>
 </ul>
-<h2 id="features-2"><a class="header" href="#features-2">Features</a></h2>
+<h2 id="features-5"><a class="header" href="#features-5">Features</a></h2>
 <ul>
 <li>Industrial-grade Invensense ICM-42688P IMU with external clock</li>
 <li>Bosch BMP388 barometer for altitude measurement</li>
@@ -1668,7 +1801,7 @@ support for relays, sensors, and telemetry makes it ready for real-world mission
 контролер до різних сценаріїв використання.</p>
 <p>KIWI F722 — це рішення для тих, хто шукає виняткову стабільність, розширені можливості підключення та готовність до
 будь-яких викликів у FPV та автономних польотах.</p>
-<h2 id="firmware-5"><a class="header" href="#firmware-5">Firmware</a></h2>
+<h2 id="firmware-6"><a class="header" href="#firmware-6">Firmware</a></h2>
 <ul>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF70.hex">KIWIF70</a></li>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF71.hex">KIWIF71</a></li>

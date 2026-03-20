@@ -139,64 +139,64 @@
 }
 
 .light, html:not(.js) {
-    --bg: hsl(0, 0%, 100%);
-    --fg: hsl(0, 0%, 0%);
+    --bg: #ffffff;
+    --fg: #4B4646;
 
-    --sidebar-bg: #fafafa;
-    --sidebar-fg: hsl(0, 0%, 0%);
-    --sidebar-non-existant: #aaaaaa;
-    --sidebar-active: #1f1fff;
-    --sidebar-spacer: #f4f4f4;
+    --sidebar-bg: #F9F7F7;
+    --sidebar-fg: #4B4646;
+    --sidebar-non-existant: #B7B1B1;
+    --sidebar-active: #0d9488;
+    --sidebar-spacer: #F1ECEC;
 
-    --scrollbar: #8F8F8F;
+    --scrollbar: #B7B1B1;
 
-    --icons: #747474;
-    --icons-hover: #000000;
+    --icons: #908a8a;
+    --icons-hover: #4B4646;
 
-    --links: #20609f;
+    --links: #0f766e;
 
-    --inline-code-color: #301900;
+    --inline-code-color: #4B4646;
 
-    --theme-popup-bg: #fafafa;
-    --theme-popup-border: #cccccc;
-    --theme-hover: #e6e6e6;
+    --theme-popup-bg: #F9F7F7;
+    --theme-popup-border: #E8E4E4;
+    --theme-hover: #F1ECEC;
 
-    --quote-bg: hsl(197, 37%, 96%);
-    --quote-border: hsl(197, 37%, 91%);
+    --quote-bg: #F9F7F7;
+    --quote-border: #E8E4E4;
 
     --warning-border: #ff8e00;
 
-    --table-border-color: hsl(0, 0%, 95%);
-    --table-header-bg: hsl(0, 0%, 80%);
-    --table-alternate-bg: hsl(0, 0%, 97%);
+    --table-border-color: #E8E4E4;
+    --table-header-bg: #F1ECEC;
+    --table-alternate-bg: #F9F7F7;
 
-    --searchbar-border-color: #aaa;
-    --searchbar-bg: #fafafa;
-    --searchbar-fg: #000;
-    --searchbar-shadow-color: #aaa;
-    --searchresults-header-fg: #666;
-    --searchresults-border-color: #888;
-    --searchresults-li-bg: #e4f2fe;
-    --search-mark-bg: #a2cff5;
+    --searchbar-border-color: #E8E4E4;
+    --searchbar-bg: #F9F7F7;
+    --searchbar-fg: #4B4646;
+    --searchbar-shadow-color: #E8E4E4;
+    --searchresults-header-fg: #908a8a;
+    --searchresults-border-color: #E8E4E4;
+    --searchresults-li-bg: #F1ECEC;
+    --search-mark-bg: #99f0e8;
 
     --color-scheme: light;
 
     /* Same as `--icons` */
-    --copy-button-filter: invert(45.49%);
-    /* Same as `--sidebar-active` */
-    --copy-button-filter-hover: invert(14%) sepia(93%) saturate(4250%) hue-rotate(243deg) brightness(99%) contrast(130%);
+    --copy-button-filter: invert(60%) sepia(5%) saturate(200%) hue-rotate(320deg) brightness(90%) contrast(90%);
+    /* Same as `--sidebar-active` / teal */
+    --copy-button-filter-hover: invert(42%) sepia(52%) saturate(600%) hue-rotate(131deg) brightness(92%) contrast(92%);
 
-    --footnote-highlight: #7e7eff;
+    --footnote-highlight: #0d9488;
 
     --overlay-bg: rgba(200, 200, 205, 0.4);
 
     --blockquote-note-color: #0969da;
-    --blockquote-tip-color: #008000;
+    --blockquote-tip-color: #0d9488;
     --blockquote-important-color: #8250df;
     --blockquote-warning-color: #9a6700;
     --blockquote-caution-color: #b52731;
 
-    --sidebar-header-border-color: #6e6edb;
+    --sidebar-header-border-color: #0d9488;
 }
 
 .navy {

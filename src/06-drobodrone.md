@@ -2,7 +2,8 @@
 ![image](drobodrone.png)
 
 
-## Купити: [на kiwidrone](https://kiwidrone.com.ua/drobodrone/)
+<a href="https://kiwidrone.com.ua/drobodrone/" target="_blank" class="buy-online">Buy Online</a>
+<a href="https://kiwidrone.com.ua/drobodrone/" target="_blank" class="buy-online-sticky">Buy Online</a>
 
 ## Опис
 

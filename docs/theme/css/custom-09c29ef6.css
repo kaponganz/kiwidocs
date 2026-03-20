@@ -19,6 +19,7 @@ html {
 .light, html:not(.js) {
     --sidebar-active: var(--kiwi-accent);
     --links: var(--kiwi-accent-dark);
+    --fg: #4B4646;
 }
 
 .navy {
