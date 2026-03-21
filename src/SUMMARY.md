@@ -21,7 +21,7 @@ For feedback, corrections, or suggestions, please contact us at support@kaponga.
 - [Ground Station - KIWI GCS Kit](./04-kiwiground.md)
 - [Antenna Tracker - KIWI AT](./kiwi-antenna-tracker.md)
 - [DroboDrone](./06-drobodrone.md)
-- [SmartESAD System]()
+- [SmartESAD System](./05-smartesad.md)
 
 ### Sensors
 

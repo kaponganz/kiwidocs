@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-074fbc64.js";
+            window.path_to_searchindex_js = "searchindex-8c91c28e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-9f945dfe.js"></script>
+        <script src="toc-f27d4e7b.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -194,7 +194,7 @@ is designed to support your development process from start to finish.</p>
 <li><a href="#kiwi-ground-station-kit">Ground Station - KIWI GCS Kit</a></li>
 <li><a href="#kiwi-antenna-tracker">Antenna Tracker - KIWI AT</a></li>
 <li><a href="#drobodrone-плата-для-керування-піротехнічними-системами">DroboDrone</a></li>
-<li><a href="#kiwi-flight-systems-manual">SmartESAD System</a></li>
+<li><a href="#smartesad">SmartESAD System</a></li>
 </ul>
 <h3 id="sensors"><a class="header" href="#sensors">Sensors</a></h3>
 <ul>
@@ -641,8 +641,124 @@ is designed to support your development process from start to finish.</p>
 <br>робота: arm=1 fire=1 fire=0 fire=1
 <br>додому: fire=0 arm=0</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="kiwi-rm3100-can-compass"><a class="header" href="#kiwi-rm3100-can-compass">Kiwi-RM3100 CAN Compass</a></h1>
+<h1 id="smartesad"><a class="header" href="#smartesad">SmartESAD</a></h1>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p><strong>SmartESAD</strong> (Emergency Safety Arming Device) — протокол серійного зв’язку між польотним контролером та платою <a href="#drobodrone-плата-для-керування-піротехнічними-системами">DroboDrone</a> через UART. Замість простого PWM керування, SmartESAD забезпечує двосторонній зв’язок: передачу команд, зворотній зв’язок про стан пристрою, та відображення статусу на OSD.</p>
+<p><strong>SmartESAD</strong> is a serial protocol for bidirectional communication between the flight controller and the <a href="#drobodrone-плата-для-керування-піротехнічними-системами">DroboDrone</a> board over UART. Instead of simple PWM control, SmartESAD provides command transmission, device status feedback, and OSD status display.</p>
+<hr>
+<h2 id="переваги-над-pwm--advantages-over-pwm"><a class="header" href="#переваги-над-pwm--advantages-over-pwm">Переваги над PWM / Advantages Over PWM</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>PWM</th><th>SmartESAD</th></tr>
+</thead>
+<tbody>
+<tr><td>Одностороннє керування</td><td>Двосторонній зв’язок</td></tr>
+<tr><td>Немає зворотного зв’язку</td><td>Статус пристрою на OSD</td></tr>
+<tr><td>2 дроти (ARM + FIRE)</td><td>1 дріт (UART)</td></tr>
+<tr><td>Немає контролю помилок</td><td>Checksum на кожному повідомленні</td></tr>
+<tr><td>Фіксована логіка</td><td>Настроювані таймери та пороги</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="стани-системи--system-states"><a class="header" href="#стани-системи--system-states">Стани системи / System States</a></h2>
+<p>SmartESAD керує DroboDrone через послідовність станів безпеки:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Стан / State</th><th>Опис / Description</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>SAFE</strong></td><td>Безпечно. Мотори вимкнені або система в очікуванні / Safe. Motors off or system idle</td></tr>
+<tr><td><strong>ALOFT</strong></td><td>В повітрі. Мотори працюють, жодна команда не активна / Airborne. Motors running, no command active</td></tr>
+<tr><td><strong>FLET</strong></td><td>Напівозброєно. Передня лінія / Semi-armed. Forward Line of Enemy Troops</td></tr>
+<tr><td><strong>ATTACK</strong></td><td>Озброєно. Готовий до пострілу / Armed. Ready to fire</td></tr>
+<tr><td><strong>FIRE</strong></td><td>Постріл / Deploy</td></tr>
+</tbody>
+</table>
+</div>
+<p>Пріоритет команд: FIRE &gt; ATTACK &gt; FLET</p>
+<hr>
+<h2 id="osd-статус--osd-status-display"><a class="header" href="#osd-статус--osd-status-display">OSD Статус / OSD Status Display</a></h2>
+<p>Пілот бачить поточний стан SmartESAD на OSD екрані:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Стан</th><th>OSD</th></tr>
+</thead>
+<tbody>
+<tr><td>Немає зв’язку</td><td><code>ESAD....</code> з анімацією <code>?</code></td></tr>
+<tr><td>Помилка зв’язку</td><td><code>ESAD ERR: CSUM/SEQ/SIZE</code></td></tr>
+<tr><td>Безпечно</td><td><code>SAFE</code></td></tr>
+<tr><td>Безпечно (таймер)</td><td><code>SAFE &lt;зворотний відлік&gt;</code></td></tr>
+<tr><td>Напівозброєно</td><td><code>FLET</code></td></tr>
+<tr><td>Озброєно</td><td><code>ATTACK</code></td></tr>
+<tr><td>Несправність</td><td><code>FAULT &lt;код&gt;</code></td></tr>
+<tr><td>Постріл</td><td><code>FIRE &lt;причина&gt;</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="перемикачі-rc--rc-mode-switches"><a class="header" href="#перемикачі-rc--rc-mode-switches">Перемикачі RC / RC Mode Switches</a></h2>
+<p>Три перемикачі на пульті керують станом DroboDrone:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Перемикач / Switch</th><th>Функція / Function</th></tr>
+</thead>
+<tbody>
+<tr><td>KIWI ESAD FLET</td><td>Напівозброєння / Semi-arm</td></tr>
+<tr><td>KIWI ESAD ATAK</td><td>Повне озброєння / Full arm</td></tr>
+<tr><td>KIWI ESAD FIRE</td><td>Постріл / Deploy</td></tr>
+</tbody>
+</table>
+</div>
+<p>Призначте перемикачі через вкладку <strong>Modes</strong> в Betaflight Configurator.</p>
+<hr>
+<h2 id="сумісні-плати--compatible-boards"><a class="header" href="#сумісні-плати--compatible-boards">Сумісні плати / Compatible Boards</a></h2>
+<p>SmartESAD вбудований у прошивку KIWI Betaflight для всіх плат KIWI:</p>
+<ul>
+<li>KIWI F405 6S</li>
+<li>KIWI F405 12S</li>
+<li>KIWI F722 6S</li>
+<li>KIWI H743</li>
+</ul>
+<hr>
+<h2 id="швидке-налаштування--quick-setup"><a class="header" href="#швидке-налаштування--quick-setup">Швидке налаштування / Quick Setup</a></h2>
+<h3 id="1-підключення--wiring"><a class="header" href="#1-підключення--wiring">1. Підключення / Wiring</a></h3>
+<p>Один дріт від UART TX/RX DroboDrone до вільного UART на польотному контролері.</p>
+<h3 id="2-cli-налаштування--cli-configuration"><a class="header" href="#2-cli-налаштування--cli-configuration">2. CLI налаштування / CLI Configuration</a></h3>
+<pre><code># Призначити UART для ESAD (наприклад UART4)
+serial 3 1048576 57600 57600 0 57600
+
+# Таймери та пороги (опціонально)
+set kiwi_esad_arm_delay = 170
+set kiwi_esad_sd_delay = 7200
+set kiwi_esad_hit_threshold = 10000
+
+# Позиція OSD елемента
+set kiwi_osd_esad_status_pos = 2242
+
+save
+</code></pre>
+<h3 id="3-betaflight-configurator"><a class="header" href="#3-betaflight-configurator">3. Betaflight Configurator</a></h3>
+<ol>
+<li><strong>Ports</strong> → оберіть UART, увімкніть SmartESAD</li>
+<li><strong>Modes</strong> → призначте FLET, ATAK, FIRE на перемикачі пульта</li>
+<li><strong>OSD</strong> → розмістіть елемент ESAD Status на екрані</li>
+</ol>
+<hr>
+<h2 id="протокол--protocol-summary"><a class="header" href="#протокол--protocol-summary">Протокол / Protocol Summary</a></h2>
+<ul>
+<li>UART 57600 baud, 32-біт бінарні повідомлення</li>
+<li>50 Hz обмін (надсилання/прийом по черзі)</li>
+<li>4-біт checksum на кожному повідомленні</li>
+<li>Автоматична ініціалізація при старті (версія, таймери, пороги)</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="kiwi-rm3100-can-compass"><a class="header" href="#kiwi-rm3100-can-compass">Kiwi-RM3100 CAN Compass</a></h1>
+<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
 <p>The <strong>Kiwi-RM3100</strong> is an external compass module based on the PNI RM3100 magnetometer, designed as a DroneCAN peripheral for ArduPilot-powered flight controllers. Built on the STM32F103 MCU, it connects to any CAN-enabled flight controller and provides high-precision heading data via the DroneCAN protocol.</p>
 <p>The RM3100 sensor offers superior magnetic resolution and noise performance compared to common QMC5883L or HMC5843 compasses, making it well-suited for applications where accurate heading is critical — long-range wings, survey drones, and missions in magnetically noisy environments.</p>
 <h2 id="firmware-1"><a class="header" href="#firmware-1">Firmware</a></h2>
@@ -885,7 +1001,7 @@ CAN_D1_PROTOCOL = 1   (DroneCAN)
 <p><img src="kiwif405-12s.jpeg" alt="kiwif405-12s.jpeg"></p>
 <p><a href="https://kiwidrone.com.ua/kiwi-f405-flight-controller/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-f405-flight-controller/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
-<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
+<h2 id="overview-2"><a class="header" href="#overview-2">Overview</a></h2>
 <p>KIWI F4.0 is a versatile flight controller based on the STM32F405, designed for FPV, wings, and autonomous platforms.
 The controller combines precision inertial sensing, OSD support, built-in Blackbox, and relay outputs for controlling
 external modules.
@@ -1110,7 +1226,7 @@ save
 <p><img src="KiwiH743.jpg" alt="KiwiH743.jpg"></p>
 <p><a href="https://kiwidrone.com.ua/kiwi-h743-fpv/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-h743-fpv/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
-<h2 id="overview-2"><a class="header" href="#overview-2">Overview</a></h2>
+<h2 id="overview-3"><a class="header" href="#overview-3">Overview</a></h2>
 <p>The <strong>KiwiH743</strong> is a high-performance flight controller based on the STM32H743 MCU, designed for advanced UAV
 applications. It combines powerful processing, flexible connectivity, and rich sensor support, optimized for ArduPilot
 firmware.</p>
@@ -1326,7 +1442,7 @@ relay:off(1)     -- RELAY2 OFF
 <h1 id="kiwih743-wing-flight-controller"><a class="header" href="#kiwih743-wing-flight-controller">KiwiH743-Wing Flight Controller</a></h1>
 <p><a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
-<h2 id="overview-3"><a class="header" href="#overview-3">Overview</a></h2>
+<h2 id="overview-4"><a class="header" href="#overview-4">Overview</a></h2>
 <p>The <strong>KiwiH743-Wing</strong> is a Pixhawk-format flight controller system consisting of two boards: a Flight Controller and a Power Distribution Board (PDB). Designed for expendable quadcopters and long-range fixed-wing drones. Ready to use with Rover, Wing, Quadcopter, and Hexacopter configurations.</p>
 <hr>
 <h2 id="firmware-4"><a class="header" href="#firmware-4">Firmware</a></h2>
@@ -2456,22 +2572,6 @@ support for relays, sensors, and telemetry makes it ready for real-world mission
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

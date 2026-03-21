@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Antenna Tracker - KIWI AT - KIWI Flight Systems</title>
+        <title>SmartESAD System - KIWI Flight Systems</title>
 
 
         <!-- Custom HTML head -->
@@ -175,156 +175,131 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="kiwi-antenna-tracker"><a class="header" href="#kiwi-antenna-tracker">KIWI Antenna Tracker</a></h1>
-<p>Antenna tracking module for the KIWI Ground Station Kit. Receives MAVLink telemetry from the UAV and automatically points the antenna toward the aircraft. Based on the KiwiF405-12S flight controller running ArduPilot AntennaTracker firmware.</p>
-<h2 id="features"><a class="header" href="#features">Features</a></h2>
+                        <h1 id="smartesad"><a class="header" href="#smartesad">SmartESAD</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p><strong>SmartESAD</strong> (Emergency Safety Arming Device) — протокол серійного зв’язку між польотним контролером та платою <a href="06-drobodrone.html">DroboDrone</a> через UART. Замість простого PWM керування, SmartESAD забезпечує двосторонній зв’язок: передачу команд, зворотній зв’язок про стан пристрою, та відображення статусу на OSD.</p>
+<p><strong>SmartESAD</strong> is a serial protocol for bidirectional communication between the flight controller and the <a href="06-drobodrone.html">DroboDrone</a> board over UART. Instead of simple PWM control, SmartESAD provides command transmission, device status feedback, and OSD status display.</p>
+<hr>
+<h2 id="переваги-над-pwm--advantages-over-pwm"><a class="header" href="#переваги-над-pwm--advantages-over-pwm">Переваги над PWM / Advantages Over PWM</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>PWM</th><th>SmartESAD</th></tr>
+</thead>
+<tbody>
+<tr><td>Одностороннє керування</td><td>Двосторонній зв’язок</td></tr>
+<tr><td>Немає зворотного зв’язку</td><td>Статус пристрою на OSD</td></tr>
+<tr><td>2 дроти (ARM + FIRE)</td><td>1 дріт (UART)</td></tr>
+<tr><td>Немає контролю помилок</td><td>Checksum на кожному повідомленні</td></tr>
+<tr><td>Фіксована логіка</td><td>Настроювані таймери та пороги</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="стани-системи--system-states"><a class="header" href="#стани-системи--system-states">Стани системи / System States</a></h2>
+<p>SmartESAD керує DroboDrone через послідовність станів безпеки:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Стан / State</th><th>Опис / Description</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>SAFE</strong></td><td>Безпечно. Мотори вимкнені або система в очікуванні / Safe. Motors off or system idle</td></tr>
+<tr><td><strong>ALOFT</strong></td><td>В повітрі. Мотори працюють, жодна команда не активна / Airborne. Motors running, no command active</td></tr>
+<tr><td><strong>FLET</strong></td><td>Напівозброєно. Передня лінія / Semi-armed. Forward Line of Enemy Troops</td></tr>
+<tr><td><strong>ATTACK</strong></td><td>Озброєно. Готовий до пострілу / Armed. Ready to fire</td></tr>
+<tr><td><strong>FIRE</strong></td><td>Постріл / Deploy</td></tr>
+</tbody>
+</table>
+</div>
+<p>Пріоритет команд: FIRE &gt; ATTACK &gt; FLET</p>
+<hr>
+<h2 id="osd-статус--osd-status-display"><a class="header" href="#osd-статус--osd-status-display">OSD Статус / OSD Status Display</a></h2>
+<p>Пілот бачить поточний стан SmartESAD на OSD екрані:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Стан</th><th>OSD</th></tr>
+</thead>
+<tbody>
+<tr><td>Немає зв’язку</td><td><code>ESAD....</code> з анімацією <code>?</code></td></tr>
+<tr><td>Помилка зв’язку</td><td><code>ESAD ERR: CSUM/SEQ/SIZE</code></td></tr>
+<tr><td>Безпечно</td><td><code>SAFE</code></td></tr>
+<tr><td>Безпечно (таймер)</td><td><code>SAFE &lt;зворотний відлік&gt;</code></td></tr>
+<tr><td>Напівозброєно</td><td><code>FLET</code></td></tr>
+<tr><td>Озброєно</td><td><code>ATTACK</code></td></tr>
+<tr><td>Несправність</td><td><code>FAULT &lt;код&gt;</code></td></tr>
+<tr><td>Постріл</td><td><code>FIRE &lt;причина&gt;</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="перемикачі-rc--rc-mode-switches"><a class="header" href="#перемикачі-rc--rc-mode-switches">Перемикачі RC / RC Mode Switches</a></h2>
+<p>Три перемикачі на пульті керують станом DroboDrone:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Перемикач / Switch</th><th>Функція / Function</th></tr>
+</thead>
+<tbody>
+<tr><td>KIWI ESAD FLET</td><td>Напівозброєння / Semi-arm</td></tr>
+<tr><td>KIWI ESAD ATAK</td><td>Повне озброєння / Full arm</td></tr>
+<tr><td>KIWI ESAD FIRE</td><td>Постріл / Deploy</td></tr>
+</tbody>
+</table>
+</div>
+<p>Призначте перемикачі через вкладку <strong>Modes</strong> в Betaflight Configurator.</p>
+<hr>
+<h2 id="сумісні-плати--compatible-boards"><a class="header" href="#сумісні-плати--compatible-boards">Сумісні плати / Compatible Boards</a></h2>
+<p>SmartESAD вбудований у прошивку KIWI Betaflight для всіх плат KIWI:</p>
 <ul>
-<li><strong>Automatic antenna tracking</strong> — receives GPS coordinates from the UAV via MAVLink and drives a yaw servo to keep the antenna pointed</li>
-<li><strong>Precision encoder</strong> — high-resolution heading sensor for accurate yaw position feedback</li>
-<li><strong>GPS</strong> — onboard GPS for tracker’s own position reference</li>
-<li><strong>TBS Fusion VRX control</strong> — built-in serial integration for remote frequency control, RSSI monitoring, and band scanning</li>
-<li><strong>Single-servo yaw</strong> — continuous rotation servo on output 1</li>
-<li><strong>Plug-and-play</strong> — pre-configured defaults, connects directly to the Ground Station Kit</li>
+<li>KIWI F405 6S</li>
+<li>KIWI F405 12S</li>
+<li>KIWI F722 6S</li>
+<li>KIWI H743</li>
 </ul>
-<h2 id="connections"><a class="header" href="#connections">Connections</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Port</th><th>Function</th><th>Default Protocol</th></tr>
-</thead>
-<tbody>
-<tr><td>USB</td><td>GCS / Configuration</td><td>MAVLink2</td></tr>
-<tr><td>SERIAL1</td><td>RC Input</td><td>SBUS/CRSF</td></tr>
-<tr><td>SERIAL2</td><td>MAVLink Telemetry</td><td>MAVLink2 (460800)</td></tr>
-<tr><td>SERIAL3</td><td>GPS</td><td>GPS (115200)</td></tr>
-<tr><td>SERIAL4</td><td>TBS Fusion VRX</td><td>VRX Serial (115200, half-duplex)</td></tr>
-<tr><td>SERIAL5</td><td>MAVLink2 GCS (RS422)</td><td>MAVLink2</td></tr>
-<tr><td>PWM1</td><td>Yaw Servo</td><td>Continuous rotation</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="modes"><a class="header" href="#modes">Modes</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Mode</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>MANUAL (0)</td><td>Direct servo control from RC</td></tr>
-<tr><td>STOP (1)</td><td>Hold current position</td></tr>
-<tr><td>SCAN (2)</td><td>Sweep back and forth searching for vehicle</td></tr>
-<tr><td>AUTO (10)</td><td>Track vehicle automatically using MAVLink GPS</td></tr>
-</tbody>
-</table>
-</div>
-<p>Default startup mode is MANUAL.</p>
-<h2 id="video-receiver-control"><a class="header" href="#video-receiver-control">Video Receiver Control</a></h2>
-<p>The tracker supports remote control of 5.8 GHz video receivers over SERIAL4. Two receivers are currently supported:</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>VRX</th><th>VRX_ENABLE</th><th>Frequency Control</th><th>RSSI</th><th>Band Scan</th></tr>
-</thead>
-<tbody>
-<tr><td>TBS Fusion</td><td>2</td><td>Yes</td><td>Yes (dual RX)</td><td>Yes</td></tr>
-<tr><td>SteadyView X</td><td>3</td><td>Yes</td><td>No</td><td>No</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="tbs-fusion-vrx-integration"><a class="header" href="#tbs-fusion-vrx-integration">TBS Fusion VRX Integration</a></h2>
-<p>The tracker has built-in support for controlling a TBS Fusion 5.8 GHz video receiver over a single-wire UART connection (SERIAL4). No CAN bus or additional boards required.</p>
-<h3 id="wiring"><a class="header" href="#wiring">Wiring</a></h3>
-<p>One wire from TBS Fusion UART TX/RX to the tracker’s SERIAL4 pad. Half-duplex is pre-configured (<code>SERIAL4_OPTIONS=4</code>). Power the Fusion separately — only the data wire is needed.</p>
-<h3 id="features-1"><a class="header" href="#features-1">Features</a></h3>
-<p><strong>Real-time RSSI monitoring</strong> — dual-receiver signal strength (Receiver A and B) and current frequency are polled at 2 Hz and streamed to GCS as MAVLink <code>NAMED_VALUE_FLOAT</code> messages:</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Message</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>VRXF</code></td><td>Current frequency (MHz)</td></tr>
-<tr><td><code>VRXA</code></td><td>RSSI Receiver A (0.0–1.0)</td></tr>
-<tr><td><code>VRXB</code></td><td>RSSI Receiver B (0.0–1.0)</td></tr>
-</tbody>
-</table>
-</div>
-<p><strong>Remote frequency control</strong> — change the VRX operating frequency from GCS by setting the <code>VRX_FREQ</code> parameter (in MHz, e.g. 5800). The tracker confirms the change and reports back via GCS status message.</p>
-<p><strong>Frequency range scan</strong> — trigger a full-band scan from GCS to find active video transmitters. Scan results (RSSI per frequency) are delivered as a binary MAVLink <code>TUNNEL</code> message (<code>payload_type 60100</code>) for GCS-side visualization.</p>
-<h3 id="vrx-parameters"><a class="header" href="#vrx-parameters">VRX Parameters</a></h3>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>VRX_ENABLE</td><td>2</td><td>0=Off, 2=TBS Fusion, 3=SteadyView X</td></tr>
-<tr><td>VRX_FREQ</td><td>5800</td><td>Operating frequency (MHz)</td></tr>
-<tr><td>VRX_ADDR</td><td>1</td><td>TBS Fusion serial address</td></tr>
-</tbody>
-</table>
-</div>
-<h3 id="scan-parameters"><a class="header" href="#scan-parameters">Scan Parameters</a></h3>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>VRX_SCAN</td><td>0</td><td>Set to 1 to start scan, auto-resets to 0</td></tr>
-<tr><td>VRX_SCANLO</td><td>5200</td><td>Scan start frequency (MHz)</td></tr>
-<tr><td>VRX_SCANHI</td><td>6000</td><td>Scan stop frequency (MHz)</td></tr>
-<tr><td>VRX_SCANST</td><td>10</td><td>Scan step (MHz)</td></tr>
-<tr><td>VRX_SCANRX</td><td>0</td><td>Scan receiver (0=A, 1=B)</td></tr>
-</tbody>
-</table>
-</div>
-<h3 id="scan-results-format"><a class="header" href="#scan-results-format">Scan Results Format</a></h3>
-<p>Scan results arrive as a <code>TUNNEL</code> message with <code>payload_type 60100</code>. Binary payload:</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Field</th><th>Type</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>start_freq</td><td>u16 LE</td><td>Start frequency (MHz)</td></tr>
-<tr><td>step</td><td>u8</td><td>Step size (MHz)</td></tr>
-<tr><td>count</td><td>u8</td><td>Number of entries</td></tr>
-<tr><td>rx</td><td>u8</td><td>Receiver (0=A, 1=B)</td></tr>
-<tr><td>rssi[]</td><td>u8[]</td><td>RSSI value per frequency step</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="steadyview-x-vrx-integration"><a class="header" href="#steadyview-x-vrx-integration">SteadyView X VRX Integration</a></h2>
-<p>Remote frequency control for the ImmersionRC SteadyView X receiver over SERIAL4. Set <code>VRX_ENABLE=3</code>.</p>
-<h3 id="wiring-1"><a class="header" href="#wiring-1">Wiring</a></h3>
-<p>Same as TBS Fusion — single wire from SteadyView X UART to SERIAL4 pad, half-duplex.</p>
-<h3 id="features-2"><a class="header" href="#features-2">Features</a></h3>
-<p><strong>Remote frequency control</strong> — change the VRX channel from GCS by setting the <code>VRX_FREQ</code> parameter (in MHz). RSSI monitoring and band scanning are not available on this receiver.</p>
-<h3 id="parameters"><a class="header" href="#parameters">Parameters</a></h3>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>VRX_ENABLE</td><td>3</td><td>SteadyView X serial backend</td></tr>
-<tr><td>VRX_FREQ</td><td>5800</td><td>Operating frequency (MHz)</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
-<p>ArduPilot AntennaTracker firmware for KiwiF405-12S-Tracker. Flash via Mission Planner or <code>apj</code> upload over USB.</p>
+<hr>
+<h2 id="швидке-налаштування--quick-setup"><a class="header" href="#швидке-налаштування--quick-setup">Швидке налаштування / Quick Setup</a></h2>
+<h3 id="1-підключення--wiring"><a class="header" href="#1-підключення--wiring">1. Підключення / Wiring</a></h3>
+<p>Один дріт від UART TX/RX DroboDrone до вільного UART на польотному контролері.</p>
+<h3 id="2-cli-налаштування--cli-configuration"><a class="header" href="#2-cli-налаштування--cli-configuration">2. CLI налаштування / CLI Configuration</a></h3>
+<pre><code># Призначити UART для ESAD (наприклад UART4)
+serial 3 1048576 57600 57600 0 57600
+
+# Таймери та пороги (опціонально)
+set kiwi_esad_arm_delay = 170
+set kiwi_esad_sd_delay = 7200
+set kiwi_esad_hit_threshold = 10000
+
+# Позиція OSD елемента
+set kiwi_osd_esad_status_pos = 2242
+
+save
+</code></pre>
+<h3 id="3-betaflight-configurator"><a class="header" href="#3-betaflight-configurator">3. Betaflight Configurator</a></h3>
+<ol>
+<li><strong>Ports</strong> → оберіть UART, увімкніть SmartESAD</li>
+<li><strong>Modes</strong> → призначте FLET, ATAK, FIRE на перемикачі пульта</li>
+<li><strong>OSD</strong> → розмістіть елемент ESAD Status на екрані</li>
+</ol>
+<hr>
+<h2 id="протокол--protocol-summary"><a class="header" href="#протокол--protocol-summary">Протокол / Protocol Summary</a></h2>
+<ul>
+<li>UART 57600 baud, 32-біт бінарні повідомлення</li>
+<li>50 Hz обмін (надсилання/прийом по черзі)</li>
+<li>4-біт checksum на кожному повідомленні</li>
+<li>Автоматична ініціалізація при старті (версія, таймери, пороги)</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="04-kiwiground.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="06-drobodrone.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="06-drobodrone.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="kiwi-rm3100.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -334,11 +309,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="04-kiwiground.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="06-drobodrone.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="06-drobodrone.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="kiwi-rm3100.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
