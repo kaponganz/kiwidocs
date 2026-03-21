@@ -14,7 +14,7 @@
 
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-84c1b2f5.css">
+        <link rel="stylesheet" href="css/variables-d0fe17bd.css">
         <link rel="stylesheet" href="css/general-2459343d.css">
         <link rel="stylesheet" href="css/chrome-ae938929.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
@@ -28,7 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/css/custom-09c29ef6.css">
+        <link rel="stylesheet" href="theme/css/custom-6ce167cc.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62e749a1.js";
+            window.path_to_searchindex_js = "searchindex-074fbc64.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-99fb4d68.js"></script>
+        <script src="toc-9f945dfe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -192,42 +192,52 @@ and support for dual IMUs, barometer, and OSD integration.</p>
 <li>ArduPilot (SD card) <a href="download/KiwiH743-sdcard.zip">KiwiH743-sdcard.zip</a></li>
 <li>Betaflight</li>
 </ul>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<ul>
+<li>Dual IMUs: ICM-42688P + ICM-45686 with EKF3 dual-source fusion</li>
+<li>BMP388 barometer, external compass support (I²C probing)</li>
+<li>Integrated OSD (MAX7456-compatible via SPI4)</li>
+<li>14 PWM outputs (8 motors + 6 servos), DShot bidirectional on M1–M4</li>
+<li>7 hardware UARTs + 2 USB ports (OTG1 MAVLink, OTG2 HiSpeed serial)</li>
+<li>16 MB DataFlash + external SD card slot</li>
+<li>Visual odometry, external AHRS, GPS moving baseline support</li>
+<li>Gyro FFT for vibration analysis</li>
+<li>INS temperature calibration</li>
+<li>Guided (NoGPS), FlowHold, OpticalFlow modes</li>
+</ul>
 <h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
-<h3 id="processor-memory-clock"><a class="header" href="#processor-memory-clock">Processor, Memory, Clock</a></h3>
 <ul>
-<li>MCU: STM32H743VIT6</li>
-<li>Architecture: ARM Cortex-M7</li>
-<li>Max Frequency: 480 MHz</li>
-<li>Flash: 2048 KB (2 MB)</li>
-<li>FPU: Single-precision, hardware accelerated</li>
-<li>Crystal Frequency: 16 MHz external oscillator</li>
-<li>DataFlash: 16 MB</li>
-<li>OSD Type: Integrated (MAX7456-compatible)</li>
-<li>External SD card slot via SPI</li>
+<li>MCU: STM32H743VIT6 (ARM Cortex-M7, 480 MHz, 2048 KB flash)</li>
+<li>Crystal: 16 MHz external oscillator</li>
+<li>IMU1: ICM-42688P (SPI6, rotation YAW_180)</li>
+<li>IMU2: ICM-45686 (SPI2, rotation YAW_270)</li>
+<li>Barometer: BMP388 (I2C2, address 0x76)</li>
+<li>OSD: MAX7456-compatible (SPI4)</li>
+<li>DataFlash: 16 MB (SPI3)</li>
+<li>LED: PE4 (active low)</li>
+<li>Dimensions: 36×36 mm, mounting 30.5×30.5 mm</li>
 </ul>
 <hr>
-<h2 id="connectivity"><a class="header" href="#connectivity">Connectivity</a></h2>
-<h3 id="usb-uart-spi-peripherals"><a class="header" href="#usb-uart-spi-peripherals">USB, UART, SPI Peripherals</a></h3>
-<ul>
-<li>USB OTG1 (Mavlink)</li>
-<li>USB OTG2 HiSpeed (Serial)</li>
-<li>7 hardware UARTs</li>
-<li>Dedicated functions:
-<ul>
-<li>UART8: RC input (SBUS/DSM)</li>
-<li>Others available for GPS, telemetry, peripherals</li>
-</ul>
-</li>
-<li>SPI1 bus available for external peripherals</li>
-</ul>
-<hr>
-<h2 id="sensors"><a class="header" href="#sensors">Sensors</a></h2>
-<ul>
-<li>IMU1: ICM-42688P</li>
-<li>IMU2: ICM-45686</li>
-<li>Barometer: BMP388</li>
-<li>External compass support: yes (I²C probing enabled)</li>
-</ul>
+<h2 id="serial-ports"><a class="header" href="#serial-ports">Serial Ports</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Port</th><th>ArduPilot</th><th>Default Protocol</th><th>Pins</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>USB</td><td>SERIAL0</td><td>MAVLink</td><td>PA11, PA12</td><td>OTG1 Full Speed</td></tr>
+<tr><td>USART1</td><td>SERIAL1</td><td>ESC Telemetry (115200)</td><td>PA10</td><td>RX only</td></tr>
+<tr><td>USART2</td><td>SERIAL2</td><td>SmartAudio (115200)</td><td>PD5, PD6</td><td>NODMA</td></tr>
+<tr><td>USART3</td><td>SERIAL3</td><td>—</td><td>PD8, PD9</td><td></td></tr>
+<tr><td>UART4</td><td>SERIAL4</td><td>—</td><td>PD1, PD0</td><td></td></tr>
+<tr><td>UART5</td><td>SERIAL5</td><td>MAVLink1 (57600)</td><td>PB6, PD2</td><td>NODMA</td></tr>
+<tr><td>UART7</td><td>SERIAL7</td><td>MAVLink2</td><td>PE8, PE7</td><td>RTS: PE9, CTS: PE10</td></tr>
+<tr><td>UART8</td><td>SERIAL8</td><td>RC Input</td><td>PE1, PE0</td><td>SBUS/DSM</td></tr>
+<tr><td>USB HS</td><td>SERIAL9</td><td>—</td><td></td><td>OTG2 HiSpeed</td></tr>
+</tbody>
+</table>
+</div>
+<p>RC input: SBUS/DSM on PE11.</p>
 <hr>
 <h2 id="gpios-relays-and-aux"><a class="header" href="#gpios-relays-and-aux">GPIOs, Relays, and AUX</a></h2>
 <h3 id="dedicated-gpio-pads"><a class="header" href="#dedicated-gpio-pads">Dedicated GPIO Pads</a></h3>
@@ -248,7 +258,6 @@ and support for dual IMUs, barometer, and OSD integration.</p>
 <p><strong>Note:</strong> <code>RELAY1_PIN</code> defaults to GPIO 100 (Camera Switch pad, PA8), not the pad labeled “RELAY1” (PD4, GPIO 101). This is set in the hwdef. Adjust if your wiring differs.</p>
 </blockquote>
 <h3 id="pwm-outputs"><a class="header" href="#pwm-outputs">PWM Outputs</a></h3>
-<p>RC input: SBUS/DSM on PE11.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -333,43 +342,44 @@ relay:off(1)     -- RELAY2 OFF
 </table>
 </div>
 <hr>
-<h2 id="debug--development"><a class="header" href="#debug--development">Debug &amp; Development</a></h2>
+<h2 id="buses"><a class="header" href="#buses">Buses</a></h2>
+<h3 id="spi"><a class="header" href="#spi">SPI</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Bus</th><th>CLK</th><th>MISO</th><th>MOSI</th><th>Usage</th></tr>
+</thead>
+<tbody>
+<tr><td>SPI1</td><td>PA5</td><td>PA6</td><td>PA7</td><td>SD Card (CS: PA4)</td></tr>
+<tr><td>SPI2</td><td>PB13</td><td>PB14</td><td>PB15</td><td>IMU2 ICM-45686 (CS: PD10)</td></tr>
+<tr><td>SPI3</td><td>PC10</td><td>PC11</td><td>PC12</td><td>DataFlash (CS: PD3)</td></tr>
+<tr><td>SPI4</td><td>PE2</td><td>PE5</td><td>PE6</td><td>OSD MAX7456 (CS: PE3)</td></tr>
+<tr><td>SPI6</td><td>PB3</td><td>PB4</td><td>PB5</td><td>IMU1 ICM-42688P (CS: PC13)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="i2c"><a class="header" href="#i2c">I2C</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Bus</th><th>SCL</th><th>SDA</th><th>Devices</th></tr>
+</thead>
+<tbody>
+<tr><td>I2C2</td><td>PB10</td><td>PB11</td><td>BMP388 (0x76), external compass</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="default-frame-and-modes"><a class="header" href="#default-frame-and-modes">Default Frame and Modes</a></h2>
 <ul>
-<li>SWD Pins:
-<ul>
-<li><code>PA13</code>: JTMS-SWDIO</li>
-<li><code>PA14</code>: JTCK-SWCLK</li>
-</ul>
-</li>
+<li>Default frame: Quadcopter X (FRAME_TYPE=3, BetaFlight-X motor order)</li>
+<li>Motor protocol: DShot (MOT_PWM_TYPE=5)</li>
+<li>BLHeli passthrough: enabled (SERVO_BLH_AUTO=1, mask=15)</li>
+<li>Flight mode channel: CH8</li>
+<li>VTX: enabled, band 6, channel 4</li>
 </ul>
 <hr>
-<h2 id="leds--indicators"><a class="header" href="#leds--indicators">LEDs &amp; Indicators</a></h2>
-<ul>
-<li>Status LED: <code>PE4</code> (active-low)</li>
-</ul>
-<hr>
-<h2 id="advanced-features"><a class="header" href="#advanced-features">Advanced Features</a></h2>
-<ul>
-<li>Visual odometry integration: enabled</li>
-<li>External AHRS support</li>
-<li>GPS moving baseline enabled</li>
-<li>Gyro FFT enabled (vibration analysis)</li>
-<li>INS temperature calibration enabled</li>
-<li>Guided (NoGPS) supported</li>
-</ul>
-<hr>
-<h2 id="default-frame--modes"><a class="header" href="#default-frame--modes">Default Frame &amp; Modes</a></h2>
-<ul>
-<li>Default frame: Quadcopter X (FRAME_TYPE=12, Betaflight-X motor order)</li>
-<li>Flight modes enabled by default:
-<ul>
-<li>Guided (NoGPS)</li>
-<li>FlowHold</li>
-<li>OpticalFlow</li>
-</ul>
-</li>
-</ul>
-<h2 id="pinouts-and-schematics"><a class="header" href="#pinouts-and-schematics">Pinouts and schematics</a></h2>
+<h2 id="pinout-reference"><a class="header" href="#pinout-reference">Pinout Reference</a></h2>
 <h3 id="esc-pins"><a class="header" href="#esc-pins">ESC Pins</a></h3>
 <pre><code>1 - ESC Telemetry
 2 - ESC Current

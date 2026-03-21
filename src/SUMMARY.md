@@ -39,4 +39,8 @@ For feedback, corrections, or suggestions, please contact us at support@kaponga.
 - [Flight Controller - KIWI F405 6S ](./02.1-kiwif405-6s.md)
 - [Flight Controller - KIWI F722 6S](./02.3-kiwif722.md)
 
+### Reference
+
+- [MIL-STD-1472H UI/UX Guidelines](./mil-std-1472h-uiux.md)
+
 -----------

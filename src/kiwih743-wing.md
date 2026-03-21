@@ -16,78 +16,22 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 
 ---
 
-## Premium Features
+## Features
 
-### GPS-less Takeoff (ArduPlane)
-
-KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.
-
-**Parameters:**
-
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| `FLIGHT_OPTIONS` | 32768 | Enable GPS-less takeoff |
-| `ARMING_CHECK` | 0 | Disable arming checks |
-| `TKOFF_ALT` | 50 | Target takeoff altitude (meters) |
-| `TKOFF_THR_MINACC` | 0 | No accelerometer trigger, timer only |
-| `TKOFF_THR_MINSPD` | 0 | No minimum ground speed required |
-| `TKOFF_THR_MAX` | 100 | Max throttle % during takeoff |
-| `TKOFF_THR_DELAY` | 2 | Delay before launch (0.2s) |
-
-**Procedure:**
-
-1. Power on, wait for EKF convergence
-2. Set home (from GPS before loss, or manually via MAVLink)
-3. Arm in FBWA mode
-4. Switch to TAKEOFF mode
-
----
-
-## Flight Controller
-
-
-<img src="h743-wing-fc.jpg" width="350">
-<img src="h743-wing-fc-bot.jpg" width="350">
-
-Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.
-
-### Features
-
-- STM32H743 MCU
+- STM32H743 MCU (480 MHz, 2 MB flash)
 - 12S power supply
 - 5V, 6/7V, 9/12V 5A BECs
 - ICM-42688P and ICM-45686 with power and hardware signal filtering
 - BMP388 barometer
 - Dual camera input, switchable
-- 8 motors
-- 7 servos
+- 8 motors + 7 servos (15 PWM outputs)
 - 5 UARTs, UART7 with flow control
-- 1 SPI
-- 1 I2C
-- 5 GPIOs
-- 2 relay outputs, 9/12V switch
+- 1 SPI, 1 I2C, FDCAN
+- 5 GPIOs, 2 relay outputs, 9/12V switch
 - Analog + digital VTX output
 - STM32G4 OSD
 - SD card via SDMMC
-- 36.0 х 39.0 mm mounting holes
-- 40 x 42 mm board dimensions
-
----
-
-## Power Distribution Board (PDB)
-
-![KiwiH743-Wing PDB](h743-wing-pdb.jpg)
-
-### Features
-
-- 4S–12S power input
-- 5V 5A output
-- 5/6/7/9V 5A adjustable output
-- 12V 5A output
-- 3.3V 1A output
-- 0.1 mOhm current sensor
-- 36 x 39 mm mounting holes
-- 42 x 75 mm board dimensions
+- 40 x 42 mm board, 36 x 39 mm mounting holes
 
 ---
 
@@ -130,7 +74,7 @@ Built around the STM32H743, the flight controller provides dual IMUs with hardwa
 
 ---
 
-## UART Mapping
+## Serial Ports
 
 | Serial | UART | TX Pin | RX Pin | Notes |
 |---|---|---|---|---|
@@ -158,7 +102,7 @@ Built around the STM32H743, the flight controller provides dual IMUs with hardwa
 | AUX 2    | PB3  | 106  | Output LOW | `RELAY5_PIN=106`, `RELAY5_FUNC=1`     |
 | AUX 3    | PE5  | 107  | Output LOW | —                                     |
 | AUX 4    | PC13 | 103  | Output LOW | Shared with VIDEO BOOT                |
-| VID NRST | PE3  | 104  | Output LOW | `RELAY6_PIN=104` (hwdef default)      |
+| VID NRST | PE3  | 104  | Output LOW | `RELAY6_PIN=104` (hwdef default), inverted |
 | CAN SIL  | PE4  | 70   | Output LOW | CAN silent mode                       |
 | BUZZER   | PA15 | 32   | Alarm      | —                                     |
 | LED      | PD11 | 90   | Status LED | —                                     |
@@ -167,23 +111,23 @@ Built around the STM32H743, the flight controller provides dual IMUs with hardwa
 
 ### PWM Outputs
 
-| Output   | Pin  | GPIO | Timer    | Function  |
-|----------|------|------|----------|-----------|
-| SERVO 1  | PA10 | 50   | TIM1_CH3 | Motor 1   |
-| SERVO 2  | PA9  | 51   | TIM1_CH2 | Motor 2   |
-| SERVO 3  | PA8  | 52   | TIM1_CH1 | Motor 3   |
-| SERVO 4  | PD15 | 53   | TIM4_CH4 | Motor 4   |
-| SERVO 5  | PD14 | 54   | TIM4_CH3 | Motor 5   |
-| SERVO 6  | PD13 | 55   | TIM4_CH2 | Motor 6   |
-| SERVO 7  | PD12 | 56   | TIM4_CH1 | Motor 7   |
-| SERVO 8  | PB1  | 57   | TIM3_CH4 | Motor 8   |
-| SERVO 9  | PB0  | 58   | TIM3_CH3 | Servo 1   |
-| SERVO 10 | PB4  | 59   | TIM3_CH1 | Servo 2   |
-| SERVO 11 | PB5  | 60   | TIM3_CH2 | Servo 3   |
-| SERVO 12 | PA3  | 61   | TIM5_CH4 | Servo 4   |
-| SERVO 13 | PA2  | 62   | TIM5_CH3 | Servo 5   |
-| SERVO 14 | PA1  | 63   | TIM5_CH2 | Servo 6   |
-| SERVO 15 | PA0  | 64   | TIM5_CH1 | Servo 7   |
+| Output   | Pin  | GPIO | Timer    | Function  | DShot Bidir |
+|----------|------|------|----------|-----------|-------------|
+| SERVO 1  | PA10 | 50   | TIM1_CH3 | Motor 1   | No          |
+| SERVO 2  | PA9  | 51   | TIM1_CH2 | Motor 2   | No          |
+| SERVO 3  | PA8  | 52   | TIM1_CH1 | Motor 3   | No          |
+| SERVO 4  | PD15 | 53   | TIM4_CH4 | Motor 4   | No          |
+| SERVO 5  | PD14 | 54   | TIM4_CH3 | Motor 5   | No          |
+| SERVO 6  | PD13 | 55   | TIM4_CH2 | Motor 6   | No          |
+| SERVO 7  | PD12 | 56   | TIM4_CH1 | Motor 7   | No          |
+| SERVO 8  | PB1  | 57   | TIM3_CH4 | Motor 8   | No          |
+| SERVO 9  | PB0  | 58   | TIM3_CH3 | Servo 1   | No          |
+| SERVO 10 | PB4  | 59   | TIM3_CH1 | Servo 2   | No          |
+| SERVO 11 | PB5  | 60   | TIM3_CH2 | Servo 3   | No          |
+| SERVO 12 | PA3  | 61   | TIM5_CH4 | Servo 4   | No          |
+| SERVO 13 | PA2  | 62   | TIM5_CH3 | Servo 5   | No          |
+| SERVO 14 | PA1  | 63   | TIM5_CH2 | Servo 6   | No          |
+| SERVO 15 | PA0  | 64   | TIM5_CH1 | Servo 7   | No          |
 
 PWM pins can be reassigned to GPIO via `SERVOn_FUNCTION=0` + `RELAYn_PIN=<gpio>`.
 
@@ -208,6 +152,18 @@ relay:off(1)     -- RELAY2 OFF
 ```
 
 All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial state.
+
+**OSD Reset (RELAY6):**
+
+RELAY6 controls the STM32G4 OSD reset line (VID NRST). Active low — set `RELAY6_INVERTED=1` so that "relay on" pulls the line low (reset) and "relay off" releases it.
+
+```
+param set RELAY6_PIN 104
+param set RELAY6_FUNCTION 1
+param set RELAY6_INVERTED 1
+relay set 5 1   # reset OSD
+relay set 5 0   # release reset
+```
 
 ---
 
@@ -277,6 +233,75 @@ All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial sta
 
 ---
 
+## Premium Features
+
+### GPS-less Takeoff (ArduPlane)
+
+KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.
+
+**Parameters:**
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `FLIGHT_OPTIONS` | 32768 | Enable GPS-less takeoff |
+| `ARMING_CHECK` | 0 | Disable arming checks |
+| `TKOFF_ALT` | 50 | Target takeoff altitude (meters) |
+| `TKOFF_THR_MINACC` | 0 | No accelerometer trigger, timer only |
+| `TKOFF_THR_MINSPD` | 0 | No minimum ground speed required |
+| `TKOFF_THR_MAX` | 100 | Max throttle % during takeoff |
+| `TKOFF_THR_DELAY` | 2 | Delay before launch (0.2s) |
+
+**Procedure:**
+
+1. Power on, wait for EKF convergence
+2. Set home (from GPS before loss, or manually via MAVLink)
+3. Arm in FBWA mode
+4. Switch to TAKEOFF mode
+
+---
+
+## Displayport OSD
+
+HD OSD via MSP Displayport on SERIAL8 (OSD UART). Compatible with DJI O3, HDZero, Walksnail.
+
+```
+param set OSD_TYPE 5
+param set OSD_UNITS 0
+param set MSP_OPTIONS 4
+param set MSP_OSD_NCELLS 0
+param set SERIAL8_BAUD 115
+param set SERIAL8_OPTIONS 0
+param set SERIAL8_PROTOCOL 42
+```
+
+---
+
+## Flight Controller
+
+<img src="h743-wing-fc.jpg" width="350">
+<img src="h743-wing-fc-bot.jpg" width="350">
+
+Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.
+
+---
+
+## Power Distribution Board (PDB)
+
+![KiwiH743-Wing PDB](h743-wing-pdb.jpg)
+
+### Features
+
+- 4S–12S power input
+- 5V 5A output
+- 5/6/7/9V 5A adjustable output
+- 12V 5A output
+- 3.3V 1A output
+- 0.1 mOhm current sensor
+- 36 x 39 mm mounting holes
+- 42 x 75 mm board dimensions
+
+---
+
 ## Other
 
 | Function | Pin | Notes |
@@ -294,6 +319,8 @@ All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial sta
 ---
 
 ## Full Pinout Reference
+
+### Port A (PA)
 
 | Pin | Function | Alternate |
 |---|---|---|
@@ -313,6 +340,11 @@ All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial sta
 | PA13 | SWDIO | |
 | PA14 | SWDCLK | |
 | PA15 | BUZZER | TIM2 CH1 |
+
+### Port B (PB)
+
+| Pin | Function | Alternate |
+|---|---|---|
 | PB0 | SERVO 9 | |
 | PB1 | SERVO 8 | ADC1 IN5 |
 | PB2 | IMU 1 CS | |
@@ -329,6 +361,11 @@ All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial sta
 | PB13 | Serial 5 TX | |
 | PB14 | Serial 1 TX | |
 | PB15 | Serial 1 RX | |
+
+### Port C (PC)
+
+| Pin | Function | Alternate |
+|---|---|---|
 | PC0 | ADC 2 | ADC1 IN10 |
 | PC1 | ADC 1 | ADC1 IN11 |
 | PC2_C | ADC 3 | ADC3 IN0 |
@@ -343,6 +380,11 @@ All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial sta
 | PC11 | SDMMC D3 | |
 | PC12 | SDMMC CK | |
 | PC13 | VIDEO BOOT / AUX 4 | |
+
+### Port D (PD)
+
+| Pin | Function | Alternate |
+|---|---|---|
 | PD0 | Serial 4 RX | |
 | PD1 | Serial 4 TX | |
 | PD2 | SDMMC CMD | |
@@ -358,6 +400,11 @@ All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial sta
 | PD13 | SERVO 6 | TIM4 CH2 |
 | PD14 | SERVO 5 | TIM4 CH3 |
 | PD15 | SERVO 4 | TIM4 CH4 |
+
+### Port E (PE)
+
+| Pin | Function | Alternate |
+|---|---|---|
 | PE0 | Serial 8 RX | |
 | PE1 | Serial 8 TX | |
 | PE2 | CAMERA SWITCH | |

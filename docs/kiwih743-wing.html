@@ -14,7 +14,7 @@
 
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-84c1b2f5.css">
+        <link rel="stylesheet" href="css/variables-d0fe17bd.css">
         <link rel="stylesheet" href="css/general-2459343d.css">
         <link rel="stylesheet" href="css/chrome-ae938929.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
@@ -28,7 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/css/custom-09c29ef6.css">
+        <link rel="stylesheet" href="theme/css/custom-6ce167cc.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62e749a1.js";
+            window.path_to_searchindex_js = "searchindex-074fbc64.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-99fb4d68.js"></script>
+        <script src="toc-9f945dfe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -187,72 +187,22 @@
 <li>Betaflight</li>
 </ul>
 <hr>
-<h2 id="premium-features"><a class="header" href="#premium-features">Premium Features</a></h2>
-<h3 id="gps-less-takeoff-arduplane"><a class="header" href="#gps-less-takeoff-arduplane">GPS-less Takeoff (ArduPlane)</a></h3>
-<p>KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.</p>
-<p><strong>Parameters:</strong></p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>FLIGHT_OPTIONS</code></td><td>32768</td><td>Enable GPS-less takeoff</td></tr>
-<tr><td><code>ARMING_CHECK</code></td><td>0</td><td>Disable arming checks</td></tr>
-<tr><td><code>TKOFF_ALT</code></td><td>50</td><td>Target takeoff altitude (meters)</td></tr>
-<tr><td><code>TKOFF_THR_MINACC</code></td><td>0</td><td>No accelerometer trigger, timer only</td></tr>
-<tr><td><code>TKOFF_THR_MINSPD</code></td><td>0</td><td>No minimum ground speed required</td></tr>
-<tr><td><code>TKOFF_THR_MAX</code></td><td>100</td><td>Max throttle % during takeoff</td></tr>
-<tr><td><code>TKOFF_THR_DELAY</code></td><td>2</td><td>Delay before launch (0.2s)</td></tr>
-</tbody>
-</table>
-</div>
-<p><strong>Procedure:</strong></p>
-<ol>
-<li>Power on, wait for EKF convergence</li>
-<li>Set home (from GPS before loss, or manually via MAVLink)</li>
-<li>Arm in FBWA mode</li>
-<li>Switch to TAKEOFF mode</li>
-</ol>
-<hr>
-<h2 id="flight-controller"><a class="header" href="#flight-controller">Flight Controller</a></h2>
-<img src="h743-wing-fc.jpg" width="350">
-<img src="h743-wing-fc-bot.jpg" width="350">
-<p>Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.</p>
-<h3 id="features"><a class="header" href="#features">Features</a></h3>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
-<li>STM32H743 MCU</li>
+<li>STM32H743 MCU (480 MHz, 2 MB flash)</li>
 <li>12S power supply</li>
 <li>5V, 6/7V, 9/12V 5A BECs</li>
 <li>ICM-42688P and ICM-45686 with power and hardware signal filtering</li>
 <li>BMP388 barometer</li>
 <li>Dual camera input, switchable</li>
-<li>8 motors</li>
-<li>7 servos</li>
+<li>8 motors + 7 servos (15 PWM outputs)</li>
 <li>5 UARTs, UART7 with flow control</li>
-<li>1 SPI</li>
-<li>1 I2C</li>
-<li>5 GPIOs</li>
-<li>2 relay outputs, 9/12V switch</li>
+<li>1 SPI, 1 I2C, FDCAN</li>
+<li>5 GPIOs, 2 relay outputs, 9/12V switch</li>
 <li>Analog + digital VTX output</li>
 <li>STM32G4 OSD</li>
 <li>SD card via SDMMC</li>
-<li>36.0 х 39.0 mm mounting holes</li>
-<li>40 x 42 mm board dimensions</li>
-</ul>
-<hr>
-<h2 id="power-distribution-board-pdb"><a class="header" href="#power-distribution-board-pdb">Power Distribution Board (PDB)</a></h2>
-<p><img src="h743-wing-pdb.jpg" alt="KiwiH743-Wing PDB"></p>
-<h3 id="features-1"><a class="header" href="#features-1">Features</a></h3>
-<ul>
-<li>4S–12S power input</li>
-<li>5V 5A output</li>
-<li>5/6/7/9V 5A adjustable output</li>
-<li>12V 5A output</li>
-<li>3.3V 1A output</li>
-<li>0.1 mOhm current sensor</li>
-<li>36 x 39 mm mounting holes</li>
-<li>42 x 75 mm board dimensions</li>
+<li>40 x 42 mm board, 36 x 39 mm mounting holes</li>
 </ul>
 <hr>
 <h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
@@ -312,7 +262,7 @@
 </table>
 </div>
 <hr>
-<h2 id="uart-mapping"><a class="header" href="#uart-mapping">UART Mapping</a></h2>
+<h2 id="serial-ports"><a class="header" href="#serial-ports">Serial Ports</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -346,7 +296,7 @@
 <tr><td>AUX 2</td><td>PB3</td><td>106</td><td>Output LOW</td><td><code>RELAY5_PIN=106</code>, <code>RELAY5_FUNC=1</code></td></tr>
 <tr><td>AUX 3</td><td>PE5</td><td>107</td><td>Output LOW</td><td>—</td></tr>
 <tr><td>AUX 4</td><td>PC13</td><td>103</td><td>Output LOW</td><td>Shared with VIDEO BOOT</td></tr>
-<tr><td>VID NRST</td><td>PE3</td><td>104</td><td>Output LOW</td><td><code>RELAY6_PIN=104</code> (hwdef default)</td></tr>
+<tr><td>VID NRST</td><td>PE3</td><td>104</td><td>Output LOW</td><td><code>RELAY6_PIN=104</code> (hwdef default), inverted</td></tr>
 <tr><td>CAN SIL</td><td>PE4</td><td>70</td><td>Output LOW</td><td>CAN silent mode</td></tr>
 <tr><td>BUZZER</td><td>PA15</td><td>32</td><td>Alarm</td><td>—</td></tr>
 <tr><td>LED</td><td>PD11</td><td>90</td><td>Status LED</td><td>—</td></tr>
@@ -360,24 +310,24 @@
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th></tr>
+<tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th><th>DShot Bidir</th></tr>
 </thead>
 <tbody>
-<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td></tr>
-<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td></tr>
-<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td></tr>
-<tr><td>SERVO 4</td><td>PD15</td><td>53</td><td>TIM4_CH4</td><td>Motor 4</td></tr>
-<tr><td>SERVO 5</td><td>PD14</td><td>54</td><td>TIM4_CH3</td><td>Motor 5</td></tr>
-<tr><td>SERVO 6</td><td>PD13</td><td>55</td><td>TIM4_CH2</td><td>Motor 6</td></tr>
-<tr><td>SERVO 7</td><td>PD12</td><td>56</td><td>TIM4_CH1</td><td>Motor 7</td></tr>
-<tr><td>SERVO 8</td><td>PB1</td><td>57</td><td>TIM3_CH4</td><td>Motor 8</td></tr>
-<tr><td>SERVO 9</td><td>PB0</td><td>58</td><td>TIM3_CH3</td><td>Servo 1</td></tr>
-<tr><td>SERVO 10</td><td>PB4</td><td>59</td><td>TIM3_CH1</td><td>Servo 2</td></tr>
-<tr><td>SERVO 11</td><td>PB5</td><td>60</td><td>TIM3_CH2</td><td>Servo 3</td></tr>
-<tr><td>SERVO 12</td><td>PA3</td><td>61</td><td>TIM5_CH4</td><td>Servo 4</td></tr>
-<tr><td>SERVO 13</td><td>PA2</td><td>62</td><td>TIM5_CH3</td><td>Servo 5</td></tr>
-<tr><td>SERVO 14</td><td>PA1</td><td>63</td><td>TIM5_CH2</td><td>Servo 6</td></tr>
-<tr><td>SERVO 15</td><td>PA0</td><td>64</td><td>TIM5_CH1</td><td>Servo 7</td></tr>
+<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td><td>No</td></tr>
+<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td><td>No</td></tr>
+<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td><td>No</td></tr>
+<tr><td>SERVO 4</td><td>PD15</td><td>53</td><td>TIM4_CH4</td><td>Motor 4</td><td>No</td></tr>
+<tr><td>SERVO 5</td><td>PD14</td><td>54</td><td>TIM4_CH3</td><td>Motor 5</td><td>No</td></tr>
+<tr><td>SERVO 6</td><td>PD13</td><td>55</td><td>TIM4_CH2</td><td>Motor 6</td><td>No</td></tr>
+<tr><td>SERVO 7</td><td>PD12</td><td>56</td><td>TIM4_CH1</td><td>Motor 7</td><td>No</td></tr>
+<tr><td>SERVO 8</td><td>PB1</td><td>57</td><td>TIM3_CH4</td><td>Motor 8</td><td>No</td></tr>
+<tr><td>SERVO 9</td><td>PB0</td><td>58</td><td>TIM3_CH3</td><td>Servo 1</td><td>No</td></tr>
+<tr><td>SERVO 10</td><td>PB4</td><td>59</td><td>TIM3_CH1</td><td>Servo 2</td><td>No</td></tr>
+<tr><td>SERVO 11</td><td>PB5</td><td>60</td><td>TIM3_CH2</td><td>Servo 3</td><td>No</td></tr>
+<tr><td>SERVO 12</td><td>PA3</td><td>61</td><td>TIM5_CH4</td><td>Servo 4</td><td>No</td></tr>
+<tr><td>SERVO 13</td><td>PA2</td><td>62</td><td>TIM5_CH3</td><td>Servo 5</td><td>No</td></tr>
+<tr><td>SERVO 14</td><td>PA1</td><td>63</td><td>TIM5_CH2</td><td>Servo 6</td><td>No</td></tr>
+<tr><td>SERVO 15</td><td>PA0</td><td>64</td><td>TIM5_CH1</td><td>Servo 7</td><td>No</td></tr>
 </tbody>
 </table>
 </div>
@@ -397,6 +347,14 @@ relay:on(1)      -- RELAY2 ON (RELAY1 pad)
 relay:off(1)     -- RELAY2 OFF
 </code></pre>
 <p>All GPIO pads default LOW on boot. Use <code>RELAY_DEFAULT</code> params to set initial state.</p>
+<p><strong>OSD Reset (RELAY6):</strong></p>
+<p>RELAY6 controls the STM32G4 OSD reset line (VID NRST). Active low — set <code>RELAY6_INVERTED=1</code> so that “relay on” pulls the line low (reset) and “relay off” releases it.</p>
+<pre><code>param set RELAY6_PIN 104
+param set RELAY6_FUNCTION 1
+param set RELAY6_INVERTED 1
+relay set 5 1   # reset OSD
+relay set 5 0   # release reset
+</code></pre>
 <hr>
 <h2 id="power-monitoring"><a class="header" href="#power-monitoring">Power Monitoring</a></h2>
 <div class="table-wrapper">
@@ -496,6 +454,64 @@ relay:off(1)     -- RELAY2 OFF
 </table>
 </div>
 <hr>
+<h2 id="premium-features"><a class="header" href="#premium-features">Premium Features</a></h2>
+<h3 id="gps-less-takeoff-arduplane"><a class="header" href="#gps-less-takeoff-arduplane">GPS-less Takeoff (ArduPlane)</a></h3>
+<p>KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.</p>
+<p><strong>Parameters:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>FLIGHT_OPTIONS</code></td><td>32768</td><td>Enable GPS-less takeoff</td></tr>
+<tr><td><code>ARMING_CHECK</code></td><td>0</td><td>Disable arming checks</td></tr>
+<tr><td><code>TKOFF_ALT</code></td><td>50</td><td>Target takeoff altitude (meters)</td></tr>
+<tr><td><code>TKOFF_THR_MINACC</code></td><td>0</td><td>No accelerometer trigger, timer only</td></tr>
+<tr><td><code>TKOFF_THR_MINSPD</code></td><td>0</td><td>No minimum ground speed required</td></tr>
+<tr><td><code>TKOFF_THR_MAX</code></td><td>100</td><td>Max throttle % during takeoff</td></tr>
+<tr><td><code>TKOFF_THR_DELAY</code></td><td>2</td><td>Delay before launch (0.2s)</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Procedure:</strong></p>
+<ol>
+<li>Power on, wait for EKF convergence</li>
+<li>Set home (from GPS before loss, or manually via MAVLink)</li>
+<li>Arm in FBWA mode</li>
+<li>Switch to TAKEOFF mode</li>
+</ol>
+<hr>
+<h2 id="displayport-osd"><a class="header" href="#displayport-osd">Displayport OSD</a></h2>
+<p>HD OSD via MSP Displayport on SERIAL8 (OSD UART). Compatible with DJI O3, HDZero, Walksnail.</p>
+<pre><code>param set OSD_TYPE 5
+param set OSD_UNITS 0
+param set MSP_OPTIONS 4
+param set MSP_OSD_NCELLS 0
+param set SERIAL8_BAUD 115
+param set SERIAL8_OPTIONS 0
+param set SERIAL8_PROTOCOL 42
+</code></pre>
+<hr>
+<h2 id="flight-controller"><a class="header" href="#flight-controller">Flight Controller</a></h2>
+<img src="h743-wing-fc.jpg" width="350">
+<img src="h743-wing-fc-bot.jpg" width="350">
+<p>Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.</p>
+<hr>
+<h2 id="power-distribution-board-pdb"><a class="header" href="#power-distribution-board-pdb">Power Distribution Board (PDB)</a></h2>
+<p><img src="h743-wing-pdb.jpg" alt="KiwiH743-Wing PDB"></p>
+<h3 id="features-1"><a class="header" href="#features-1">Features</a></h3>
+<ul>
+<li>4S–12S power input</li>
+<li>5V 5A output</li>
+<li>5/6/7/9V 5A adjustable output</li>
+<li>12V 5A output</li>
+<li>3.3V 1A output</li>
+<li>0.1 mOhm current sensor</li>
+<li>36 x 39 mm mounting holes</li>
+<li>42 x 75 mm board dimensions</li>
+</ul>
+<hr>
 <h2 id="other"><a class="header" href="#other">Other</a></h2>
 <div class="table-wrapper">
 <table>
@@ -517,6 +533,7 @@ relay:off(1)     -- RELAY2 OFF
 </div>
 <hr>
 <h2 id="full-pinout-reference"><a class="header" href="#full-pinout-reference">Full Pinout Reference</a></h2>
+<h3 id="port-a-pa"><a class="header" href="#port-a-pa">Port A (PA)</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -539,6 +556,16 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>PA13</td><td>SWDIO</td><td></td></tr>
 <tr><td>PA14</td><td>SWDCLK</td><td></td></tr>
 <tr><td>PA15</td><td>BUZZER</td><td>TIM2 CH1</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-b-pb"><a class="header" href="#port-b-pb">Port B (PB)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
 <tr><td>PB0</td><td>SERVO 9</td><td></td></tr>
 <tr><td>PB1</td><td>SERVO 8</td><td>ADC1 IN5</td></tr>
 <tr><td>PB2</td><td>IMU 1 CS</td><td></td></tr>
@@ -555,6 +582,16 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>PB13</td><td>Serial 5 TX</td><td></td></tr>
 <tr><td>PB14</td><td>Serial 1 TX</td><td></td></tr>
 <tr><td>PB15</td><td>Serial 1 RX</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-c-pc"><a class="header" href="#port-c-pc">Port C (PC)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
 <tr><td>PC0</td><td>ADC 2</td><td>ADC1 IN10</td></tr>
 <tr><td>PC1</td><td>ADC 1</td><td>ADC1 IN11</td></tr>
 <tr><td>PC2_C</td><td>ADC 3</td><td>ADC3 IN0</td></tr>
@@ -569,6 +606,16 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>PC11</td><td>SDMMC D3</td><td></td></tr>
 <tr><td>PC12</td><td>SDMMC CK</td><td></td></tr>
 <tr><td>PC13</td><td>VIDEO BOOT / AUX 4</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-d-pd"><a class="header" href="#port-d-pd">Port D (PD)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
 <tr><td>PD0</td><td>Serial 4 RX</td><td></td></tr>
 <tr><td>PD1</td><td>Serial 4 TX</td><td></td></tr>
 <tr><td>PD2</td><td>SDMMC CMD</td><td></td></tr>
@@ -584,6 +631,16 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>PD13</td><td>SERVO 6</td><td>TIM4 CH2</td></tr>
 <tr><td>PD14</td><td>SERVO 5</td><td>TIM4 CH3</td></tr>
 <tr><td>PD15</td><td>SERVO 4</td><td>TIM4 CH4</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-e-pe"><a class="header" href="#port-e-pe">Port E (PE)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
 <tr><td>PE0</td><td>Serial 8 RX</td><td></td></tr>
 <tr><td>PE1</td><td>Serial 8 TX</td><td></td></tr>
 <tr><td>PE2</td><td>CAMERA SWITCH</td><td></td></tr>

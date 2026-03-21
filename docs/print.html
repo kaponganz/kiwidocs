@@ -15,7 +15,7 @@
 
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-84c1b2f5.css">
+        <link rel="stylesheet" href="css/variables-d0fe17bd.css">
         <link rel="stylesheet" href="css/general-2459343d.css">
         <link rel="stylesheet" href="css/chrome-ae938929.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
@@ -29,7 +29,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/css/custom-09c29ef6.css">
+        <link rel="stylesheet" href="theme/css/custom-6ce167cc.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62e749a1.js";
+            window.path_to_searchindex_js = "searchindex-074fbc64.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-99fb4d68.js"></script>
+        <script src="toc-9f945dfe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -212,6 +212,10 @@ is designed to support your development process from start to finish.</p>
 <li><a href="#flight-controller-board-kiwi-f405-6s-configuration">Flight Controller - KIWI F405 6S </a></li>
 <li><a href="#fpv-польотний-контролер-kiwi-f722">Flight Controller - KIWI F722 6S</a></li>
 </ul>
+<h3 id="reference"><a class="header" href="#reference">Reference</a></h3>
+<ul>
+<li><a href="#uiux-guidelines-for-software-applications">MIL-STD-1472H UI/UX Guidelines</a></li>
+</ul>
 <hr><div style="break-before: page; page-break-before: always;"></div>
 <h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
 <p><img src="kiwi-GS.png" alt="kiwi-GS.png"></p>
@@ -350,7 +354,7 @@ is designed to support your development process from start to finish.</p>
 <tr><td>SERIAL2</td><td>MAVLink Telemetry</td><td>MAVLink2 (460800)</td></tr>
 <tr><td>SERIAL3</td><td>GPS</td><td>GPS (115200)</td></tr>
 <tr><td>SERIAL4</td><td>TBS Fusion VRX</td><td>VRX Serial (115200, half-duplex)</td></tr>
-<tr><td>SERIAL5</td><td>ESC Telemetry</td><td>ESC Telemetry</td></tr>
+<tr><td>SERIAL5</td><td>MAVLink2 GCS (RS422)</td><td>MAVLink2</td></tr>
 <tr><td>PWM1</td><td>Yaw Servo</td><td>Continuous rotation</td></tr>
 </tbody>
 </table>
@@ -413,6 +417,16 @@ is designed to support your development process from start to finish.</p>
 <tr><td>VRX_ENABLE</td><td>2</td><td>0=Off, 2=TBS Fusion, 3=SteadyView X</td></tr>
 <tr><td>VRX_FREQ</td><td>5800</td><td>Operating frequency (MHz)</td></tr>
 <tr><td>VRX_ADDR</td><td>1</td><td>TBS Fusion serial address</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="scan-parameters"><a class="header" href="#scan-parameters">Scan Parameters</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
 <tr><td>VRX_SCAN</td><td>0</td><td>Set to 1 to start scan, auto-resets to 0</td></tr>
 <tr><td>VRX_SCANLO</td><td>5200</td><td>Scan start frequency (MHz)</td></tr>
 <tr><td>VRX_SCANHI</td><td>6000</td><td>Scan stop frequency (MHz)</td></tr>
@@ -871,7 +885,7 @@ CAN_D1_PROTOCOL = 1   (DroneCAN)
 <p><img src="kiwif405-12s.jpeg" alt="kiwif405-12s.jpeg"></p>
 <p><a href="https://kiwidrone.com.ua/kiwi-f405-flight-controller/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-f405-flight-controller/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
-<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
 <p>KIWI F4.0 is a versatile flight controller based on the STM32F405, designed for FPV, wings, and autonomous platforms.
 The controller combines precision inertial sensing, OSD support, built-in Blackbox, and relay outputs for controlling
 external modules.
@@ -1096,7 +1110,7 @@ save
 <p><img src="KiwiH743.jpg" alt="KiwiH743.jpg"></p>
 <p><a href="https://kiwidrone.com.ua/kiwi-h743-fpv/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-h743-fpv/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
-<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
+<h2 id="overview-2"><a class="header" href="#overview-2">Overview</a></h2>
 <p>The <strong>KiwiH743</strong> is a high-performance flight controller based on the STM32H743 MCU, designed for advanced UAV
 applications. It combines powerful processing, flexible connectivity, and rich sensor support, optimized for ArduPilot
 firmware.</p>
@@ -1109,42 +1123,52 @@ and support for dual IMUs, barometer, and OSD integration.</p>
 <li>ArduPilot (SD card) <a href="download/KiwiH743-sdcard.zip">KiwiH743-sdcard.zip</a></li>
 <li>Betaflight</li>
 </ul>
+<h2 id="features-4"><a class="header" href="#features-4">Features</a></h2>
+<ul>
+<li>Dual IMUs: ICM-42688P + ICM-45686 with EKF3 dual-source fusion</li>
+<li>BMP388 barometer, external compass support (I²C probing)</li>
+<li>Integrated OSD (MAX7456-compatible via SPI4)</li>
+<li>14 PWM outputs (8 motors + 6 servos), DShot bidirectional on M1–M4</li>
+<li>7 hardware UARTs + 2 USB ports (OTG1 MAVLink, OTG2 HiSpeed serial)</li>
+<li>16 MB DataFlash + external SD card slot</li>
+<li>Visual odometry, external AHRS, GPS moving baseline support</li>
+<li>Gyro FFT for vibration analysis</li>
+<li>INS temperature calibration</li>
+<li>Guided (NoGPS), FlowHold, OpticalFlow modes</li>
+</ul>
 <h2 id="technical-specifications-2"><a class="header" href="#technical-specifications-2">Technical Specifications</a></h2>
-<h3 id="processor-memory-clock"><a class="header" href="#processor-memory-clock">Processor, Memory, Clock</a></h3>
 <ul>
-<li>MCU: STM32H743VIT6</li>
-<li>Architecture: ARM Cortex-M7</li>
-<li>Max Frequency: 480 MHz</li>
-<li>Flash: 2048 KB (2 MB)</li>
-<li>FPU: Single-precision, hardware accelerated</li>
-<li>Crystal Frequency: 16 MHz external oscillator</li>
-<li>DataFlash: 16 MB</li>
-<li>OSD Type: Integrated (MAX7456-compatible)</li>
-<li>External SD card slot via SPI</li>
+<li>MCU: STM32H743VIT6 (ARM Cortex-M7, 480 MHz, 2048 KB flash)</li>
+<li>Crystal: 16 MHz external oscillator</li>
+<li>IMU1: ICM-42688P (SPI6, rotation YAW_180)</li>
+<li>IMU2: ICM-45686 (SPI2, rotation YAW_270)</li>
+<li>Barometer: BMP388 (I2C2, address 0x76)</li>
+<li>OSD: MAX7456-compatible (SPI4)</li>
+<li>DataFlash: 16 MB (SPI3)</li>
+<li>LED: PE4 (active low)</li>
+<li>Dimensions: 36×36 mm, mounting 30.5×30.5 mm</li>
 </ul>
 <hr>
-<h2 id="connectivity"><a class="header" href="#connectivity">Connectivity</a></h2>
-<h3 id="usb-uart-spi-peripherals"><a class="header" href="#usb-uart-spi-peripherals">USB, UART, SPI Peripherals</a></h3>
-<ul>
-<li>USB OTG1 (Mavlink)</li>
-<li>USB OTG2 HiSpeed (Serial)</li>
-<li>7 hardware UARTs</li>
-<li>Dedicated functions:
-<ul>
-<li>UART8: RC input (SBUS/DSM)</li>
-<li>Others available for GPS, telemetry, peripherals</li>
-</ul>
-</li>
-<li>SPI1 bus available for external peripherals</li>
-</ul>
-<hr>
-<h2 id="sensors-1"><a class="header" href="#sensors-1">Sensors</a></h2>
-<ul>
-<li>IMU1: ICM-42688P</li>
-<li>IMU2: ICM-45686</li>
-<li>Barometer: BMP388</li>
-<li>External compass support: yes (I²C probing enabled)</li>
-</ul>
+<h2 id="serial-ports-2"><a class="header" href="#serial-ports-2">Serial Ports</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Port</th><th>ArduPilot</th><th>Default Protocol</th><th>Pins</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>USB</td><td>SERIAL0</td><td>MAVLink</td><td>PA11, PA12</td><td>OTG1 Full Speed</td></tr>
+<tr><td>USART1</td><td>SERIAL1</td><td>ESC Telemetry (115200)</td><td>PA10</td><td>RX only</td></tr>
+<tr><td>USART2</td><td>SERIAL2</td><td>SmartAudio (115200)</td><td>PD5, PD6</td><td>NODMA</td></tr>
+<tr><td>USART3</td><td>SERIAL3</td><td>—</td><td>PD8, PD9</td><td></td></tr>
+<tr><td>UART4</td><td>SERIAL4</td><td>—</td><td>PD1, PD0</td><td></td></tr>
+<tr><td>UART5</td><td>SERIAL5</td><td>MAVLink1 (57600)</td><td>PB6, PD2</td><td>NODMA</td></tr>
+<tr><td>UART7</td><td>SERIAL7</td><td>MAVLink2</td><td>PE8, PE7</td><td>RTS: PE9, CTS: PE10</td></tr>
+<tr><td>UART8</td><td>SERIAL8</td><td>RC Input</td><td>PE1, PE0</td><td>SBUS/DSM</td></tr>
+<tr><td>USB HS</td><td>SERIAL9</td><td>—</td><td></td><td>OTG2 HiSpeed</td></tr>
+</tbody>
+</table>
+</div>
+<p>RC input: SBUS/DSM on PE11.</p>
 <hr>
 <h2 id="gpios-relays-and-aux-1"><a class="header" href="#gpios-relays-and-aux-1">GPIOs, Relays, and AUX</a></h2>
 <h3 id="dedicated-gpio-pads-1"><a class="header" href="#dedicated-gpio-pads-1">Dedicated GPIO Pads</a></h3>
@@ -1165,7 +1189,6 @@ and support for dual IMUs, barometer, and OSD integration.</p>
 <p><strong>Note:</strong> <code>RELAY1_PIN</code> defaults to GPIO 100 (Camera Switch pad, PA8), not the pad labeled “RELAY1” (PD4, GPIO 101). This is set in the hwdef. Adjust if your wiring differs.</p>
 </blockquote>
 <h3 id="pwm-outputs-1"><a class="header" href="#pwm-outputs-1">PWM Outputs</a></h3>
-<p>RC input: SBUS/DSM on PE11.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1250,43 +1273,44 @@ relay:off(1)     -- RELAY2 OFF
 </table>
 </div>
 <hr>
-<h2 id="debug--development"><a class="header" href="#debug--development">Debug &amp; Development</a></h2>
+<h2 id="buses"><a class="header" href="#buses">Buses</a></h2>
+<h3 id="spi"><a class="header" href="#spi">SPI</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Bus</th><th>CLK</th><th>MISO</th><th>MOSI</th><th>Usage</th></tr>
+</thead>
+<tbody>
+<tr><td>SPI1</td><td>PA5</td><td>PA6</td><td>PA7</td><td>SD Card (CS: PA4)</td></tr>
+<tr><td>SPI2</td><td>PB13</td><td>PB14</td><td>PB15</td><td>IMU2 ICM-45686 (CS: PD10)</td></tr>
+<tr><td>SPI3</td><td>PC10</td><td>PC11</td><td>PC12</td><td>DataFlash (CS: PD3)</td></tr>
+<tr><td>SPI4</td><td>PE2</td><td>PE5</td><td>PE6</td><td>OSD MAX7456 (CS: PE3)</td></tr>
+<tr><td>SPI6</td><td>PB3</td><td>PB4</td><td>PB5</td><td>IMU1 ICM-42688P (CS: PC13)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="i2c"><a class="header" href="#i2c">I2C</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Bus</th><th>SCL</th><th>SDA</th><th>Devices</th></tr>
+</thead>
+<tbody>
+<tr><td>I2C2</td><td>PB10</td><td>PB11</td><td>BMP388 (0x76), external compass</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="default-frame-and-modes"><a class="header" href="#default-frame-and-modes">Default Frame and Modes</a></h2>
 <ul>
-<li>SWD Pins:
-<ul>
-<li><code>PA13</code>: JTMS-SWDIO</li>
-<li><code>PA14</code>: JTCK-SWCLK</li>
-</ul>
-</li>
+<li>Default frame: Quadcopter X (FRAME_TYPE=3, BetaFlight-X motor order)</li>
+<li>Motor protocol: DShot (MOT_PWM_TYPE=5)</li>
+<li>BLHeli passthrough: enabled (SERVO_BLH_AUTO=1, mask=15)</li>
+<li>Flight mode channel: CH8</li>
+<li>VTX: enabled, band 6, channel 4</li>
 </ul>
 <hr>
-<h2 id="leds--indicators"><a class="header" href="#leds--indicators">LEDs &amp; Indicators</a></h2>
-<ul>
-<li>Status LED: <code>PE4</code> (active-low)</li>
-</ul>
-<hr>
-<h2 id="advanced-features"><a class="header" href="#advanced-features">Advanced Features</a></h2>
-<ul>
-<li>Visual odometry integration: enabled</li>
-<li>External AHRS support</li>
-<li>GPS moving baseline enabled</li>
-<li>Gyro FFT enabled (vibration analysis)</li>
-<li>INS temperature calibration enabled</li>
-<li>Guided (NoGPS) supported</li>
-</ul>
-<hr>
-<h2 id="default-frame--modes"><a class="header" href="#default-frame--modes">Default Frame &amp; Modes</a></h2>
-<ul>
-<li>Default frame: Quadcopter X (FRAME_TYPE=12, Betaflight-X motor order)</li>
-<li>Flight modes enabled by default:
-<ul>
-<li>Guided (NoGPS)</li>
-<li>FlowHold</li>
-<li>OpticalFlow</li>
-</ul>
-</li>
-</ul>
-<h2 id="pinouts-and-schematics"><a class="header" href="#pinouts-and-schematics">Pinouts and schematics</a></h2>
+<h2 id="pinout-reference"><a class="header" href="#pinout-reference">Pinout Reference</a></h2>
 <h3 id="esc-pins"><a class="header" href="#esc-pins">ESC Pins</a></h3>
 <pre><code>1 - ESC Telemetry
 2 - ESC Current
@@ -1302,7 +1326,7 @@ relay:off(1)     -- RELAY2 OFF
 <h1 id="kiwih743-wing-flight-controller"><a class="header" href="#kiwih743-wing-flight-controller">KiwiH743-Wing Flight Controller</a></h1>
 <p><a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
-<h2 id="overview-2"><a class="header" href="#overview-2">Overview</a></h2>
+<h2 id="overview-3"><a class="header" href="#overview-3">Overview</a></h2>
 <p>The <strong>KiwiH743-Wing</strong> is a Pixhawk-format flight controller system consisting of two boards: a Flight Controller and a Power Distribution Board (PDB). Designed for expendable quadcopters and long-range fixed-wing drones. Ready to use with Rover, Wing, Quadcopter, and Hexacopter configurations.</p>
 <hr>
 <h2 id="firmware-4"><a class="header" href="#firmware-4">Firmware</a></h2>
@@ -1311,72 +1335,22 @@ relay:off(1)     -- RELAY2 OFF
 <li>Betaflight</li>
 </ul>
 <hr>
-<h2 id="premium-features-1"><a class="header" href="#premium-features-1">Premium Features</a></h2>
-<h3 id="gps-less-takeoff-arduplane"><a class="header" href="#gps-less-takeoff-arduplane">GPS-less Takeoff (ArduPlane)</a></h3>
-<p>KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.</p>
-<p><strong>Parameters:</strong></p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>FLIGHT_OPTIONS</code></td><td>32768</td><td>Enable GPS-less takeoff</td></tr>
-<tr><td><code>ARMING_CHECK</code></td><td>0</td><td>Disable arming checks</td></tr>
-<tr><td><code>TKOFF_ALT</code></td><td>50</td><td>Target takeoff altitude (meters)</td></tr>
-<tr><td><code>TKOFF_THR_MINACC</code></td><td>0</td><td>No accelerometer trigger, timer only</td></tr>
-<tr><td><code>TKOFF_THR_MINSPD</code></td><td>0</td><td>No minimum ground speed required</td></tr>
-<tr><td><code>TKOFF_THR_MAX</code></td><td>100</td><td>Max throttle % during takeoff</td></tr>
-<tr><td><code>TKOFF_THR_DELAY</code></td><td>2</td><td>Delay before launch (0.2s)</td></tr>
-</tbody>
-</table>
-</div>
-<p><strong>Procedure:</strong></p>
-<ol>
-<li>Power on, wait for EKF convergence</li>
-<li>Set home (from GPS before loss, or manually via MAVLink)</li>
-<li>Arm in FBWA mode</li>
-<li>Switch to TAKEOFF mode</li>
-</ol>
-<hr>
-<h2 id="flight-controller"><a class="header" href="#flight-controller">Flight Controller</a></h2>
-<img src="h743-wing-fc.jpg" width="350">
-<img src="h743-wing-fc-bot.jpg" width="350">
-<p>Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.</p>
-<h3 id="features-4"><a class="header" href="#features-4">Features</a></h3>
+<h2 id="features-5"><a class="header" href="#features-5">Features</a></h2>
 <ul>
-<li>STM32H743 MCU</li>
+<li>STM32H743 MCU (480 MHz, 2 MB flash)</li>
 <li>12S power supply</li>
 <li>5V, 6/7V, 9/12V 5A BECs</li>
 <li>ICM-42688P and ICM-45686 with power and hardware signal filtering</li>
 <li>BMP388 barometer</li>
 <li>Dual camera input, switchable</li>
-<li>8 motors</li>
-<li>7 servos</li>
+<li>8 motors + 7 servos (15 PWM outputs)</li>
 <li>5 UARTs, UART7 with flow control</li>
-<li>1 SPI</li>
-<li>1 I2C</li>
-<li>5 GPIOs</li>
-<li>2 relay outputs, 9/12V switch</li>
+<li>1 SPI, 1 I2C, FDCAN</li>
+<li>5 GPIOs, 2 relay outputs, 9/12V switch</li>
 <li>Analog + digital VTX output</li>
 <li>STM32G4 OSD</li>
 <li>SD card via SDMMC</li>
-<li>36.0 х 39.0 mm mounting holes</li>
-<li>40 x 42 mm board dimensions</li>
-</ul>
-<hr>
-<h2 id="power-distribution-board-pdb"><a class="header" href="#power-distribution-board-pdb">Power Distribution Board (PDB)</a></h2>
-<p><img src="h743-wing-pdb.jpg" alt="KiwiH743-Wing PDB"></p>
-<h3 id="features-1-1"><a class="header" href="#features-1-1">Features</a></h3>
-<ul>
-<li>4S–12S power input</li>
-<li>5V 5A output</li>
-<li>5/6/7/9V 5A adjustable output</li>
-<li>12V 5A output</li>
-<li>3.3V 1A output</li>
-<li>0.1 mOhm current sensor</li>
-<li>36 x 39 mm mounting holes</li>
-<li>42 x 75 mm board dimensions</li>
+<li>40 x 42 mm board, 36 x 39 mm mounting holes</li>
 </ul>
 <hr>
 <h2 id="technical-specifications-3"><a class="header" href="#technical-specifications-3">Technical Specifications</a></h2>
@@ -1395,7 +1369,7 @@ relay:off(1)     -- RELAY2 OFF
 </tbody>
 </table>
 </div>
-<h3 id="sensors-2"><a class="header" href="#sensors-2">Sensors</a></h3>
+<h3 id="sensors-1"><a class="header" href="#sensors-1">Sensors</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1436,7 +1410,7 @@ relay:off(1)     -- RELAY2 OFF
 </table>
 </div>
 <hr>
-<h2 id="uart-mapping"><a class="header" href="#uart-mapping">UART Mapping</a></h2>
+<h2 id="serial-ports-3"><a class="header" href="#serial-ports-3">Serial Ports</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1470,7 +1444,7 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>AUX 2</td><td>PB3</td><td>106</td><td>Output LOW</td><td><code>RELAY5_PIN=106</code>, <code>RELAY5_FUNC=1</code></td></tr>
 <tr><td>AUX 3</td><td>PE5</td><td>107</td><td>Output LOW</td><td>—</td></tr>
 <tr><td>AUX 4</td><td>PC13</td><td>103</td><td>Output LOW</td><td>Shared with VIDEO BOOT</td></tr>
-<tr><td>VID NRST</td><td>PE3</td><td>104</td><td>Output LOW</td><td><code>RELAY6_PIN=104</code> (hwdef default)</td></tr>
+<tr><td>VID NRST</td><td>PE3</td><td>104</td><td>Output LOW</td><td><code>RELAY6_PIN=104</code> (hwdef default), inverted</td></tr>
 <tr><td>CAN SIL</td><td>PE4</td><td>70</td><td>Output LOW</td><td>CAN silent mode</td></tr>
 <tr><td>BUZZER</td><td>PA15</td><td>32</td><td>Alarm</td><td>—</td></tr>
 <tr><td>LED</td><td>PD11</td><td>90</td><td>Status LED</td><td>—</td></tr>
@@ -1484,24 +1458,24 @@ relay:off(1)     -- RELAY2 OFF
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th></tr>
+<tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th><th>DShot Bidir</th></tr>
 </thead>
 <tbody>
-<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td></tr>
-<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td></tr>
-<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td></tr>
-<tr><td>SERVO 4</td><td>PD15</td><td>53</td><td>TIM4_CH4</td><td>Motor 4</td></tr>
-<tr><td>SERVO 5</td><td>PD14</td><td>54</td><td>TIM4_CH3</td><td>Motor 5</td></tr>
-<tr><td>SERVO 6</td><td>PD13</td><td>55</td><td>TIM4_CH2</td><td>Motor 6</td></tr>
-<tr><td>SERVO 7</td><td>PD12</td><td>56</td><td>TIM4_CH1</td><td>Motor 7</td></tr>
-<tr><td>SERVO 8</td><td>PB1</td><td>57</td><td>TIM3_CH4</td><td>Motor 8</td></tr>
-<tr><td>SERVO 9</td><td>PB0</td><td>58</td><td>TIM3_CH3</td><td>Servo 1</td></tr>
-<tr><td>SERVO 10</td><td>PB4</td><td>59</td><td>TIM3_CH1</td><td>Servo 2</td></tr>
-<tr><td>SERVO 11</td><td>PB5</td><td>60</td><td>TIM3_CH2</td><td>Servo 3</td></tr>
-<tr><td>SERVO 12</td><td>PA3</td><td>61</td><td>TIM5_CH4</td><td>Servo 4</td></tr>
-<tr><td>SERVO 13</td><td>PA2</td><td>62</td><td>TIM5_CH3</td><td>Servo 5</td></tr>
-<tr><td>SERVO 14</td><td>PA1</td><td>63</td><td>TIM5_CH2</td><td>Servo 6</td></tr>
-<tr><td>SERVO 15</td><td>PA0</td><td>64</td><td>TIM5_CH1</td><td>Servo 7</td></tr>
+<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td><td>No</td></tr>
+<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td><td>No</td></tr>
+<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td><td>No</td></tr>
+<tr><td>SERVO 4</td><td>PD15</td><td>53</td><td>TIM4_CH4</td><td>Motor 4</td><td>No</td></tr>
+<tr><td>SERVO 5</td><td>PD14</td><td>54</td><td>TIM4_CH3</td><td>Motor 5</td><td>No</td></tr>
+<tr><td>SERVO 6</td><td>PD13</td><td>55</td><td>TIM4_CH2</td><td>Motor 6</td><td>No</td></tr>
+<tr><td>SERVO 7</td><td>PD12</td><td>56</td><td>TIM4_CH1</td><td>Motor 7</td><td>No</td></tr>
+<tr><td>SERVO 8</td><td>PB1</td><td>57</td><td>TIM3_CH4</td><td>Motor 8</td><td>No</td></tr>
+<tr><td>SERVO 9</td><td>PB0</td><td>58</td><td>TIM3_CH3</td><td>Servo 1</td><td>No</td></tr>
+<tr><td>SERVO 10</td><td>PB4</td><td>59</td><td>TIM3_CH1</td><td>Servo 2</td><td>No</td></tr>
+<tr><td>SERVO 11</td><td>PB5</td><td>60</td><td>TIM3_CH2</td><td>Servo 3</td><td>No</td></tr>
+<tr><td>SERVO 12</td><td>PA3</td><td>61</td><td>TIM5_CH4</td><td>Servo 4</td><td>No</td></tr>
+<tr><td>SERVO 13</td><td>PA2</td><td>62</td><td>TIM5_CH3</td><td>Servo 5</td><td>No</td></tr>
+<tr><td>SERVO 14</td><td>PA1</td><td>63</td><td>TIM5_CH2</td><td>Servo 6</td><td>No</td></tr>
+<tr><td>SERVO 15</td><td>PA0</td><td>64</td><td>TIM5_CH1</td><td>Servo 7</td><td>No</td></tr>
 </tbody>
 </table>
 </div>
@@ -1521,6 +1495,14 @@ relay:on(1)      -- RELAY2 ON (RELAY1 pad)
 relay:off(1)     -- RELAY2 OFF
 </code></pre>
 <p>All GPIO pads default LOW on boot. Use <code>RELAY_DEFAULT</code> params to set initial state.</p>
+<p><strong>OSD Reset (RELAY6):</strong></p>
+<p>RELAY6 controls the STM32G4 OSD reset line (VID NRST). Active low — set <code>RELAY6_INVERTED=1</code> so that “relay on” pulls the line low (reset) and “relay off” releases it.</p>
+<pre><code>param set RELAY6_PIN 104
+param set RELAY6_FUNCTION 1
+param set RELAY6_INVERTED 1
+relay set 5 1   # reset OSD
+relay set 5 0   # release reset
+</code></pre>
 <hr>
 <h2 id="power-monitoring-2"><a class="header" href="#power-monitoring-2">Power Monitoring</a></h2>
 <div class="table-wrapper">
@@ -1565,8 +1547,8 @@ relay:off(1)     -- RELAY2 OFF
 </table>
 </div>
 <hr>
-<h2 id="buses"><a class="header" href="#buses">Buses</a></h2>
-<h3 id="spi"><a class="header" href="#spi">SPI</a></h3>
+<h2 id="buses-1"><a class="header" href="#buses-1">Buses</a></h2>
+<h3 id="spi-1"><a class="header" href="#spi-1">SPI</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1578,7 +1560,7 @@ relay:off(1)     -- RELAY2 OFF
 </tbody>
 </table>
 </div>
-<h3 id="i2c"><a class="header" href="#i2c">I2C</a></h3>
+<h3 id="i2c-1"><a class="header" href="#i2c-1">I2C</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1620,6 +1602,64 @@ relay:off(1)     -- RELAY2 OFF
 </table>
 </div>
 <hr>
+<h2 id="premium-features-1"><a class="header" href="#premium-features-1">Premium Features</a></h2>
+<h3 id="gps-less-takeoff-arduplane"><a class="header" href="#gps-less-takeoff-arduplane">GPS-less Takeoff (ArduPlane)</a></h3>
+<p>KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.</p>
+<p><strong>Parameters:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>FLIGHT_OPTIONS</code></td><td>32768</td><td>Enable GPS-less takeoff</td></tr>
+<tr><td><code>ARMING_CHECK</code></td><td>0</td><td>Disable arming checks</td></tr>
+<tr><td><code>TKOFF_ALT</code></td><td>50</td><td>Target takeoff altitude (meters)</td></tr>
+<tr><td><code>TKOFF_THR_MINACC</code></td><td>0</td><td>No accelerometer trigger, timer only</td></tr>
+<tr><td><code>TKOFF_THR_MINSPD</code></td><td>0</td><td>No minimum ground speed required</td></tr>
+<tr><td><code>TKOFF_THR_MAX</code></td><td>100</td><td>Max throttle % during takeoff</td></tr>
+<tr><td><code>TKOFF_THR_DELAY</code></td><td>2</td><td>Delay before launch (0.2s)</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Procedure:</strong></p>
+<ol>
+<li>Power on, wait for EKF convergence</li>
+<li>Set home (from GPS before loss, or manually via MAVLink)</li>
+<li>Arm in FBWA mode</li>
+<li>Switch to TAKEOFF mode</li>
+</ol>
+<hr>
+<h2 id="displayport-osd"><a class="header" href="#displayport-osd">Displayport OSD</a></h2>
+<p>HD OSD via MSP Displayport on SERIAL8 (OSD UART). Compatible with DJI O3, HDZero, Walksnail.</p>
+<pre><code>param set OSD_TYPE 5
+param set OSD_UNITS 0
+param set MSP_OPTIONS 4
+param set MSP_OSD_NCELLS 0
+param set SERIAL8_BAUD 115
+param set SERIAL8_OPTIONS 0
+param set SERIAL8_PROTOCOL 42
+</code></pre>
+<hr>
+<h2 id="flight-controller"><a class="header" href="#flight-controller">Flight Controller</a></h2>
+<img src="h743-wing-fc.jpg" width="350">
+<img src="h743-wing-fc-bot.jpg" width="350">
+<p>Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.</p>
+<hr>
+<h2 id="power-distribution-board-pdb"><a class="header" href="#power-distribution-board-pdb">Power Distribution Board (PDB)</a></h2>
+<p><img src="h743-wing-pdb.jpg" alt="KiwiH743-Wing PDB"></p>
+<h3 id="features-1-1"><a class="header" href="#features-1-1">Features</a></h3>
+<ul>
+<li>4S–12S power input</li>
+<li>5V 5A output</li>
+<li>5/6/7/9V 5A adjustable output</li>
+<li>12V 5A output</li>
+<li>3.3V 1A output</li>
+<li>0.1 mOhm current sensor</li>
+<li>36 x 39 mm mounting holes</li>
+<li>42 x 75 mm board dimensions</li>
+</ul>
+<hr>
 <h2 id="other"><a class="header" href="#other">Other</a></h2>
 <div class="table-wrapper">
 <table>
@@ -1641,6 +1681,7 @@ relay:off(1)     -- RELAY2 OFF
 </div>
 <hr>
 <h2 id="full-pinout-reference"><a class="header" href="#full-pinout-reference">Full Pinout Reference</a></h2>
+<h3 id="port-a-pa"><a class="header" href="#port-a-pa">Port A (PA)</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1663,6 +1704,16 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>PA13</td><td>SWDIO</td><td></td></tr>
 <tr><td>PA14</td><td>SWDCLK</td><td></td></tr>
 <tr><td>PA15</td><td>BUZZER</td><td>TIM2 CH1</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-b-pb"><a class="header" href="#port-b-pb">Port B (PB)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
 <tr><td>PB0</td><td>SERVO 9</td><td></td></tr>
 <tr><td>PB1</td><td>SERVO 8</td><td>ADC1 IN5</td></tr>
 <tr><td>PB2</td><td>IMU 1 CS</td><td></td></tr>
@@ -1679,6 +1730,16 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>PB13</td><td>Serial 5 TX</td><td></td></tr>
 <tr><td>PB14</td><td>Serial 1 TX</td><td></td></tr>
 <tr><td>PB15</td><td>Serial 1 RX</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-c-pc"><a class="header" href="#port-c-pc">Port C (PC)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
 <tr><td>PC0</td><td>ADC 2</td><td>ADC1 IN10</td></tr>
 <tr><td>PC1</td><td>ADC 1</td><td>ADC1 IN11</td></tr>
 <tr><td>PC2_C</td><td>ADC 3</td><td>ADC3 IN0</td></tr>
@@ -1693,6 +1754,16 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>PC11</td><td>SDMMC D3</td><td></td></tr>
 <tr><td>PC12</td><td>SDMMC CK</td><td></td></tr>
 <tr><td>PC13</td><td>VIDEO BOOT / AUX 4</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-d-pd"><a class="header" href="#port-d-pd">Port D (PD)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
 <tr><td>PD0</td><td>Serial 4 RX</td><td></td></tr>
 <tr><td>PD1</td><td>Serial 4 TX</td><td></td></tr>
 <tr><td>PD2</td><td>SDMMC CMD</td><td></td></tr>
@@ -1708,6 +1779,16 @@ relay:off(1)     -- RELAY2 OFF
 <tr><td>PD13</td><td>SERVO 6</td><td>TIM4 CH2</td></tr>
 <tr><td>PD14</td><td>SERVO 5</td><td>TIM4 CH3</td></tr>
 <tr><td>PD15</td><td>SERVO 4</td><td>TIM4 CH4</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-e-pe"><a class="header" href="#port-e-pe">Port E (PE)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
 <tr><td>PE0</td><td>Serial 8 RX</td><td></td></tr>
 <tr><td>PE1</td><td>Serial 8 TX</td><td></td></tr>
 <tr><td>PE2</td><td>CAMERA SWITCH</td><td></td></tr>
@@ -1729,7 +1810,7 @@ relay:off(1)     -- RELAY2 OFF
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="flight-controller-board-kiwi-f405-6s-configuration"><a class="header" href="#flight-controller-board-kiwi-f405-6s-configuration">Flight Controller Board: KIWI F405 6S Configuration</a></h1>
-<h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
 <p>The KIWI F4.0 is a versatile STM32F405-based flight controller designed for FPV, fixed-wing aircraft, and autonomous
 platforms. It integrates precise inertial sensing, OSD support, built-in Blackbox logging, and relay outputs for
 controlling external modules. With support for both Betaflight and ArduPilot, the board can be deployed across a wide
@@ -1741,7 +1822,7 @@ support for relays, sensors, and telemetry makes it ready for real-world mission
 <li>ArduPilot <a href="download/KiwiF405-6S.zip">KiwiF405-6S.zip</a></li>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4.hex">BF-4.5.3.hex</a></li>
 </ul>
-<h2 id="features-5"><a class="header" href="#features-5">Features</a></h2>
+<h2 id="features-6"><a class="header" href="#features-6">Features</a></h2>
 <ul>
 <li>Industrial-grade Invensense ICM-42688P IMU with external clock</li>
 <li>Bosch BMP388 barometer for altitude measurement</li>
@@ -1852,6 +1933,505 @@ support for relays, sensors, and telemetry makes it ready for real-world mission
 <li>Автономні безпілотники для розвідки, доставки, моніторингу</li>
 <li>Робототехнічні платформи з вимогами до точного управління</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="uiux-guidelines-for-software-applications"><a class="header" href="#uiux-guidelines-for-software-applications">UI/UX Guidelines for Software Applications</a></h1>
+<p>This chapter distills MIL-STD-1472H human engineering requirements into actionable guidelines for software applications — particularly those used in marine, industrial, defense, and high-stress environments. Every recommendation traces back to a specific section of the standard.</p>
+<p>The core principle: <strong>the system adapts to the human, not the other way around.</strong></p>
+<hr>
+<h2 id="display-design"><a class="header" href="#display-design">Display Design</a></h2>
+<h3 id="contrast-and-luminance"><a class="header" href="#contrast-and-luminance">Contrast and Luminance</a></h3>
+<ul>
+<li>Character-to-background contrast ratio: <strong>6:1 minimum, 10:1 preferred</strong> [5.2.2.7]</li>
+<li>Text 14pt or smaller: luminance contrast ratio <strong>above 4.5:1</strong> [5.17.25.16.3]</li>
+<li>Text larger than 14pt: contrast ratio <strong>at least 3:1</strong> [5.17.25.16.3]</li>
+<li>Display luminance adjustability range (max to min): <strong>not less than 50:1</strong> [5.2.1.2.1]</li>
+<li>Display capable of luminance levels of at least <strong>35 cd/m² (10 fL)</strong> [5.2.1.2.2]</li>
+<li>Luminance uniformity across the display: <strong>shall not vary by more than 2:1</strong> (1.5:1 preferred) [5.2.2.4]</li>
+<li>Color-coded elements require luminance <strong>more than 10 cd/m²</strong> [5.17.25.9]</li>
+</ul>
+<h3 id="daynight-modes"><a class="header" href="#daynight-modes">Day/Night Modes</a></h3>
+<ul>
+<li>Day mode (540 lx or greater): <strong>dark characters on light background</strong> [5.18.2.2.1]</li>
+<li>Night mode (dark adaptation): <strong>light characters on dark background</strong> [5.18.2.2.2]</li>
+<li>Transition: below approximately 0.1 lx, use light-on-dark; otherwise dark-on-light [5.2.2.6]</li>
+<li>Separate day and night color palettes may be necessary [5.18.2.2.3]</li>
+<li>Night operations ambient illumination shall not exceed <strong>0.001 lx</strong> (0.0001 lx preferred) [5.18.2.1.5.1]</li>
+<li>Use <strong>low-level blue-filtered white light</strong> for panel and backlit keyboard lighting [5.2.1.9.8]</li>
+<li>If red lighting is used, controls normally coded red shall be recoded <strong>orange-yellow with black striping</strong> [5.18.3.2.2.1]</li>
+</ul>
+<h3 id="marinebridge-displays"><a class="header" href="#marinebridge-displays">Marine/Bridge Displays</a></h3>
+<ul>
+<li>Exterior displays readable in <strong>108,000 lx full sunlight</strong> with 6,800 cd/m² glare source [5.18.2.1.4]</li>
+<li>Interior displays readable in <strong>3,240 lx</strong> with 6,800 cd/m² glare source [5.18.2.1.4.1]</li>
+<li>Sunlight minimum luminance: <strong>685 cd/m²</strong> [5.18.2.2.3.2]</li>
+<li>Dark adaptation dimmable range: <strong>0.35 cd/m² down to 0.03 cd/m²</strong> (0.003 preferred) [5.18.2.2.3.5]</li>
+<li>Luminance adjustment controls shall <strong>remain visible even when fully dimmed</strong> [5.18.2.2.3.1.1]</li>
+<li>On-screen controls shall remain visible <strong>without external lighting</strong> [5.18.2.2.3.1.2]</li>
+<li>Primary displays placed <strong>below the operator’s external line of sight</strong> and below window level [5.18.2.1.6]</li>
+<li>All displays <strong>face away from windows</strong> to avoid reflections [5.18.2.1.9]</li>
+</ul>
+<h3 id="display-geometry"><a class="header" href="#display-geometry">Display Geometry</a></h3>
+<ul>
+<li>Viewing distance for seated operator: <strong>not more than 70 cm (28 in)</strong> [5.2.2.11.2]</li>
+<li>Minimum effective viewing distance: <strong>not less than 33 cm</strong> (50 cm preferred) [5.2.2.11.4]</li>
+<li>Graphic display elements shall not move faster than <strong>60 deg/sec</strong> (20 deg/sec preferred) [5.2.1.1.3]</li>
+<li>Jitter: picture element movement shall not exceed <strong>0.2 milliradians</strong> over 1 second [5.2.2.2]</li>
+<li>Geometric distortion: no point displaced more than <strong>5% of picture height</strong> [5.2.2.1]</li>
+</ul>
+<hr>
+<h2 id="typography-and-text"><a class="header" href="#typography-and-text">Typography and Text</a></h2>
+<h3 id="character-sizing"><a class="header" href="#character-sizing">Character Sizing</a></h3>
+<ul>
+<li>Character height shall subtend at least <strong>4.4 mrad (15 min arc)</strong> minimum; <strong>5.8 mrad (20 min arc)</strong> preferred [5.4.7.1]</li>
+<li>Quick formula: <strong>viewing distance × 0.004</strong> (minimum) or <strong>× 0.006</strong> (preferred) [5.4.7.1]</li>
+<li>At 710 mm (28 in) viewing distance, recommended height: <strong>~5 mm (0.18 in)</strong> [5.4.7.2]</li>
+<li>On-screen characters: not less than <strong>2.9 mrad (10 min arc)</strong>; should be <strong>4.5 mrad (15 min arc)</strong> [5.17.18.2]</li>
+</ul>
+<p><strong>Minimum character heights by viewing distance</strong> (Table XVIII):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Viewing Distance</th><th>Minimum Height</th></tr>
+</thead>
+<tbody>
+<tr><td>&lt; 0.5 m (20 in)</td><td>2.3 mm (0.1 in)</td></tr>
+<tr><td>0.5–1.0 m (20–40 in)</td><td>4.7 mm (0.2 in)</td></tr>
+<tr><td>1.0–2.0 m (40–80 in)</td><td>9.4 mm (0.4 in)</td></tr>
+<tr><td>2.0–4.0 m (80–160 in)</td><td>18 mm (0.75 in)</td></tr>
+<tr><td>4.0–9.0 m (160–360 in)</td><td>38 mm (1.5 in)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="font-and-style"><a class="header" href="#font-and-style">Font and Style</a></h3>
+<ul>
+<li>Use <strong>sans-serif fonts</strong> (Arial, Verdana, Helvetica) under adverse conditions [5.2.2.10.3.2]</li>
+<li>Use a <strong>common standard font</strong> (Arial, Times New Roman, Courier, Verdana) [5.2.2.10.3.1]</li>
+<li>Font must enable discrimination between confusable characters: I vs 1, O vs 0, Z vs 2 [5.2.2.10.3]</li>
+<li>Stroke width: <strong>1/6 to 1/7 of height</strong> (light-on-dark: 1/7 to 1/8) [5.4.7.4.1–2]</li>
+<li>Night mode uses <strong>thinner</strong> strokes than day mode to prevent halation (light bleeding) [5.4.7.4.2]</li>
+<li>Pixel stroke width: <strong>0.0834–0.1667</strong> of the number of pixels used for character height [5.17.18.4]</li>
+<li>Width-to-height ratio: <strong>3:5</strong> for general characters [5.4.7.5.1]</li>
+<li>On-screen character width: approximately <strong>0.9 of height</strong> [5.17.18.5]</li>
+<li>Colored text requires larger characters: minimum <strong>5.8 mrad (20 min arc)</strong> for accurate color perception [5.17.25.14]</li>
+</ul>
+<h3 id="spacing"><a class="header" href="#spacing">Spacing</a></h3>
+<ul>
+<li>Minimum space between characters: <strong>one stroke width</strong> [5.4.7.8]</li>
+<li>Minimum space between words: <strong>3/5 of character height</strong> [5.4.7.9]</li>
+<li>Minimum line spacing: <strong>1/2 character height</strong> (i.e., line spacing in points ≈ half font size) [5.4.7.10]</li>
+<li>Column separation in tables: <strong>not less than three character widths</strong> [5.17.20.3.13]</li>
+<li>Table row groups separated at intervals of <strong>not more than every 5 rows</strong> [5.17.20.3.14]</li>
+</ul>
+<h3 id="case-and-labeling"><a class="header" href="#case-and-labeling">Case and Labeling</a></h3>
+<ul>
+<li>ALL CAPS for single-word labels, headings, signal words, abbreviations [5.4.7.11.1, 5.4.7.11.4]</li>
+<li>Mixed case for phrases and sentences [5.4.7.11.2]</li>
+<li>Abbreviations only if familiar to users; <strong>always define in an accessible list</strong> [5.4.6.6, 5.4.6.6.5]</li>
+<li>No more than <strong>5 colors</strong> in label color coding [5.4.5.6.3]</li>
+<li>Hierarchical labels: each level <strong>25% larger</strong> than the next smaller [5.4.1.7.2]</li>
+<li>Five or more characters without natural grouping: <strong>group in blocks of 3–5</strong> separated by space [5.17.18.10.3]</li>
+<li><strong>No leading zeros</strong> in numerical data [5.17.18.10.6]</li>
+</ul>
+<hr>
+<h2 id="color-coding"><a class="header" href="#color-coding">Color Coding</a></h2>
+<h3 id="limits"><a class="header" href="#limits">Limits</a></h3>
+<ul>
+<li>Maximum <strong>11 nameable colors</strong> when user must recognize categories [5.17.25.5]</li>
+<li>No more than <strong>2 brightness levels</strong>; each separated by not less than 2:1 ratio [5.17.26.2]</li>
+<li>Color shall <strong>not be the only means</strong> of coding information [5.17.25.11]</li>
+<li>Colored symbols shall differ from background by <strong>not less than 100 ΔE</strong> (CIE L*u*v*) [5.17.25.16.1]</li>
+<li>Colors in a set shall differ from each other by <strong>not less than 20 ΔE</strong> [5.17.25.16.2]</li>
+</ul>
+<h3 id="standard-color-meanings-table-xl"><a class="header" href="#standard-color-meanings-table-xl">Standard Color Meanings (Table XL)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Color</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Red</strong></td><td>Alarm, critical, stop, danger, emergency, hostile, OFF, malfunction, failure</td></tr>
+<tr><td><strong>Orange</strong></td><td>High threat, warning/caution/hazard, abnormal state</td></tr>
+<tr><td><strong>Yellow</strong></td><td>Approaching critical, extreme caution, impending danger, caution signals</td></tr>
+<tr><td><strong>Green</strong></td><td>Safe, normal, open/flowing, ON, in tolerance, ready/proceed, friendly</td></tr>
+<tr><td><strong>Blue</strong></td><td>Non-critical, advisory (dark blue/navy), guarded threat</td></tr>
+<tr><td><strong>Cyan</strong></td><td>Friendly affiliation, advisory</td></tr>
+<tr><td><strong>Magenta</strong></td><td>Radiation hazard, advisory</td></tr>
+<tr><td><strong>Purple</strong></td><td>Aviation fuels, advisory, steam, medical personnel</td></tr>
+<tr><td><strong>White</strong></td><td>Functional/physical position, action in progress, outline/border</td></tr>
+<tr><td><strong>Black</strong></td><td>Image or figure edge, smoke</td></tr>
+<tr><td><strong>Gray</strong></td><td>Inactive or unavailable options or actions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="principles"><a class="header" href="#principles">Principles</a></h3>
+<ul>
+<li><strong>Warm colors</strong> (red, orange) for items requiring action or response [5.17.25.8.2]</li>
+<li><strong>Cool colors</strong> (blue, green) for background/infrequent information [5.17.25.8.1]</li>
+<li>More dangerous = <strong>more saturated</strong> red; hotter-to-cooler maps red→blue [5.17.25.7]</li>
+<li>Color coding <strong>consistent</strong> within and across all displays [5.17.25.3]</li>
+<li>Color shall <strong>not be used</strong> for gaining attention outside the foveal (central) visual field [5.17.25.2]</li>
+<li>Use <strong>color-filled symbols</strong> instead of outlined symbols for better detectability [5.17.25.15]</li>
+<li>For accurate color perception, symbol major dimension: <strong>not less than 8.7 mrad (30 min arc)</strong>, preferably 13.1 mrad (45 min arc) [5.17.25.13]</li>
+<li>Color customization allowed only for <strong>non-tactically-significant</strong> information [5.17.25.4]</li>
+<li>If color display uses filters, they shall be <strong>neutral density</strong> only [5.18.2.1.4.3]</li>
+</ul>
+<h3 id="color-blind-accommodation"><a class="header" href="#color-blind-accommodation">Color-Blind Accommodation</a></h3>
+<ul>
+<li>Every effort to select non-confusable colors [5.17.25.10]</li>
+<li>If not possible, <strong>redundant coding</strong> (shape, pattern, text label) shall be used [5.17.25.11]</li>
+<li>Do not rely on color alone where protective eyewear may alter perception [5.17.25.12]</li>
+</ul>
+<hr>
+<h2 id="visual-emphasis-and-coding"><a class="header" href="#visual-emphasis-and-coding">Visual Emphasis and Coding</a></h2>
+<h3 id="brightness-and-reverse-video"><a class="header" href="#brightness-and-reverse-video">Brightness and Reverse Video</a></h3>
+<ul>
+<li>No more than <strong>2 brightness levels</strong>; each separated by at least <strong>2:1 ratio</strong> [5.17.26.2]</li>
+<li>Reverse video (brightness inversion) may highlight critical items requiring attention [5.17.26.3]</li>
+<li>When used for alerting, reverse video shall be <strong>reserved for that purpose only</strong> — not for general highlighting [5.17.26.3]</li>
+</ul>
+<h3 id="size-coding"><a class="header" href="#size-coding">Size Coding</a></h3>
+<ul>
+<li>No more than <strong>3 size levels</strong> [5.17.28]</li>
+<li>Larger size shall be <strong>not less than 150%</strong> of the major dimension of the smaller [5.17.28]</li>
+</ul>
+<h3 id="underlining"><a class="header" href="#underlining">Underlining</a></h3>
+<ul>
+<li>Underlining may indicate <strong>unusual values, errors, changed items, or items to be changed</strong> [5.17.30]</li>
+</ul>
+<h3 id="flash-suppression"><a class="header" href="#flash-suppression">Flash Suppression</a></h3>
+<ul>
+<li>Flash coding only for <strong>mission-critical events</strong> [5.17.27.1]</li>
+<li>Only a <strong>small area</strong> of a display should flash at any time [5.17.27.7]</li>
+<li>Event acknowledgment or <strong>flash suppression control</strong> shall be provided [5.17.27.6]</li>
+</ul>
+<hr>
+<h2 id="alerts-and-warnings"><a class="header" href="#alerts-and-warnings">Alerts and Warnings</a></h2>
+<h3 id="alert-hierarchy"><a class="header" href="#alert-hierarchy">Alert Hierarchy</a></h3>
+<p>Three levels in descending precedence:</p>
+<ol>
+<li><strong>Warning (Alarm)</strong> — dangerous condition requiring <strong>immediate action</strong> [5.7.1.7.1]</li>
+<li><strong>Caution (Alert)</strong> — impending dangerous condition requiring <strong>attention</strong> [5.7.1.7.2]</li>
+<li><strong>Advisory</strong> — safe/normal status change, important but <strong>no immediate action</strong> [5.7.1.7.3]</li>
+</ol>
+<h3 id="visual-alert-specifications"><a class="header" href="#visual-alert-specifications">Visual Alert Specifications</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Level</th><th>Color</th><th>Flash Rate</th><th>Duty Cycle</th></tr>
+</thead>
+<tbody>
+<tr><td>Warning</td><td><strong>Flashing Red</strong></td><td>3–5 Hz</td><td>50% (ON ≥ OFF)</td></tr>
+<tr><td>Caution</td><td><strong>Yellow</strong></td><td>≤ 2 Hz (if flashing)</td><td>70% ON / 30% OFF</td></tr>
+<tr><td>Advisory</td><td>Steady (any standard color)</td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>All items flashing at the same rate shall be <strong>synchronized</strong> [5.17.27.4]</li>
+<li><strong>Characters that must be read shall not flash</strong> — use flashing border, background, or adjacent symbol instead [5.17.27.5]</li>
+<li>No more than <strong>two flash rates</strong> total; differ by at least 2 Hz; higher rate ≤ 5 Hz, lower rate ≥ 0.8 Hz [5.17.27.3]</li>
+<li>Alert text height: <strong>8.7 to 17.4 mrad</strong> from longest viewing distance [5.7.3.6]</li>
+<li>Warning/caution signals and response info <strong>grouped in a single location</strong> [5.7.3.7]</li>
+<li>Users can sort alerts by <strong>priority, chronological, or recency</strong> [5.7.3.7.2]</li>
+<li>Bridge alerts: within operator’s <strong>30-degree forward cone of vision</strong> [5.18.2.1.2]</li>
+<li>Safety-of-navigation alerts on <strong>left-most display</strong> if multiple displays [5.18.2.1.3]</li>
+<li><strong>Minimize false and nuisance alerts</strong> [5.7.3.10]</li>
+</ul>
+<h3 id="audio-alert-specifications"><a class="header" href="#audio-alert-specifications">Audio Alert Specifications</a></h3>
+<ul>
+<li>Warning signals: <strong>at least 15 dBA above ambient</strong>, not exceeding 140 dBP [5.3.2.1.3]</li>
+<li>Frequency range: 250–8,000 Hz, preferably <strong>500–2,000 Hz</strong> [5.3.3.3.1]</li>
+<li>Recognition time: within <strong>0.5 seconds</strong> [5.3.3.1]</li>
+<li>Minimize startle: increase <strong>not greater than 30 dB</strong> in any 0.5-second period; first 0.2 seconds not at max intensity [5.3.4.2.3–4]</li>
+<li>No more than <strong>4 discriminable audio signals</strong> if absolute discrimination required [5.3.4.3.1.1]</li>
+<li>Advisory signals in quiet areas: <strong>50–70 dBA</strong> [5.3.2.4.1]</li>
+<li>Audio warning persists until condition resolved or acknowledged; if acknowledged but condition persists past timeout, <strong>audio re-initializes</strong>; visual remains even when audio silenced [5.3.2.1.5]</li>
+<li>Critical system mode changes: <strong>both auditory and visual alert</strong> [5.18.8.7]</li>
+</ul>
+<h3 id="safety-design-precedence"><a class="header" href="#safety-design-precedence">Safety Design Precedence</a></h3>
+<p>In order: (1) eliminate hazard by design → (2) minimize risk → (3) safety devices → (4) warning devices → (5) procedures and training [5.7.1.1]</p>
+<hr>
+<h2 id="controls-and-input"><a class="header" href="#controls-and-input">Controls and Input</a></h2>
+<h3 id="touchscreen"><a class="header" href="#touchscreen">Touchscreen</a></h3>
+<ul>
+<li>Touchscreen <strong>shall not be the sole input</strong> for mission-critical or safety-critical interfaces [5.1.3.1.1.3]</li>
+<li><strong>Not the sole input</strong> for large amounts of frequent data entry [5.1.3.1.1.1]</li>
+<li><strong>Not the sole input</strong> in moving/vibration environments [5.1.3.1.1.2]</li>
+<li>Display response latency: <strong>should not exceed 100 ms</strong> [5.1.3.1.4]</li>
+<li>Critical tasks require <strong>additional confirmatory action</strong> [5.1.3.1.7]</li>
+<li>Repeat function initial delay: <strong>500–750 ms</strong> [5.1.3.1.8]</li>
+<li>Sensitivity shall match <strong>all expected operational modes including gloves</strong> [5.1.3.1.10]</li>
+<li>For glove use: add <strong>5 mm</strong> to each dimension of touch targets [5.1.3.1.17]</li>
+</ul>
+<p><strong>Touch target dimensions:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Keyboard Targets</th><th>General Targets</th></tr>
+</thead>
+<tbody>
+<tr><td>Minimum size</td><td>16 × 16 mm</td><td>15 × 15 mm</td></tr>
+<tr><td>Maximum size</td><td>—</td><td>38 × 38 mm</td></tr>
+<tr><td>Separation (first contact)</td><td>≥ 5 mm</td><td>≥ 5 mm</td></tr>
+<tr><td>Separation (last contact)</td><td>≥ 3 mm</td><td>≥ 3 mm</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="keyboard"><a class="header" href="#keyboard">Keyboard</a></h3>
+<ul>
+<li>Alphanumeric key preferred size: <strong>19 mm</strong>, function key minimum: <strong>15 mm</strong> [Table VII]</li>
+<li>Key resistance: <strong>0.25–1.5 N</strong> (preferred 0.5–0.6 N) [Table VII]</li>
+<li>Key displacement: <strong>0.8–6.3 mm</strong> [Table VII]</li>
+<li>Key separation: minimum <strong>6.4 mm</strong> [Table VII]</li>
+<li>Must provide <strong>tactile feedback</strong> — spring-loaded keys that click and return [5.1.3.2.6]</li>
+<li>In dark environments: dimmable to <strong>minimum 30 incremental positions</strong> from full ON to OFF [5.1.3.2.7]</li>
+<li>Individually <strong>backlit</strong> characters and symbols [5.1.3.2.7.2]</li>
+</ul>
+<h3 id="mouse"><a class="header" href="#mouse">Mouse</a></h3>
+<ul>
+<li>Operable with <strong>either hand</strong> [5.1.3.3.2.4]</li>
+<li>If cursor can go off-edge: provide <strong>indicators to bring it back</strong> [5.1.3.3.2.6]</li>
+<li>Button resistance: <strong>0.5–1.5 N</strong>; displacement: <strong>5–6 mm</strong> [Table VIII]</li>
+</ul>
+<h3 id="marinebridge-specific"><a class="header" href="#marinebridge-specific">Marine/Bridge-Specific</a></h3>
+<ul>
+<li>GUI controls <strong>shall not be the sole means</strong> for ship steering, propulsion, or emergency functions [5.18.1.5]</li>
+<li><strong>Hardware-based controls</strong> for direct steering and throttle [5.18.1.5.1]</li>
+<li>If control transfers between positions: <strong>clear, salient indication</strong> of which position is active [5.18.6.1.3]</li>
+<li><strong>Immediate human override</strong> of automated/autonomous operations [5.18.9.2.2]</li>
+</ul>
+<hr>
+<h2 id="menus-forms-and-dialogs"><a class="header" href="#menus-forms-and-dialogs">Menus, Forms, and Dialogs</a></h2>
+<h3 id="menu-design"><a class="header" href="#menu-design">Menu Design</a></h3>
+<ul>
+<li>Drop-down menus when <strong>more than three commands</strong> [5.17.3.1.1.1]</li>
+<li>Submenu depth limited to <strong>three levels</strong> (Main &gt; Sub1 &gt; Sub2) [5.17.3.1.2.6]</li>
+<li>Frequently needed functions: <strong>not in submenus</strong> [5.17.3.1.2.3]</li>
+<li>Right-click menus <strong>shall not be the only method</strong> for any command [5.17.3.1.5.1]</li>
+<li>Menus shall <strong>not span multiple pages</strong> [5.17.3.2.2.4]</li>
+<li>Unavailable options: <strong>greyed out or hidden</strong> [5.17.3.2.3]</li>
+<li>Menu order: <strong>logical</strong> (alphabetical, frequency of use, or workflow) [5.17.3.2.6]</li>
+<li><strong>Keyboard shortcuts</strong> for frequently used actions [5.17.3.2.10]</li>
+<li>Toolbar icons <strong>shall have tooltip labels</strong> [5.17.3.1.3.5]</li>
+<li>When traversing multiple levels, <strong>all levels remain visible</strong> until selection made [5.17.3.2.14]</li>
+<li>A page should contain <strong>no more than 7 portlets/widgets</strong> [5.17.8.4]</li>
+</ul>
+<h3 id="form-design"><a class="header" href="#form-design">Form Design</a></h3>
+<ul>
+<li>Pace of data entry <strong>controlled by the user</strong> [5.17.4.2]</li>
+<li>System provides <strong>immediate feedback</strong> on acceptance or rejection [5.17.4.3]</li>
+<li>Entries validated for <strong>format, legal value, and range</strong> before processing [5.17.4.8]</li>
+<li>User shall <strong>not re-enter data</strong> already available to the system [5.17.4.9]</li>
+<li>Data entered in <strong>units familiar to the user</strong> [5.17.4.10]</li>
+<li>Related items <strong>grouped together</strong> [5.17.6.2]</li>
+<li><strong>Required fields distinguished</strong> from optional fields [5.17.6.6]</li>
+<li>Format hints when ambiguous: e.g., “DATE (MM/DD/YYYY)” [5.17.6.8]</li>
+<li>Cursor positioned at <strong>first data entry field</strong> by default [5.17.6.16]</li>
+<li>Maximum field length <strong>visually indicated</strong> [5.17.6.17]</li>
+<li>User can <strong>review, change, or cancel</strong> any item before submitting [5.17.6.25]</li>
+<li>Non-entry areas: <strong>visually distinguishable and inaccessible</strong> [5.17.6.23–24]</li>
+</ul>
+<h3 id="cursors"><a class="header" href="#cursors">Cursors</a></h3>
+<ul>
+<li>Different visual attributes for <strong>different modes</strong> (selecting vs editing) [5.17.5.2]</li>
+<li>Cursor <strong>shall not obscure</strong> displayed entities [5.17.5.4]</li>
+<li>Cursor <strong>shall not disappear</strong> at display boundaries [5.17.5.5]</li>
+<li>Permanent deletion of more than one character requires <strong>confirmation</strong> (unless undo available) [5.17.5.14]</li>
+</ul>
+<hr>
+<h2 id="system-response-and-feedback"><a class="header" href="#system-response-and-feedback">System Response and Feedback</a></h2>
+<h3 id="response-time-requirements"><a class="header" href="#response-time-requirements">Response Time Requirements</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Event</th><th>Required Response</th></tr>
+</thead>
+<tbody>
+<tr><td>Touchscreen actuation</td><td>Latency ≤ <strong>100 ms</strong> [5.1.3.1.4]</td></tr>
+<tr><td>Any user input</td><td><strong>Perceptible response</strong> [5.17.9.3]</td></tr>
+<tr><td>Processing &gt; 1 second</td><td><strong>“Processing” message</strong> [5.17.9.5.3]</td></tr>
+<tr><td>Processing &gt; 10 seconds</td><td><strong>Progress indicator</strong> [5.17.9.9.2]</td></tr>
+<tr><td>Error detection</td><td>Error message within <strong>0.2 seconds</strong> [5.17.10.9]</td></tr>
+<tr><td>Readable dynamic values</td><td>Update <strong>no more than 1/second</strong> [5.17.22.1.1.1]</td></tr>
+<tr><td>Rate-of-change values</td><td>Update <strong>3–4 times/second</strong> [5.17.22.1.1.2]</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="feedback-principles"><a class="header" href="#feedback-principles">Feedback Principles</a></h3>
+<ul>
+<li>Every input produces a <strong>consistent perceptible response</strong> [5.17.9.3]</li>
+<li>If input rejected: feedback indicates <strong>reason and corrective action</strong> [5.17.9.10]</li>
+<li>Messages shall be <strong>explicit and informative</strong> — no codebooks, no system internals [5.17.9.14]</li>
+<li>Time-consuming commands: <strong>warn before starting</strong>, allow <strong>abort during execution</strong> [5.17.9.7–8]</li>
+<li>Auto-updating displays: provide <strong>freeze mode</strong> with visible “FROZEN” label [5.17.22.1.2.1, 5.17.22.1.2.4]</li>
+</ul>
+<hr>
+<h2 id="error-management"><a class="header" href="#error-management">Error Management</a></h2>
+<ul>
+<li>Easy correction of errors; system <strong>permits partial correction</strong> [5.17.10.1–2]</li>
+<li>Error checking at <strong>logical data entry breaks</strong> (end of fields, not per-character) [5.17.10.4]</li>
+<li>Validate: format, sequence, completeness, range [5.17.10.5]</li>
+<li><strong>Irreversible/destructive actions require explicit confirmation</strong> [5.17.10.6]</li>
+<li>Error messages shall:
+<ul>
+<li>Describe the error in <strong>application terms</strong>, not system internals [5.17.10.7.1]</li>
+<li>Instruct user <strong>how to recover</strong> [5.17.10.7.2]</li>
+<li>Be <strong>constructive and neutral</strong> in tone [5.17.10.7.3]</li>
+<li>Appear <strong>near the entry</strong> that caused them, without obscuring needed controls [5.17.10.16–17]</li>
+<li>Display <strong>continuously</strong> until corrected or dismissed [5.17.10.14]</li>
+</ul>
+</li>
+<li>If user <strong>repeats the same error</strong>, second message includes a <strong>noticeable change</strong> [5.17.10.18]</li>
+<li><strong>Multi-level undo</strong>: user can stop and return to previous levels at any point [5.17.10.10]</li>
+<li>System should recognize <strong>common misspellings</strong> and suggest corrections [5.17.10.12]</li>
+</ul>
+<hr>
+<h2 id="cybersecurity-ux"><a class="header" href="#cybersecurity-ux">Cybersecurity UX</a></h2>
+<h3 id="authentication"><a class="header" href="#authentication">Authentication</a></h3>
+<ul>
+<li><strong>Multifactor authentication</strong>: at least two of token, knowledge, biometrics [5.16.2.3]</li>
+<li>Password <strong>not echoed</strong> on display (asterisks) [5.16.2.6]</li>
+<li>Status feedback on <strong>accept/reject</strong> [5.16.2.5]</li>
+<li>Failed authentication: display <strong>specific reason and corrective action</strong> [5.16.2.10–11]</li>
+<li>Show user <strong>remaining login attempts</strong> before lockout [5.16.3.5]</li>
+<li>User informed of <strong>all active concurrent sessions</strong> [5.16.2.14]</li>
+<li>Locked-out user can <strong>request admin reset</strong> [5.16.3.6]</li>
+</ul>
+<h3 id="session-management"><a class="header" href="#session-management">Session Management</a></h3>
+<ul>
+<li>Logon is a <strong>separate procedure</strong> completed before any operational access [5.16.3.1]</li>
+<li><strong>Role-based access control</strong>; user informed of current role [5.16.1.1, 5.16.1.3.2]</li>
+<li>User can see <strong>which account is currently active</strong> [5.16.1.4]</li>
+<li><strong>Automatic logoff</strong> after predefined inactivity with <strong>no data loss</strong> [5.16.4.1]</li>
+<li>On logoff/exit: check for <strong>pending transactions</strong>, warn of <strong>potential data loss</strong>, prompt for <strong>confirmation</strong> [5.16.4.2]</li>
+</ul>
+<h3 id="password-ux"><a class="header" href="#password-ux">Password UX</a></h3>
+<ul>
+<li>Display <strong>password criteria</strong> during creation [5.16.7.1]</li>
+<li><strong>Dynamic feedback</strong> on which complexity requirements are not yet met [5.16.7.2]</li>
+<li>Users can change passwords <strong>at any time</strong> [5.16.7.5]</li>
+<li>System should <strong>support password managers</strong> [5.16.7.6]</li>
+</ul>
+<h3 id="data-protection"><a class="header" href="#data-protection">Data Protection</a></h3>
+<ul>
+<li><strong>Prominent indication</strong> of security classification level on classified data [5.16.5.1]</li>
+<li>Real system use <strong>clearly distinguished</strong> from simulated operations [5.16.6.2]</li>
+</ul>
+<hr>
+<h2 id="mobile-and-handheld-applications"><a class="header" href="#mobile-and-handheld-applications">Mobile and Handheld Applications</a></h2>
+<h3 id="physical-constraints"><a class="header" href="#physical-constraints">Physical Constraints</a></h3>
+<ul>
+<li>Single-handed device: &lt; 10.2 × 25.4 × 12.7 cm, weight &lt; <strong>1.4 kg</strong> (precision manipulation &lt; 400 g) [5.19.6.1–3]</li>
+<li>Two-handed device: should not exceed <strong>4.5 kg</strong> [5.19.7.2]</li>
+<li>Operable with <strong>bare hands and gloves</strong> [5.19.1.3.1]</li>
+<li>Operable with <strong>either hand</strong> [5.19.1.7.1]</li>
+</ul>
+<h3 id="display"><a class="header" href="#display">Display</a></h3>
+<ul>
+<li>Brightness <strong>full-range continuously adjustable</strong> [5.19.4.2.1]</li>
+<li>Fully dimmed setting <strong>still readable</strong> in natural lighting with backlight off [5.19.4.2.2]</li>
+<li><strong>User-configurable</strong> backlight timeout, resets on interaction [5.19.4.2.3]</li>
+<li><strong>Anti-glare</strong> features (filters, coatings) [5.19.4.3]</li>
+<li>Vibrotactile alerts: <strong>150–300 Hz</strong> optimal, duration <strong>50–200 ms</strong> [5.19.4.4.1, 5.19.4.4.3]</li>
+</ul>
+<h3 id="app-design-principles"><a class="header" href="#app-design-principles">App Design Principles</a></h3>
+<ul>
+<li>Critical information reachable in <strong>no more than 2 key actions</strong> [5.19.5.4.1]</li>
+<li>Provide <strong>shortcuts</strong> (hotkeys, voice, key combos) for frequent commands [5.19.5.4.2]</li>
+<li>Support <strong>auto-rotation</strong> (user-selectable) [5.19.5.4.4]</li>
+<li><strong>Minimize text input</strong>; prefer selection over manual entry; prepopulate forms [5.19.5.4.7]</li>
+<li>Scrolling in <strong>one dimension only</strong> [5.19.5.5.4b]</li>
+<li>Selected items: <strong>clearly indicated</strong> (color + background + text change) [5.19.5.5.2]</li>
+<li><strong>Back, Home, Search</strong> always available [5.19.5.5.3]</li>
+<li>Follow <strong>platform conventions</strong> (iOS, Android, Windows) — do not invent non-standard behaviors [5.19.5.1.6.1]</li>
+<li>Color always with <strong>dual coding</strong> (shape or label) [5.19.5.5.7]</li>
+<li>Remaining <strong>battery life indication</strong> (percentage or time) [5.19.2.4.3]</li>
+<li><strong>Connection status</strong> indication (signal strength/reliability) [5.19.2.5.2]</li>
+<li>Usable <strong>while recharging</strong> [5.19.2.4.6]</li>
+</ul>
+<h3 id="key-spacing"><a class="header" href="#key-spacing">Key Spacing</a></h3>
+<ul>
+<li>Key spacing (center-to-center): min 10 mm, preferred <strong>14 mm</strong>, max 19 mm [5.19.3.8.1]</li>
+<li>Communication keypads: <strong>telephone layout</strong> (not calculator) [5.19.3.8.2]</li>
+</ul>
+<hr>
+<h2 id="speech-and-audio-ui"><a class="header" href="#speech-and-audio-ui">Speech and Audio UI</a></h2>
+<h3 id="when-to-use-audio"><a class="header" href="#when-to-use-audio">When to Use Audio</a></h3>
+<ul>
+<li>Short, simple information requiring <strong>immediate response</strong> [5.3.1.1a]</li>
+<li>Visual channel is <strong>overburdened or restricted</strong> [5.3.1.1b]</li>
+<li>Criticality makes <strong>redundant notification</strong> desirable [5.3.1.1c]</li>
+<li>Each audio signal: <strong>one meaning only</strong> [5.3.1.3]</li>
+</ul>
+<h3 id="speech-output"><a class="header" href="#speech-output">Speech Output</a></h3>
+<ul>
+<li>Speech rate: <strong>150–180 words per minute</strong> [5.3.10.3]</li>
+<li>Instructional prompts: <strong>goal first, then action</strong> (“To delete, press Enter”) [5.3.10.6]</li>
+<li>Prompts repeat after command or <strong>10 seconds</strong> of inactivity [5.3.10.6.1]</li>
+<li><strong>Cancel/mute</strong> capability after initial presentation [5.3.10.7]</li>
+<li><strong>“Say again”</strong> / repeat on command [5.3.10.8]</li>
+<li>Simultaneous messages: <strong>most critical gets priority</strong> [5.3.10.5]</li>
+</ul>
+<h3 id="speech-recognition"><a class="header" href="#speech-recognition">Speech Recognition</a></h3>
+<ul>
+<li>Use when hands occupied, mobility required, or visual attention fully occupied [5.3.13.1]</li>
+<li>Use when consequences of recognition errors are <strong>low</strong> and correction is <strong>easy</strong> [5.3.13.1]</li>
+<li><strong>Shall not be sole control</strong> — always provide alternative input [5.3.14.1–2]</li>
+<li>System shall <strong>adapt to environment variability</strong> [5.3.13.3]</li>
+<li>Provide <strong>feedback</strong> so user knows system understood [5.3.13.5]</li>
+<li>Vocabulary: <strong>minimized and phonetically distinct</strong> [5.3.13.6]</li>
+<li>Must reject involuntary sounds (sneezes, coughs) [5.3.13.10]</li>
+</ul>
+<h3 id="audio-signal-control"><a class="header" href="#audio-signal-control">Audio Signal Control</a></h3>
+<ul>
+<li>Non-critical audio signals can be <strong>turned off by user</strong> [5.3.1.8]</li>
+<li>Visual indication must show when audio has been <strong>silenced</strong> [5.3.1.9]</li>
+</ul>
+<hr>
+<h2 id="default-values-and-efficiency"><a class="header" href="#default-values-and-efficiency">Default Values and Efficiency</a></h2>
+<ul>
+<li>Use <strong>default values</strong> where feasible to reduce workload [5.17.20.2.1]</li>
+<li>Defaults displayed <strong>automatically</strong> in their fields [5.17.20.2.2]</li>
+<li>Accept default by <strong>single keystroke</strong> [5.17.20.2.3]</li>
+<li>User can <strong>replace any default</strong> during a transaction without changing the default definition [5.17.20.2.4]</li>
+<li>Display information in <strong>directly usable form</strong> — no transposing, computing, or mental translation [5.17.15.2]</li>
+<li>Same format for <strong>input and output</strong> within a task [5.17.15.3.2]</li>
+<li>Each multi-page display labeled <strong>“Page X of Y”</strong> [5.17.15.5]</li>
+</ul>
+<hr>
+<h2 id="quick-reference-critical-numbers"><a class="header" href="#quick-reference-critical-numbers">Quick Reference: Critical Numbers</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Character contrast ratio</td><td>6:1 min, 10:1 preferred</td></tr>
+<tr><td>Small text contrast</td><td>4.5:1 min</td></tr>
+<tr><td>Color ΔE from background</td><td>≥ 100 (CIE L*u*v*)</td></tr>
+<tr><td>Color ΔE between colors</td><td>≥ 20 (CIE L*u*v*)</td></tr>
+<tr><td>Touch target size</td><td>15–38 mm</td></tr>
+<tr><td>Touch target separation</td><td>3–6 mm</td></tr>
+<tr><td>Touch response latency</td><td>≤ 100 ms</td></tr>
+<tr><td>Processing indicator</td><td>After 1 second</td></tr>
+<tr><td>Progress bar</td><td>After 10 seconds</td></tr>
+<tr><td>Error message latency</td><td>≤ 0.2 seconds</td></tr>
+<tr><td>Max colors for categories</td><td>11</td></tr>
+<tr><td>Max brightness levels</td><td>2 (separated by ≥ 2:1)</td></tr>
+<tr><td>Max size coding levels</td><td>3 (each ≥ 150% of smaller)</td></tr>
+<tr><td>Max flash rates</td><td>2</td></tr>
+<tr><td>Warning flash rate</td><td>3–5 Hz</td></tr>
+<tr><td>Max submenu depth</td><td>3 levels</td></tr>
+<tr><td>Max portlets per page</td><td>7</td></tr>
+<tr><td>Table row grouping</td><td>Every 5 rows</td></tr>
+<tr><td>Pixel stroke width range</td><td>0.0834–0.1667 of pixel height</td></tr>
+<tr><td>Colored text min size</td><td>5.8 mrad (20 min arc)</td></tr>
+<tr><td>Speech output rate</td><td>150–180 wpm</td></tr>
+<tr><td>Audio recognition time</td><td>≤ 0.5 seconds</td></tr>
+<tr><td>Night ambient max</td><td>0.001 lx</td></tr>
+</tbody>
+</table>
+</div>
 
                     </main>
 

@@ -14,7 +14,7 @@
 
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-84c1b2f5.css">
+        <link rel="stylesheet" href="css/variables-d0fe17bd.css">
         <link rel="stylesheet" href="css/general-2459343d.css">
         <link rel="stylesheet" href="css/chrome-ae938929.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
@@ -28,7 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/css/custom-09c29ef6.css">
+        <link rel="stylesheet" href="theme/css/custom-6ce167cc.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62e749a1.js";
+            window.path_to_searchindex_js = "searchindex-074fbc64.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-99fb4d68.js"></script>
+        <script src="toc-9f945dfe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -198,7 +198,7 @@
 <tr><td>SERIAL2</td><td>MAVLink Telemetry</td><td>MAVLink2 (460800)</td></tr>
 <tr><td>SERIAL3</td><td>GPS</td><td>GPS (115200)</td></tr>
 <tr><td>SERIAL4</td><td>TBS Fusion VRX</td><td>VRX Serial (115200, half-duplex)</td></tr>
-<tr><td>SERIAL5</td><td>ESC Telemetry</td><td>ESC Telemetry</td></tr>
+<tr><td>SERIAL5</td><td>MAVLink2 GCS (RS422)</td><td>MAVLink2</td></tr>
 <tr><td>PWM1</td><td>Yaw Servo</td><td>Continuous rotation</td></tr>
 </tbody>
 </table>
@@ -261,6 +261,16 @@
 <tr><td>VRX_ENABLE</td><td>2</td><td>0=Off, 2=TBS Fusion, 3=SteadyView X</td></tr>
 <tr><td>VRX_FREQ</td><td>5800</td><td>Operating frequency (MHz)</td></tr>
 <tr><td>VRX_ADDR</td><td>1</td><td>TBS Fusion serial address</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="scan-parameters"><a class="header" href="#scan-parameters">Scan Parameters</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
 <tr><td>VRX_SCAN</td><td>0</td><td>Set to 1 to start scan, auto-resets to 0</td></tr>
 <tr><td>VRX_SCANLO</td><td>5200</td><td>Scan start frequency (MHz)</td></tr>
 <tr><td>VRX_SCANHI</td><td>6000</td><td>Scan stop frequency (MHz)</td></tr>

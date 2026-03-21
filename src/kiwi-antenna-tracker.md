@@ -72,6 +72,11 @@ One wire from TBS Fusion UART TX/RX to the tracker's SERIAL4 pad. Half-duplex is
 | VRX_ENABLE | 2 | 0=Off, 2=TBS Fusion, 3=SteadyView X |
 | VRX_FREQ | 5800 | Operating frequency (MHz) |
 | VRX_ADDR | 1 | TBS Fusion serial address |
+
+### Scan Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
 | VRX_SCAN | 0 | Set to 1 to start scan, auto-resets to 0 |
 | VRX_SCANLO | 5200 | Scan start frequency (MHz) |
 | VRX_SCANHI | 6000 | Scan stop frequency (MHz) |

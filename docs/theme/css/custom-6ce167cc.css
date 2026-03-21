@@ -10,9 +10,9 @@ html {
 :root {
     --content-max-width: 960px;
     --mono-font: 'JetBrains Mono', 'Source Code Pro', Consolas, monospace;
-    --kiwi-accent: #0d9488;
-    --kiwi-accent-light: #14b8a6;
-    --kiwi-accent-dark: #0f766e;
+    --kiwi-accent: #0b6b63;
+    --kiwi-accent-light: #0d9488;
+    --kiwi-accent-dark: #095e56;
 }
 
 /* ── Light theme accent ── */
@@ -37,9 +37,10 @@ html {
     --links: var(--kiwi-accent-light);
 }
 
-/* ── Page titles ── */
+/* ── Heading hierarchy — 25% scale per MIL-STD 5.4.1.7.2 ── */
 .content main > h1:first-child {
     font-weight: 700;
+    font-size: 2.0em;
     letter-spacing: -0.02em;
     padding-bottom: 0.3em;
     border-bottom: 3px solid var(--kiwi-accent);
@@ -48,12 +49,18 @@ html {
 
 h2 {
     font-weight: 600;
+    font-size: 1.6em;
     letter-spacing: -0.01em;
 }
 
 h3 {
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1.28em;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: 1.02em;
 }
 
 /* ── Tables — tighter, more technical ── */
@@ -75,6 +82,11 @@ table thead th {
 
 table td {
     padding: 6px 16px;
+}
+
+/* 5-row grouping border per MIL-STD 5.17.20.3.14 */
+tbody tr:nth-child(5n) {
+    border-bottom: 2px solid var(--table-border-color);
 }
 
 /* ── Code blocks ── */
@@ -105,6 +117,9 @@ pre {
 /* ── Sidebar tweaks ── */
 .sidebar .chapter li a {
     font-size: 0.95em;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .sidebar .chapter li.part-title {
