@@ -41,6 +41,7 @@ For feedback, corrections, or suggestions, please contact us at support@kaponga.
 
 ### Reference
 
+- [ICM-42688P (HXY) Datasheet](./icm-42688p-hxy/README.md)
 - [MIL-STD-1472H UI/UX Guidelines](./mil-std-1472h-uiux.md)
 
 -----------

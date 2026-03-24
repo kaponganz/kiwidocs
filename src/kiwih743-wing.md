@@ -258,6 +258,19 @@ KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand lau
 3. Arm in FBWA mode
 4. Switch to TAKEOFF mode
 
+### IRC Tramp VTX Control
+
+Full IRC Tramp protocol support under ArduPilot. Change VTX power, band, channel, and pit mode directly from your GCS or OSD — no need for SmartAudio.
+
+Works with TBS Unify, Rush Tank, and other Tramp-compatible VTXs.
+
+### VRX Integration (TBS Fusion / Skyzone)
+
+Working video receiver control under ArduPilot. Supports:
+
+- **TBS Fusion** — band/channel tracking via CRSF
+- **Skyzone Steadyview** — auto channel sync
+
 ---
 
 ## Displayport OSD
