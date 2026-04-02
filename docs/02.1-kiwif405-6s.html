@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-91de262f.js";
+            window.path_to_searchindex_js = "searchindex-a134c754.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-8958f830.js"></script>
@@ -253,16 +253,18 @@ support for relays, sensors, and telemetry makes it ready for real-world mission
 <tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>Gimbal protocol</td></tr>
 <tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
 <tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
-<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
-<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
-<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
-<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2 spec: ±120°</td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>120</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-160</td><td>GM3 V2 spec: ±160°</td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>160</td><td></td></tr>
+<tr><td><code>MNT1_ROLL_MIN</code></td><td>-60</td><td>GM3 V2 spec: ±60°</td></tr>
+<tr><td><code>MNT1_ROLL_MAX</code></td><td>60</td><td></td></tr>
 <tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
 </tbody>
 </table>
 </div>
 <blockquote>
-<p>Gimbal firmware must be v3.4 or higher. Upgrade via GimbalConfig app + upgrade cable.</p>
+<p>Gimbal firmware must be V2.0 or higher.</p>
 </blockquote>
 <h3 id="servo-gimbal"><a class="header" href="#servo-gimbal">Servo Gimbal</a></h3>
 <p>Connect pitch/yaw servos to AUX PWM outputs.</p>
