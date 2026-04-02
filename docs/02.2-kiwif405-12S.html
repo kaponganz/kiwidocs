@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-da8c83cb.js";
+            window.path_to_searchindex_js = "searchindex-91de262f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-8958f830.js"></script>
@@ -392,10 +392,31 @@ save
 <p>On the KIWI F405 12S, only PINIO4 (PA4 / RELAY1) has a physical GPIO pin. PINIO1–3 are defined as NONE in the hardware config, but the OSD elements still work — the User box toggles the logical state, and the OSD text updates accordingly. No physical pin is needed for OSD-only use.</p>
 <hr>
 <h2 id="camera-gimbal-support"><a class="header" href="#camera-gimbal-support">Camera Gimbal Support</a></h2>
-<p>KIWI F405 supports servo-based camera gimbals. Connect pitch/yaw servos to AUX PWM outputs (PWM5–PWM8).</p>
+<p>KIWI F405 supports camera gimbals out of the box — both servo-based and CADDX protocol gimbals.</p>
+<h3 id="caddx-gimbal"><a class="header" href="#caddx-gimbal">CADDX Gimbal</a></h3>
+<p>Wire gimbal UART TX/RX/GND to any free serial port.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>Gimbal protocol</td></tr>
+<tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
+<tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
 <blockquote>
-<p>CADDX protocol gimbals are not supported on F405 (requires H743 with flash &gt; 1024KB).</p>
+<p>Gimbal firmware must be v3.4 or higher. Upgrade via GimbalConfig app + upgrade cable.</p>
 </blockquote>
+<h3 id="servo-gimbal"><a class="header" href="#servo-gimbal">Servo Gimbal</a></h3>
+<p>Connect pitch/yaw servos to AUX PWM outputs (PWM5–PWM8).</p>
 <div class="table-wrapper">
 <table>
 <thead>
