@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-8c91c28e.js";
+            window.path_to_searchindex_js = "searchindex-da8c83cb.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-f27d4e7b.js"></script>
+        <script src="toc-8958f830.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -390,6 +390,29 @@ save
 </code></pre>
 <h4 id="hardware-notes"><a class="header" href="#hardware-notes">Hardware Notes</a></h4>
 <p>On the KIWI F405 12S, only PINIO4 (PA4 / RELAY1) has a physical GPIO pin. PINIO1–3 are defined as NONE in the hardware config, but the OSD elements still work — the User box toggles the logical state, and the OSD text updates accordingly. No physical pin is needed for OSD-only use.</p>
+<hr>
+<h2 id="camera-gimbal-support"><a class="header" href="#camera-gimbal-support">Camera Gimbal Support</a></h2>
+<p>KIWI F405 supports servo-based camera gimbals. Connect pitch/yaw servos to AUX PWM outputs (PWM5–PWM8).</p>
+<blockquote>
+<p>CADDX protocol gimbals are not supported on F405 (requires H743 with flash &gt; 1024KB).</p>
+</blockquote>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>MNT1_TYPE</code></td><td>1</td><td>Servo</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>6</td><td>Mount1 Pitch (assign to desired output)</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>8</td><td>Mount1 Yaw (assign to desired output)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
 <hr>
 <h2 id="default-parameters"><a class="header" href="#default-parameters">Default Parameters</a></h2>
 <ul>

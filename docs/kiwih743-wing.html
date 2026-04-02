@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-8c91c28e.js";
+            window.path_to_searchindex_js = "searchindex-da8c83cb.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-f27d4e7b.js"></script>
+        <script src="toc-8958f830.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -180,6 +180,7 @@
 <a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>The <strong>KiwiH743-Wing</strong> is a Pixhawk-format flight controller system consisting of two boards: a Flight Controller and a Power Distribution Board (PDB). Designed for expendable quadcopters and long-range fixed-wing drones. Ready to use with Rover, Wing, Quadcopter, and Hexacopter configurations.</p>
+<p><strong>Premium features:</strong> GPS-less takeoff, IRC Tramp VTX control, VRX integration (TBS Fusion, Skyzone Steadyview).</p>
 <hr>
 <h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
 <ul>
@@ -481,6 +482,58 @@ relay set 5 0   # release reset
 <li>Arm in FBWA mode</li>
 <li>Switch to TAKEOFF mode</li>
 </ol>
+<h3 id="irc-tramp-vtx-control"><a class="header" href="#irc-tramp-vtx-control">IRC Tramp VTX Control</a></h3>
+<p>Full IRC Tramp protocol support under ArduPilot. Change VTX power, band, channel, and pit mode directly from your GCS or OSD — no need for SmartAudio.</p>
+<p>Works with TBS Unify, Rush Tank, and other Tramp-compatible VTXs.</p>
+<h3 id="vrx-integration-tbs-fusion--skyzone"><a class="header" href="#vrx-integration-tbs-fusion--skyzone">VRX Integration (TBS Fusion / Skyzone)</a></h3>
+<p>Working video receiver control under ArduPilot. Supports:</p>
+<ul>
+<li><strong>TBS Fusion</strong> — band/channel tracking via CRSF</li>
+<li><strong>Skyzone Steadyview</strong> — auto channel sync</li>
+</ul>
+<h3 id="camera-gimbal-support"><a class="header" href="#camera-gimbal-support">Camera Gimbal Support</a></h3>
+<p>KiwiH743-Wing supports camera gimbals out of the box — both servo-based and CADDX protocol gimbals.</p>
+<h4 id="caddx-gimbal"><a class="header" href="#caddx-gimbal">CADDX Gimbal</a></h4>
+<p>Wire gimbal UART TX/RX/GND to any free serial port.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>Gimbal protocol</td></tr>
+<tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
+<tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>Gimbal firmware must be v3.4 or higher. Upgrade via GimbalConfig app + upgrade cable.</p>
+</blockquote>
+<h4 id="servo-gimbal"><a class="header" href="#servo-gimbal">Servo Gimbal</a></h4>
+<p>Connect pitch/yaw servos to any Servo PWM outputs (SERVO 9–SERVO 15).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>MNT1_TYPE</code></td><td>1</td><td>Servo</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>6</td><td>Mount1 Pitch (assign to desired output)</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>8</td><td>Mount1 Yaw (assign to desired output)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
 <hr>
 <h2 id="displayport-osd"><a class="header" href="#displayport-osd">Displayport OSD</a></h2>
 <p>HD OSD via MSP Displayport on SERIAL8 (OSD UART). Compatible with DJI O3, HDZero, Walksnail.</p>

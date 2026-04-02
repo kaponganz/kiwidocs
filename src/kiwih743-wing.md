@@ -273,6 +273,42 @@ Working video receiver control under ArduPilot. Supports:
 - **TBS Fusion** — band/channel tracking via CRSF
 - **Skyzone Steadyview** — auto channel sync
 
+### Camera Gimbal Support
+
+KiwiH743-Wing supports camera gimbals out of the box — both servo-based and CADDX protocol gimbals.
+
+#### CADDX Gimbal
+
+Wire gimbal UART TX/RX/GND to any free serial port.
+
+| Param | Value | Notes |
+|-------|-------|-------|
+| `SERIALx_PROTOCOL` | 8 | Gimbal protocol |
+| `SERIALx_BAUD` | 115 | 115200 bps |
+| `MNT1_TYPE` | 13 | CADDX (reboot after setting) |
+| `MNT1_PITCH_MIN` | -90 | |
+| `MNT1_PITCH_MAX` | 90 | |
+| `MNT1_YAW_MIN` | -170 | |
+| `MNT1_YAW_MAX` | 170 | |
+| `MNT1_RC_RATE` | 60 | deg/s for rate control, 0 for angle |
+
+> Gimbal firmware must be v3.4 or higher. Upgrade via GimbalConfig app + upgrade cable.
+
+#### Servo Gimbal
+
+Connect pitch/yaw servos to any Servo PWM outputs (SERVO 9–SERVO 15).
+
+| Param | Value | Notes |
+|-------|-------|-------|
+| `MNT1_TYPE` | 1 | Servo |
+| `SERVOx_FUNCTION` | 6 | Mount1 Pitch (assign to desired output) |
+| `SERVOx_FUNCTION` | 8 | Mount1 Yaw (assign to desired output) |
+| `MNT1_PITCH_MIN` | -90 | |
+| `MNT1_PITCH_MAX` | 90 | |
+| `MNT1_YAW_MIN` | -170 | |
+| `MNT1_YAW_MAX` | 170 | |
+| `MNT1_RC_RATE` | 60 | deg/s for rate control, 0 for angle |
+
 ---
 
 ## Displayport OSD

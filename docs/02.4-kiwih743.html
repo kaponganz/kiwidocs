@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-8c91c28e.js";
+            window.path_to_searchindex_js = "searchindex-da8c83cb.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-f27d4e7b.js"></script>
+        <script src="toc-8958f830.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -185,6 +185,7 @@ applications. It combines powerful processing, flexible connectivity, and rich s
 firmware.</p>
 <p>It is the next generation of the KiwiF405 family, offering 2MB flash, 480 MHz CPU clock, extended UART/SPI/I2C buses,
 and support for dual IMUs, barometer, and OSD integration.</p>
+<p><strong>Premium features:</strong> GPS-less takeoff, IRC Tramp VTX control, VRX integration (TBS Fusion, Skyzone Steadyview).</p>
 <hr>
 <h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
 <ul>
@@ -378,6 +379,49 @@ relay:off(1)     -- RELAY2 OFF
 <li>Flight mode channel: CH8</li>
 <li>VTX: enabled, band 6, channel 4</li>
 </ul>
+<h3 id="camera-gimbal-support"><a class="header" href="#camera-gimbal-support">Camera Gimbal Support</a></h3>
+<p>KiwiH743 supports camera gimbals out of the box — both servo-based and CADDX protocol gimbals.</p>
+<h4 id="caddx-gimbal"><a class="header" href="#caddx-gimbal">CADDX Gimbal</a></h4>
+<p>Wire gimbal UART TX/RX/GND to any free serial port.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>Gimbal protocol</td></tr>
+<tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
+<tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>Gimbal firmware must be v3.4 or higher. Upgrade via GimbalConfig app + upgrade cable.</p>
+</blockquote>
+<h4 id="servo-gimbal"><a class="header" href="#servo-gimbal">Servo Gimbal</a></h4>
+<p>Connect pitch/yaw servos to any Servo PWM outputs (PWM9–PWM14).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>MNT1_TYPE</code></td><td>1</td><td>Servo</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>6</td><td>Mount1 Pitch (assign to desired output)</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>8</td><td>Mount1 Yaw (assign to desired output)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
 <hr>
 <h2 id="pinout-reference"><a class="header" href="#pinout-reference">Pinout Reference</a></h2>
 <h3 id="esc-pins"><a class="header" href="#esc-pins">ESC Pins</a></h3>
