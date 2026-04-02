@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f144f4d5.js";
+            window.path_to_searchindex_js = "searchindex-d5e0d024.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-8958f830.js"></script>
@@ -380,28 +380,41 @@ relay:off(1)     -- RELAY2 OFF
 <li>VTX: enabled, band 6, channel 4</li>
 </ul>
 <h3 id="camera-gimbal-support"><a class="header" href="#camera-gimbal-support">Camera Gimbal Support</a></h3>
-<p>KiwiH743 supports camera gimbals out of the box — both servo-based and CADDX protocol gimbals.</p>
-<h4 id="caddx-gimbal"><a class="header" href="#caddx-gimbal">CADDX Gimbal</a></h4>
-<p>Wire gimbal UART TX/RX/GND to any free serial port.</p>
+<p>KiwiH743 supports camera gimbals out of the box — both servo-based and MAVLink protocol gimbals (CADDX GM3 V2 and compatible).</p>
+<h4 id="mavlink-gimbal"><a class="header" href="#mavlink-gimbal">MAVLink Gimbal</a></h4>
+<p>Wire gimbal UART to any free serial port (gimbal TX → FC RX, gimbal RX → FC TX, GND).</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Param</th><th>Value</th><th>Notes</th></tr>
 </thead>
 <tbody>
-<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>MAVLink</td></tr>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>2</td><td>MAVLink2</td></tr>
 <tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
-<tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
+<tr><td><code>MNT1_TYPE</code></td><td>6</td><td>Gremsy (reboot after setting)</td></tr>
 <tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2 spec: ±120°</td></tr>
 <tr><td><code>MNT1_PITCH_MAX</code></td><td>120</td><td></td></tr>
 <tr><td><code>MNT1_YAW_MIN</code></td><td>-160</td><td>GM3 V2 spec: ±160°</td></tr>
 <tr><td><code>MNT1_YAW_MAX</code></td><td>160</td><td></td></tr>
-<tr><td><code>MNT1_ROLL_MIN</code></td><td>-60</td><td>GM3 V2 spec: ±60°</td></tr>
-<tr><td><code>MNT1_ROLL_MAX</code></td><td>60</td><td></td></tr>
 <tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
 </tbody>
 </table>
 </div>
+<h5 id="rc-control"><a class="header" href="#rc-control">RC Control</a></h5>
+<p>Assign RC channels to control gimbal axes:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>RC6_OPTION</code></td><td>213</td><td>Mount1 Pitch</td></tr>
+<tr><td><code>RC7_OPTION</code></td><td>214</td><td>Mount1 Yaw</td></tr>
+<tr><td><code>RC8_OPTION</code></td><td>212</td><td>Mount1 Roll (3-axis gimbals only)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Example: with <code>MNT1_RC_RATE=60</code>, moving the RC6 stick deflects pitch at 60°/s. Set <code>MNT1_RC_RATE=0</code> for direct angle control (stick position = gimbal angle).</p>
 <blockquote>
 <p>Gimbal firmware must be V2.0 or higher.</p>
 </blockquote>
