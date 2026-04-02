@@ -8,11 +8,13 @@ html {
 }
 
 :root {
-    --content-max-width: 960px;
+    --content-max-width: 900px;
     --mono-font: 'JetBrains Mono', 'Source Code Pro', Consolas, monospace;
     --kiwi-accent: #0b6b63;
     --kiwi-accent-light: #0d9488;
     --kiwi-accent-dark: #095e56;
+    --sidebar-target-width: 280px;
+    --menu-bar-height: 56px;
 }
 
 /* ── Light theme accent ── */
@@ -37,13 +39,65 @@ html {
     --links: var(--kiwi-accent-light);
 }
 
-/* ── Heading hierarchy — 25% scale per MIL-STD 5.4.1.7.2 ── */
+/* ── Dark teal header bar ── */
+#mdbook-menu-bar {
+    background-color: var(--kiwi-accent-dark) !important;
+    border-block-end: none !important;
+}
+
+#mdbook-menu-bar,
+#mdbook-menu-bar .icon-button,
+#mdbook-menu-bar a,
+#mdbook-menu-bar .fa-svg,
+#mdbook-menu-bar .menu-title {
+    color: #fff !important;
+}
+
+#mdbook-menu-bar .fa-svg:hover,
+#mdbook-menu-bar .icon-button:hover,
+#mdbook-menu-bar a:hover {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Theme popup needs its own colors (not white-on-white) */
+#mdbook-menu-bar .theme-popup {
+    color: var(--fg) !important;
+}
+#mdbook-menu-bar .theme-popup .theme {
+    color: inherit !important;
+}
+
+/* Header nav links */
+.header-nav-link {
+    color: #fff !important;
+    text-decoration: none !important;
+    font-size: 0.9em;
+    font-weight: 500;
+    padding: 0 12px;
+    line-height: var(--menu-bar-height);
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+.header-nav-link:hover {
+    opacity: 1;
+    color: #fff !important;
+}
+
+/* ── Menu bar title ── */
+.menu-title {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+}
+
+/* ── Heading hierarchy ── */
 .content main > h1:first-child {
     font-weight: 700;
     font-size: 2.0em;
     letter-spacing: -0.02em;
-    padding-bottom: 0.3em;
-    border-bottom: 3px solid var(--kiwi-accent);
+    padding-bottom: 0;
+    border-bottom: none;
     margin-bottom: 0.8em;
 }
 
@@ -117,17 +171,46 @@ pre {
 /* ── Sidebar tweaks ── */
 .sidebar .chapter li a {
     font-size: 0.95em;
-    min-height: 44px;
+    min-height: 36px;
     display: flex;
     align-items: center;
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+}
+
+.sidebar .chapter li a:hover {
+    background-color: rgba(11, 107, 99, 0.08);
+}
+
+.sidebar .chapter li a.active {
+    background-color: rgba(11, 107, 99, 0.12);
+    font-weight: 600;
+}
+
+.navy .sidebar .chapter li a:hover,
+.coal .sidebar .chapter li a:hover {
+    background-color: rgba(13, 148, 136, 0.1);
+}
+.navy .sidebar .chapter li a.active,
+.coal .sidebar .chapter li a.active {
+    background-color: rgba(13, 148, 136, 0.15);
+}
+.ayu .sidebar .chapter li a:hover {
+    background-color: rgba(13, 148, 136, 0.1);
+}
+.ayu .sidebar .chapter li a.active {
+    background-color: rgba(13, 148, 136, 0.15);
 }
 
 .sidebar .chapter li.part-title {
     text-transform: uppercase;
-    font-size: 0.8em;
-    letter-spacing: 0.08em;
-    margin-top: 1.2em;
-    opacity: 0.7;
+    font-size: 0.75em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-top: 1.4em;
+    padding: 0 10px;
+    opacity: 0.55;
 }
 
 /* ── HR dividers — subtler ── */
@@ -151,11 +234,50 @@ hr {
     margin-bottom: 0.2em;
 }
 
-/* ── Menu bar title ── */
-.menu-title {
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+/* ── Hide side navigation arrows (GitBook doesn't have them) ── */
+.nav-wide-wrapper {
+    display: none !important;
+}
+
+/* ── Card-style prev/next navigation (always visible) ── */
+.nav-wrapper {
+    display: flex !important;
+    gap: 16px;
+    margin-block-start: 48px;
+    padding-bottom: 24px;
+}
+
+.mobile-nav-chapters {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border: 1px solid var(--table-border-color);
+    border-radius: 6px;
+    background-color: var(--bg);
+    font-size: 1em;
+    text-decoration: none !important;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: auto;
+}
+
+.mobile-nav-chapters:hover {
+    border-color: var(--kiwi-accent);
+    box-shadow: 0 2px 8px rgba(11, 107, 99, 0.1);
+}
+
+.mobile-nav-chapters.previous {
+    justify-content: flex-start;
+}
+
+.mobile-nav-chapters.next {
+    justify-content: flex-end;
+    float: none;
+    right: auto;
+}
+
+.mobile-nav-chapters .fa-svg {
+    font-size: 0.8em;
 }
 
 /* ── Buy Online button (inline) ── */
