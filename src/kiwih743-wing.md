@@ -283,7 +283,7 @@ Wire gimbal UART TX/RX/GND to any free serial port.
 
 | Param | Value | Notes |
 |-------|-------|-------|
-| `SERIALx_PROTOCOL` | 8 | Gimbal protocol |
+| `SERIALx_PROTOCOL` | 8 | MAVLink |
 | `SERIALx_BAUD` | 115 | 115200 bps |
 | `MNT1_TYPE` | 13 | CADDX (reboot after setting) |
 | `MNT1_PITCH_MIN` | -120 | GM3 V2 spec: ±120° |

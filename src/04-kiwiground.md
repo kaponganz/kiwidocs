@@ -2,6 +2,11 @@
 
 ![kiwi-GS.png](kiwi-GS.png)
 
+## Firmware
+
+- ArduPilot Antenna Tracker (KiwiF405-12S) — [KiwiF405-12S-Tracker.zip](download/KiwiF405-12S-Tracker.zip)
+- ArduPilot VRX Control (KiwiF103) — [KiwiF103-VRX.zip](download/KiwiF103-VRX.zip)
+
 ## Призначення
 
 Комплект наземної станції керування FPV дроном призначений для забезпечення безпеки операторів дронів.

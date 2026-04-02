@@ -1,0 +1,931 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ICM-42688P (HXY) Datasheet - KIWI Flight Systems</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-d0fe17bd.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/css/custom-6ce167cc.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-f144f4d5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-8958f830.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">KIWI Flight Systems</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="icm-42688p--6-axis-inertial-sensor-module"><a class="header" href="#icm-42688p--6-axis-inertial-sensor-module">ICM-42688P — 6-Axis Inertial Sensor Module</a></h1>
+<p><strong>Manufacturer:</strong> Shenzhen HuaXuanYang (HXY) Electronics CO., LTD
+<strong>Website:</strong> www.hxymos.com</p>
+<hr>
+<h2 id="description"><a class="header" href="#description">Description</a></h2>
+<p>The ICM-42688P is a highly integrated, low-power inertial measurement unit (IMU) with a built-in high-performance 3-axis accelerometer and 3-axis gyroscope measurement unit. The accelerometer full-scale range is +/-2g/+/-4g/+/-8g/+/-16g. The gyroscope angular rate full-scale range is +/-125dps/+/-250dps/+/-500dps/+/-1000dps/+/-2000dps. Users can flexibly measure external acceleration and angular velocity, with accelerometer output data rate from 0.78 Hz to 1.6 kHz selectable, and gyroscope output data rate from 25 Hz to 3.2 kHz selectable.</p>
+<p>The chip communicates with the MCU via I2C/SPI interface. Accelerometer and gyroscope measurement data can be obtained by interrupt or polling. INT1 and INT2 interrupt pins provide various internal auto-detection interrupt signals for diverse motion detection scenarios, enabling reliable motion detection, attitude estimation, and gesture recognition at extremely low system power. Interrupt sources include 6D/4D orientation detection, free-fall detection, sleep and wake detection, single-tap and multi-tap detection, step counting, pedometer, and OIS function interrupts, as well as temperature detection interrupts.</p>
+<p>The chip has a built-in high-precision calibration reference and an internal LDO circuit. At different supply voltages, zero drift remains more stable, correcting sensor gain errors and gain mismatch for precise angle-to-angle conversion testing. The chip has a built-in self-test function that allows customer system testing to detect system functionality, eliminating complex angle-to-angle conversion testing.</p>
+<p>The ICM-42688P is applicable to smartphones, drones, game controllers, various IoT, and smart hardware systems. It supports mainstream operating systems for micro-step and motion capture screen functionality, and provides drones, game controllers, VR, and AR algorithm support.</p>
+<h2 id="key-features"><a class="header" href="#key-features">Key Features</a></h2>
+<ul>
+<li>Analog supply voltage range: 1.71~3.6V</li>
+<li>Low-power mode total combined supply current: 399uA</li>
+<li>High-performance mode total combined supply current: 927uA</li>
+<li>Accelerometer and gyroscope 16-bit data output</li>
+<li>I2C/SPI digital output interface</li>
+<li>Built-in temperature sensor</li>
+<li>6D/4D orientation detection, tilt detection/angle detection, static and motion detection</li>
+<li>Sleep and wake detection, free-fall detection, single-tap and multi-tap detection</li>
+<li>SensorTime function</li>
+<li>OIS function (ODR=6.4kHz)</li>
+<li>Programmable interrupt generation circuit</li>
+<li>Built-in programmable step counter detection, built-in programmable wrist tilt recognition, built-in self-test function</li>
+<li>Built-in FIFO</li>
+<li>10,000g high shock resistance</li>
+<li>EU-compliant lead-free package, environmentally friendly</li>
+</ul>
+<h2 id="applications"><a class="header" href="#applications">Applications</a></h2>
+<ul>
+<li>AR/VR devices</li>
+<li>Smartphones and tablets</li>
+<li>Smart wearable devices</li>
+<li>Head-mounted device accessories</li>
+<li>Attitude detection equipment</li>
+<li>Image rotation scene switching</li>
+<li>Strike detection scene activation</li>
+<li>Motion detection devices</li>
+<li>9D orientation detection scenarios</li>
+<li>Gesture recognition scenarios</li>
+<li>Vibration detection and compensation scenarios</li>
+<li>Indoor navigation / pedestrian path tracking / positioning scenarios</li>
+<li>3D scanning / indoor mapping / SLAM scenarios</li>
+<li>Virtual reality games</li>
+<li>Mouse / game controllers</li>
+<li>IoT application scenarios</li>
+<li>Optical image stabilization for cameras</li>
+<li>Toy drones</li>
+</ul>
+<h2 id="product-classification"><a class="header" href="#product-classification">Product Classification</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Product Name</th><th>Package Type</th><th>Material</th><th>Packaging</th></tr>
+</thead>
+<tbody>
+<tr><td>ICM-42688P</td><td>LGA-14-2.5x3x1.00</td><td>Lead-free</td><td>Tape and reel</td></tr>
+</tbody>
+</table>
+</div>
+<p><img src="package-3d.jpg" alt="Package"></p>
+<hr>
+<h2 id="internal-block-diagram"><a class="header" href="#internal-block-diagram">Internal Block Diagram</a></h2>
+<p><img src="block-diagram.png" alt="Block Diagram"></p>
+<p>The internal architecture includes:</p>
+<ul>
+<li>MEMS gyroscope drive (CV, Demod, LPF, VCO, MUX/VGA) with quadrature compensation</li>
+<li>MEMS accelerometer sensing (CA channels for X/Y/Z with Demod and ADC)</li>
+<li>Gyroscope sensing (CV + ADC for X/Y/Z axes)</li>
+<li>Digital LPF, Composite Filter</li>
+<li>Temperature compensation and sensor</li>
+<li>I2C/SPI interface (CS, SCL/SCK, SDA/SDI, SDO)</li>
+<li>Clock generator, Phase generator</li>
+<li>FIFO, Power Management (PM), Reference (REF)</li>
+<li>Control Logic and Interrupt Generation (INT1, INT2)</li>
+<li>BIAS generator, Charge Pump (CP)</li>
+</ul>
+<hr>
+<h2 id="absolute-maximum-ratings"><a class="header" href="#absolute-maximum-ratings">Absolute Maximum Ratings</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Symbol</th><th>Test Conditions</th><th>Min</th><th>Max</th><th>Unit</th></tr>
+</thead>
+<tbody>
+<tr><td>Supply Voltage</td><td>VDD/VDDIO</td><td>No circuit damage</td><td>-0.3</td><td>3.6</td><td>V</td></tr>
+<tr><td>Any Control Pin</td><td>V_in</td><td>No circuit damage (CS/SDO/SCL/SDA/INT1/INT2)</td><td>-0.3</td><td>VDDIO+0.3</td><td>V</td></tr>
+<tr><td>Operating Temperature</td><td>T_OPR</td><td>No circuit damage</td><td>-40</td><td>+85</td><td>degC</td></tr>
+<tr><td>Storage Temperature</td><td>T_STG</td><td>No circuit damage</td><td>-55</td><td>+150</td><td>degC</td></tr>
+<tr><td>ESD</td><td>HBM</td><td>–</td><td>–</td><td>4</td><td>kV</td></tr>
+<tr><td>ESD</td><td>CDM</td><td>–</td><td>–</td><td>1.5</td><td>kV</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="pin-description"><a class="header" href="#pin-description">Pin Description</a></h2>
+<p>Package: LGA14-2.5x3x1.00mm3</p>
+<p><img src="package-dimensions.jpg" alt="Package Dimensions"></p>
+<h3 id="acceleration-direction"><a class="header" href="#acceleration-direction">Acceleration Direction</a></h3>
+<p>X, Y, Z axes as marked on package (pin 1 indicator dot at corner).</p>
+<h3 id="gyroscope-direction-top-view"><a class="header" href="#gyroscope-direction-top-view">Gyroscope Direction (top view)</a></h3>
+<p>+Omega_X, +Omega_Y, +Omega_Z rotation axes as marked.</p>
+<h3 id="pin-table"><a class="header" href="#pin-table">Pin Table</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin #</th><th>Name</th><th>I/O Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>SDO/SA0</td><td>I/O</td><td>SPI 4-wire interface data output SDO; I2C device address LSB SA0</td></tr>
+<tr><td>2</td><td>ASDx</td><td>I/O</td><td>OIS interface</td></tr>
+<tr><td>3</td><td>ASCx</td><td>O</td><td>OIS interface</td></tr>
+<tr><td>4</td><td>INT1</td><td>I/O</td><td>Interrupt 1</td></tr>
+<tr><td>5</td><td>VDDIO</td><td>S</td><td>Digital power supply</td></tr>
+<tr><td>6</td><td>GNDIO</td><td>GND</td><td>Ground</td></tr>
+<tr><td>7</td><td>GND</td><td>GND</td><td>Ground</td></tr>
+<tr><td>8</td><td>VDD</td><td>S</td><td>Analog power supply</td></tr>
+<tr><td>9</td><td>INT2</td><td>I/O</td><td>Interrupt 2</td></tr>
+<tr><td>10</td><td>OCSB</td><td>I/O</td><td>OIS interface</td></tr>
+<tr><td>11</td><td>OSDO</td><td>I/O</td><td>OIS interface</td></tr>
+<tr><td>12</td><td>CSB</td><td>I</td><td>I2C and SPI select: 1 = I2C; 0 = SPI</td></tr>
+<tr><td>13</td><td>SCX</td><td>I</td><td>I2C clock SCL; SPI clock SPC</td></tr>
+<tr><td>14</td><td>SDX</td><td>I/O</td><td>I2C data SDA; SPI data input SDI; 3-wire SPI data output SDO</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="mechanical-parameters--accelerometer-vdd18v-t_a25degc"><a class="header" href="#mechanical-parameters--accelerometer-vdd18v-t_a25degc">Mechanical Parameters — Accelerometer (VDD=1.8V, T_A=25degC)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Symbol</th><th>Test Conditions</th><th>Min</th><th>Typical</th><th>Max</th><th>Unit</th></tr>
+</thead>
+<tbody>
+<tr><td>Accelerometer Full-Scale Range</td><td>AF_S0</td><td>A_FS=0</td><td>–</td><td>+/-2.0</td><td>–</td><td>g</td></tr>
+<tr><td></td><td>AF_S1</td><td>A_FS=1</td><td>–</td><td>+/-4.0</td><td>–</td><td>g</td></tr>
+<tr><td></td><td>AF_S2</td><td>A_FS=2</td><td>–</td><td>+/-8.0</td><td>–</td><td>g</td></tr>
+<tr><td></td><td>AF_S3</td><td>A_FS=3</td><td>–</td><td>+/-16.0</td><td>–</td><td>g</td></tr>
+<tr><td>Accelerometer Sensitivity (16-bit)</td><td>ASo0</td><td>A_FS=0</td><td>–</td><td>0.061</td><td>–</td><td>mg/digit</td></tr>
+<tr><td></td><td>ASo1</td><td>A_FS=1</td><td>–</td><td>0.122</td><td>–</td><td>mg/digit</td></tr>
+<tr><td></td><td>ASo2</td><td>A_FS=2</td><td>–</td><td>0.244</td><td>–</td><td>mg/digit</td></tr>
+<tr><td></td><td>ASo3</td><td>A_FS=3</td><td>–</td><td>0.488</td><td>–</td><td>mg/digit</td></tr>
+<tr><td>Accelerometer Sensitivity Error</td><td>AS_ERR</td><td>A_FS=0</td><td>–</td><td>+/-2</td><td>–</td><td>%</td></tr>
+<tr><td>Accelerometer Temperature Sensitivity Coefficient</td><td>AT_CSO</td><td>A_FS=0, -40degC~85degC vs T=25degC diff</td><td>–</td><td>+/-0.01</td><td>–</td><td>%/degC</td></tr>
+<tr><td>Accelerometer Zero Drift</td><td>ATY_Off</td><td>A_FS=0, socket pressure test</td><td>–</td><td>+/-80</td><td>–</td><td>mg</td></tr>
+<tr><td>Accelerometer Zero Drift Temperature Coefficient</td><td>ATC_off</td><td>Max deviation from 25degC</td><td>–</td><td>+/-1</td><td>–</td><td>mg/degC</td></tr>
+<tr><td>Accelerometer Non-Linearity</td><td>ANL</td><td>Best fit line, A_FS=2</td><td>–</td><td>0.5</td><td>–</td><td>%FS</td></tr>
+<tr><td>Accelerometer Power Supply Rejection Ratio</td><td>APSRR</td><td>T_A=25degC</td><td>–</td><td>+/-0.2</td><td>–</td><td>mg/V</td></tr>
+<tr><td>Accelerometer Cross-Axis Interference</td><td>AS_X</td><td>A_FS=0, interference between any two of three axes</td><td>–</td><td>2</td><td>–</td><td>%</td></tr>
+<tr><td>Accelerometer Output Noise 1</td><td>ARMS1</td><td>A_FS=0, A_ODR=100Hz, High-perf mode, OSR4_AVG1</td><td>–</td><td>0.6</td><td>–</td><td>mg</td></tr>
+<tr><td>Accelerometer Output Noise 2</td><td>ARMS2</td><td>A_FS=0, A_ODR=100Hz, Low-power mode, OSR4_AVG1</td><td>–</td><td>4.5</td><td>–</td><td>mg</td></tr>
+<tr><td>Accelerometer Output Data Rate</td><td>AODR_A,H</td><td>High-performance mode</td><td>12.5</td><td>–</td><td>1600</td><td>Hz</td></tr>
+<tr><td></td><td>AODR_A,LPM</td><td>Low-power mode</td><td>0.78</td><td>–</td><td>800</td><td>Hz</td></tr>
+<tr><td>Accelerometer System Bandwidth</td><td>ABW</td><td>–</td><td>ODR/3</td><td>–</td><td>ODR/2</td><td>Hz</td></tr>
+<tr><td>Accelerometer Self-Test Output</td><td>AV_st1</td><td>A_FS=3, X-axis, high-freq oscillation, absolute value of positive/negative amplitude difference</td><td>–</td><td>6</td><td>–</td><td>g</td></tr>
+<tr><td></td><td>AV_st2</td><td>A_FS=3, Y-axis, same</td><td>–</td><td>6</td><td>–</td><td>g</td></tr>
+<tr><td></td><td>AV_st3</td><td>A_FS=3, Z-axis, same</td><td>–</td><td>8</td><td>–</td><td>g</td></tr>
+<tr><td>Accelerometer Operating Temperature</td><td>AT_OPR</td><td>–</td><td>-40</td><td>–</td><td>+85</td><td>degC</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> Circuit is factory calibrated at 1.8V. Actual operating voltage is 1.71V-3.6V.</p>
+<hr>
+<h2 id="mechanical-parameters--gyroscope-vdd18v-t_a25degc"><a class="header" href="#mechanical-parameters--gyroscope-vdd18v-t_a25degc">Mechanical Parameters — Gyroscope (VDD=1.8V, T_A=25degC)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Symbol</th><th>Test Conditions</th><th>Min</th><th>Typical</th><th>Max</th><th>Unit</th></tr>
+</thead>
+<tbody>
+<tr><td>Gyroscope Full-Scale Range</td><td>GF_S0</td><td>G_FS=+/-125dps</td><td>–</td><td>+/-125</td><td>–</td><td>dps</td></tr>
+<tr><td></td><td>GF_S1</td><td>G_FS=+/-250dps</td><td>–</td><td>+/-250</td><td>–</td><td>dps</td></tr>
+<tr><td></td><td>GF_S2</td><td>G_FS=+/-500dps</td><td>–</td><td>+/-500</td><td>–</td><td>dps</td></tr>
+<tr><td></td><td>GF_S3</td><td>G_FS=+/-1000dps</td><td>–</td><td>+/-1000</td><td>–</td><td>dps</td></tr>
+<tr><td></td><td>GF_S4</td><td>G_FS=+/-2000dps</td><td>–</td><td>+/-2000</td><td>–</td><td>dps</td></tr>
+<tr><td>Gyroscope Sensitivity (16-bit)</td><td>GSo0</td><td>G_FS=+/-125dps</td><td>–</td><td>3.8125</td><td>–</td><td>mdps/LSB</td></tr>
+<tr><td></td><td>GSo1</td><td>G_FS=+/-250dps</td><td>–</td><td>7.625</td><td>–</td><td>mdps/LSB</td></tr>
+<tr><td></td><td>GSo2</td><td>G_FS=+/-500dps</td><td>–</td><td>15.25</td><td>–</td><td>mdps/LSB</td></tr>
+<tr><td></td><td>GSo3</td><td>G_FS=+/-1000dps</td><td>–</td><td>30.5</td><td>–</td><td>mdps/LSB</td></tr>
+<tr><td></td><td>GSo4</td><td>G_FS=+/-2000dps</td><td>–</td><td>61</td><td>–</td><td>mdps/LSB</td></tr>
+<tr><td>Gyroscope Temperature Sensitivity Coefficient</td><td>GT_CSO</td><td>G_FS=+/-2000dps, -40deg~85deg vs T=25deg diff</td><td>–</td><td>+/-0.05</td><td>–</td><td>%/degC</td></tr>
+<tr><td>Gyroscope Sensitivity Error</td><td>GS_ERR</td><td>G_FS=+/-2000dps, calibrated</td><td>–</td><td>+/-1.5</td><td>–</td><td>%</td></tr>
+<tr><td>Gyroscope Zero Drift</td><td>GTY_Off</td><td>G_FS=+/-2000dps, socket pressure test</td><td>–</td><td>+/-0.2</td><td>–</td><td>dps</td></tr>
+<tr><td>Gyroscope Zero Drift Temperature Coefficient</td><td>GTC_off</td><td>G_FS=+/-2000dps, max deviation from 25degC</td><td>–</td><td>+/-0.05</td><td>–</td><td>dps/degC</td></tr>
+<tr><td>Gyroscope Non-Linearity</td><td>GNL</td><td>Best fit line, G_FS=+/-2000dps</td><td>–</td><td>0.1</td><td>–</td><td>%FS</td></tr>
+<tr><td>Gyroscope Cross-Axis Interference</td><td>GS_X</td><td>G_FS=+/-2000dps</td><td>–</td><td>2</td><td>–</td><td>%</td></tr>
+<tr><td>Gyroscope Noise Density</td><td>GN</td><td>G_FS=+/-2000dps, high-perf mode, GYR_BWP[1:0]=00</td><td>–</td><td>6</td><td>–</td><td>mdps/sqrt(Hz)</td></tr>
+<tr><td>Gyroscope Output Data Rate</td><td>GODR_G,HN</td><td>High-perf / Normal mode</td><td>25</td><td>–</td><td>3200</td><td>Hz</td></tr>
+<tr><td></td><td>GODR_G,LPM</td><td>Low-power mode</td><td>25</td><td>–</td><td>800</td><td>Hz</td></tr>
+<tr><td>Operating Temperature</td><td>T_OPR</td><td>–</td><td>-40</td><td>–</td><td>+85</td><td>degC</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> Circuit is factory calibrated at 1.8V. Actual operating voltage is 1.71V-3.6V.</p>
+<hr>
+<h2 id="electrical-parameters-vdd18v-t_a25degc"><a class="header" href="#electrical-parameters-vdd18v-t_a25degc">Electrical Parameters (VDD=1.8V, T_A=25degC)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Symbol</th><th>Test Conditions</th><th>Min</th><th>Typical</th><th>Max</th><th>Unit</th></tr>
+</thead>
+<tbody>
+<tr><td>Supply Voltage</td><td>V_DD</td><td>–</td><td>1.71</td><td>1.8</td><td>3.6</td><td>V</td></tr>
+<tr><td>IO Supply Voltage</td><td>V_DDIO</td><td>–</td><td>1.62</td><td>–</td><td>3.6</td><td>V</td></tr>
+<tr><td>Power Consumption</td><td>I_DD</td><td>A+G High-perf mode, VDD=1.8V, T_A=25degC, ODR_1.6kHz</td><td>–</td><td>927</td><td>–</td><td>uA</td></tr>
+<tr><td></td><td></td><td>A+G Normal mode, VDD=1.8V, T_A=25degC, ODR_1.6kHz</td><td>–</td><td>670</td><td>–</td><td>uA</td></tr>
+<tr><td></td><td></td><td>A+G Low-power mode, VDD=1.8V, T_A=25degC, ODR_25Hz</td><td>–</td><td>399</td><td>–</td><td>uA</td></tr>
+<tr><td></td><td></td><td>A-only High-perf mode, VDD=1.8V, T_A=25degC, ODR_1.6kHz</td><td>–</td><td>299</td><td>–</td><td>uA</td></tr>
+<tr><td></td><td></td><td>A-only Low-power mode, VDD=1.8V, T_A=25degC, ODR_25Hz</td><td>–</td><td>13.3</td><td>–</td><td>uA</td></tr>
+<tr><td></td><td></td><td>A+G Off (shutdown), VDD=1.8V, T_A=25degC</td><td>–</td><td>6</td><td>–</td><td>uA</td></tr>
+<tr><td>Power-Down Current</td><td>I_DDPdn</td><td>–</td><td>–</td><td>6</td><td>–</td><td>uA</td></tr>
+<tr><td>Digital High-Level Input Voltage</td><td>V_IH</td><td>–</td><td>0.8*V_DDIO</td><td>–</td><td>–</td><td>V</td></tr>
+<tr><td>Digital Low-Level Input Voltage</td><td>V_IL</td><td>–</td><td>–</td><td>–</td><td>0.2*V_DDIO</td><td>V</td></tr>
+<tr><td>High-Level Output Voltage</td><td>V_OH</td><td>–</td><td>0.9*V_DDIO</td><td>–</td><td>–</td><td>V</td></tr>
+<tr><td>Low-Level Output Voltage</td><td>V_OL</td><td>–</td><td>–</td><td>–</td><td>0.1*V_DDIO</td><td>V</td></tr>
+<tr><td>Startup Time</td><td>T_on</td><td>ODR=100Hz</td><td>–</td><td>50</td><td>–</td><td>ms</td></tr>
+<tr><td>Operating Temperature</td><td>T_opr</td><td>–</td><td>-40</td><td>–</td><td>+85</td><td>degC</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="i2c-control-interface-parameters-18v-ta25degc"><a class="header" href="#i2c-control-interface-parameters-18v-ta25degc">I2C Control Interface Parameters (=1.8V, TA=25degC)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Symbol</th><th>I2C Standard Mode</th><th></th><th>I2C Fast Mode</th><th></th><th>Unit</th></tr>
+</thead>
+<tbody>
+<tr><td></td><td></td><td>MIN</td><td>MAX</td><td>MIN</td><td>MAX</td><td></td></tr>
+<tr><td>SCL Clock Frequency</td><td>f_(SCL)</td><td>0</td><td>100</td><td>0</td><td>400</td><td>kHz</td></tr>
+<tr><td>SCL Clock Low Time</td><td>t_w(SCLL)</td><td>4.7</td><td>–</td><td>1.3</td><td>–</td><td>us</td></tr>
+<tr><td>SCL Clock High Time</td><td>t_w(SCLH)</td><td>4.0</td><td>–</td><td>0.6</td><td>–</td><td>us</td></tr>
+<tr><td>SDA Setup Time</td><td>t_su(SDA)</td><td>250</td><td>–</td><td>100</td><td>–</td><td>ns</td></tr>
+<tr><td>SDA Data Hold Time</td><td>t_h(SDA)</td><td>0.01</td><td>3.45</td><td>0.01</td><td>0.9</td><td>us</td></tr>
+<tr><td>SDA/SCL Rise Time</td><td>t_r(SDA), t_r(SCL)</td><td>–</td><td>1000</td><td>20+0.1C_b</td><td>300</td><td>ns</td></tr>
+<tr><td>SDA/SCL Fall Time</td><td>t_f(SDA), t_f(SCL)</td><td>–</td><td>300</td><td>20+0.1C_b</td><td>300</td><td>ns</td></tr>
+<tr><td>START Condition Hold Time</td><td>t_h(ST)</td><td>4</td><td>–</td><td>0.6</td><td>–</td><td>us</td></tr>
+<tr><td>Repeated START Condition Setup Time</td><td>t_su(SR)</td><td>4.7</td><td>–</td><td>0.6</td><td>–</td><td>us</td></tr>
+<tr><td>STOP Condition Setup Time</td><td>t_su(SP)</td><td>4</td><td>–</td><td>0.6</td><td>–</td><td>us</td></tr>
+<tr><td>Bus Idle Time</td><td>t_w(SP:SR)</td><td>4.7</td><td>–</td><td>1.3</td><td>–</td><td>us</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="spi-serial-peripheral-interface-parameters-v_dd18v-t_a25degc"><a class="header" href="#spi-serial-peripheral-interface-parameters-v_dd18v-t_a25degc">SPI Serial Peripheral Interface Parameters (V_DD=1.8V, T_A=25degC)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Symbol</th><th>Test Conditions</th><th>Min</th><th>Typical</th><th>Max</th><th>Unit</th></tr>
+</thead>
+<tbody>
+<tr><td>SPI Clock Period</td><td>T_c(SPC)</td><td></td><td>100</td><td>–</td><td>–</td><td>ns</td></tr>
+<tr><td>SPI Clock Frequency</td><td>F_c(SPC)</td><td></td><td>–</td><td>–</td><td>10</td><td>MHz</td></tr>
+<tr><td>CS Setup Time</td><td>T_su(CS)</td><td></td><td>5</td><td>–</td><td>–</td><td>ns</td></tr>
+<tr><td>CS Hold Time</td><td>T_h(CS)</td><td></td><td>8</td><td>–</td><td>–</td><td>ns</td></tr>
+<tr><td>SDI Input Setup Time</td><td>T_su(SI)</td><td></td><td>5</td><td>–</td><td>–</td><td>ns</td></tr>
+<tr><td>SDI Input Hold Time</td><td>T_h(SI)</td><td></td><td>15</td><td>–</td><td>–</td><td>ns</td></tr>
+<tr><td>SDO Valid Output Time</td><td>T_v(SO)</td><td></td><td>–</td><td>–</td><td>50</td><td>ns</td></tr>
+<tr><td>SDO Output Hold Time</td><td>T_h(SO)</td><td></td><td>6</td><td>–</td><td>–</td><td>ns</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> 10 MHz clock rate.</p>
+<p><img src="spi-timing-params.jpg" alt="SPI Timing Parameters"></p>
+<hr>
+<h2 id="functional-description"><a class="header" href="#functional-description">Functional Description</a></h2>
+<h3 id="1-terminology"><a class="header" href="#1-terminology">1. Terminology</a></h3>
+<h3 id="11-sensitivity"><a class="header" href="#11-sensitivity">1.1 Sensitivity</a></h3>
+<p><strong>Accelerometer Sensitivity:</strong> The physical quantity describing accelerometer gain, expressed as half the maximum digital output when +/-1G acceleration input is applied. In practice, gravity acceleration is used for measurement. Align the axis under test perpendicular to the ground, record the circuit output value A1, then rotate the axis 180 degrees on any plane, record the output value A2. Compute |A2-A1|, divide by 2, and the result is that axis’s sensitivity. This value varies very little with temperature and time. Another parameter, “sensitivity error,” describes the overall circuit sensitivity range consistency.</p>
+<p><strong>Gyroscope Sensitivity:</strong> The physical quantity describing gyroscope gain, obtainable by adding a given angular velocity. This sensitivity varies very little with temperature and time. When the sensor rotates counter-clockwise, the axis corresponds to positive digital output.</p>
+<h3 id="12-zero-drift"><a class="header" href="#12-zero-drift">1.2 Zero Drift</a></h3>
+<p><strong>Accelerometer Zero Drift (Zero-g):</strong> The deviation between the actual output signal and the ideal output signal when no acceleration is present. On a level surface, the ideal accelerometer output should be 0g for X and Y axes, and 1g for the Z axis. These outputs should be at the center of their respective dynamic ranges; however, in practice there is always deviation — this is the so-called Zero-g offset.</p>
+<p>Zero-drift offset is fundamentally a manifestation of MEMS sensors experiencing stress conditions. When a sensor is mounted on a PCB or placed under large-scale mechanical stress, the zero offset will change slightly. Zero offset temperature variation is relatively small. The accelerometer zero-offset tolerance is a batch-level standard deviation of accelerometer sensor zero-offset values.</p>
+<p><strong>Gyroscope Zero Drift (Zero-Rate):</strong> The deviation of the actual output signal when no angular rate is present. Similarly, this zero offset is a manifestation of MEMS sensors experiencing stress. When mounted on a PCB or placed under mechanical stress, the zero offset will change slightly. Zero offset varies little with temperature and time.</p>
+<h3 id="13-self-test"><a class="header" href="#13-self-test">1.3 Self-Test</a></h3>
+<p><strong>Accelerometer Self-Test:</strong> The self-test function allows testing the mechanical part of the accelerometer without physical motion. The self-test bit is set to “0” to disable self-test. When set to “1,” a driving force is applied to the MEMS mechanical mass, simulating a specific acceleration input. The circuit then outputs external acceleration plus electrostatic drive acceleration data. If the self-test output signal change is within the range specified in this datasheet, the circuit is functioning normally. See register descriptions below for setup details.</p>
+<p><strong>Gyroscope Self-Test:</strong> The gyroscope self-test function checks the stability of the gyroscope’s drive amplitude, frequency, and drive control loop. It can detect particle contamination, mechanical damage, or stress loss. After initiating gyroscope self-test, the GYR_MEMS_OK result determines whether the gyroscope self-test passed. See register descriptions below for setup details.</p>
+<hr>
+<h2 id="2-operating-mode-description"><a class="header" href="#2-operating-mode-description">2. Operating Mode Description</a></h2>
+<h3 id="21-operating-modes"><a class="header" href="#21-operating-modes">2.1 Operating Modes</a></h3>
+<p>The ICM-42688P has three selectable operating modes:</p>
+<ol>
+<li>Accelerometer only active, gyroscope off</li>
+<li>Gyroscope only active, accelerometer off</li>
+<li>Both gyroscope and accelerometer active simultaneously, with independent ODRs</li>
+</ol>
+<h3 id="22-accelerometer-operating-modes"><a class="header" href="#22-accelerometer-operating-modes">2.2 Accelerometer Operating Modes</a></h3>
+<p>In the ICM-42688P, the accelerometer can be configured into three different operating modes: Off, Low-Power, and High-Performance.</p>
+<h3 id="23-gyroscope-operating-modes"><a class="header" href="#23-gyroscope-operating-modes">2.3 Gyroscope Operating Modes</a></h3>
+<p>In the ICM-42688P, the gyroscope can be configured into four different operating modes: Off, Low-Power, Normal, and High-Performance.</p>
+<h3 id="24-operating-mode-settings"><a class="header" href="#24-operating-mode-settings">2.4 Operating Mode Settings</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mode</th><th>Sensor Type</th><th>ACC_EN</th><th>GYR_EN</th><th>ACC_FILTER_PERF</th><th>GYR_FILTER_PERF</th><th>GYR_NOISE_PERF</th></tr>
+</thead>
+<tbody>
+<tr><td>Standby</td><td>–</td><td>0</td><td>0</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>Low-Power</td><td>Accelerometer</td><td>1</td><td>0</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td></td><td>Gyroscope</td><td>0</td><td>1</td><td>X</td><td>0</td><td>0</td></tr>
+<tr><td></td><td>IMU</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>Normal</td><td>Accelerometer</td><td>1</td><td>0</td><td>1</td><td>X</td><td>X</td></tr>
+<tr><td></td><td>Gyroscope</td><td>0</td><td>1</td><td>X</td><td>1</td><td>0</td></tr>
+<tr><td></td><td>IMU</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>High-Performance</td><td>Accelerometer</td><td>1</td><td>0</td><td>1</td><td>X</td><td>X</td></tr>
+<tr><td></td><td>Gyroscope</td><td>0</td><td>1</td><td>X</td><td>1</td><td>1</td></tr>
+<tr><td></td><td>IMU</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="3-digital-interface"><a class="header" href="#3-digital-interface">3. Digital Interface</a></h2>
+<p>The ICM-42688P internal registers can be accessed via I2C and SPI serial interfaces. The SPI interface can be configured as 3-wire or 4-wire mode. When I2C is selected, the CS pin must be tied high (VDD IO).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin Name</th><th>Pin Description</th></tr>
+</thead>
+<tbody>
+<tr><td>CS</td><td>SPI enable; I2C/SPI mode select (1: I2C mode; 0: SPI enable)</td></tr>
+<tr><td>SCL/SPC</td><td>I2C serial clock (SCL); SPI serial clock (SPC)</td></tr>
+<tr><td>SDA/SDI/SDO</td><td>I2C serial data (SDA); SPI serial data input (SDI); 3-wire SPI serial data output (SDO)</td></tr>
+<tr><td>SDO/SA0</td><td>SPI serial data output SDO; I2C device address LSB SA0</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="31-i2c-serial-interface"><a class="header" href="#31-i2c-serial-interface">3.1 I2C Serial Interface</a></h3>
+<p>The I2C bus interface is a slave device. Data can be written to registers and read from registers via the I2C interface. Related I2C terminology:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Term</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Transmitter</td><td>Sends data to the bus</td></tr>
+<tr><td>Receiver</td><td>Receives data from the bus</td></tr>
+<tr><td>Master</td><td>Initiates transmission, generates clock signal, terminates transmission</td></tr>
+<tr><td>Slave</td><td>Addressed by the master for access</td></tr>
+</tbody>
+</table>
+</div>
+<p>The I2C bus uses two signal lines: a serial clock line and a serial data line. The serial data line is bidirectional, allowing the master to send data to the slave and the slave to send data back to the master. Both signal lines are pulled up to VDDIO through pull-up resistors. When the bus is idle, both data lines are high. The I2C interface follows Fast Mode (400 kHz) I2C standard.</p>
+<h4 id="311-i2c-operation"><a class="header" href="#311-i2c-operation">3.1.1 I2C Operation</a></h4>
+<p>Bus transmission begins with a START signal. The START condition is defined as: while SCL is high, SDA transitions from high to low. The bus is then considered busy. The upper 7 bits of the next byte indicate the master’s target device address; the 8th bit indicates data transfer direction (read/write).</p>
+<p>The ICM-42688P slave device address is 0011 00xb (configurable by user). Data transmission requires ACK signal acknowledgment. The transmitter must release the bus on the 9th CLK; the receiver pulls the bus low on the 9th CLK to complete an ACK. The receiver must acknowledge after every byte. The ICM-42688P I2C interface operates as a slave device, following standard I2C protocol (with minor differences). After the START signal, the slave device address is broadcast; when the ACK is received, the sub-register address (lower 7 bits) is sent.</p>
+<p>The slave address plus the read/write control bit forms the complete slave device address. If the R/W control bit is “1” (read), the device address and sub-register address are sent. If the R/W control bit is “0” (write), the transfer direction of the next byte remains unchanged.</p>
+<h4 id="master-to-slave-protocol-sequences"><a class="header" href="#master-to-slave-protocol-sequences">Master-to-Slave Protocol Sequences</a></h4>
+<p><strong>Master writes single byte to slave:</strong>
+Master: ST → SAD+W → – → SUB → – → DATA → – → SP
+Slave: – → – → SAK → – → SAK → – → SAK → –</p>
+<p><strong>Master writes multiple bytes to slave:</strong>
+Master: ST → SAD+W → – → SUB → – → DATA → – → DATA → – → SP
+Slave: – → – → SAK → – → SAK → – → SAK → – → SAK → –</p>
+<p><strong>Master reads single byte from slave:</strong>
+Master: ST → SAD+W → – → SUB → – → SR → SAD+R → – → – → NMAK → SP
+Slave: – → – → SAK → – → SAK → – → – → SAK → DATA → – → –</p>
+<p><strong>Master reads multiple bytes from slave:</strong>
+Master: ST → SAD+W → – → SUB → – → SR → SAD+R → – → – → MAK → – → MAK → – → NMAK → SP
+Slave: – → – → SAK → – → SAK → – → – → SAK → DATA → – → DATA → – → DATA → – → –</p>
+<p>Data is transmitted MSB first on the serial bus, 8 bits per data byte, unlimited number of transmissions. If the receiver is busy processing other tasks and cannot fully receive data, the receiver can pull the SCL line into a wait state, causing the transmitter to wait until the receiver is no longer busy before releasing the SCL bus to continue transmission. If the slave receiver cannot respond to the slave address due to real-time constraints, the SDA line must not be held busy; the master will then terminate the transfer. When SCL is high, a low-to-high transition on SDA constitutes a STOP condition. Each data transmission must end with a STOP condition. For faster data transfer, batch reads or batch writes can be used. The sensor defaults to auto-incrementing the read/write address. For example, after configuration, three-axis accelerometer data can be continuously read (register addresses 0x0C~0x12).</p>
+<h4 id="312--313-i2c-address"><a class="header" href="#312--313-i2c-address">3.1.2 / 3.1.3 I2C Address</a></h4>
+<p>The ICM-42688P slave device address is 0011 00xb. The external SDO/SA0 pin can modify the device address LSB. If SDO/SA0 is pulled high, LSB=1 (address = 0011 001b). If SDO/SA0 is tied to ground, LSB=0 (address = 0011 000b). This allows two different inertial sensors on the same I2C bus.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>SDO External Connection</th><th>7-bit I2C Address</th><th>8-bit I2C Address</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Floating / Logic High</td><td>0x19</td><td>0x32(W), 0x33(R)</td><td>No-leakage connection</td></tr>
+<tr><td>Logic Low</td><td>0x18</td><td>0x30(W), 0x31(R)</td><td>Must disable SDO internal pull-up resistor</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="32-spi-serial-interface"><a class="header" href="#32-spi-serial-interface">3.2 SPI Serial Interface</a></h3>
+<p>The SPI bus interface operates as a slave device. Data can be written to registers and read from registers via SPI. The four bus signals are: CSB, SPC, SDI, and SDO.</p>
+<p>CSB is the SPI enable signal, controlled by the SPI master — goes low before SPI transfer starts and high after transfer ends. SPC is the SPI serial clock, controlled by the SPI master. SDI and SDO are serial data input and output. Data is clocked on SPC falling edge for input and SPC rising edge for output. Single-byte read/write completes in 16 clock cycles; multi-byte read/write adds 8 clock cycles per additional byte. The first bit (bit0) is sent on the first SPC falling edge after CS goes low.</p>
+<ul>
+<li><strong>Bit0:</strong> R/W bit. 0 = write to circuit, DI(7:0) is data to write; 1 = read from circuit, DO(7:0) is data read out (circuit drives SDO starting at bit8)</li>
+<li><strong>Bit1-7:</strong> Address AD(6:0) is the register address</li>
+<li><strong>Bit8-15:</strong> Data DI(7:0) (write mode), data written to slave device (MSB first); or Data DO(7:0) (read mode), data read from slave device (MSB first)</li>
+</ul>
+<p>When Addr_Auto=1, address auto-increments; SDI and SDO functions and behavior remain unchanged.</p>
+<h4 id="spi-timing-parameters-slave-device"><a class="header" href="#spi-timing-parameters-slave-device">SPI Timing Parameters (Slave Device)</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Symbol</th><th>Parameter</th><th>Min</th><th>Max</th><th>Unit</th></tr>
+</thead>
+<tbody>
+<tr><td>tc(SPC)</td><td>SPI clock cycle</td><td>100</td><td>–</td><td>ns</td></tr>
+<tr><td>fc(SPC)</td><td>SPI clock frequency</td><td>–</td><td>10</td><td>MHz</td></tr>
+<tr><td>tsu(CS)</td><td>CS setup time</td><td>6</td><td>–</td><td>ns</td></tr>
+<tr><td>th(CS)</td><td>CS hold time</td><td>8</td><td>–</td><td>ns</td></tr>
+<tr><td>tsu(Si)</td><td>SDI input setup time</td><td>5</td><td>–</td><td>ns</td></tr>
+<tr><td>th(Si)</td><td>SDI input hold time</td><td>15</td><td>–</td><td>ns</td></tr>
+<tr><td>tv(So)</td><td>SDO valid output time</td><td>–</td><td>50</td><td>ns</td></tr>
+<tr><td>th(So)</td><td>SDO output hold time</td><td>9</td><td>–</td><td>ns</td></tr>
+<tr><td>tdis(So)</td><td>SDO output disable time</td><td>–</td><td>50</td><td>ns</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="321-spi-read"><a class="header" href="#321-spi-read">3.2.1 SPI Read</a></h4>
+<p><img src="spi-read-timing.png" alt="SPI Read Timing"></p>
+<p>SPI read command completes in 16 clocks. Multi-byte reads add 8 more clock cycles per byte.</p>
+<p><img src="spi-multi-read.png" alt="SPI Multi-Byte Read"></p>
+<ul>
+<li>Bit0: R/W control bit, set to 1</li>
+<li>Bit1-7: Address AD(6:0) is the register address</li>
+<li>Bit8-15: Data DO(7:0) (read mode), data read from slave device (MSB first)</li>
+<li>Bit16-…: Data DO(…:8) (read mode), additional data (MSB first)</li>
+</ul>
+<h4 id="322-spi-write"><a class="header" href="#322-spi-write">3.2.2 SPI Write</a></h4>
+<p><img src="spi-write.png" alt="SPI Write Timing"></p>
+<p>SPI single-byte write command completes in 16 clocks. Multi-byte writes add 8 more clock cycles per byte.</p>
+<p><img src="spi-multi-write.png" alt="SPI Multi-Byte Write"></p>
+<ul>
+<li>Bit0: R/W control bit, set to 0</li>
+<li>Bit1-7: Address AD(6:0) is the register address</li>
+<li>Bit8-15: Data DI(7:0) (write mode), data written to slave device (MSB first)</li>
+<li>Bit16-…: Data DI(…:8) (write mode), additional data written (MSB first)</li>
+</ul>
+<h4 id="323-spi-3-wire-mode-read"><a class="header" href="#323-spi-3-wire-mode-read">3.2.3 SPI 3-Wire Mode Read</a></h4>
+<p><img src="spi-3wire-read.png" alt="SPI 3-Wire Read"></p>
+<p>3-wire mode is configured by writing 1 to the SIM bit. 4-wire write and 3-wire write use only 3 signal lines with identical logic and timing, so 4-wire write configures the slave device to 3-wire mode first, then 3-wire mode access is used.</p>
+<p>SPI read command completes in 16 clocks.</p>
+<ul>
+<li>Bit0: R/W control bit, set to 1</li>
+<li>Bit1-7: Address AD(6:0) is the register address</li>
+<li>Bit8-15: Data DO(7:0) (read mode), data read from slave device (MSB first)</li>
+</ul>
+<p>When reading 3-axis FIFO data via SPI, start reading from register 0x0B, continuously read 7 bytes, and use the latter 6 bytes to assemble the 3-axis data. <strong>Important:</strong> Do not share SPC, MOSI, MISO across multiple SPI devices.</p>
+<h3 id="33-ois-interface"><a class="header" href="#33-ois-interface">3.3 OIS Interface</a></h3>
+<p>The ICM-42688P supports optical image stabilization (OIS) applications via an auxiliary interface. This interface is used to access pre-filtered gyroscope and accelerometer data with minimum latency. Pre-filtered accelerometer data is available when ACC_ODR=1.6kHz; gyroscope data is available when GYR_ODR=6.4kHz. The OIS SPI interface supports 3-wire and 4-wire modes. The OIS SPI interface timing is the same as the main SPI interface.</p>
+<hr>
+<h2 id="4-register-map"><a class="header" href="#4-register-map">4. Register Map</a></h2>
+<h3 id="41-general-purpose-registers"><a class="header" href="#41-general-purpose-registers">4.1 General-Purpose Registers</a></h3>
+<p>The following table lists the ICM-42688P general-purpose registers accessible via 8-bit addresses, their addresses, and default values.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Register Address (Hex)</th><th>Register Address (Binary)</th><th>Default</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>WHO_AM_I</td><td>rw</td><td>01</td><td>0000 0001</td><td>0x6A</td><td>–</td></tr>
+<tr><td>Reserved (do not modify)</td><td>–</td><td>02-03</td><td>–</td><td>–</td><td>–</td></tr>
+<tr><td>OIS_CONF</td><td>rw</td><td>04</td><td>0000 0100</td><td>–</td><td>–</td></tr>
+<tr><td>COM_CFG</td><td>rw</td><td>05</td><td>0000 0101</td><td>0x50</td><td>–</td></tr>
+<tr><td>INT_CFG1</td><td>rw</td><td>06</td><td>0000 0110</td><td>–</td><td>–</td></tr>
+<tr><td>INT_CFG2</td><td>rw</td><td>07</td><td>0000 0111</td><td>–</td><td>–</td></tr>
+<tr><td>HPF&amp;LPF_CFG</td><td>rw</td><td>08</td><td>0000 1000</td><td>0x80</td><td>–</td></tr>
+<tr><td>DATA_STAT/DATA_STAT_OIS</td><td>r</td><td>0B</td><td>0000 1011</td><td>–</td><td>–</td></tr>
+<tr><td>ACC_XH/ACC_XH_OIS</td><td>r</td><td>0C</td><td>0000 1100</td><td>–</td><td>output</td></tr>
+<tr><td>ACC_XL/ACC_XL_OIS</td><td>r</td><td>0D</td><td>0000 1101</td><td>–</td><td>output</td></tr>
+<tr><td>ACC_YH/ACC_YH_OIS</td><td>r</td><td>0E</td><td>0000 1110</td><td>–</td><td>output</td></tr>
+<tr><td>ACC_YL/ACC_YL_OIS</td><td>r</td><td>0F</td><td>0000 1111</td><td>–</td><td>output</td></tr>
+<tr><td>ACC_ZH/ACC_ZH_OIS</td><td>r</td><td>10</td><td>0001 0000</td><td>–</td><td>output</td></tr>
+<tr><td>ACC_ZL/ACC_ZL_OIS</td><td>r</td><td>11</td><td>0001 0001</td><td>–</td><td>output</td></tr>
+<tr><td>GYR_XH/GYR_XH_OIS</td><td>r</td><td>12</td><td>0001 0010</td><td>–</td><td>output</td></tr>
+<tr><td>GYR_XL/GYR_XL_OIS</td><td>r</td><td>13</td><td>0001 0011</td><td>–</td><td>output</td></tr>
+<tr><td>GYR_YH/GYR_YH_OIS</td><td>r</td><td>14</td><td>0001 0100</td><td>–</td><td>output</td></tr>
+<tr><td>GYR_YL/GYR_YL_OIS</td><td>r</td><td>15</td><td>0001 0101</td><td>–</td><td>output</td></tr>
+<tr><td>GYR_ZH/GYR_ZH_OIS</td><td>r</td><td>16</td><td>0001 0110</td><td>–</td><td>output</td></tr>
+<tr><td>GYR_ZL/GYR_ZL_OIS</td><td>r</td><td>17</td><td>0001 0111</td><td>–</td><td>output</td></tr>
+<tr><td>TIME_H</td><td>r</td><td>18</td><td>0001 1000</td><td>–</td><td>–</td></tr>
+<tr><td>TIME_M</td><td>r</td><td>19</td><td>0001 1001</td><td>–</td><td>–</td></tr>
+<tr><td>TIME_L</td><td>r</td><td>1A</td><td>0001 1010</td><td>–</td><td>–</td></tr>
+<tr><td>FIFO_CFG0</td><td>rw</td><td>1C</td><td>0001 1100</td><td>–</td><td>–</td></tr>
+<tr><td>FIFO_CFG1</td><td>rw</td><td>1D</td><td>0001 1101</td><td>0x07</td><td>–</td></tr>
+<tr><td>FIFO_CFG2</td><td>rw</td><td>1E</td><td>0001 1110</td><td>0xFF</td><td>–</td></tr>
+<tr><td>FIFO_STAT0</td><td>r</td><td>1F</td><td>0001 1111</td><td>0x40</td><td>–</td></tr>
+<tr><td>FIFO_STAT1</td><td>r</td><td>20</td><td>0010 0000</td><td>–</td><td>–</td></tr>
+<tr><td>FIFO_DATA</td><td>r</td><td>21</td><td>0010 0001</td><td>–</td><td>–</td></tr>
+<tr><td>TEMP_H</td><td>r</td><td>22</td><td>0010 0010</td><td>–</td><td>–</td></tr>
+<tr><td>TEMP_L</td><td>r</td><td>23</td><td>0010 0011</td><td>–</td><td>–</td></tr>
+<tr><td>AOI1_CFG</td><td>rw</td><td>30</td><td>0011 0000</td><td>–</td><td>–</td></tr>
+<tr><td>AOI1_STAT</td><td>r</td><td>31</td><td>0011 0001</td><td>–</td><td>–</td></tr>
+<tr><td>AOI1_THS</td><td>rw</td><td>32</td><td>0011 0010</td><td>–</td><td>–</td></tr>
+<tr><td>AOI1_DURATION</td><td>rw</td><td>33</td><td>0011 0011</td><td>–</td><td>–</td></tr>
+<tr><td>AOI2_CFG</td><td>rw</td><td>34</td><td>0011 0100</td><td>–</td><td>–</td></tr>
+<tr><td>AOI2_STAT</td><td>r</td><td>35</td><td>0011 0101</td><td>–</td><td>–</td></tr>
+<tr><td>AOI2_THS</td><td>rw</td><td>36</td><td>0011 0110</td><td>–</td><td>–</td></tr>
+<tr><td>AOI2_DURATION</td><td>rw</td><td>37</td><td>0011 0111</td><td>–</td><td>–</td></tr>
+<tr><td>CLICK_CRTL_REG</td><td>rw</td><td>38</td><td>0011 1000</td><td>–</td><td>–</td></tr>
+<tr><td>CLICK_SRC</td><td>r</td><td>39</td><td>0011 1001</td><td>–</td><td>–</td></tr>
+<tr><td>STEP_CFG</td><td>rw</td><td>3A</td><td>0011 1010</td><td>0x08</td><td>–</td></tr>
+<tr><td>STEP_SRC</td><td>rw</td><td>3B</td><td>0011 1011</td><td>–</td><td>–</td></tr>
+<tr><td>STEP_COUNTER_L</td><td>r</td><td>3C</td><td>0011 1100</td><td>–</td><td>–</td></tr>
+<tr><td>STEP_COUNTER_H</td><td>r</td><td>3D</td><td>0011 1101</td><td>–</td><td>–</td></tr>
+<tr><td>AOI1&amp;AOI2_CFG</td><td>rw</td><td>3F</td><td>0011 1111</td><td>–</td><td>–</td></tr>
+<tr><td>ACC_CONF</td><td>rw</td><td>40</td><td>0100 0000</td><td>0xA8</td><td>–</td></tr>
+<tr><td>ACC_RANGE</td><td>rw</td><td>41</td><td>0100 0001</td><td>0x02</td><td>–</td></tr>
+<tr><td>GYR_CONF</td><td>rw</td><td>42</td><td>0100 0010</td><td>0xA9</td><td>–</td></tr>
+<tr><td>GYR_RANGE</td><td>rw</td><td>43</td><td>0100 0011</td><td>–</td><td>–</td></tr>
+<tr><td>FIFO_DOWNS</td><td>rw</td><td>45</td><td>0100 0101</td><td>0x88</td><td>–</td></tr>
+<tr><td>SOFT_RST</td><td>rw</td><td>4A</td><td>0100 1010</td><td>–</td><td>–</td></tr>
+<tr><td>ACC_SELF_TEST</td><td>rw</td><td>6D</td><td>0110 1101</td><td>–</td><td>–</td></tr>
+<tr><td>GRY_SELF_TEST</td><td>rw</td><td>6F</td><td>0110 1111</td><td>–</td><td>–</td></tr>
+<tr><td>PWR_CTRL</td><td>rw</td><td>7D</td><td>0111 1101</td><td>–</td><td>–</td></tr>
+<tr><td>SEG_SEL</td><td>rw</td><td>7F</td><td>0111 1111</td><td>–</td><td>–</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> Registers marked “Reserved” must not be modified in use — doing so may cause permanent damage. Also, wait 1ms after register configuration before performing register read operations.</p>
+<h3 id="42-special-register-bank-1"><a class="header" href="#42-special-register-bank-1">4.2 Special Register Bank 1</a></h3>
+<p>The following registers require writing 0x83 to register 0x7F (SEG_SEL) before access.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Hex</th><th>Binary</th><th>Default</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>I2C_UN</td><td>rw</td><td>6F</td><td>0110 1111</td><td>–</td><td>–</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> After special register configuration, write 0x00 to address 0x7F to return to general-purpose register access. Wait 1ms after configuration before reading registers.</p>
+<h3 id="43-special-register-bank-2"><a class="header" href="#43-special-register-bank-2">4.3 Special Register Bank 2</a></h3>
+<p>The following registers require writing 0x8C to register 0x7F (SEG_SEL) before access.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Hex</th><th>Binary</th><th>Default</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>DIG_CTRL</td><td>rw</td><td>30</td><td>0011 0000</td><td>–</td><td>–</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> After special register configuration, write 0x00 to address 0x7F to return to general-purpose register access. Wait 1ms after configuration before reading registers.</p>
+<h3 id="44-special-register-bank-3"><a class="header" href="#44-special-register-bank-3">4.4 Special Register Bank 3</a></h3>
+<p>The following registers require writing 0x90 to register 0x7F (SEG_SEL) before access.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Hex</th><th>Binary</th><th>Default</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>WRIST_SRC</td><td>rw</td><td>3E</td><td>0011 1110</td><td>–</td><td>–</td></tr>
+<tr><td>CLICK_COEFF1</td><td>rw</td><td>40</td><td>0100 0000</td><td>0x52</td><td>–</td></tr>
+<tr><td>CLICK_COEFF2</td><td>rw</td><td>41</td><td>0100 0001</td><td>0x9A</td><td>–</td></tr>
+<tr><td>CLICK_COEFF3</td><td>rw</td><td>42</td><td>0100 0010</td><td>0x04</td><td>–</td></tr>
+<tr><td>CLICK_COEFF4</td><td>rw</td><td>43</td><td>0100 0011</td><td>0x57</td><td>–</td></tr>
+<tr><td>STEP_DELTA</td><td>rw</td><td>44</td><td>0100 0100</td><td>0x01</td><td>–</td></tr>
+<tr><td>STEP_WTM</td><td>rw</td><td>45</td><td>0100 0101</td><td>0x01</td><td>–</td></tr>
+<tr><td>PEDO_COEFF1</td><td>rw</td><td>46</td><td>0100 0110</td><td>0x4F</td><td>–</td></tr>
+<tr><td>PEDO_COEFF2</td><td>rw</td><td>47</td><td>0100 0111</td><td>0x23</td><td>–</td></tr>
+<tr><td>PEDO_COEFF3</td><td>rw</td><td>48</td><td>0100 1000</td><td>0xA5</td><td>–</td></tr>
+<tr><td>PEDO_COEFF4</td><td>rw</td><td>49</td><td>0100 1001</td><td>0x23</td><td>–</td></tr>
+<tr><td>PEDO_COEFF5</td><td>rw</td><td>4A</td><td>0100 1010</td><td>0x04</td><td>–</td></tr>
+<tr><td>PEDO_COEFF6</td><td>rw</td><td>4B</td><td>0100 1011</td><td>0x8C</td><td>–</td></tr>
+<tr><td>WRIST_CTRL1</td><td>rw</td><td>51</td><td>0101 0001</td><td>0x30</td><td>–</td></tr>
+<tr><td>WRIST_CTRL2</td><td>rw</td><td>52</td><td>0101 0010</td><td>0x0F</td><td>–</td></tr>
+<tr><td>WRIST_CTRL3</td><td>rw</td><td>53</td><td>0101 0011</td><td>0x93</td><td>–</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> After special register configuration, write 0x00 to address 0x7F to return to general-purpose register access. Wait 1ms after configuration before reading registers.</p>
+<p>Do not modify register contents during “boot startup” — these contain factory calibration and compensation data that is power-loss preserved and auto-loaded.</p>
+<hr>
+<h2 id="5-register-descriptions"><a class="header" href="#5-register-descriptions">5. Register Descriptions</a></h2>
+<h3 id="51-who_am_i-01h"><a class="header" href="#51-who_am_i-01h">5.1 WHO_AM_I (01h)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>B7</th><th>B6</th><th>B5</th><th>B4</th><th>B3</th><th>B2</th><th>B1</th><th>B0</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> Equivalent to CHIP_ID = 0x6A.</p>
+<h3 id="52-ois_conf-04h"><a class="header" href="#52-ois_conf-04h">5.2 OIS_CONF (04h)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>B7</th><th>B6</th><th>B5</th><th>B4</th><th>B3</th><th>B2</th><th>B1</th><th>B0</th></tr>
+</thead>
+<tbody>
+<tr><td>–</td><td>–</td><td>–</td><td>OIS_EN</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>OIS_EN:</strong> OIS enable bit. Default: 0 (0: OIS disabled; 1: OIS enabled)</li>
+</ul>
+<h3 id="53-com_cfg-05h"><a class="header" href="#53-com_cfg-05h">5.3 COM_CFG (05h)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>B7</th><th>B6</th><th>B5</th><th>B4</th><th>B3</th><th>B2</th><th>B1</th><th>B0</th></tr>
+</thead>
+<tbody>
+<tr><td>BOOT</td><td>BDU</td><td>–</td><td>Addr_Auto</td><td>–</td><td>OSIM</td><td>–</td><td>SIM</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>BOOT:</strong> Reboot trim values. Default: 0 (0: Normal mode; 1: Reboot trim values — auto-resets to “0” after reboot)</li>
+<li><strong>BDU:</strong> Block data update. Default: 0 (0: Continuous update; 1: Output data registers not updated until MSB and LSB are read)</li>
+<li><strong>Addr_Auto:</strong> Communication address auto-increment control. Default: 1 (0: Address does not auto-increment — must be configured for FIFO_DATA continuous reading; 1: Address auto-increments during continuous read/write — suitable for I2C and SPI communication, OIS not applicable)</li>
+<li><strong>OSIM:</strong> OIS SPI communication mode select. Default: 0 (0: OIS 4-wire mode; 1: OIS 3-wire mode)</li>
+<li><strong>SIM:</strong> SPI serial interface mode configuration. Default: 0 (0: 4-wire interface; 1: 3-wire interface)</li>
+</ul>
+<h3 id="54-int_cfg1-06h"><a class="header" href="#54-int_cfg1-06h">5.4 INT_CFG1 (06h)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>B7</th><th>B6</th><th>B5</th><th>B4</th><th>B3</th><th>B2</th><th>B1</th><th>B0</th></tr>
+</thead>
+<tbody>
+<tr><td>–</td><td>INT_PP_OD</td><td>H_LACTIVE</td><td>INT1_SEL4</td><td>INT1_SEL3</td><td>INT1_SEL2</td><td>INT1_SEL1</td><td>INT1_SEL0</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>INT_PP_OD:</strong> INT1 and INT2 push-pull or open-drain output select. Default: 0 (0: Push-pull output enable; 1: Open-drain output enable)</li>
+<li><strong>H_LACTIVE:</strong> Interrupt pin default level control. Default: 0 (0: Interrupt triggers output high level — default low; 1: Interrupt triggers output low level — default high)</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>INT1_SEL[4:0]</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>00001</td><td>DRDY_ACC interrupt on INT1</td></tr>
+<tr><td>00010</td><td>DRDY_ACC_OIS interrupt on INT1</td></tr>
+<tr><td>00011</td><td>DRDY_GYR interrupt on INT1</td></tr>
+<tr><td>00100</td><td>DRDY_GYR_OIS interrupt on INT1</td></tr>
+<tr><td>00101</td><td>DRDY_TMP interrupt on INT1</td></tr>
+<tr><td>00111</td><td>CLICK interrupt on INT1</td></tr>
+<tr><td>01000</td><td>EMPTY interrupt on INT1</td></tr>
+<tr><td>01001</td><td>WTM interrupt on INT1</td></tr>
+<tr><td>01010</td><td>OVER_FIFO interrupt on INT1</td></tr>
+<tr><td>01011</td><td>AOI1 interrupt on INT1</td></tr>
+<tr><td>01100</td><td>AOI2 interrupt on INT1</td></tr>
+<tr><td>01101</td><td>AOI1|AOI2 interrupt on INT1</td></tr>
+<tr><td>01111</td><td>WTM_STEP interrupt on INT1</td></tr>
+<tr><td>10000</td><td>DELTA_STEP interrupt on INT1</td></tr>
+<tr><td>10001</td><td>OVER_STEP interrupt on INT1</td></tr>
+<tr><td>10010</td><td>WRIST_FLAG interrupt on INT1</td></tr>
+<tr><td>10011</td><td>WRIST_ON_FLAG interrupt on INT1</td></tr>
+<tr><td>10100</td><td>WRIST_DOWN_FLAG interrupt on INT1</td></tr>
+<tr><td>10101</td><td>WRIST_ON_FLAG|WRIST_DOWN_FLAG interrupt on INT1</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="55-int_cfg2-07h"><a class="header" href="#55-int_cfg2-07h">5.5 INT_CFG2 (07h)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>B7</th><th>B6</th><th>B5</th><th>B4</th><th>B3</th><th>B2</th><th>B1</th><th>B0</th></tr>
+</thead>
+<tbody>
+<tr><td>–</td><td>–</td><td>–</td><td>INT2_SEL4</td><td>INT2_SEL3</td><td>INT2_SEL2</td><td>INT2_SEL1</td><td>INT2_SEL0</td></tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>INT2_SEL[4:0]</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>00001</td><td>DRDY_ACC interrupt on INT2</td></tr>
+<tr><td>00010</td><td>DRDY_ACC_OIS interrupt on INT2</td></tr>
+<tr><td>00011</td><td>DRDY_GYR interrupt on INT2</td></tr>
+<tr><td>00100</td><td>DRDY_GYR_OIS interrupt on INT2</td></tr>
+<tr><td>00101</td><td>DRDY_TMP interrupt on INT2</td></tr>
+<tr><td>00111</td><td>CLICK interrupt on INT2</td></tr>
+<tr><td>01000</td><td>EMPTY interrupt on INT2</td></tr>
+<tr><td>01001</td><td>WTM interrupt on INT2</td></tr>
+<tr><td>01010</td><td>OVER_FIFO interrupt on INT2</td></tr>
+<tr><td>01011</td><td>AOI1 interrupt on INT2</td></tr>
+<tr><td>01100</td><td>AOI2 interrupt on INT2</td></tr>
+<tr><td>01101</td><td>AOI1|AOI2 interrupt on INT2</td></tr>
+<tr><td>01111</td><td>WTM_STEP interrupt on INT2</td></tr>
+<tr><td>10000</td><td>DELTA_STEP interrupt on INT2</td></tr>
+<tr><td>10001</td><td>OVER_STEP interrupt on INT2</td></tr>
+<tr><td>10010</td><td>WRIST_FLAG interrupt on INT2</td></tr>
+<tr><td>10011</td><td>WRIST_ON_FLAG interrupt on INT2</td></tr>
+<tr><td>10100</td><td>WRIST_DOWN_FLAG interrupt on INT2</td></tr>
+<tr><td>10101</td><td>WRIST_ON_FLAG|WRIST_DOWN_FLAG interrupt on INT2</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<hr>
+<h2 id="6d-orientation-detection"><a class="header" href="#6d-orientation-detection">6D Orientation Detection</a></h2>
+<p><img src="orientation-6d.jpg" alt="6D Orientation Detection"></p>
+<h2 id="gyroscope-mounting-orientations"><a class="header" href="#gyroscope-mounting-orientations">Gyroscope Mounting Orientations</a></h2>
+<p><img src="gyro-mounting-orientations.png" alt="Gyroscope Mounting Orientations"></p>
+<hr>
+<p><em>Translated from Chinese datasheet by HuaXuanYang (HXY) Electronics. This is NOT the original InvenSense/TDK ICM-42688-P datasheet — it is a compatible/clone part from HXY with similar register interface. Original document: ICM-42688P-HXY.pdf</em></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../02.3-kiwif722.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../mil-std-1472h-uiux.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../02.3-kiwif722.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../mil-std-1472h-uiux.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../mermaid-eefea253.min.js"></script>
+        <script src="../mermaid-init-025d9952.js"></script>
+        <script src="../buy-button-14d2813c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a134c754.js";
+            window.path_to_searchindex_js = "searchindex-f144f4d5.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-8958f830.js"></script>
@@ -220,6 +220,11 @@ is designed to support your development process from start to finish.</p>
 <hr><div style="break-before: page; page-break-before: always;"></div>
 <h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
 <p><img src="kiwi-GS.png" alt="kiwi-GS.png"></p>
+<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
+<ul>
+<li>ArduPilot Antenna Tracker (KiwiF405-12S) — <a href="download/KiwiF405-12S-Tracker.zip">KiwiF405-12S-Tracker.zip</a></li>
+<li>ArduPilot VRX Control (KiwiF103) — <a href="download/KiwiF103-VRX.zip">KiwiF103-VRX.zip</a></li>
+</ul>
 <h2 id="призначення"><a class="header" href="#призначення">Призначення</a></h2>
 <p>Комплект наземної станції керування FPV дроном призначений для забезпечення безпеки операторів дронів.</p>
 <p>Комплект є основою для побудови інфраструктури наземної станції.</p>
@@ -470,7 +475,7 @@ is designed to support your development process from start to finish.</p>
 </tbody>
 </table>
 </div>
-<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
+<h2 id="firmware-1"><a class="header" href="#firmware-1">Firmware</a></h2>
 <p>ArduPilot AntennaTracker firmware for KiwiF405-12S-Tracker. Flash via Mission Planner or <code>apj</code> upload over USB.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="drobodrone-плата-для-керування-піротехнічними-системами"><a class="header" href="#drobodrone-плата-для-керування-піротехнічними-системами">Drobodrone: Плата для керування піротехнічними системами</a></h1>
@@ -762,7 +767,7 @@ save
 <h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
 <p>The <strong>Kiwi-RM3100</strong> is an external compass module based on the PNI RM3100 magnetometer, designed as a DroneCAN peripheral for ArduPilot-powered flight controllers. Built on the STM32F103 MCU, it connects to any CAN-enabled flight controller and provides high-precision heading data via the DroneCAN protocol.</p>
 <p>The RM3100 sensor offers superior magnetic resolution and noise performance compared to common QMC5883L or HMC5843 compasses, making it well-suited for applications where accurate heading is critical — long-range wings, survey drones, and missions in magnetically noisy environments.</p>
-<h2 id="firmware-1"><a class="header" href="#firmware-1">Firmware</a></h2>
+<h2 id="firmware-2"><a class="header" href="#firmware-2">Firmware</a></h2>
 <ul>
 <li>ArduPilot AP_Periph <a href="download/KiwiF103-RM3100.zip">KiwiF103-RM3100.zip</a></li>
 </ul>
@@ -1010,7 +1015,7 @@ Support for both Betaflight and ArduPilot allows this board to be used in a wide
 <p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems with full support
 for Betaflight and ArduPilot.
 Thanks to flexible relay, sensor, and telemetry connectivity, the controller is ready for real-world mission use.</p>
-<h2 id="firmware-2"><a class="header" href="#firmware-2">Firmware</a></h2>
+<h2 id="firmware-3"><a class="header" href="#firmware-3">Firmware</a></h2>
 <ul>
 <li>ArduPilot 4.6.2 <a href="download/KiwiF405-12S.zip">KiwiF405-12S.zip</a></li>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-4.5.3.zip</a></li>
@@ -1224,7 +1229,7 @@ save
 <tr><th>Param</th><th>Value</th><th>Notes</th></tr>
 </thead>
 <tbody>
-<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>Gimbal protocol</td></tr>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>MAVLink</td></tr>
 <tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
 <tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
 <tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2 spec: ±120°</td></tr>
@@ -1281,7 +1286,7 @@ firmware.</p>
 and support for dual IMUs, barometer, and OSD integration.</p>
 <p><strong>Premium features:</strong> GPS-less takeoff, IRC Tramp VTX control, VRX integration (TBS Fusion, Skyzone Steadyview).</p>
 <hr>
-<h2 id="firmware-3"><a class="header" href="#firmware-3">Firmware</a></h2>
+<h2 id="firmware-4"><a class="header" href="#firmware-4">Firmware</a></h2>
 <ul>
 <li>ArduPilot <a href="download/KiwiH743.zip">KiwiH743.zip</a></li>
 <li>ArduPilot (SD card) <a href="download/KiwiH743-sdcard.zip">KiwiH743-sdcard.zip</a></li>
@@ -1483,7 +1488,7 @@ relay:off(1)     -- RELAY2 OFF
 <tr><th>Param</th><th>Value</th><th>Notes</th></tr>
 </thead>
 <tbody>
-<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>Gimbal protocol</td></tr>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>MAVLink</td></tr>
 <tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
 <tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
 <tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2 spec: ±120°</td></tr>
@@ -1539,7 +1544,7 @@ relay:off(1)     -- RELAY2 OFF
 <p>The <strong>KiwiH743-Wing</strong> is a Pixhawk-format flight controller system consisting of two boards: a Flight Controller and a Power Distribution Board (PDB). Designed for expendable quadcopters and long-range fixed-wing drones. Ready to use with Rover, Wing, Quadcopter, and Hexacopter configurations.</p>
 <p><strong>Premium features:</strong> GPS-less takeoff, IRC Tramp VTX control, VRX integration (TBS Fusion, Skyzone Steadyview).</p>
 <hr>
-<h2 id="firmware-4"><a class="header" href="#firmware-4">Firmware</a></h2>
+<h2 id="firmware-5"><a class="header" href="#firmware-5">Firmware</a></h2>
 <ul>
 <li>ArduPilot <a href="download/KiwiH743-wing.zip">KiwiH743-wing.zip</a></li>
 <li>Betaflight</li>
@@ -1858,7 +1863,7 @@ relay set 5 0   # release reset
 <tr><th>Param</th><th>Value</th><th>Notes</th></tr>
 </thead>
 <tbody>
-<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>Gimbal protocol</td></tr>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>MAVLink</td></tr>
 <tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
 <tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
 <tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2 spec: ±120°</td></tr>
@@ -2081,7 +2086,7 @@ controlling external modules. With support for both Betaflight and ArduPilot, th
 range of use cases.</p>
 <p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems. Its flexible
 support for relays, sensors, and telemetry makes it ready for real-world mission environments.</p>
-<h2 id="firmware-5"><a class="header" href="#firmware-5">Firmware</a></h2>
+<h2 id="firmware-6"><a class="header" href="#firmware-6">Firmware</a></h2>
 <ul>
 <li>ArduPilot <a href="download/KiwiF405-6S.zip">KiwiF405-6S.zip</a></li>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4.hex">BF-4.5.3.hex</a></li>
@@ -2148,7 +2153,7 @@ support for relays, sensors, and telemetry makes it ready for real-world mission
 <tr><th>Param</th><th>Value</th><th>Notes</th></tr>
 </thead>
 <tbody>
-<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>Gimbal protocol</td></tr>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>8</td><td>MAVLink</td></tr>
 <tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
 <tr><td><code>MNT1_TYPE</code></td><td>13</td><td>CADDX (reboot after setting)</td></tr>
 <tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2 spec: ±120°</td></tr>
@@ -2191,7 +2196,7 @@ support for relays, sensors, and telemetry makes it ready for real-world mission
 контролер до різних сценаріїв використання.</p>
 <p>KIWI F722 — це рішення для тих, хто шукає виняткову стабільність, розширені можливості підключення та готовність до
 будь-яких викликів у FPV та автономних польотах.</p>
-<h2 id="firmware-6"><a class="header" href="#firmware-6">Firmware</a></h2>
+<h2 id="firmware-7"><a class="header" href="#firmware-7">Firmware</a></h2>
 <ul>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF70.hex">KIWIF70</a></li>
 <li>Betaflight 4.5.3 <a href="download/battle_flight/betaflight_4.5.3_STM32F7X2_KAPONGA_KIWIF71.hex">KIWIF71</a></li>
