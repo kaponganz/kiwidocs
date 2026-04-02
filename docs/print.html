@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d5e0d024.js";
+            window.path_to_searchindex_js = "searchindex-feb865fe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-8958f830.js"></script>
@@ -2300,10 +2300,44 @@ support for relays, sensors, and telemetry makes it ready for real-world mission
 <li>Робототехнічні платформи з вимогами до точного управління</li>
 </ul>
 <h2 id="підтримка-підвісів-камери"><a class="header" href="#підтримка-підвісів-камери">Підтримка підвісів камери</a></h2>
-<p>KIWI F722 підтримує сервоприводні підвіси камери. Підключіть серво pitch/yaw до PWM виходів сервоприводів.</p>
+<p>KIWI F722 підтримує сервоприводні та MAVLink підвіси камери (CADDX GM3 V2 та сумісні).</p>
+<h3 id="mavlink-підвіс"><a class="header" href="#mavlink-підвіс">MAVLink підвіс</a></h3>
+<p>Підключіть UART підвісу до вільного серійного порту (gimbal TX → FC RX, gimbal RX → FC TX, GND).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Параметр</th><th>Значення</th><th>Опис</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>2</td><td>MAVLink2</td></tr>
+<tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
+<tr><td><code>MNT1_TYPE</code></td><td>6</td><td>Gremsy (перезавантажити після зміни)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2: ±120°</td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>120</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-160</td><td>GM3 V2: ±160°</td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>160</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>град/с для контролю швидкості, 0 для кутового</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="керування-rc"><a class="header" href="#керування-rc">Керування RC</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Параметр</th><th>Значення</th><th>Опис</th></tr>
+</thead>
+<tbody>
+<tr><td><code>RC6_OPTION</code></td><td>213</td><td>Mount1 Pitch</td></tr>
+<tr><td><code>RC7_OPTION</code></td><td>214</td><td>Mount1 Yaw</td></tr>
+<tr><td><code>RC8_OPTION</code></td><td>212</td><td>Mount1 Roll (тільки 3-осьові підвіси)</td></tr>
+</tbody>
+</table>
+</div>
 <blockquote>
-<p>CADDX підвіси не підтримуються на F722 (потрібен H743 з flash &gt; 1024KB).</p>
+<p>Прошивка підвісу має бути V2.0 або вище.</p>
 </blockquote>
+<h3 id="сервоприводний-підвіс"><a class="header" href="#сервоприводний-підвіс">Сервоприводний підвіс</a></h3>
+<p>Підключіть серво pitch/yaw до PWM виходів сервоприводів.</p>
 <div class="table-wrapper">
 <table>
 <thead>
