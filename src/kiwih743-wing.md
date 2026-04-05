@@ -3,6 +3,22 @@
 <a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online-sticky">Buy Online</a>
 
+<nav class="quick-nav">
+  <a href="#overview">Overview</a>
+  <a href="#firmware">Firmware</a>
+  <a href="#features">Features</a>
+  <a href="#technical-specifications">Specs</a>
+  <a href="#serial-ports">Serial Ports</a>
+  <a href="#gpios-relays-and-aux">GPIOs & Relays</a>
+  <a href="#power-monitoring">Power</a>
+  <a href="#buses">Buses</a>
+  <a href="#premium-features">Premium</a>
+  <a href="#displayport-osd">OSD</a>
+  <a href="#flight-controller">FC Board</a>
+  <a href="#power-distribution-board-pdb">PDB</a>
+  <a href="#full-pinout-reference">Pinout</a>
+</nav>
+
 ## Overview
 
 The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of two boards: a Flight Controller and a Power Distribution Board (PDB). Designed for expendable quadcopters and long-range fixed-wing drones. Ready to use with Rover, Wing, Quadcopter, and Hexacopter configurations.
