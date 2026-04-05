@@ -374,3 +374,35 @@ hr {
 .navy .buy-online-sticky:hover, .coal .buy-online-sticky:hover, .ayu .buy-online-sticky:hover {
     background-color: var(--kiwi-accent);
 }
+
+/* ── Quick-nav section pills ── */
+.quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0.6em 0;
+    margin: 0 0 1em;
+}
+.quick-nav a {
+    display: inline-block;
+    padding: 0.3em 0.9em;
+    border: 1.5px solid var(--kiwi-accent);
+    border-radius: 999px;
+    color: var(--kiwi-accent) !important;
+    text-decoration: none !important;
+    font-size: 0.82em;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+.quick-nav a:hover {
+    background-color: var(--kiwi-accent);
+    color: #fff !important;
+}
+.navy .quick-nav a, .coal .quick-nav a, .ayu .quick-nav a {
+    border-color: var(--kiwi-accent-light);
+    color: var(--kiwi-accent-light) !important;
+}
+.navy .quick-nav a:hover, .coal .quick-nav a:hover, .ayu .quick-nav a:hover {
+    background-color: var(--kiwi-accent-light);
+    color: #fff !important;
+}

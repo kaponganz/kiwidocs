@@ -28,7 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/css/custom-1d63d39f.css">
+        <link rel="stylesheet" href="theme/css/custom-92eabc86.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-feb865fe.js";
+            window.path_to_searchindex_js = "searchindex-14f37248.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-d358959a.js"></script>
@@ -180,6 +180,19 @@
 <p><img src="KiwiH743.jpg" alt="KiwiH743.jpg"></p>
 <p><a href="https://kiwidrone.com.ua/kiwi-h743-fpv/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-h743-fpv/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
+<nav class="quick-nav">
+  <a href="#overview">Overview</a>
+  <a href="#firmware">Firmware</a>
+  <a href="#sd-card-version">SD Card</a>
+  <a href="#features">Features</a>
+  <a href="#technical-specifications">Specs</a>
+  <a href="#serial-ports">Serial Ports</a>
+  <a href="#gpios-relays-and-aux">GPIOs &amp; Relays</a>
+  <a href="#power-monitoring">Power</a>
+  <a href="#buses">Buses</a>
+  <a href="#default-frame-and-modes">Frame &amp; Modes</a>
+  <a href="#pinout-reference">Pinout</a>
+</nav>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>The <strong>KiwiH743</strong> is a high-performance flight controller based on the STM32H743 MCU, designed for advanced UAV
 applications. It combines powerful processing, flexible connectivity, and rich sensor support, optimized for ArduPilot
@@ -194,6 +207,45 @@ and support for dual IMUs, barometer, and OSD integration.</p>
 <li>ArduPilot (SD card) <a href="download/KiwiH743-sdcard.zip">KiwiH743-sdcard.zip</a></li>
 <li>Betaflight</li>
 </ul>
+<h2 id="sd-card-version"><a class="header" href="#sd-card-version">SD Card Version</a></h2>
+<p>The KiwiH743 has a built-in 16 MB DataFlash chip for logging, but if you need more storage (longer flights, detailed logs), you can connect an external SD card module via the SPI1 interface.</p>
+<h3 id="step-1--flash-sd-card-firmware"><a class="header" href="#step-1--flash-sd-card-firmware">Step 1 — Flash SD card firmware</a></h3>
+<p>Download and install <a href="download/KiwiH743-sdcard.zip">KiwiH743-sdcard.zip</a>. This firmware disables the onboard DataFlash and enables FATFS file system on the SD card. All logging will go to the SD card instead.</p>
+<h3 id="step-2--wire-sd-card-module-to-spi1"><a class="header" href="#step-2--wire-sd-card-module-to-spi1">Step 2 — Wire SD card module to SPI1</a></h3>
+<p>Connect a 5V-tolerant SPI micro-SD breakout module to the SPI1 pads on the board:</p>
+<pre><code>  KiwiH743 (SPI1)           SD Card Module
+ ┌──────────────┐          ┌──────────────┐
+ │ PA5  (SCK)  ─┼──────────┼─ SCK         │
+ │ PA6  (MISO) ─┼──────────┼─ MISO (DO)   │
+ │ PA7  (MOSI) ─┼──────────┼─ MOSI (DI)   │
+ │ PA4  (CS)   ─┼──────────┼─ CS          │
+ │ 5V          ─┼──────────┼─ VCC         │
+ │ GND         ─┼──────────┼─ GND         │
+ └──────────────┘          └──────────────┘
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>FC Pad (SPI1)</th><th>Pin</th><th>SD Card Module</th></tr>
+</thead>
+<tbody>
+<tr><td>SCK</td><td>PA5</td><td>SCK (Clock)</td></tr>
+<tr><td>MISO</td><td>PA6</td><td>MISO / DO</td></tr>
+<tr><td>MOSI</td><td>PA7</td><td>MOSI / DI</td></tr>
+<tr><td>CS</td><td>PA4</td><td>CS</td></tr>
+<tr><td>5V</td><td>—</td><td>VCC</td></tr>
+<tr><td>GND</td><td>—</td><td>GND</td></tr>
+</tbody>
+</table>
+</div>
+<img src="kiwi-743-fpv-sdcard.jpeg" width="600">
+<blockquote>
+<p>Use a 5V-tolerant SD card breakout with an onboard voltage regulator. We can ship one with the board upon request — just mention it when ordering.</p>
+</blockquote>
+<blockquote>
+<p>Format the card as FAT32 before first use.</p>
+</blockquote>
+<hr>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li>Dual IMUs: ICM-42688P + ICM-45686 with EKF3 dual-source fusion</li>
