@@ -1,5 +1,9 @@
 # KiwiH743-Wing Flight Controller
 
+<img src="h743-wing-fc.jpg" width="350">
+<img src="h743-wing-fc-bot.jpg" width="350">
+<img src="h743-wing-pdb.jpg" width="350">
+
 <a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online">Buy Online</a>
 <a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online-sticky">Buy Online</a>
 
@@ -357,16 +361,11 @@ param set SERIAL8_PROTOCOL 42
 
 ## Flight Controller
 
-<img src="h743-wing-fc.jpg" width="350">
-<img src="h743-wing-fc-bot.jpg" width="350">
-
 Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.
 
 ---
 
 ## Power Distribution Board (PDB)
-
-![KiwiH743-Wing PDB](h743-wing-pdb.jpg)
 
 ### Features
 
