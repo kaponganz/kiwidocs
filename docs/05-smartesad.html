@@ -1,0 +1,860 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>SmartESAD System - KIWI Flight Systems</title>
+
+
+        <!-- Custom HTML head -->
+        <!-- Google Analytics (GA4) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2L7L7FPTWR"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-2L7L7FPTWR');
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-d0fe17bd.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/css/custom-92eabc86.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-48aed808.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d358959a.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"><img src="kiwi_flight_systems.svg" alt="KIWI Flight Systems" class="header-logo header-logo-full"><img src="kiwi_home.svg" alt="KIWI Flight Systems" class="header-logo header-logo-short"></h1>
+
+                    <div class="right-buttons">
+                        <a href="https://kiwidrone.com.ua/" target="_blank" class="header-nav-link" title="Shop" aria-label="Shop">Shop</a>
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="smartesad"><a class="header" href="#smartesad">SmartESAD</a></h1>
+<nav class="quick-nav">
+  <a href="#overview">Overview</a>
+  <a href="#переваги-над-pwm--advantages-over-pwm">vs PWM</a>
+  <a href="#архітектура-безпеки--safety-architecture">Safety</a>
+  <a href="#стани-системи--system-states">States</a>
+  <a href="#захисні-таймери--safety-timers">Timers</a>
+  <a href="#налаштування-пристрою--device-persistent-settings">Device Settings</a>
+  <a href="#швидке-налаштування--quick-setup">Quick Setup</a>
+  <a href="#перемикачі-rc--rc-mode-boxes">RC Boxes</a>
+  <a href="#налаштування-польотного-контролера--fc-side-settings">FC Settings</a>
+  <a href="#довідник-cli-команд--cli-command-reference">CLI Commands</a>
+  <a href="#довідник-фаултів--fault-code-reference">Fault Codes</a>
+  <a href="#osd-індикація--osd-display">OSD</a>
+  <a href="#поведінка-при-втраті-звязку--failsafe--link-loss">Failsafe</a>
+  <a href="#діагностика--troubleshooting">Troubleshooting</a>
+  <a href="#протокол--protocol-summary">Protocol</a>
+  <a href="#сумісні-плати--compatible-boards">Boards</a>
+  <a href="#стандарти--standards">Standards</a>
+</nav>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p><strong>SmartESAD</strong> (Electronic Safe-Arm Device protocol) — двосторонній серійний
+протокол між польотним контролером і піротехнічним пристроєм що замінює класичні PWM-сигнали ARM/FIRE.
+Замість двох однонаправлених ліній SmartESAD дає польотному контролеру
+повний контроль над послідовністю безпеки і повертає назад стан пристрою,
+залишковий час таймерів і телеметрію.</p>
+<p><strong>SmartESAD</strong> is a bidirectional serial protocol between the flight
+controller and pyrotechnic device,
+replacing the classic PWM ARM/FIRE signal pair. Instead of two
+one-way lines, SmartESAD gives the FC full control of the safety
+sequence and returns the device’s live state, remaining timer counts,
+and telemetry.</p>
+<p>Ця сторінка описує протокол <strong>smartESAD v1.1</strong> (іменування станів
+Cold/Timer/Safe) та прошивку KIWI Betaflight гілки 2025.12. This page
+covers <strong>smartESAD v1.1</strong> and the KIWI Betaflight 2025.12 firmware line.</p>
+<hr>
+<h2 id="переваги-над-pwm--advantages-over-pwm"><a class="header" href="#переваги-над-pwm--advantages-over-pwm">Переваги над PWM / Advantages over PWM</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>PWM</th><th>SmartESAD</th></tr>
+</thead>
+<tbody>
+<tr><td>Одностороннє керування</td><td>Двосторонній зв’язок</td></tr>
+<tr><td>Немає зворотного зв’язку про стан</td><td>Стан пристрою на OSD у реальному часі</td></tr>
+<tr><td>2 дроти (ARM + FIRE)</td><td>UART, 2 дроти (TX/RX)</td></tr>
+<tr><td>Контроль цілісності відсутній</td><td>CRC-16 на кожному кадрі, відхиляє пошкоджені</td></tr>
+<tr><td>Сплутування ARM/FIRE можливе</td><td>Кожна команда має власний 4-байтовий ASCII-код (<code>ARM!</code>, <code>FIRE</code>, <code>COLD</code>…)</td></tr>
+<tr><td>Втрата сигналу — невизначена поведінка</td><td>Link-watchdog блокує постріл; опційна автодемоція стану (<code>safe_on_lostconnection</code>)</td></tr>
+<tr><td>Фіксовані часи</td><td>Налаштовувані таймери (timer, self-destruct, поріг удару), зберігаються у флеші пристрою</td></tr>
+<tr><td>Тільки одна гілка спрацювання</td><td>Дублюючі канали FIRE1+FIRE2 синхронно ведуть незалежні підривники</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="архітектура-безпеки--safety-architecture"><a class="header" href="#архітектура-безпеки--safety-architecture">Архітектура безпеки / Safety architecture</a></h2>
+<p>SmartESAD реалізує модель з кількома незалежними рівнями захисту. Щоб
+підривник отримав напругу, <strong>усі</strong> перелічені умови мають бути виконані
+одночасно. Бажано прочитати <a href="https://quicksearch.dla.mil/">MIL-STD-1316F</a>
+для розуміння принципів.</p>
+<p>SmartESAD implements a defence-in-depth model. <strong>All</strong> the conditions
+below must hold simultaneously for the initiator to receive energy.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Гейт / Gate</th><th>Що гарантує / What it guarantees</th></tr>
+</thead>
+<tbody>
+<tr><td>Стан машини станів = <code>Armed</code></td><td>Команди надходили у правильному порядку (<code>Timer</code> → <code>Safe</code> → <code>Arm</code>)</td></tr>
+<tr><td>4-байтовий ASCII-код у кожній safety-команді</td><td>Випадкове співпадіння за бітовим шумом ~2⁻³² на команду</td></tr>
+<tr><td>CRC-16-CCITT по всьому кадру</td><td>Спотворені фрейми відхиляються до обробки</td></tr>
+<tr><td>Версія протоколу (<code>Ver</code> byte) збігається</td><td>Несумісні FC отримують <code>Fault::BadVersion</code> до досягнення SM</td></tr>
+<tr><td>Link-watchdog</td><td>Постріл не вмикається, якщо UART мовчав довше за watchdog-вікно</td></tr>
+<tr><td>Окремі <code>fire_command_latched</code> і <code>state</code></td><td>Помилка пам’яті, що псує одне з двох, не призводить до пострілу</td></tr>
+<tr><td>Дублюючі лінії FIRE1+FIRE2</td><td>Один обірваний/закорочений драйвер не вимикає весь пристрій</td></tr>
+<tr><td>FC-side FIRE gate</td><td>Betaflight не відправляє <code>Fire</code>, поки стан пристрою ≠ <code>Armed</code> (захист у глибину, не покладається лише на відмову пристрою)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Протокол додатково передбачає GPIO co-sign (<code>IN_ARM</code>, <code>IN_BLAST</code>) —
+окрему фізичну лінію підтвердження. На платах KIWI підключення чисто
+серійне (без GPIO), тому цей гейт опційний і залежить від конкретного
+виробу.</p>
+<hr>
+<h2 id="стани-системи--system-states"><a class="header" href="#стани-системи--system-states">Стани системи / System States</a></h2>
+<p>SmartESAD керує пристроєм через послідовність безпекових станів. Перехід
+між основними станами — лише вперед:</p>
+<p>The FC drives SmartESAD through this safety state progression. Forward
+transitions only:</p>
+<pre><code>START ──Version──▶ DEACTIVATED ──Activate──▶ COLD ──Timer──▶ TIMER
+                        ▲                     ▲                │ (auto, after
+                        │                     │                │  countdown)
+                   Deactivate            Cold cmd*             ▼
+                 (з будь-якого       (*таймер продовжує      SAFE ──Arm──▶ [CHARGE_UP] ──▶ ARMED ──Fire──▶ FIRED
+                  стану крім Fired)    тикати, правило R1)         (лише плати з                (термінальний
+                                                                    конденсатором)               стан)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Стан / State</th><th>OSD</th><th>Опис / Description</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Start</strong></td><td><code>ESAD INIT</code></td><td>Пристрій щойно завантажився, мовчить. Чекає на <code>Version</code> від FC.</td></tr>
+<tr><td><strong>Deactivated</strong></td><td><code>ESAD CFG.</code></td><td>Конфігураційний / maintenance режим. <code>Set*</code>/<code>Save</code> приймаються, arm/fire відхиляються. Вихід — лише команда <code>Activate</code>.</td></tr>
+<tr><td><strong>Cold</strong></td><td><code>ESAD COLD</code></td><td>Передпольотне очікування. Ланцюг озброєння скинуто, <code>Arm</code> відхиляється. Приймаються налаштування.</td></tr>
+<tr><td><strong>Timer</strong></td><td><code>ESAD T-NN</code></td><td>Йде countdown. <strong>Не скасовується</strong> (правило R1): команда <code>Cold</code> повертає стан, але таймер тикає далі (OSD: <code>COLD T-NNN</code>). Автоматичний перехід у <code>Safe</code> при нулі.</td></tr>
+<tr><td><strong>Safe</strong></td><td><code>ESAD SAFE</code> / <code>SD T-NNNN</code></td><td>Countdown вичерпано, self-destruct таймер запущено. Готовий приймати <code>Arm</code>. OSD чергує напис стану та SD-countdown з частотою 1 Гц.</td></tr>
+<tr><td><strong>ChargeUp</strong></td><td><code>ESAD CHRG</code></td><td>Транзит <code>Safe → Armed</code> на платах з конденсатором (заряджання 1–3 с). Якщо заряд застряг — авто-повернення у <code>Safe</code> через ~10 с.</td></tr>
+<tr><td><strong>Armed</strong></td><td><code>ESAD !ARM</code></td><td>Заряджено. Команда <code>Fire</code> ініціює постріл. Імпакт-детектор активний.</td></tr>
+<tr><td><strong>Fired</strong></td><td><code>ESAD !FIR</code></td><td>Постріл відбувся. <strong>Термінальний стан</strong> — повернення лише через перезавантаження пристрою.</td></tr>
+<tr><td><strong>SafetyPin</strong></td><td><code>ESAD PIN.</code></td><td>Зарезервовано: фізичний запобіжник вставлено. Поточні плати цей стан не повідомляють.</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="захисні-таймери--safety-timers"><a class="header" href="#захисні-таймери--safety-timers">Захисні таймери / Safety timers</a></h2>
+<p>SmartESAD веде два <strong>незалежні</strong> таймери:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Таймер / Timer</th><th>За замовч. / Default</th><th>Призначення / Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Timer</strong> (pre-arm countdown)</td><td>420 с (7 хв)</td><td>Мандатний час між командою <code>Timer</code> і станом <code>Safe</code>. <strong>Не скасовується</strong> командою <code>Cold</code> (правило R1).</td></tr>
+<tr><td><strong>Self-destruct</strong></td><td>7200 с (2 год)</td><td>Час від <code>Safe</code> до автоматичного пострілу. Failure-mode-of-last-resort: пристрій, що перетнув лінію бойового зіткнення, не має лишитися у руках супротивника.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Обидва налаштовуються через CLI (<code>kiwi_esad set timer</code> /
+<code>kiwi_esad set destruct_delay</code>), зберігаються у флеш пристрою командою
+<code>kiwi_esad save</code> і переживають перезавантаження.</p>
+<hr>
+<h2 id="налаштування-пристрою--device-persistent-settings"><a class="header" href="#налаштування-пристрою--device-persistent-settings">Налаштування пристрою / Device persistent settings</a></h2>
+<p>Зберігаються у флеші <strong>пристрою</strong> (не польотного контролера) у
+двосторінковому буфері з CRC-32. При пошкодженні — fallback на
+заводські значення, ніколи на <code>Armed</code>. Змінюються через
+<code>kiwi_esad set &lt;name&gt; &lt;N&gt;</code> + <code>kiwi_esad save</code> (див.
+<a href="#довідник-cli-команд--cli-command-reference">довідник команд</a>).</p>
+<p>Stored in the <strong>device’s</strong> flash (not the FC). On corruption the device
+falls back to compiled defaults — never to <code>Armed</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Параметр / Setting</th><th>Діапазон / Range</th><th>За замовч. / Default</th><th>Опис / Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>timer</code></td><td>1…65535 с</td><td>420</td><td>Pre-arm countdown (<code>Timer</code> → <code>Safe</code>)</td></tr>
+<tr><td><code>destruct_delay</code></td><td>2…65535 с</td><td>7200</td><td>Self-destruct: час від <code>Safe</code> до автопострілу. Має бути &gt; <code>timer</code>.</td></tr>
+<tr><td><code>impact_threshold</code></td><td>50…32767</td><td>120 (~15 g)</td><td>Поріг імпакт-пострілу в стані <code>Armed</code> (метрика |a|²×64)</td></tr>
+<tr><td><code>takeoff_required</code></td><td>0 / 1</td><td>0</td><td><code>Arm</code> приймається лише після детекції зльоту акселерометром (AOP-4187 §3.1.2.d)</td></tr>
+<tr><td><code>safe_on_lostconnection</code></td><td>0 / 1</td><td>0</td><td>Автодемоція <code>Timer/Safe/Armed → Cold</code> після ~1 с тиші на UART</td></tr>
+<tr><td><code>det_check</code></td><td>0 / 1</td><td>1</td><td>Перевірка цілісності ланцюга підривника перед <code>Arm</code> (плати з det-check апаратурою)</td></tr>
+<tr><td><code>accel_rate</code></td><td>400 / 800 / 1600 / 3300 Гц</td><td>400</td><td>Частота семплування акселерометра. Застосовується після <code>save</code> (перезавантаження пристрою).</td></tr>
+</tbody>
+</table>
+</div>
+<p>Опційний імпакт-постріл працює завжди, коли пристрій у стані <code>Armed</code>:
+акселерометр виявляє удар понад поріг і пристрій переходить
+<code>Armed → Fired</code> без серійної команди.</p>
+<hr>
+<h2 id="швидке-налаштування--quick-setup"><a class="header" href="#швидке-налаштування--quick-setup">Швидке налаштування / Quick setup</a></h2>
+<h3 id="1-підключення--wiring"><a class="header" href="#1-підключення--wiring">1. Підключення / Wiring</a></h3>
+<p>Один UART (TX, RX, GND) від польотного контролера до ESAD:</p>
+<ul>
+<li>FC TX → ESAD RX</li>
+<li>FC RX → ESAD TX</li>
+<li>спільний GND</li>
+</ul>
+<p>Швидкість фіксована: <strong>57600 8N1</strong>, без апаратного потоку.</p>
+<h3 id="2-cli-у-betaflight"><a class="header" href="#2-cli-у-betaflight">2. CLI у Betaflight</a></h3>
+<pre><code class="language-text"># Призначити UART для SmartESAD (приклад: UART1 = serial 0)
+serial 0 1048576 57600 57600 0 57600
+
+# Налаштування пристрою (зберігаються у флеші ESAD)
+kiwi_esad deactivate
+kiwi_esad set timer 420
+kiwi_esad set destruct_delay 7200
+kiwi_esad set impact_threshold 120
+kiwi_esad set takeoff_required 0
+kiwi_esad set safe_on_lostconnection 0
+kiwi_esad save
+kiwi_esad activate
+
+# Налаштування польотного контролера
+set kiwi_esad_poll_interval_ms = 100
+set kiwi_esad_fault_threshold = 3
+set kiwi_esad_activate_on_boot = 0
+set kiwi_esad_activation_delay_s = 0
+
+# Позиція OSD елементів
+set kiwi_osd_esad_status_pos = 2242
+set kiwi_osd_esad_debug_pos  = 2498   # 2498 = bottom-left; 341 = hidden
+
+# Перемикачі RC
+aux 1 57 2 1725 2100 0 0     # ATAK on AUX3 — momentary, OR logic, no link
+aux 2 58 3 1725 2100 0 0     # FIRE on AUX4 — momentary, OR logic, no link
+
+save
+</code></pre>
+<p>Формула позиції OSD: <code>pos = x + (y * 32) + 2048</code> (2048 = видимий у
+профілі 1). Значення <code>341</code> ховає елемент.</p>
+<blockquote>
+<p><strong>Примітка про маску <code>serial</code></strong>: у прошивках гілки 2025.12
+<code>FUNCTION_KIWI_ESAD = 1048576</code> (біт 20). У збірках на базі 2026.6+
+маска змінена на <code>2097152</code> (біт 21), а permanentId боксів зсунуто
+56/57/58/62 → 57/58/59/63.</p>
+</blockquote>
+<h3 id="3-betaflight-configurator"><a class="header" href="#3-betaflight-configurator">3. Betaflight Configurator</a></h3>
+<ol>
+<li><strong>Ports</strong> → оберіть UART і увімкніть KIWI ESAD.</li>
+<li><strong>Modes</strong> → призначте KIWI ESAD ACTIVE / ATAK / FIRE на перемикачі пульта.</li>
+<li><strong>OSD</strong> → розмістіть елемент ESAD Status на екрані.</li>
+</ol>
+<hr>
+<h2 id="перемикачі-rc--rc-mode-boxes"><a class="header" href="#перемикачі-rc--rc-mode-boxes">Перемикачі RC / RC mode boxes</a></h2>
+<p>Бокси спрацьовують <strong>по фронту</strong> (edge-triggered): на кожному
+rising/falling фронті прошивка один раз відправляє відповідну команду.
+Між подіями FC опитує стан пристрою кожні <code>kiwi_esad_poll_interval_ms</code>.</p>
+<p>Boxes are edge-triggered: each rising/falling edge emits the command
+once; between events the FC polls device state.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Бокс / Box</th><th>permanentId</th><th>Фронт / Edge</th><th>Команда / Emits</th><th>Потрібний стан пристрою / Device state</th></tr>
+</thead>
+<tbody>
+<tr><td>KIWI ESAD ACTIVE</td><td>56</td><td>rising</td><td><code>Timer</code> (<code>TIMR</code>)</td><td>Cold</td></tr>
+<tr><td>KIWI ESAD ATAK</td><td>57</td><td>rising</td><td><code>Arm</code> (<code>ARM!</code>)</td><td>Safe</td></tr>
+<tr><td>KIWI ESAD ATAK</td><td>57</td><td>falling</td><td><code>Cold</code> (<code>COLD</code>)</td><td>будь-який крім Deactivated</td></tr>
+<tr><td>KIWI ESAD FIRE</td><td>58</td><td>rising</td><td><code>Fire</code> (<code>FIRE</code>)</td><td>Armed (FC додатково блокує Fire, поки стан ≠ Armed)</td></tr>
+<tr><td>KIWI ESAD CFG</td><td>62</td><td>rising</td><td><code>Deactivate</code> (<code>DACT</code>)</td><td>будь-який крім Fired</td></tr>
+<tr><td>KIWI ESAD CFG</td><td>62</td><td>falling</td><td><code>Activate</code> (<code>ACTV</code>)</td><td>Deactivated</td></tr>
+</tbody>
+</table>
+</div>
+<p>Приклад прив’язки (FC ARM на AUX1, ESAD на AUX2/3/4, CFG на AUX5):</p>
+<pre><code class="language-text">aux 0  0 0 1300 2100 0 0     # FC ARM           on AUX1
+aux 1 56 1 1725 2100 0 0     # KIWI ESAD ACTIVE on AUX2
+aux 2 57 2 1725 2100 0 0     # KIWI ESAD ATAK   on AUX3
+aux 3 58 3 1725 2100 0 0     # KIWI ESAD FIRE   on AUX4
+aux 4 62 4 1725 2100 0 0     # KIWI ESAD CFG    on AUX5 (ON=DACT, OFF=ACTV)
+save
+</code></pre>
+<p>Формат: <code>aux &lt;slot&gt; &lt;permanentId&gt; &lt;auxChannel_0based&gt; &lt;startUs&gt; &lt;endUs&gt; &lt;modeLogic&gt; &lt;linkedTo&gt;</code>. Поріг 1725 мкс дає мертву зону вище середини
+стіка.</p>
+<p><strong>Двоключовий інтерлок / two-key interlock</strong>: прив’яжіть FIRE так, щоб
+він працював лише коли ATAK теж активний — останнє поле <code>57</code> у рядку
+FIRE:</p>
+<pre><code class="language-text">aux 3 58 3 1725 2100 0 57    # FIRE діє лише поки ATAK (57) теж HIGH
+</code></pre>
+<p>Рекомендовано для бойового спорядження. Recommended for live ordnance.</p>
+<p><strong>CFG-бокс</strong> (maintenance): поки утримується HIGH, FC призупиняє
+автоактиваційні цикли, щоб оператор міг заливати налаштування
+(<code>kiwi_esad set …</code>, <code>kiwi_esad save</code>) навіть при
+<code>kiwi_esad_activate_on_boot = 1</code>. Автоцикли поновлюються після disarm
+польотного контролера.</p>
+<hr>
+<h2 id="налаштування-польотного-контролера--fc-side-settings"><a class="header" href="#налаштування-польотного-контролера--fc-side-settings">Налаштування польотного контролера / FC-side settings</a></h2>
+<p>Звичайні змінні Betaflight CLI (<code>set &lt;name&gt; = &lt;value&gt;</code>, потім <code>save</code>):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Змінна / Setting</th><th>Діапазон / Range</th><th>За замовч. / Default</th><th>Опис / Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kiwi_esad_poll_interval_ms</code></td><td>20…1000</td><td>100</td><td>Період опитування стану пристрою (keep-alive)</td></tr>
+<tr><td><code>kiwi_esad_fault_threshold</code></td><td>1…50</td><td>3</td><td>Кількість пропущених відповідей поспіль до статусу <code>ESAD LOST</code></td></tr>
+<tr><td><code>kiwi_esad_activate_on_boot</code></td><td>0 / 1</td><td>0</td><td>Автоматично відправити <code>Timer</code> щойно з’явився зв’язок; тримається доки пристрій не повернеться у Cold</td></tr>
+<tr><td><code>kiwi_esad_activation_delay_s</code></td><td>0…600</td><td>0</td><td>FC-side вікно відміни: при ARM польотника — countdown на OSD, потім авто-<code>Timer</code>. 0 = вимкнено</td></tr>
+<tr><td><code>kiwi_esad_expected_identifier</code></td><td>рядок ≤ 4</td><td>“”</td><td>Перевірка ідентифікатора пристрою для boot-latch</td></tr>
+<tr><td><code>kiwi_osd_esad_status_pos</code></td><td>—</td><td>—</td><td>Позиція основного OSD елемента стану</td></tr>
+<tr><td><code>kiwi_osd_esad_debug_pos</code></td><td>—</td><td>341 (сховано)</td><td>Позиція діагностичного OSD рядка (телеметрія: det-check, напруги, peak-metric)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="таблиця-автоактивації--auto-activation-matrix"><a class="header" href="#таблиця-автоактивації--auto-activation-matrix">Таблиця автоактивації / Auto-activation matrix</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th><code>activate_on_boot</code></th><th><code>activation_delay_s</code></th><th>Поведінка / Behaviour</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>Повністю ручне керування (бокси / CLI). Найсуворіший контроль — за замовчуванням.</td></tr>
+<tr><td>0</td><td>&gt;0</td><td>ARM польотника → countdown на OSD → авто-<code>Timer</code>. Disarm → <code>Cold</code>.</td></tr>
+<tr><td>1</td><td>0</td><td>Залочено з увімкнення: щойно зв’язок живий, FC відправляє <code>Timer</code> і не заважає далі.</td></tr>
+<tr><td>1</td><td>&gt;0</td><td>Обидва шляхи працюють одночасно.</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="довідник-cli-команд--cli-command-reference"><a class="header" href="#довідник-cli-команд--cli-command-reference">Довідник CLI команд / CLI command reference</a></h2>
+<p>Прошивка KIWI має вбудовану CLI команду <code>kiwi_esad</code> для керування та
+діагностики пристрою прямо з CLI Betaflight (Configurator → CLI, або
+термінал на USB-порту, 115200, символ <code>#</code> вмикає CLI).</p>
+<p>The KIWI firmware ships a <code>kiwi_esad</code> CLI command for driving and
+debugging the device straight from the Betaflight CLI.</p>
+<h3 id="команди-стану--status-commands"><a class="header" href="#команди-стану--status-commands">Команди стану / Status commands</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Команда / Command</th><th>Дія / Effect</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kiwi_esad</code> або <code>kiwi_esad status</code></td><td>Повний рантайм-статус: стан, залишок таймера, зв’язок, останній фаулт, версія прошивки пристрою, фази автоактивації, телеметрія (det_check, напруги, peak-metric).</td></tr>
+<tr><td><code>kiwi_esad settings</code></td><td>Живий запит <code>GetSettings</code> до пристрою (~100 мс). Друкує блок готових <code>kiwi_esad set …</code> рядків — можна скопіювати з однієї плати і вставити на іншу.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Приклад виводу <code>kiwi_esad status</code>:</p>
+<pre><code class="language-text"># kiwi_esad status
+state: COLD
+remaining_secs: 420
+status_byte: 0x01
+det_check_ok: yes
+pin_present: no
+vcap_mv: 0
+vbat_mv: 12600
+peak_metric: 64
+link_alive: yes
+misses: 0
+last_fault: code=0x00 subcode=0x00
+firmware_version: 0x01010000
+reset_cause: 0x00
+auto_phase: IDLE
+countdown_remaining_ms: 0
+boot_phase: DISABLED
+cfg_mode: off
+</code></pre>
+<p>Поля / Fields:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Поле / Field</th><th>Значення / Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>state</code></td><td>Поточний стан пристрою: <code>UNKNOWN</code>, <code>START</code>, <code>COLD</code>, <code>TIMER</code>, <code>SAFE</code>, <code>CHARGE_UP</code>, <code>ARMED</code>, <code>FIRED</code>, <code>FAULT</code>, <code>DEACTIVATED</code>, <code>SAFETY_PIN</code></td></tr>
+<tr><td><code>remaining_secs</code></td><td>Залишок активного countdown (pre-arm або self-destruct, залежно від стану)</td></tr>
+<tr><td><code>configured_timer_s</code></td><td>(лише у DEACTIVATED) значення таймера, з яким <code>Activate</code> продовжить роботу</td></tr>
+<tr><td><code>det_check_ok</code></td><td>Ланцюг підривника цілий (плати з det-check)</td></tr>
+<tr><td><code>vcap_mv</code> / <code>vbat_mv</code></td><td>Напруга конденсатора пострілу / батареї, мВ. <code>0</code> = немає апаратури</td></tr>
+<tr><td><code>peak_metric</code></td><td>Пікова метрика прискорення |a|²×64 від останнього <code>Arm</code> (~64 = 1 g спокою; кліпується на ±16 g)</td></tr>
+<tr><td><code>link_alive</code> / <code>misses</code></td><td>Стан UART-зв’язку і лічильник пропущених відповідей</td></tr>
+<tr><td><code>last_fault</code></td><td><strong>Останній</strong> побачений фаулт (липкий, діагностичний) — не поточний стан. Розшифровку див. у <a href="#довідник-фаултів--fault-code-reference">довіднику фаултів</a></td></tr>
+<tr><td><code>firmware_version</code></td><td>Версія прошивки пристрою (u32; <code>0x01010000</code> = v1.1.0.0)</td></tr>
+<tr><td><code>auto_phase</code> / <code>boot_phase</code> / <code>cfg_mode</code></td><td>Стан FC-side автоактиваційних циклів і CFG-режиму</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="команди-керування--action-commands"><a class="header" href="#команди-керування--action-commands">Команди керування / Action commands</a></h3>
+<p>Кожна команда чекає відповідь пристрою до 500 мс і друкує результат:</p>
+<pre><code class="language-text">-&gt; OK  state: TIMER  fault: 0x00/0x00
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Результат / Result</th><th>Значення / Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>OK</code></td><td>Пристрій відповів нормальним стан-кадром</td></tr>
+<tr><td><code>FAULT</code></td><td>Пристрій відповів <code>StateFault</code> — причина у <code>fault: 0xCC/0xSS</code></td></tr>
+<tr><td><code>TIMEOUT</code></td><td>Запит відправлено, відповіді немає протягом 500 мс</td></tr>
+<tr><td><code>BUSY</code></td><td>Не вдалося відправити (порт зайнятий попереднім запитом)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Команда / Command</th><th>Wire cmd</th><th>Потрібний стан / Required state</th><th>Дія / Effect</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kiwi_esad version</code></td><td><code>Version</code></td><td>будь-який</td><td>Хендшейк. Перший <code>Version</code> після ввімкнення переводить пристрій Start → Deactivated.</td></tr>
+<tr><td><code>kiwi_esad activate</code></td><td><code>Activate</code> (<code>ACTV</code>)</td><td>Deactivated</td><td>Вихід з maintenance у Cold.</td></tr>
+<tr><td><code>kiwi_esad deactivate</code></td><td><code>Deactivate</code> (<code>DACT</code>)</td><td>будь-який крім Fired</td><td>Вхід у maintenance (CFG). Скидає countdown до налаштованих значень і всі firing-затвори.</td></tr>
+<tr><td><code>kiwi_esad timer</code></td><td><code>Timer</code> (<code>TIMR</code>)</td><td>Cold</td><td>Старт pre-arm countdown.</td></tr>
+<tr><td><code>kiwi_esad cold</code></td><td><code>Cold</code> (<code>COLD</code>)</td><td>будь-який крім Deactivated</td><td>Повернення у Cold. Запущений countdown <strong>продовжує тикати</strong> (правило R1). З Deactivated відхиляється — використовуйте <code>activate</code>.</td></tr>
+<tr><td><code>kiwi_esad safe</code></td><td>—</td><td>—</td><td>Псевдонім <code>cold</code> (ті самі байти на дроті).</td></tr>
+<tr><td><code>kiwi_esad disarm</code></td><td>—</td><td>—</td><td>Псевдонім <code>cold</code>.</td></tr>
+<tr><td><code>kiwi_esad arm</code></td><td><code>Arm</code> (<code>ARM!</code>)</td><td>Safe</td><td>Озброєння. На платах з конденсатором — через транзит ChargeUp.</td></tr>
+<tr><td><code>kiwi_esad fire</code></td><td><code>Fire</code> (<code>FIRE</code>)</td><td>Armed</td><td>Постріл. Термінальний.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="команди-налаштувань--settings-commands"><a class="header" href="#команди-налаштувань--settings-commands">Команди налаштувань / Settings commands</a></h3>
+<p><code>set</code> пише значення у RAM пристрою; <strong>зберігає лише</strong> <code>kiwi_esad save</code>.
+Пристрій приймає <code>set</code>/<code>save</code> у станах <strong>Cold або Deactivated</strong>
+(<code>save</code> — Safe або Deactivated).</p>
+<p><code>set</code> writes device RAM; only <code>kiwi_esad save</code> persists. Accepted in
+Cold / Deactivated.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Команда / Command</th><th>Діапазон / Range</th><th>Дія / Effect</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kiwi_esad set timer &lt;N&gt;</code></td><td>1…65535 с</td><td>Pre-arm countdown</td></tr>
+<tr><td><code>kiwi_esad set destruct_delay &lt;N&gt;</code></td><td>2…65535 с</td><td>Self-destruct таймер</td></tr>
+<tr><td><code>kiwi_esad set impact_threshold &lt;N&gt;</code></td><td>50…32767</td><td>Поріг імпакт-пострілу</td></tr>
+<tr><td><code>kiwi_esad set takeoff_required &lt;0|1&gt;</code></td><td>0/1</td><td><code>Arm</code> лише після детекції зльоту</td></tr>
+<tr><td><code>kiwi_esad set safe_on_lostconnection &lt;0|1&gt;</code></td><td>0/1</td><td>Автодемоція у Cold при втраті зв’язку</td></tr>
+<tr><td><code>kiwi_esad set det_check &lt;0|1&gt;</code></td><td>0/1</td><td>Перевірка цілісності ланцюга підривника</td></tr>
+<tr><td><code>kiwi_esad set accel_rate &lt;N&gt;</code></td><td>400, 800, 1600, 3300</td><td>Частота акселерометра (застосовується після <code>save</code>)</td></tr>
+<tr><td><code>kiwi_esad save</code></td><td>—</td><td>Запис у флеш пристрою. Пристрій м’яко перезавантажується (~50 мс): <code>-&gt; OK  saved, device rebooting (~50 ms)</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Якщо <code>set</code>/<code>save</code> відхилено з <code>fault: 0x06/0x01</code> (WrongState), CLI
+підкаже правильний шлях:</p>
+<pre><code class="language-text">tip: Set/Save accept state in {Safe, Deactivated}. Use
+`kiwi_esad deactivate` to enter CFG, push, then `kiwi_esad activate`.
+</code></pre>
+<h3 id="приклад-повної-сесії--full-bench-session"><a class="header" href="#приклад-повної-сесії--full-bench-session">Приклад повної сесії / Full bench session</a></h3>
+<pre><code class="language-text"># kiwi_esad status
+state: COLD  remaining_secs: 7
+link_alive: yes  misses: 0
+...
+
+# kiwi_esad timer
+-&gt; OK  state: TIMER  fault: 0x00/0x00
+
+# kiwi_esad status
+state: SAFE  remaining_secs: 7189
+
+# kiwi_esad arm
+-&gt; OK  state: ARMED  fault: 0x00/0x00
+
+# kiwi_esad fire
+-&gt; OK  state: FIRED  fault: 0x00/0x00
+</code></pre>
+<hr>
+<h2 id="довідник-фаултів--fault-code-reference"><a class="header" href="#довідник-фаултів--fault-code-reference">Довідник фаултів / Fault code reference</a></h2>
+<p><code>last_fault: code=0xCC subcode=0xSS</code> у виводі <code>kiwi_esad status</code> та
+<code>fault: 0xCC/0xSS</code> після команд. Код липкий — тримає <strong>останню</strong>
+причину відмови, а не поточний стан.</p>
+<p>Top-level codes:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Код / Code</th><th>Назва / Name</th><th>Значення / Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x00</code></td><td>(none)</td><td>Немає фаултів</td></tr>
+<tr><td><code>0x01</code></td><td>BadCrc</td><td>CRC-16 кадру не зійшовся</td></tr>
+<tr><td><code>0x02</code></td><td>BadVersion</td><td>Байт версії кадру ≠ <code>0x01</code> — несумісна прошивка FC або пристрою</td></tr>
+<tr><td><code>0x03</code></td><td>UnknownCommand</td><td>Невідомий байт команди (напр., нова команда до старої прошивки пристрою)</td></tr>
+<tr><td><code>0x04</code></td><td>BadMagic</td><td>Невірний 4-байтовий ASCII-код команди (напр., FC зі старим протоколом v1.0)</td></tr>
+<tr><td><code>0x05</code></td><td>BadLength</td><td>Довжина payload не відповідає специфікації команди</td></tr>
+<tr><td><code>0x06</code></td><td>PreconditionFailed</td><td>Умови не виконані — справжня причина у subcode, див. нижче</td></tr>
+<tr><td><code>0x07</code></td><td>InternalError</td><td>Внутрішня помилка кодека / машини станів пристрою</td></tr>
+</tbody>
+</table>
+</div>
+<p>Subcodes для <code>PreconditionFailed</code> (0x06):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Subcode</th><th>Назва / Name</th><th>Значення / Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x01</code></td><td>WrongState</td><td>Команда не дозволена у поточному стані (напр., <code>arm</code> з Cold)</td></tr>
+<tr><td><code>0x02</code></td><td>InArmLow</td><td><code>Arm</code> відхилено — GPIO IN_ARM низький (плати з co-sign)</td></tr>
+<tr><td><code>0x03</code></td><td>InBlastLow</td><td><code>Fire</code> відхилено — GPIO IN_BLAST низький (плати з co-sign)</td></tr>
+<tr><td><code>0x04</code></td><td>TimerRunning</td><td>Операція заблокована — pre-arm countdown ще тикає</td></tr>
+<tr><td><code>0x05</code></td><td>SelfDestructRunning</td><td>Операція заблокована — self-destruct countdown тикає</td></tr>
+<tr><td><code>0x06</code></td><td>OutOfBounds</td><td>Значення <code>set</code> поза діапазоном, або порушено інваріант <code>destruct_delay &gt; timer</code></td></tr>
+<tr><td><code>0x07</code></td><td>PreLaunchNotDetected</td><td><code>Arm</code> відхилено — <code>takeoff_required=1</code>, а зльоту ще не зафіксовано. OSD: <code>ESAD NOLT</code></td></tr>
+<tr><td><code>0x08</code></td><td>DetCheckOpen</td><td><code>Arm</code> відхилено — ланцюг підривника розімкнутий. OSD: <code>ESAD NODT</code></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="osd-індикація--osd-display"><a class="header" href="#osd-індикація--osd-display">OSD-індикація / OSD display</a></h2>
+<p>Основний елемент (<code>kiwi_osd_esad_status_pos</code>), 9 символів:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Умова / Condition</th><th>Текст / Text</th></tr>
+</thead>
+<tbody>
+<tr><td>Зв’язку ще не було</td><td><code>ESAD....?</code> (анімований <code>?</code>)</td></tr>
+<tr><td>Зв’язок був і зник (misses ≥ <code>fault_threshold</code>)</td><td><code>ESAD LOST</code></td></tr>
+<tr><td>Хендшейк</td><td><code>ESAD INIT</code></td></tr>
+<tr><td>Cold, без countdown</td><td><code>ESAD COLD</code></td></tr>
+<tr><td>Cold, countdown ще тикає (R1)</td><td><code>COLD T-NNN</code></td></tr>
+<tr><td>Timer</td><td><code>ESAD T-NN</code> / <code>ESD T-NNN</code> / <code>ESDT-NNNN</code> (префікс скорочується зі зростанням цифр)</td></tr>
+<tr><td>Safe</td><td><code>ESAD SAFE</code> ↔ <code>SD T-NNNN</code> чергуються з частотою 1 Гц. Чергування — сигнал безпеки: оператор кожні пів секунди бачить і стан, і SD-countdown до автономного пострілу.</td></tr>
+<tr><td>ChargeUp</td><td><code>ESAD CHRG</code> ↔ <code>SD T-NNNN</code> (1 Гц)</td></tr>
+<tr><td>Armed</td><td><code>ESAD !ARM</code> ↔ <code>SD T-NNNN</code> (1 Гц, обидві половини без блимання)</td></tr>
+<tr><td>Fired</td><td><code>ESAD !FIR</code> (блимає 4 Гц)</td></tr>
+<tr><td>Fault</td><td><code>ESAD F-NN</code> (hex-код фаулту)</td></tr>
+<tr><td>Deactivated</td><td><code>ESAD CFG.</code></td></tr>
+<tr><td>SafetyPin (зарезервовано)</td><td><code>ESAD PIN.</code></td></tr>
+<tr><td>Останній <code>Arm</code> відхилено DetCheckOpen</td><td><code>ESAD NODT</code> (блимає 4 Гц; тримається до успішного Arm або скидання хендшейком)</td></tr>
+<tr><td>Останній <code>Arm</code> відхилено PreLaunchNotDetected</td><td><code>ESAD NOLT</code> (блимає 4 Гц; та сама логіка)</td></tr>
+<tr><td>FC-side activation countdown</td><td><code>ESAD T-NN</code> (перекриває стан пристрою)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Діагностичний рядок (<code>kiwi_osd_esad_debug_pos</code>, за замовчуванням
+схований) показує телеметрію: <code>ED+ V24.1 B12.4 P- M64</code> — det-check,
+напруга конденсатора, напруга батареї, шунт-пін, peak-metric
+акселерометра. Для стендів і демонстрацій; у польових збірках ховайте
+(<code>341</code>).</p>
+<hr>
+<h2 id="поведінка-при-втраті-звязку--failsafe--link-loss"><a class="header" href="#поведінка-при-втраті-звязку--failsafe--link-loss">Поведінка при втраті зв’язку / Failsafe &amp; link-loss</a></h2>
+<ul>
+<li><strong>Disarm польотника</strong> повертає пристрій у безпечний стан (якщо
+boot-latch не активний). Запущені countdown при цьому не
+скасовуються — правило R1.</li>
+<li><strong>FC-side watchdog</strong>: misses ≥ <code>kiwi_esad_fault_threshold</code> → OSD
+<code>ESAD LOST</code>, стан UNKNOWN. Опитування продовжується; перша успішна
+відповідь відновлює все.</li>
+<li><strong>Device-side <code>safe_on_lostconnection</code></strong>: коли увімкнено, пристрій
+сам демотує <code>Timer</code>/<code>Safe</code>/<code>Armed</code> → <code>Cold</code> після ~1 с тиші від FC.</li>
+<li><strong>Регресія стану</strong> (перезавантаження пристрою, стан впав нижче
+попереднього): FC скидає автоактиваційні затвори — оператор мусить
+явно повторити послідовність озброєння.</li>
+<li><strong>FC ніколи не стріляє сам.</strong> Прошивка лише передає намір оператора;
+фінальний гейт пострілу — власна логіка пристрою.</li>
+</ul>
+<hr>
+<h2 id="діагностика--troubleshooting"><a class="header" href="#діагностика--troubleshooting">Діагностика / Troubleshooting</a></h2>
+<p>Усе через CLI Betaflight (Configurator → CLI). Перший крок завжди —
+<code>kiwi_esad status</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Симптом / Symptom</th><th>Причина і рішення / Fix</th></tr>
+</thead>
+<tbody>
+<tr><td>OSD: <code>ESAD....?</code> назавжди, <code>kiwi_esad status</code> показує <code>link_alive: no</code>, <code>state: UNKNOWN</code></td><td>TX/RX переплутано — поміняйте місцями. Перевірте спільний GND і що обрано правильний UART у <code>serial</code>.</td></tr>
+<tr><td>OSD: <code>ESAD LOST</code> через кілька секунд після старту</td><td>Зв’язок був і зник: кабель, живлення пристрою або його зависання. <code>kiwi_esad status</code> → дивіться <code>misses</code>. Пересадіть роз’єм.</td></tr>
+<tr><td><code>kiwi_esad: command not found</code></td><td>Прошивка без підтримки ESAD CLI — оновіться на актуальну KIWI прошивку.</td></tr>
+<tr><td><code>set kiwi_esad_* = …</code> → unknown setting</td><td>Прошивка зібрана без <code>USE_KIWI_ESAD</code> — це не KIWI збірка.</td></tr>
+<tr><td><code>set kiwi_esad_arm_delay</code> / <code>kiwi_esad_sd_delay</code> не існують</td><td>Застаріла інструкція: ці параметри переїхали у флеш пристрою. Використовуйте <code>kiwi_esad set timer …</code> / <code>kiwi_esad set destruct_delay …</code> + <code>kiwi_esad save</code>.</td></tr>
+<tr><td><code>-&gt; TIMEOUT</code> після кожної команди</td><td>Пристрій не відповідає: перевірте живлення ESAD і проводку; <code>kiwi_esad status</code> → <code>link_alive</code>.</td></tr>
+<tr><td><code>-&gt; BUSY</code></td><td>Попередній запит ще у польоті — зачекайте пів секунди і повторіть.</td></tr>
+<tr><td><code>-&gt; FAULT … 0x04/…</code> (BadMagic)</td><td>Несумісні версії протоколу FC ↔ пристрій (напр., прошивка пристрою старша за v1.1). Оновіть прошивку пристрою.</td></tr>
+<tr><td><code>-&gt; FAULT … 0x06/0x01</code> (WrongState) після <code>arm</code></td><td>Пристрій ще у TIMER — дочекайтеся стану SAFE (<code>kiwi_esad status</code>) і повторіть.</td></tr>
+<tr><td><code>-&gt; FAULT … 0x06/0x01</code> після <code>set</code>/<code>save</code></td><td>Пристрій не у Cold/Deactivated. Шлях: <code>kiwi_esad deactivate</code> → <code>set …</code> → <code>save</code> → <code>activate</code>.</td></tr>
+<tr><td><code>-&gt; FAULT … 0x06/0x06</code> (OutOfBounds)</td><td>Значення поза діапазоном, або <code>destruct_delay ≤ timer</code>. Спершу підніміть <code>destruct_delay</code>.</td></tr>
+<tr><td><code>-&gt; FAULT … 0x06/0x08</code>, OSD <code>ESAD NODT</code></td><td>Ланцюг підривника розімкнутий — перевірте лінії і контакт. Для стенду без підривника: <code>kiwi_esad deactivate</code> → <code>kiwi_esad set det_check 0</code> → <code>save</code> → <code>activate</code>.</td></tr>
+<tr><td>OSD <code>ESAD NOLT</code>, <code>-&gt; FAULT … 0x06/0x07</code></td><td><code>takeoff_required=1</code>, а зльоту не було. Для стенду: <code>kiwi_esad set takeoff_required 0</code> (у Cold/Deactivated) + <code>save</code>.</td></tr>
+<tr><td>OSD <code>ESAD CHRG</code> висить &gt; 5 с</td><td>Заряд конденсатора застряг (низька батарея, несправність). Пристрій сам повернеться у SAFE через ~10 с; повторіть <code>arm</code>.</td></tr>
+<tr><td>OSD <code>ESAD PIN.</code></td><td>Зарезервований стан фізичного запобіжника. Поточні плати його не повідомляють — якщо бачите, вважайте пристрій механічно заблокованим і огляньте апаратуру.</td></tr>
+<tr><td>Бокс ACTIVE не діє</td><td>Бокс не прив’язаний — перевірте <code>aux</code> (permanentId 56) і вкладку Modes.</td></tr>
+<tr><td>Команди боксів ігноруються, OSD <code>ESAD CFG.</code></td><td>Пристрій у Deactivated (CFG-бокс тримається HIGH?). Опустіть CFG-бокс або <code>kiwi_esad activate</code>.</td></tr>
+<tr><td><code>kiwi_esad settings</code> → <code>GetSettings timed out</code></td><td>Те саме, що TIMEOUT: немає зв’язку з пристроєм.</td></tr>
+<tr><td>Налаштування «не збереглися» після перезавантаження</td><td>Забули <code>kiwi_esad save</code> — <code>set</code> пише лише у RAM пристрою.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="прослуховування-шини--sniffing-the-wire"><a class="header" href="#прослуховування-шини--sniffing-the-wire">Прослуховування шини / Sniffing the wire</a></h3>
+<p>Для глибокої діагностики можна дивитися сирі кадри:</p>
+<ol>
+<li>
+<p><strong>Зовнішній USB-TTL адаптер</strong> паралельно на лінію TX або RX (спільний
+GND) — FC продовжує працювати з ESAD, ви бачите трафік.</p>
+</li>
+<li>
+<p><strong><code>serialpassthrough</code></strong>: звільніть порт і прокиньте його на USB:</p>
+<pre><code class="language-text">serial 0 0 57600 57600 0 57600     # зняти FUNCTION_KIWI_ESAD з UART1
+save
+# після перезавантаження:
+serialpassthrough usart1 57600
+</code></pre>
+<p>Зверніть увагу: <code>serialpassthrough</code> приймає <strong>ім’я порту</strong>
+(<code>usart1</code>, <code>usart2</code>…), а не числовий індекс. Поверніть функцію
+назад (<code>serial 0 1048576 …</code> + <code>save</code>) після діагностики.</p>
+</li>
+</ol>
+<hr>
+<h2 id="протокол--protocol-summary"><a class="header" href="#протокол--protocol-summary">Протокол / Protocol summary</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Параметр / Property</th><th>Значення / Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Транспорт / Transport</td><td>UART, 57600 8N1, без потоку</td></tr>
+<tr><td>Кадр / Frame</td><td><code>AA 55 VER CMD SEQ LEN DATA[…] CRC_hi CRC_lo</code></td></tr>
+<tr><td>Цілісність / Integrity</td><td>CRC-16-CCITT-FALSE (poly <code>0x1021</code>, init <code>0xFFFF</code>); тест-вектор <code>crc16("123456789") == 0x29B1</code></td></tr>
+<tr><td>Replay-захист / Replay protection</td><td>8-бітний seq nonce, відповідь повертає <code>(seq+1) mod 256</code></td></tr>
+<tr><td>Каденс / Cadence</td><td>FC опитує кожні <code>poll_interval_ms</code> (за замовч. 100 мс = 10 Гц); пристрій відповідає за ~10 мс</td></tr>
+<tr><td>Boot-handshake</td><td>Пристрій після ввімкнення мовчить; FC надсилає <code>Version</code> (Start → Deactivated), потім <code>Activate</code> (→ Cold)</td></tr>
+<tr><td>Безпекові команди / Safety commands</td><td>Кожна має власний 4-байтовий ASCII-код: <code>COLD</code>, <code>TIMR</code>, <code>ARM!</code>, <code>FIRE</code>, <code>DACT</code>, <code>ACTV</code>, <code>SAV!</code></td></tr>
+<tr><td>Config-команди / Config commands</td><td><code>SetTimer</code>, <code>SetSelfDestructDelay</code>, <code>SetImpactThreshold</code>, <code>SetTakeoffRequired</code>, <code>SetSafeOnLostLink</code>, <code>SetDetCheckEnabled</code>, <code>SetAccelRate</code>, <code>SaveSettings</code>, <code>GetSettings</code></td></tr>
+<tr><td>Версія пристрою / Device firmware</td><td><code>StateStart</code> повертає <code>FW_VERSION</code> (u32 BE; v1.1.0.0 = <code>0x01010000</code>)</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="сумісні-плати--compatible-boards"><a class="header" href="#сумісні-плати--compatible-boards">Сумісні плати / Compatible boards</a></h2>
+<p>SmartESAD вбудовано у прошивку KIWI Betaflight для всіх плат KIWI:</p>
+<ul>
+<li><a href="02.1-kiwif405-6s.html">KIWI F405 6S</a></li>
+<li><a href="02.2-kiwif405-12S.html">KIWI F405 12S</a></li>
+<li><a href="02.3-kiwif722.html">KIWI F722</a></li>
+<li><a href="02.4-kiwih743.html">KIWI H743</a></li>
+</ul>
+<hr>
+<h2 id="стандарти--standards"><a class="header" href="#стандарти--standards">Стандарти / Standards</a></h2>
+<p>SmartESAD спроектовано на принципах:</p>
+<ul>
+<li><strong>MIL-STD-1316F</strong> — Fuze Design Safety Criteria (DoD)</li>
+<li><strong>STANAG 4560 ed 3</strong> — EED Assessment &amp; Test Methods (NATO)</li>
+<li><strong>NAWCWD TP 8504</strong> — Design Methodology for Safe and Arm Devices (US Navy)</li>
+<li><strong>AOP-4187 Ed A v1</strong> — Fuzing System Safety Design (NATO)</li>
+</ul>
+<p>Це не сертифікація; зазначені стандарти — джерело правил дизайну.
+Цільовий ризик передчасного озброєння — менше 1 на 1 000 000 пристроїв
+(<code>MIL-STD-1316F §4.3</code>).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="06-drobodrone.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="kiwi-rm3100.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="06-drobodrone.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="kiwi-rm3100.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-025d9952.js"></script>
+        <script src="buy-button-14d2813c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

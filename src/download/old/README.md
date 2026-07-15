@@ -1,0 +1,1 @@
+Archived firmware builds. Convention: `<board>-<YYYY-MM-DD>.zip`, e.g. `KiwiH743-2026-06-16.zip`. Keep the branch suffix in the name (`-4.5`) so 4.5 and 4.6 history don't collide. See `CLAUDE.md` "Firmware Updates" for the full refresh workflow.

@@ -1,0 +1,902 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Flight Controller - KIWI H743-Wing - KIWI Flight Systems</title>
+
+
+        <!-- Custom HTML head -->
+        <!-- Google Analytics (GA4) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2L7L7FPTWR"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-2L7L7FPTWR');
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-d0fe17bd.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/css/custom-92eabc86.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-48aed808.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d358959a.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"><img src="kiwi_flight_systems.svg" alt="KIWI Flight Systems" class="header-logo header-logo-full"><img src="kiwi_home.svg" alt="KIWI Flight Systems" class="header-logo header-logo-short"></h1>
+
+                    <div class="right-buttons">
+                        <a href="https://kiwidrone.com.ua/" target="_blank" class="header-nav-link" title="Shop" aria-label="Shop">Shop</a>
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="kiwih743-wing-flight-controller"><a class="header" href="#kiwih743-wing-flight-controller">KiwiH743-Wing Flight Controller</a></h1>
+<img src="h743-wing-fc.jpg" width="350">
+<img src="h743-wing-fc-bot.jpg" width="350">
+<img src="h743-wing-pdb.jpg" width="350">
+<p><a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online">Buy Online</a>
+<a href="https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
+<nav class="quick-nav">
+  <a href="#overview">Overview</a>
+  <a href="#firmware">Firmware</a>
+  <a href="#features">Features</a>
+  <a href="#technical-specifications">Specs</a>
+  <a href="#serial-ports">Serial Ports</a>
+  <a href="#high-baud-mavlink-ports">High-baud MAVLink</a>
+  <a href="#connectors-and-wire-colors">Connectors</a>
+  <a href="#gpios-relays-and-aux">GPIOs &amp; Relays</a>
+  <a href="#power-monitoring">Power</a>
+  <a href="#buses">Buses</a>
+  <a href="#premium-features">Premium</a>
+  <a href="#displayport-osd">OSD</a>
+  <a href="#flight-controller">FC Board</a>
+  <a href="#power-distribution-board-pdb">PDB</a>
+  <a href="#full-pinout-reference">Pinout</a>
+</nav>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The <strong>KiwiH743-Wing</strong> is a Pixhawk-format flight controller system consisting of two boards: a Flight Controller and a Power Distribution Board (PDB). Designed for expendable quadcopters and long-range fixed-wing drones. Ready to use with Rover, Wing, Quadcopter, and Hexacopter configurations.</p>
+<p><strong>Premium features:</strong> GPS-less takeoff, IRC Tramp VTX control, VRX integration (TBS Fusion, Skyzone Steadyview).</p>
+<hr>
+<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Firmware</th><th>Version</th><th>Updated</th><th>Download</th></tr>
+</thead>
+<tbody>
+<tr><td>ArduPilot 4.6</td><td>4.6.3-dev (e4a1d2cc)</td><td>2026-06-26</td><td><a href="download/KiwiH743-wing.zip">KiwiH743-wing.zip</a></td></tr>
+<tr><td>ArduPilot 4.5</td><td>4.5.7-dev (0edb016a)</td><td>2026-06-28</td><td><a href="download/KiwiH743-wing-4.5.zip">KiwiH743-wing-4.5.zip</a></td></tr>
+<tr><td>ArduPilot 4.6, no IMU CLKIN</td><td>4.6.3-dev (5436f451)</td><td>2026-05-15</td><td><a href="download/KiwiH743-wing-noclkin.zip">KiwiH743-wing-noclkin.zip</a></td></tr>
+<tr><td>ArduPilot 4.5, no IMU CLKIN</td><td>TBD</td><td>TBD</td><td>TBD (<code>KiwiH743-wing-noclkin-4.5.zip</code>)</td></tr>
+<tr><td>Betaflight</td><td>—</td><td>—</td><td>TBD</td></tr>
+</tbody>
+</table>
+</div>
+<p>The <code>noclkin</code> build is an A/B test control with the external 32.768 kHz IMU clock disabled — IMUs run on their internal oscillators. Same <code>APJ_BOARD_ID</code>, loads with the same bootloader.</p>
+<blockquote>
+<p>Both 4.5 (Plane-4.5.7 LTS) and 4.6 (current) ArduPilot branches are maintained in parallel. Pick the one that matches your fleet.</p>
+</blockquote>
+<h3 id="previous-versions"><a class="header" href="#previous-versions">Previous versions</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Firmware</th><th>Version</th><th>Updated</th><th>Download</th></tr>
+</thead>
+<tbody>
+<tr><td>ArduPilot 4.6</td><td>4.6.3-dev (5436f451)</td><td>2026-05-20</td><td><a href="download/old/KiwiH743-wing-2026-05-20.zip">KiwiH743-wing-2026-05-20.zip</a></td></tr>
+<tr><td>ArduPilot 4.5</td><td>4.5.7-dev (79b1a19b)</td><td>2026-06-20</td><td><a href="download/old/KiwiH743-wing-4.5-2026-06-20.zip">KiwiH743-wing-4.5-2026-06-20.zip</a></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<ul>
+<li>STM32H743 MCU (480 MHz, 2 MB flash)</li>
+<li>12S power supply</li>
+<li>5V, 6/7V, 9/12V 5A BECs</li>
+<li>ICM-42688P and ICM-45686 with power and hardware signal filtering</li>
+<li>BMP388 barometer</li>
+<li>Dual camera input, switchable</li>
+<li>8 motors + 7 servos (15 PWM outputs)</li>
+<li>5 UARTs, UART7 with flow control</li>
+<li>1 SPI, 1 I2C, FDCAN</li>
+<li>5 GPIOs, 2 relay outputs, 9/12V switch</li>
+<li>Analog + digital VTX output</li>
+<li>STM32G4 OSD</li>
+<li>SD card via SDMMC</li>
+<li>40 x 42 mm board, 36 x 39 mm mounting holes</li>
+</ul>
+<hr>
+<h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
+<h3 id="processor"><a class="header" href="#processor">Processor</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>MCU</td><td>STM32H743</td></tr>
+<tr><td>Architecture</td><td>ARM Cortex-M7</td></tr>
+<tr><td>Max Frequency</td><td>480 MHz</td></tr>
+<tr><td>Flash</td><td>2048 KB (2 MB)</td></tr>
+<tr><td>Crystal</td><td>16 MHz external oscillator</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="sensors"><a class="header" href="#sensors">Sensors</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Sensor</th><th>Part</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>IMU 1</td><td>ICM-42688P</td><td>External clock, hardware filtered</td></tr>
+<tr><td>IMU 2</td><td>ICM-45686</td><td>Hardware filtered</td></tr>
+<tr><td>Barometer</td><td>BMP388</td><td></td></tr>
+<tr><td>OSD</td><td>STM32G4</td><td>Analog video overlay</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="power"><a class="header" href="#power">Power</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Rail</th><th>Voltage</th><th>Current</th></tr>
+</thead>
+<tbody>
+<tr><td>Input</td><td>12S (up to ~50V)</td><td></td></tr>
+<tr><td>BEC 1</td><td>5V</td><td>5A</td></tr>
+<tr><td>BEC 2</td><td>6/7V</td><td>5A</td></tr>
+<tr><td>BEC 3</td><td>9/12V</td><td>5A</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="mechanical"><a class="header" href="#mechanical">Mechanical</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Board size</td><td>39 x 39 mm</td></tr>
+<tr><td>Mounting holes</td><td>30.5 x 30.5 mm</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="serial-ports"><a class="header" href="#serial-ports">Serial Ports</a></h2>
+<p>Ports without DMA fall back to interrupt + FIFO and are not deterministic at high baud.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Serial</th><th>UART</th><th>TX Pin</th><th>RX Pin</th><th>DMA RX</th><th>DMA TX</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Serial 1</td><td>USART1</td><td>PB14</td><td>PB15</td><td>NODMA</td><td>DMA</td><td>Low-rate only (≤115 k)</td></tr>
+<tr><td>Serial 2</td><td>USART2</td><td>PD5</td><td>PD6</td><td>NODMA</td><td>NODMA</td><td>Low-rate only (≤115 k)</td></tr>
+<tr><td>Serial 3</td><td>USART3</td><td>PD8</td><td>PD9</td><td>NODMA</td><td>DMA</td><td>Low-rate only (≤115 k)</td></tr>
+<tr><td>Serial 4</td><td>UART4</td><td>PD1</td><td>PD0</td><td>DMA exclusive</td><td>DMA exclusive</td><td>★ Rank 1 high-baud — first choice</td></tr>
+<tr><td>Serial 5</td><td>UART5</td><td>PB13</td><td>PB12</td><td>NODMA</td><td>DMA</td><td>Low-rate only (≤115 k)</td></tr>
+<tr><td>Serial 6</td><td>USART6</td><td>PC6</td><td>PC7</td><td>NODMA</td><td>DMA</td><td>Low-rate only (≤115 k)</td></tr>
+<tr><td>Serial 7</td><td>UART7</td><td>PE8</td><td>PE7</td><td>DMA exclusive</td><td>DMA exclusive</td><td>★ Rank 2 high-baud; RTS PE9, CTS PE10</td></tr>
+<tr><td>Serial 8</td><td>UART8</td><td>PE1</td><td>PE0</td><td>NODMA</td><td>DMA</td><td>OSD UART</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="high-baud-mavlink-ports"><a class="header" href="#high-baud-mavlink-ports">High-baud MAVLink ports</a></h3>
+<p>For peripherals that need &gt;115 k baud (e.g. ELRS+MAVLink, RTK GPS+MAVLink), use the DMA-backed UARTs:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Rank</th><th>Serial</th><th>UART</th><th>TX Pin</th><th>RX Pin</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Serial 4</td><td>UART4</td><td>PD1</td><td>PD0</td><td>First choice for any high-baud peripheral</td></tr>
+<tr><td>2</td><td>Serial 7</td><td>UART7</td><td>PE8</td><td>PE7</td><td>Second choice. RTS/CTS wired — tie peripheral CTS to GND, or set <code>BRD_SER7_RTSCTS = 0</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Default firmware already sets <code>SERIAL7_PROTOCOL = MAVLink2</code> on the Wing, so for a second high-baud link just set <code>SERIAL7_BAUD = 460</code>.</p>
+<hr>
+<h2 id="connectors-and-wire-colors"><a class="header" href="#connectors-and-wire-colors">Connectors and Wire Colors</a></h2>
+<p>Port connection diagram for cable assembly. Pin order in each connector matches the silkscreen labels on the board, read left to right.</p>
+<img src="h743-wing-ports.webp" width="700" alt="KIWI H7.0 Wing port connection diagram">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Port</th><th>Pin Order</th><th>Wire Colors</th></tr>
+</thead>
+<tbody>
+<tr><td>USB</td><td>G, DP, DM, 5V</td><td>Black, Green, White, Red</td></tr>
+<tr><td>UART6</td><td>G, R6, T6, 5V</td><td>Black, White, Green, Red</td></tr>
+<tr><td>CAN1</td><td>G, L, H, 5V</td><td>Black, Green, White, Red</td></tr>
+<tr><td>CAM1</td><td>G, CM1, 5V</td><td>Black, Yellow, Red</td></tr>
+<tr><td>UART5</td><td>G, R5, T5, 5V</td><td>Black, White, Green, Red</td></tr>
+<tr><td>I2C2</td><td>G, SDA, SCL, 5V</td><td>Black, Green, White, Red</td></tr>
+<tr><td>UART4</td><td>G, R4, T4, 5V</td><td>Black, White, Green, Red</td></tr>
+<tr><td>CAM2</td><td>G, CM2, 5V</td><td>Black, Yellow, Red</td></tr>
+<tr><td>VTX</td><td>G, 12V, T2, R2, VO, 5V</td><td>Black, Red, Green, White, Yellow, Blue</td></tr>
+<tr><td>UART1 + I2C1</td><td>G, SDA, SCL, R1, T1, 5V</td><td>Black, Blue, Yellow, White, Green, Red</td></tr>
+<tr><td>UART7</td><td>G, RTS, CTS, R7, T7, 5V</td><td>Black, Blue, Yellow, White, Green, Red</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="wire-color-legend"><a class="header" href="#wire-color-legend">Wire Color Legend</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Color</th><th>Signal</th></tr>
+</thead>
+<tbody>
+<tr><td>Black</td><td>Ground (GND)</td></tr>
+<tr><td>Red</td><td>Power (5V / 12V)</td></tr>
+<tr><td>Green</td><td>TX, CAN L, SDA</td></tr>
+<tr><td>White</td><td>RX, CAN H, SCL</td></tr>
+<tr><td>Yellow</td><td>Video (VO/CM) or CTS</td></tr>
+<tr><td>Blue</td><td>RTS or auxiliary signal (used for the second power wire on the VTX cable)</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>Note:</strong> Wire colors are intended to simplify cable assembly and connector identification. Signal names printed on the PCB always take precedence over wire color. On the VTX cable, <code>5V</code> is the video 5V rail (blue) — distinct from <code>12V</code> (red).</p>
+</blockquote>
+<hr>
+<h2 id="gpios-relays-and-aux"><a class="header" href="#gpios-relays-and-aux">GPIOs, Relays, and AUX</a></h2>
+<h3 id="dedicated-gpio-pads"><a class="header" href="#dedicated-gpio-pads">Dedicated GPIO Pads</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pad</th><th>Pin</th><th>GPIO</th><th>Default</th><th>ArduPilot Relay Config</th></tr>
+</thead>
+<tbody>
+<tr><td>CAM SW</td><td>PE2</td><td>100</td><td>RELAY1</td><td><code>RELAY1_PIN=100</code> (hwdef default)</td></tr>
+<tr><td>RELAY 1</td><td>PD3</td><td>101</td><td>Output LOW</td><td><code>RELAY2_PIN=101</code>, <code>RELAY2_FUNC=1</code></td></tr>
+<tr><td>RELAY 2</td><td>PD4</td><td>102</td><td>Output LOW</td><td><code>RELAY3_PIN=102</code>, <code>RELAY3_FUNC=1</code></td></tr>
+<tr><td>AUX 1</td><td>PD7</td><td>105</td><td>Output LOW</td><td><code>RELAY4_PIN=105</code>, <code>RELAY4_FUNC=1</code></td></tr>
+<tr><td>AUX 2</td><td>PB3</td><td>106</td><td>Output LOW</td><td><code>RELAY5_PIN=106</code>, <code>RELAY5_FUNC=1</code></td></tr>
+<tr><td>AUX 3</td><td>PE5</td><td>107</td><td>Output LOW</td><td>—</td></tr>
+<tr><td>AUX 4</td><td>PC13</td><td>103</td><td>Output LOW</td><td>Shared with VIDEO BOOT</td></tr>
+<tr><td>VID NRST</td><td>PE3</td><td>104</td><td>Output LOW</td><td><code>RELAY6_PIN=104</code> (hwdef default), inverted</td></tr>
+<tr><td>CAN SIL</td><td>PE4</td><td>70</td><td>Output LOW</td><td>CAN silent mode</td></tr>
+<tr><td>BUZZER</td><td>PA15</td><td>32</td><td>Alarm</td><td>—</td></tr>
+<tr><td>LED</td><td>PD11</td><td>90</td><td>Status LED</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>Note:</strong> <code>RELAY1_PIN</code> defaults to GPIO 100 (Camera Switch, PE2). <code>RELAY6_PIN</code> defaults to GPIO 104 (VIDEO_NRST, PE3 — STM32G4 OSD reset, active low). RELAY 1/2 pads are 9/12V switched outputs.</p>
+</blockquote>
+<h3 id="pwm-outputs"><a class="header" href="#pwm-outputs">PWM Outputs</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th><th>DShot Bidir</th></tr>
+</thead>
+<tbody>
+<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td><td>No</td></tr>
+<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td><td>No</td></tr>
+<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td><td>No</td></tr>
+<tr><td>SERVO 4</td><td>PD15</td><td>53</td><td>TIM4_CH4</td><td>Servo 1</td><td>No</td></tr>
+<tr><td>SERVO 5</td><td>PD14</td><td>54</td><td>TIM4_CH3</td><td>Servo 2</td><td>No</td></tr>
+<tr><td>SERVO 6</td><td>PD13</td><td>55</td><td>TIM4_CH2</td><td>Servo 3</td><td>No</td></tr>
+<tr><td>SERVO 7</td><td>PD12</td><td>56</td><td>TIM4_CH1</td><td>Servo 4</td><td>No</td></tr>
+<tr><td>SERVO 8</td><td>PB1</td><td>57</td><td>TIM3_CH4</td><td>Servo 5</td><td>No</td></tr>
+<tr><td>SERVO 9</td><td>PB0</td><td>58</td><td>TIM3_CH3</td><td>Servo N</td><td>No</td></tr>
+<tr><td>SERVO 10</td><td>PB4</td><td>59</td><td>TIM3_CH1</td><td>Servo N</td><td>No</td></tr>
+<tr><td>SERVO 11</td><td>PB5</td><td>60</td><td>TIM3_CH2</td><td>Servo N</td><td>No</td></tr>
+<tr><td>SERVO 12</td><td>PA3</td><td>61</td><td>TIM5_CH4</td><td>Servo N</td><td>No</td></tr>
+<tr><td>SERVO 13</td><td>PA2</td><td>62</td><td>TIM5_CH3</td><td>Servo N</td><td>No</td></tr>
+<tr><td>SERVO 14</td><td>PA1</td><td>63</td><td>TIM5_CH2</td><td>Servo N</td><td>No</td></tr>
+<tr><td>SERVO 15</td><td>PA0</td><td>64</td><td>TIM5_CH1</td><td>Servo N</td><td>No</td></tr>
+</tbody>
+</table>
+</div>
+<p>PWM pins can be reassigned to GPIO via <code>SERVOn_FUNCTION=0</code> + <code>RELAYn_PIN=&lt;gpio&gt;</code>.</p>
+<h3 id="relay-usage"><a class="header" href="#relay-usage">Relay Usage</a></h3>
+<p><strong>MAVProxy:</strong></p>
+<pre><code>param set RELAY2_PIN 101
+param set RELAY2_FUNC 1
+relay set 0 1    # RELAY1 ON (CAM SW HIGH)
+relay set 0 0    # RELAY1 OFF
+relay set 1 1    # RELAY2 ON (RELAY1 pad HIGH)
+</code></pre>
+<p><strong>Mission waypoint:</strong> <code>DO_SET_RELAY</code> — relay number 0-based (0=RELAY1), setting 1=ON / 0=OFF.</p>
+<p><strong>Lua:</strong></p>
+<pre><code class="language-lua">relay:toggle(0)  -- toggle RELAY1 (CAM SW)
+relay:on(1)      -- RELAY2 ON (RELAY1 pad)
+relay:off(1)     -- RELAY2 OFF
+</code></pre>
+<p>All GPIO pads default LOW on boot. Use <code>RELAY_DEFAULT</code> params to set initial state.</p>
+<p><strong>OSD Reset (RELAY6):</strong></p>
+<p>RELAY6 controls the STM32G4 OSD reset line (VID NRST). Active low — set <code>RELAY6_INVERTED=1</code> so that “relay on” pulls the line low (reset) and “relay off” releases it.</p>
+<pre><code>param set RELAY6_PIN 104
+param set RELAY6_FUNCTION 1
+param set RELAY6_INVERTED 1
+relay set 5 1   # reset OSD
+relay set 5 0   # release reset
+</code></pre>
+<hr>
+<h2 id="power-monitoring"><a class="header" href="#power-monitoring">Power Monitoring</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Function</th><th>Pin</th><th>ADC</th></tr>
+</thead>
+<tbody>
+<tr><td>Battery voltage</td><td>PC5</td><td>ADC1 IN8, scale /21</td></tr>
+<tr><td>Battery current</td><td>PC4</td><td>ADC1 IN4</td></tr>
+<tr><td>VBAT2</td><td>PC3_C</td><td>ADC3 IN1, scale /21</td></tr>
+<tr><td>ADC 1</td><td>PC1</td><td>ADC1 IN11</td></tr>
+<tr><td>ADC 2</td><td>PC0</td><td>ADC1 IN10</td></tr>
+<tr><td>ADC 3</td><td>PC2_C</td><td>ADC3 IN0</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="sensor-calibration"><a class="header" href="#sensor-calibration">Sensor Calibration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>ArduPilot</th><th>Betaflight</th></tr>
+</thead>
+<tbody>
+<tr><td>Voltage scale</td><td><code>BATT_VOLT_MULT</code> = 21.0</td><td><code>voltage_meter_scale</code> = 210</td></tr>
+<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 142.9</td><td><code>current_meter_scale</code> = 100</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="battery-voltage-thresholds-ardupilot"><a class="header" href="#battery-voltage-thresholds-ardupilot">Battery Voltage Thresholds (ArduPilot)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>6S</th><th>8S</th><th>12S</th></tr>
+</thead>
+<tbody>
+<tr><td>Full charge</td><td>25.2 V</td><td>33.6 V</td><td>50.4 V</td></tr>
+<tr><td><code>BATT_ARM_VOLT</code></td><td>22.2</td><td>29.6</td><td>44.4</td></tr>
+<tr><td><code>BATT_LOW_VOLT</code></td><td>21.0</td><td>28.0</td><td>42.0</td></tr>
+<tr><td><code>BATT_CRT_VOLT</code></td><td>19.8</td><td>26.4</td><td>39.6</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="buses"><a class="header" href="#buses">Buses</a></h2>
+<h3 id="spi"><a class="header" href="#spi">SPI</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Bus</th><th>CLK</th><th>MISO</th><th>MOSI</th><th>Usage</th></tr>
+</thead>
+<tbody>
+<tr><td>SPI 1</td><td>PA5</td><td>PA6</td><td>PA7</td><td>IMU 1 (CS: PB2)</td></tr>
+<tr><td>SPI 4</td><td>PE12</td><td>PE13</td><td>PE14</td><td>IMU 2 (CS: PE15)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="i2c"><a class="header" href="#i2c">I2C</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Bus</th><th>SCL</th><th>SDA</th></tr>
+</thead>
+<tbody>
+<tr><td>I2C 1</td><td>PB6</td><td>PB7</td></tr>
+<tr><td>I2C 2</td><td>PB10</td><td>PB11</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="fdcan"><a class="header" href="#fdcan">FDCAN</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Function</th><th>Pin</th></tr>
+</thead>
+<tbody>
+<tr><td>CAN RX</td><td>PB8</td></tr>
+<tr><td>CAN TX</td><td>PB9</td></tr>
+<tr><td>CAN Silent</td><td>PE4</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="sdmmc-sd-card"><a class="header" href="#sdmmc-sd-card">SDMMC (SD Card)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Function</th><th>Pin</th></tr>
+</thead>
+<tbody>
+<tr><td>D0</td><td>PC8</td></tr>
+<tr><td>D1</td><td>PC9</td></tr>
+<tr><td>D2</td><td>PC10</td></tr>
+<tr><td>D3</td><td>PC11</td></tr>
+<tr><td>CLK</td><td>PC12</td></tr>
+<tr><td>CMD</td><td>PD2</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="premium-features"><a class="header" href="#premium-features">Premium Features</a></h2>
+<h3 id="gps-less-takeoff-arduplane"><a class="header" href="#gps-less-takeoff-arduplane">GPS-less Takeoff (ArduPlane)</a></h3>
+<p>KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.</p>
+<p><strong>Parameters:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>FLIGHT_OPTIONS</code></td><td>32768</td><td>Enable GPS-less takeoff</td></tr>
+<tr><td><code>ARMING_CHECK</code></td><td>0</td><td>Disable arming checks</td></tr>
+<tr><td><code>TKOFF_ALT</code></td><td>50</td><td>Target takeoff altitude (meters)</td></tr>
+<tr><td><code>TKOFF_THR_MINACC</code></td><td>0</td><td>No accelerometer trigger, timer only</td></tr>
+<tr><td><code>TKOFF_THR_MINSPD</code></td><td>0</td><td>No minimum ground speed required</td></tr>
+<tr><td><code>TKOFF_THR_MAX</code></td><td>100</td><td>Max throttle % during takeoff</td></tr>
+<tr><td><code>TKOFF_THR_DELAY</code></td><td>2</td><td>Delay before launch (0.2s)</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Procedure:</strong></p>
+<ol>
+<li>Power on, wait for EKF convergence</li>
+<li>Set home (from GPS before loss, or manually via MAVLink)</li>
+<li>Arm in FBWA mode</li>
+<li>Switch to TAKEOFF mode</li>
+</ol>
+<h3 id="irc-tramp-vtx-control"><a class="header" href="#irc-tramp-vtx-control">IRC Tramp VTX Control</a></h3>
+<p>Full IRC Tramp protocol support under ArduPilot. Change VTX power, band, channel, and pit mode directly from your GCS or OSD — no need for SmartAudio.</p>
+<p>Works with TBS Unify, Rush Tank, and other Tramp-compatible VTXs.</p>
+<h3 id="vrx-integration-tbs-fusion--skyzone"><a class="header" href="#vrx-integration-tbs-fusion--skyzone">VRX Integration (TBS Fusion / Skyzone)</a></h3>
+<p>Working video receiver control under ArduPilot. Supports:</p>
+<ul>
+<li><strong>TBS Fusion</strong> — band/channel tracking via CRSF</li>
+<li><strong>Skyzone Steadyview</strong> — auto channel sync</li>
+</ul>
+<h3 id="camera-gimbal-support"><a class="header" href="#camera-gimbal-support">Camera Gimbal Support</a></h3>
+<p>KiwiH743-Wing supports camera gimbals out of the box — both servo-based and MAVLink protocol gimbals (CADDX GM3 V2 and compatible).</p>
+<h4 id="mavlink-gimbal"><a class="header" href="#mavlink-gimbal">MAVLink Gimbal</a></h4>
+<p>Wire gimbal UART to any free serial port (gimbal TX → FC RX, gimbal RX → FC TX, GND).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>2</td><td>MAVLink2</td></tr>
+<tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
+<tr><td><code>MNT1_TYPE</code></td><td>6</td><td>Gremsy (reboot after setting)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2 spec: ±120°</td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>120</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-160</td><td>GM3 V2 spec: ±160°</td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>160</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
+<h5 id="rc-control"><a class="header" href="#rc-control">RC Control</a></h5>
+<p>Assign RC channels to control gimbal axes:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>RC6_OPTION</code></td><td>213</td><td>Mount1 Pitch</td></tr>
+<tr><td><code>RC7_OPTION</code></td><td>214</td><td>Mount1 Yaw</td></tr>
+<tr><td><code>RC8_OPTION</code></td><td>212</td><td>Mount1 Roll (3-axis gimbals only)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Example: with <code>MNT1_RC_RATE=60</code>, moving the RC6 stick deflects pitch at 60°/s. Set <code>MNT1_RC_RATE=0</code> for direct angle control (stick position = gimbal angle).</p>
+<blockquote>
+<p>Gimbal firmware must be V2.0 or higher.</p>
+</blockquote>
+<h4 id="servo-gimbal"><a class="header" href="#servo-gimbal">Servo Gimbal</a></h4>
+<p>Connect pitch/yaw servos to any Servo PWM outputs (SERVO 9–SERVO 15).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>MNT1_TYPE</code></td><td>1</td><td>Servo</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>6</td><td>Mount1 Pitch (assign to desired output)</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>8</td><td>Mount1 Yaw (assign to desired output)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="displayport-osd"><a class="header" href="#displayport-osd">Displayport OSD</a></h2>
+<p>HD OSD via MSP Displayport on SERIAL8 (OSD UART). Compatible with DJI O3, HDZero, Walksnail.</p>
+<pre><code>param set OSD_TYPE 5
+param set OSD_UNITS 0
+param set MSP_OPTIONS 4
+param set MSP_OSD_NCELLS 0
+param set SERIAL8_BAUD 115
+param set SERIAL8_OPTIONS 0
+param set SERIAL8_PROTOCOL 42
+</code></pre>
+<hr>
+<h2 id="flight-controller"><a class="header" href="#flight-controller">Flight Controller</a></h2>
+<p>Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.</p>
+<hr>
+<h2 id="power-distribution-board-pdb"><a class="header" href="#power-distribution-board-pdb">Power Distribution Board (PDB)</a></h2>
+<h3 id="features-1"><a class="header" href="#features-1">Features</a></h3>
+<ul>
+<li>4S–12S power input</li>
+<li>5V 5A output</li>
+<li>5/6/7/9V 5A adjustable output</li>
+<li>12V 5A output</li>
+<li>3.3V 1A output</li>
+<li>0.1 mOhm current sensor</li>
+<li>36 x 39 mm mounting holes</li>
+<li>42 x 75 mm board dimensions</li>
+</ul>
+<hr>
+<h2 id="other"><a class="header" href="#other">Other</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Function</th><th>Pin</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>USB D-</td><td>PA11</td><td></td></tr>
+<tr><td>USB D+</td><td>PA12</td><td></td></tr>
+<tr><td>SWDIO</td><td>PA13</td><td>Debug</td></tr>
+<tr><td>SWDCLK</td><td>PA14</td><td>Debug</td></tr>
+<tr><td>Buzzer</td><td>PA15</td><td>TIM2 CH1</td></tr>
+<tr><td>LED</td><td>PD11</td><td>Status</td></tr>
+<tr><td>IMU clock</td><td>PE6</td><td>TIM15 CH2, external clock for IMUs</td></tr>
+<tr><td>Video NRST</td><td>PE3</td><td>OSD/VTX reset</td></tr>
+<tr><td>Video BOOT</td><td>PC13</td><td>Shared with AUX 4</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="full-pinout-reference"><a class="header" href="#full-pinout-reference">Full Pinout Reference</a></h2>
+<h3 id="port-a-pa"><a class="header" href="#port-a-pa">Port A (PA)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
+<tr><td>PA0</td><td>SERVO 15</td><td>TIM5 CH1</td></tr>
+<tr><td>PA1</td><td>SERVO 14</td><td>TIM5 CH2</td></tr>
+<tr><td>PA2</td><td>SERVO 13</td><td>TIM5 CH3</td></tr>
+<tr><td>PA3</td><td>SERVO 12</td><td>TIM5 CH4</td></tr>
+<tr><td>PA4</td><td>IMU 1 INT</td><td></td></tr>
+<tr><td>PA5</td><td>SPI 1 CLK</td><td></td></tr>
+<tr><td>PA6</td><td>SPI 1 MISO</td><td></td></tr>
+<tr><td>PA7</td><td>SPI 1 MOSI</td><td></td></tr>
+<tr><td>PA8</td><td>SERVO 3</td><td></td></tr>
+<tr><td>PA9</td><td>SERVO 2</td><td></td></tr>
+<tr><td>PA10</td><td>SERVO 1</td><td></td></tr>
+<tr><td>PA11</td><td>USB N</td><td></td></tr>
+<tr><td>PA12</td><td>USB P</td><td></td></tr>
+<tr><td>PA13</td><td>SWDIO</td><td></td></tr>
+<tr><td>PA14</td><td>SWDCLK</td><td></td></tr>
+<tr><td>PA15</td><td>BUZZER</td><td>TIM2 CH1</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-b-pb"><a class="header" href="#port-b-pb">Port B (PB)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
+<tr><td>PB0</td><td>SERVO 9</td><td></td></tr>
+<tr><td>PB1</td><td>SERVO 8</td><td>ADC1 IN5</td></tr>
+<tr><td>PB2</td><td>IMU 1 CS</td><td></td></tr>
+<tr><td>PB3</td><td>AUX 2</td><td></td></tr>
+<tr><td>PB4</td><td>SERVO 10</td><td></td></tr>
+<tr><td>PB5</td><td>SERVO 11</td><td></td></tr>
+<tr><td>PB6</td><td>I2C 1 SCL</td><td></td></tr>
+<tr><td>PB7</td><td>I2C 1 SDA</td><td></td></tr>
+<tr><td>PB8</td><td>FDCAN RX</td><td>TIM16 CH1</td></tr>
+<tr><td>PB9</td><td>FDCAN TX</td><td>TIM17 CH1</td></tr>
+<tr><td>PB10</td><td>I2C 2 SCL</td><td></td></tr>
+<tr><td>PB11</td><td>I2C 2 SDA</td><td></td></tr>
+<tr><td>PB12</td><td>Serial 5 RX</td><td></td></tr>
+<tr><td>PB13</td><td>Serial 5 TX</td><td></td></tr>
+<tr><td>PB14</td><td>Serial 1 TX</td><td></td></tr>
+<tr><td>PB15</td><td>Serial 1 RX</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-c-pc"><a class="header" href="#port-c-pc">Port C (PC)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
+<tr><td>PC0</td><td>ADC 2</td><td>ADC1 IN10</td></tr>
+<tr><td>PC1</td><td>ADC 1</td><td>ADC1 IN11</td></tr>
+<tr><td>PC2_C</td><td>ADC 3</td><td>ADC3 IN0</td></tr>
+<tr><td>PC3_C</td><td>VBAT2 / 21</td><td>ADC3 IN1</td></tr>
+<tr><td>PC4</td><td>ESC CURR</td><td>ADC1 IN4</td></tr>
+<tr><td>PC5</td><td>VBAT / 21</td><td>ADC1 IN8</td></tr>
+<tr><td>PC6</td><td>Serial 6 TX</td><td>TIM3 CH1</td></tr>
+<tr><td>PC7</td><td>Serial 6 RX</td><td>TIM3 CH2</td></tr>
+<tr><td>PC8</td><td>SDMMC D0</td><td>TIM3 CH3</td></tr>
+<tr><td>PC9</td><td>SDMMC D1</td><td>TIM3 CH4</td></tr>
+<tr><td>PC10</td><td>SDMMC D2</td><td></td></tr>
+<tr><td>PC11</td><td>SDMMC D3</td><td></td></tr>
+<tr><td>PC12</td><td>SDMMC CK</td><td></td></tr>
+<tr><td>PC13</td><td>VIDEO BOOT / AUX 4</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-d-pd"><a class="header" href="#port-d-pd">Port D (PD)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
+<tr><td>PD0</td><td>Serial 4 RX</td><td></td></tr>
+<tr><td>PD1</td><td>Serial 4 TX</td><td></td></tr>
+<tr><td>PD2</td><td>SDMMC CMD</td><td></td></tr>
+<tr><td>PD3</td><td>RELAY 1</td><td></td></tr>
+<tr><td>PD4</td><td>RELAY 2</td><td></td></tr>
+<tr><td>PD5</td><td>Serial 2 TX</td><td></td></tr>
+<tr><td>PD6</td><td>Serial 2 RX</td><td></td></tr>
+<tr><td>PD7</td><td>AUX 1</td><td></td></tr>
+<tr><td>PD8</td><td>Serial 3 TX</td><td></td></tr>
+<tr><td>PD9</td><td>Serial 3 RX</td><td></td></tr>
+<tr><td>PD11</td><td>LED</td><td></td></tr>
+<tr><td>PD12</td><td>SERVO 7</td><td>TIM4 CH1</td></tr>
+<tr><td>PD13</td><td>SERVO 6</td><td>TIM4 CH2</td></tr>
+<tr><td>PD14</td><td>SERVO 5</td><td>TIM4 CH3</td></tr>
+<tr><td>PD15</td><td>SERVO 4</td><td>TIM4 CH4</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="port-e-pe"><a class="header" href="#port-e-pe">Port E (PE)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Function</th><th>Alternate</th></tr>
+</thead>
+<tbody>
+<tr><td>PE0</td><td>Serial 8 RX</td><td></td></tr>
+<tr><td>PE1</td><td>Serial 8 TX</td><td></td></tr>
+<tr><td>PE2</td><td>CAMERA SWITCH</td><td></td></tr>
+<tr><td>PE3</td><td>VIDEO NRST</td><td></td></tr>
+<tr><td>PE4</td><td>FDCAN SILENT</td><td></td></tr>
+<tr><td>PE5</td><td>AUX 3</td><td>TIM15 CH1</td></tr>
+<tr><td>PE6</td><td>IMU CLK IN</td><td>TIM15 CH2</td></tr>
+<tr><td>PE7</td><td>Serial 7 RX</td><td></td></tr>
+<tr><td>PE8</td><td>Serial 7 TX</td><td></td></tr>
+<tr><td>PE9</td><td>Serial 7 RTS</td><td></td></tr>
+<tr><td>PE10</td><td>Serial 7 CTS</td><td></td></tr>
+<tr><td>PE11</td><td>IMU 2 INT</td><td>TIM1 CH2</td></tr>
+<tr><td>PE12</td><td>SPI 4 CLK</td><td>TIM1 CH2</td></tr>
+<tr><td>PE13</td><td>SPI 4 MISO</td><td>TIM1 CH3</td></tr>
+<tr><td>PE14</td><td>SPI 4 MOSI</td><td>TIM1 CH4</td></tr>
+<tr><td>PE15</td><td>IMU 2 CS</td><td></td></tr>
+</tbody>
+</table>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="02.4-kiwih743.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="02.1-kiwif405-6s.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="02.4-kiwih743.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="02.1-kiwif405-6s.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-025d9952.js"></script>
+        <script src="buy-button-14d2813c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

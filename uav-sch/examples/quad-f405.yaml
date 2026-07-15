@@ -1,0 +1,52 @@
+name: "Quad F405 Example"
+board: kiwif405-12s
+board_position: { x: 400, y: 200 }
+components:
+  - id: esc1
+    type: esc
+    label: "4-in-1 ESC"
+    position: { x: 300, y: 20 }
+  - id: rx1
+    type: receiver
+    label: "ELRS EP2"
+    position: { x: 580, y: 480 }
+  - id: gps1
+    type: gps
+    label: "BN-880 GPS"
+    position: { x: 620, y: 100 }
+  - id: vtx1
+    type: vtx
+    label: "Rush Tank VTX"
+    position: { x: 200, y: 500 }
+  - id: cam1
+    type: camera
+    label: "Caddx Ratel"
+    position: { x: 50, y: 50 }
+wires:
+  - from: board.m1
+    to: esc1.m1
+    color: "#FF9800"
+  - from: board.m2
+    to: esc1.m2
+    color: "#FF9800"
+  - from: board.m3
+    to: esc1.m3
+    color: "#FF9800"
+  - from: board.m4
+    to: esc1.m4
+    color: "#FF9800"
+  - from: board.uart1-rx
+    to: rx1.sbuscrsf
+    color: "#4CAF50"
+  - from: board.uart3-tx
+    to: gps1.rx
+    color: "#4CAF50"
+  - from: board.uart3-rx
+    to: gps1.tx
+    color: "#4CAF50"
+  - from: board.uart4-tx
+    to: vtx1.smartaudio
+    color: "#2196F3"
+  - from: board.cvbs
+    to: cam1.videoout
+    color: "#2196F3"

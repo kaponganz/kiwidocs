@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Concept 4: Ultra-minimal kiwi mark — single stroke weight, works at any size -->
+  <defs>
+    <style>
+      .mark { fill: #1a1a1a; }
+      .accent { fill: #00b894; }
+    </style>
+  </defs>
+  <!-- Kiwi body — single bold shape -->
+  <path class="mark" d="
+    M65,130
+    C40,125 30,105 35,90
+    C38,80 48,72 58,68
+    C68,64 78,66 85,72
+    C90,76 92,82 92,90
+    C92,95 88,100 82,105
+    C90,115 105,125 125,132
+    C140,137 155,135 160,130
+    L162,132
+    C158,140 142,145 125,140
+    C108,135 92,125 85,115
+    C78,122 68,132 65,130
+    Z
+  "/>
+  <!-- Beak -->
+  <path class="mark" d="M42,82 L12,95 Q10,96 12,98 L48,88 C45,85 43,83 42,82 Z"/>
+  <!-- Eye -->
+  <circle class="accent" cx="65" cy="78" r="5"/>
+  <circle fill="#1a1a1a" cx="66" cy="77" r="2"/>
+  <!-- Legs -->
+  <line x1="90" y1="128" x2="85" y2="155" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="105" y1="132" x2="100" y2="155" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="85" y1="155" x2="77" y2="155" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="100" y1="155" x2="92" y2="155" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+  <!-- Subtle propeller hint above — single spinning arc -->
+  <path class="accent" d="M60,55 Q75,35 95,50" fill="none" stroke="#00b894" stroke-width="2.5" stroke-linecap="round"/>
+  <path class="accent" d="M95,50 Q115,65 100,80" fill="none" stroke="#00b894" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+</svg>

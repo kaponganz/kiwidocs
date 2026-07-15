@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Concept 8: Pixel kiwi on dark PCB-style grid background -->
+
+  <!-- Dark PCB background -->
+  <rect width="16" height="16" fill="#0d1b2a"/>
+
+  <!-- Subtle grid lines -->
+  <g opacity="0.1" stroke="#00b894" stroke-width="0.1">
+    <line x1="0" y1="4" x2="16" y2="4"/><line x1="0" y1="8" x2="16" y2="8"/>
+    <line x1="0" y1="12" x2="16" y2="12"/><line x1="4" y1="0" x2="4" y2="16"/>
+    <line x1="8" y1="0" x2="8" y2="16"/><line x1="12" y1="0" x2="12" y2="16"/>
+  </g>
+
+  <!-- Corner vias -->
+  <rect x="0" y="0" width="1" height="1" fill="#00b894" opacity="0.3"/>
+  <rect x="15" y="0" width="1" height="1" fill="#00b894" opacity="0.3"/>
+  <rect x="0" y="15" width="1" height="1" fill="#00b894" opacity="0.3"/>
+  <rect x="15" y="15" width="1" height="1" fill="#00b894" opacity="0.3"/>
+
+  <!-- Kiwi body in teal -->
+  <!-- Head -->
+  <rect x="4" y="3" width="1" height="1" fill="#00b894"/>
+  <rect x="5" y="3" width="1" height="1" fill="#00b894"/>
+  <rect x="6" y="3" width="1" height="1" fill="#00b894"/>
+  <rect x="3" y="4" width="1" height="1" fill="#00b894"/>
+  <rect x="4" y="4" width="1" height="1" fill="#00b894"/>
+  <rect x="5" y="4" width="1" height="1" fill="#00b894"/>
+  <rect x="6" y="4" width="1" height="1" fill="#00b894"/>
+  <!-- Eye -->
+  <rect x="4" y="4" width="1" height="1" fill="#ffffff"/>
+
+  <!-- Beak -->
+  <rect x="1" y="5" width="1" height="1" fill="#00b894"/>
+  <rect x="2" y="5" width="1" height="1" fill="#00b894"/>
+
+  <!-- Body -->
+  <rect x="3" y="5" width="1" height="1" fill="#00b894"/>
+  <rect x="4" y="5" width="1" height="1" fill="#00b894"/>
+  <rect x="5" y="5" width="1" height="1" fill="#00b894"/>
+  <rect x="6" y="5" width="1" height="1" fill="#00b894"/>
+  <rect x="7" y="5" width="1" height="1" fill="#00b894"/>
+  <rect x="4" y="6" width="1" height="1" fill="#00b894"/>
+  <rect x="5" y="6" width="1" height="1" fill="#00b894"/>
+  <rect x="6" y="6" width="1" height="1" fill="#00b894"/>
+  <rect x="7" y="6" width="1" height="1" fill="#00b894"/>
+  <rect x="8" y="6" width="1" height="1" fill="#00b894"/>
+  <rect x="5" y="7" width="1" height="1" fill="#00b894"/>
+  <rect x="6" y="7" width="1" height="1" fill="#00b894"/>
+  <rect x="7" y="7" width="1" height="1" fill="#00b894"/>
+  <rect x="8" y="7" width="1" height="1" fill="#00b894"/>
+  <rect x="9" y="7" width="1" height="1" fill="#00b894"/>
+  <rect x="6" y="8" width="1" height="1" fill="#00b894"/>
+  <rect x="7" y="8" width="1" height="1" fill="#00b894"/>
+  <rect x="8" y="8" width="1" height="1" fill="#00b894"/>
+  <rect x="9" y="8" width="1" height="1" fill="#00b894"/>
+  <rect x="10" y="8" width="1" height="1" fill="#00b894"/>
+  <rect x="11" y="8" width="1" height="1" fill="#00b894"/>
+
+  <!-- Tail -->
+  <rect x="10" y="9" width="1" height="1" fill="#00b894"/>
+  <rect x="11" y="9" width="1" height="1" fill="#00b894"/>
+  <rect x="12" y="9" width="1" height="1" fill="#00b894"/>
+
+  <!-- Legs -->
+  <rect x="7" y="9" width="1" height="1" fill="#00b894"/>
+  <rect x="9" y="9" width="1" height="1" fill="#00b894"/>
+  <rect x="7" y="10" width="1" height="1" fill="#00b894"/>
+  <rect x="9" y="10" width="1" height="1" fill="#00b894"/>
+  <!-- Feet -->
+  <rect x="6" y="11" width="2" height="1" fill="#00b894"/>
+  <rect x="9" y="11" width="2" height="1" fill="#00b894"/>
+
+  <!-- PCB trace from beak going left -->
+  <rect x="0" y="5" width="1" height="1" fill="#00b894" opacity="0.4"/>
+  <!-- PCB traces from tail going right -->
+  <rect x="13" y="9" width="1" height="1" fill="#00b894" opacity="0.4"/>
+  <rect x="14" y="9" width="1" height="1" fill="#00b894" opacity="0.3"/>
+  <rect x="15" y="9" width="1" height="1" fill="#00b894" opacity="0.2"/>
+</svg>

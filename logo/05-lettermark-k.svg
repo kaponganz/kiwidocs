@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Concept 5: Bold "K" lettermark with propeller crossbar -->
+  <defs>
+    <style>
+      .letter { fill: #1a1a1a; }
+      .prop { fill: #00b894; }
+    </style>
+  </defs>
+  <!-- K vertical stem -->
+  <rect class="letter" x="45" y="35" width="22" height="130" rx="3"/>
+  <!-- K upper diagonal -->
+  <polygon class="letter" points="67,100 67,85 145,35 155,35 155,50"/>
+  <!-- K lower diagonal -->
+  <polygon class="letter" points="67,100 67,115 145,165 155,165 155,150"/>
+  <!-- Propeller at the junction point -->
+  <g transform="translate(67, 100)">
+    <ellipse class="prop" cx="0" cy="-14" rx="4.5" ry="14" transform="rotate(45)"/>
+    <ellipse class="prop" cx="0" cy="-14" rx="4.5" ry="14" transform="rotate(135)"/>
+    <ellipse class="prop" cx="0" cy="-14" rx="4.5" ry="14" transform="rotate(225)"/>
+    <ellipse class="prop" cx="0" cy="-14" rx="4.5" ry="14" transform="rotate(315)"/>
+    <circle cx="0" cy="0" r="5" fill="#1a1a1a"/>
+    <circle cx="0" cy="0" r="2.5" fill="#00b894"/>
+  </g>
+</svg>

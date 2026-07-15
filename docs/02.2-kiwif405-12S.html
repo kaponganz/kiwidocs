@@ -1,0 +1,596 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Flight Controller - KIWI F405 12S  - KIWI Flight Systems</title>
+
+
+        <!-- Custom HTML head -->
+        <!-- Google Analytics (GA4) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2L7L7FPTWR"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-2L7L7FPTWR');
+        </script>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-d0fe17bd.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/css/custom-92eabc86.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-48aed808.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-d358959a.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"><img src="kiwi_flight_systems.svg" alt="KIWI Flight Systems" class="header-logo header-logo-full"><img src="kiwi_home.svg" alt="KIWI Flight Systems" class="header-logo header-logo-short"></h1>
+
+                    <div class="right-buttons">
+                        <a href="https://kiwidrone.com.ua/" target="_blank" class="header-nav-link" title="Shop" aria-label="Shop">Shop</a>
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="flight-controller-board-kiwi-f405-12s-configuration"><a class="header" href="#flight-controller-board-kiwi-f405-12s-configuration">Flight Controller Board: KIWI F405 12S Configuration</a></h1>
+<p><img src="kiwif405-12s.jpeg" alt="kiwif405-12s.jpeg"></p>
+<p><a href="https://kiwidrone.com.ua/kiwi-f405-flight-controller/" target="_blank" class="buy-online">Buy Online</a>
+<a href="https://kiwidrone.com.ua/kiwi-f405-flight-controller/" target="_blank" class="buy-online-sticky">Buy Online</a></p>
+<nav class="quick-nav">
+  <a href="#overview">Overview</a>
+  <a href="#firmware">Firmware</a>
+  <a href="#pinout-and-diagrams">Pinout</a>
+  <a href="#features">Features</a>
+  <a href="#technical-specifications">Specs</a>
+  <a href="#serial-ports">Serial Ports</a>
+  <a href="#gpios-relays-and-aux">GPIOs &amp; Relays</a>
+  <a href="#power-monitoring">Power</a>
+  <a href="#premium-features">Premium</a>
+  <a href="#camera-gimbal-support">Gimbal</a>
+  <a href="#default-parameters">Defaults</a>
+</nav>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>KIWI F4.0 is a versatile flight controller based on the STM32F405, designed for FPV, wings, and autonomous platforms.
+The controller combines precision inertial sensing, OSD support, built-in Blackbox, and relay outputs for controlling
+external modules.
+Support for both Betaflight and ArduPilot allows this board to be used in a wide range of applications.</p>
+<p>KIWI F4.0 is a reliable platform for building FPV drones, aircraft, and specialized autonomous systems with full support
+for Betaflight and ArduPilot.
+Thanks to flexible relay, sensor, and telemetry connectivity, the controller is ready for real-world mission use.</p>
+<h2 id="firmware"><a class="header" href="#firmware">Firmware</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Firmware</th><th>Version</th><th>Updated</th><th>Download</th></tr>
+</thead>
+<tbody>
+<tr><td>ArduPilot</td><td>4.6.3-dev (e4a1d2cc)</td><td>2026-06-26</td><td><a href="download/KiwiF405-12S.zip">KiwiF405-12S.zip</a></td></tr>
+<tr><td>Betaflight</td><td>4.5.3</td><td>2025-12-06</td><td><a href="download/battle_flight/betaflight_4.5.3_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-4.5.3.zip</a></td></tr>
+<tr><td>Betaflight</td><td>2025.12.0-beta</td><td>2025-12-06</td><td><a href="download/betaflight_2025.12.0-beta_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-2025.12.0-beta.zip</a></td></tr>
+<tr><td>Betaflight</td><td>2026.12.3-alpha</td><td>2026-05-08</td><td><a href="download/betaflight_2026.12.3-alpha_STM32F405_KAPONGA_KIWIF4_12S.hex.zip">BF-2026.12.3-alpha.zip</a></td></tr>
+<tr><td>Betaflight</td><td>2025.12.5-alpha</td><td>2026-06-20</td><td><a href="download/battle_flight/betaflight_2025.12.5-alpha_STM32F405_KAPONGA_KIWIF4_12S.hex">BF-2025.12.5-alpha.hex</a></td></tr>
+<tr><td>Betaflight</td><td>2025.12.6-kiwi</td><td>2026-07-15</td><td><a href="download/battle_flight/betaflight_2025.12.6-kiwi_STM32F405_KAPONGA_KIWIF4_12S.hex">BF-2025.12.6-kiwi.hex</a></td></tr>
+<tr><td>Betaflight (SD card)</td><td>2025.12.6-kiwi</td><td>2026-07-15</td><td><a href="download/battle_flight/betaflight_2025.12.6-kiwi_STM32F405_KAPONGA_KIWIF405_12S_SDCARD.hex">BF-2025.12.6-kiwi-sdcard.hex</a></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="previous-versions"><a class="header" href="#previous-versions">Previous versions</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Firmware</th><th>Version</th><th>Updated</th><th>Download</th></tr>
+</thead>
+<tbody>
+<tr><td>ArduPilot</td><td>4.6.3-dev (2efd7319)</td><td>2026-06-09</td><td><a href="download/old/KiwiF405-12S-2026-06-09.zip">KiwiF405-12S-2026-06-09.zip</a></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="pinout-and-diagrams"><a class="header" href="#pinout-and-diagrams">Pinout and Diagrams</a></h2>
+<p><a href="kiwif405.png">(Click to zoom in)</a></p>
+<p><a href="kiwif405.png"><img src="kiwif405.png" width="200"></a>
+<a href="f405-12s-topbot.png"><img src="f405-12s-topbot.png" width="200"></a></p>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<ul>
+<li>Industrial-grade IMU Invensense ICM-42688P with external clock</li>
+<li>Bosch BMP388 barometer for altitude measurement</li>
+<li>Integrated 128Mbit Blackbox flash memory (W25Q128FV)</li>
+<li>MAX7456 OSD chip for overlaying telemetry on analog video</li>
+<li>High-precision voltage and current monitoring via ADC (VBAT, CURRENT)</li>
+<li>GPIO-controlled relay outputs for powering VTX, cameras, or pyrotechnic systems</li>
+<li>4 motor PWM outputs (DShot, bidirectional on M1 &amp; M3) + 6 auxiliary channels</li>
+<li>USB Type-C with DFU firmware flashing support</li>
+<li>Full CRSF / ELRS telemetry support (RSSI, LQ, SNR, Power)</li>
+</ul>
+<h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
+<ul>
+<li>MCU: STM32F405RG (168 MHz, 1024 KB flash)</li>
+<li>Crystal: 16 MHz external oscillator</li>
+<li>IMU: ICM-42688P (SPI2, rotation ROLL_180_YAW_90)</li>
+<li>Barometer: BMP388 (I2C1, address 0x76)</li>
+<li>OSD: MAX7456 (SPI1)</li>
+<li>Flash Memory: W25Q128FV 128 Mbit (SPI3)</li>
+<li>Dimensions: 36×36 mm, mounting 30.5×30.5 mm</li>
+<li>LED: PC2 (active low)</li>
+</ul>
+<hr>
+<h2 id="serial-ports"><a class="header" href="#serial-ports">Serial Ports</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Port</th><th>ArduPilot</th><th>Default Protocol</th><th>Pins</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>USB</td><td>SERIAL0</td><td>MAVLink</td><td>PA11, PA12</td><td>OTG FS, Type-C</td></tr>
+<tr><td>USART1</td><td>SERIAL1</td><td>RC Input</td><td>PB6, PB7</td><td></td></tr>
+<tr><td>USART2</td><td>SERIAL2</td><td>MAVLink2 (460800)</td><td>PA2, PA3</td><td>Alt: RC via TIM9</td></tr>
+<tr><td>USART3</td><td>SERIAL3</td><td>GPS (115200)</td><td>PC10, PC11</td><td></td></tr>
+<tr><td>UART4</td><td>SERIAL4</td><td>SmartAudio</td><td>PA0, PA1</td><td>VTX control</td></tr>
+<tr><td>UART5</td><td>SERIAL5</td><td>ESC Telemetry</td><td>PC12, PD2</td><td>NODMA</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="gpios-relays-and-aux"><a class="header" href="#gpios-relays-and-aux">GPIOs, Relays, and AUX</a></h2>
+<h3 id="dedicated-gpio-pads"><a class="header" href="#dedicated-gpio-pads">Dedicated GPIO Pads</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pad</th><th>Pin</th><th>GPIO</th><th>Default</th><th>ArduPilot Relay Config</th></tr>
+</thead>
+<tbody>
+<tr><td>F+</td><td>PC14</td><td>103</td><td>RELAY1</td><td><code>RELAY1_PIN=103</code> (hwdef default)</td></tr>
+<tr><td>U1</td><td>PA4</td><td>100</td><td>Output LOW</td><td><code>RELAY2_PIN=100</code>, <code>RELAY2_FUNC=1</code></td></tr>
+<tr><td>U3</td><td>PC15</td><td>101</td><td>Output LOW</td><td><code>RELAY3_PIN=101</code>, <code>RELAY3_FUNC=1</code></td></tr>
+<tr><td>U2</td><td>PA10</td><td>102</td><td>Output LOW</td><td><code>RELAY4_PIN=102</code>, <code>RELAY4_FUNC=1</code></td></tr>
+<tr><td>LED</td><td>PC2</td><td>90</td><td>Status LED</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p>RELAY1 (F+ pad) works out of the box — pre-configured in hwdef. U1/U2/U3 need params set to use as relays.</p>
+<h3 id="pwm-outputs"><a class="header" href="#pwm-outputs">PWM Outputs</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th><th>DShot Bidir</th></tr>
+</thead>
+<tbody>
+<tr><td>PWM1</td><td>PC9</td><td>50</td><td>TIM8_CH4</td><td>Motor 1</td><td>Yes</td></tr>
+<tr><td>PWM2</td><td>PC8</td><td>51</td><td>TIM8_CH3</td><td>Motor 2</td><td>No</td></tr>
+<tr><td>PWM3</td><td>PC7</td><td>52</td><td>TIM8_CH2</td><td>Motor 3</td><td>Yes</td></tr>
+<tr><td>PWM4</td><td>PC6</td><td>53</td><td>TIM8_CH1</td><td>Motor 4</td><td>No</td></tr>
+<tr><td>PWM5</td><td>PA8</td><td>54</td><td>TIM1_CH1</td><td>AUX 1</td><td>No</td></tr>
+<tr><td>PWM6</td><td>PA9</td><td>55</td><td>TIM1_CH2</td><td>AUX 2</td><td>No</td></tr>
+<tr><td>PWM7</td><td>PB11</td><td>56</td><td>TIM2_CH4</td><td>AUX 3</td><td>No</td></tr>
+<tr><td>PWM8</td><td>PB10</td><td>57</td><td>TIM2_CH3</td><td>AUX 4</td><td>No</td></tr>
+<tr><td>PWM9</td><td>PB1</td><td>—</td><td>TIM3_CH4</td><td>AUX 5</td><td>No</td></tr>
+<tr><td>PWM10</td><td>PB0</td><td>—</td><td>TIM3_CH3</td><td>AUX 6</td><td>No</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>PWM9/PWM10 have no GPIO ID in hwdef — PWM only. Other PWM pins can be reassigned to GPIO via <code>SERVOn_FUNCTION=0</code> + <code>RELAYn_PIN=&lt;gpio&gt;</code>.</p>
+</blockquote>
+<h3 id="relay-usage"><a class="header" href="#relay-usage">Relay Usage</a></h3>
+<p><strong>MAVProxy:</strong></p>
+<pre><code>param set RELAY2_PIN 100
+param set RELAY2_FUNC 1
+relay set 0 1    # RELAY1 ON (F+ pad HIGH)
+relay set 0 0    # RELAY1 OFF
+relay set 1 1    # RELAY2 ON (U1 pad HIGH)
+</code></pre>
+<p><strong>Mission waypoint:</strong> <code>DO_SET_RELAY</code> — relay number 0-based (0=RELAY1), setting 1=ON / 0=OFF.</p>
+<p><strong>Lua:</strong></p>
+<pre><code class="language-lua">relay:toggle(0)  -- toggle RELAY1
+relay:on(1)      -- RELAY2 ON
+relay:off(1)     -- RELAY2 OFF
+</code></pre>
+<p>All GPIO pads default LOW on boot. Use <code>RELAY_DEFAULT</code> params to set initial state.</p>
+<hr>
+<h2 id="power-monitoring"><a class="header" href="#power-monitoring">Power Monitoring</a></h2>
+<ul>
+<li>Battery Voltage: PC0 (ADC1 IN10)</li>
+<li>Battery Current: PC1 (ADC1 IN11)</li>
+<li>Default monitor type: Analog (type 4)</li>
+</ul>
+<h3 id="sensor-calibration"><a class="header" href="#sensor-calibration">Sensor Calibration</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>ArduPilot</th><th>Betaflight</th></tr>
+</thead>
+<tbody>
+<tr><td>Voltage scale</td><td><code>BATT_VOLT_MULT</code> = 21.0</td><td><code>voltage_meter_scale</code> = 210</td></tr>
+<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 142.9</td><td><code>current_meter_scale</code> = 1052</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="battery-voltage-thresholds-ardupilot"><a class="header" href="#battery-voltage-thresholds-ardupilot">Battery Voltage Thresholds (ArduPilot)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>6S</th><th>8S</th><th>12S</th></tr>
+</thead>
+<tbody>
+<tr><td>Full charge</td><td>25.2 V</td><td>33.6 V</td><td>50.4 V</td></tr>
+<tr><td><code>BATT_ARM_VOLT</code></td><td>22.2</td><td>29.6</td><td>44.4</td></tr>
+<tr><td><code>BATT_LOW_VOLT</code></td><td>21.0</td><td>28.0</td><td>42.0</td></tr>
+<tr><td><code>BATT_CRT_VOLT</code></td><td>19.8</td><td>26.4</td><td>39.6</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="spi-bus-assignment"><a class="header" href="#spi-bus-assignment">SPI Bus Assignment</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Bus</th><th>Device</th><th>Chip Select</th><th>Speed</th></tr>
+</thead>
+<tbody>
+<tr><td>SPI1</td><td>MAX7456</td><td>PC3</td><td>10 MHz</td></tr>
+<tr><td>SPI2</td><td>ICM-42688P</td><td>PC5</td><td>2/8 MHz</td></tr>
+<tr><td>SPI3</td><td>W25Q128FV</td><td>PC13</td><td>104 MHz</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="i2c-bus"><a class="header" href="#i2c-bus">I2C Bus</a></h2>
+<ul>
+<li>I2C1: PB8 (SCL), PB9 (SDA) — BMP388 barometer at 0x76, external compass probing</li>
+</ul>
+<hr>
+<h2 id="debug"><a class="header" href="#debug">Debug</a></h2>
+<ul>
+<li>SWDIO: PA13</li>
+<li>SWCLK: PA14</li>
+</ul>
+<hr>
+<h2 id="premium-features"><a class="header" href="#premium-features">Premium Features</a></h2>
+<h3 id="kiwi-osd-pinio-elements-betaflight-202512"><a class="header" href="#kiwi-osd-pinio-elements-betaflight-202512">Kiwi OSD Pinio Elements (Betaflight 2025.12+)</a></h3>
+<p>Custom OSD text elements that change based on PINIO switch state (User 1–4 boxes). Each element displays configurable ON/OFF text labels, useful for showing relay status, arming indicators, or mission state on the OSD.</p>
+<h4 id="cli-settings"><a class="header" href="#cli-settings">CLI Settings</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Setting</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kiwi_osd_pinioN_text_on</code></td><td>Text shown when User N switch is active</td></tr>
+<tr><td><code>kiwi_osd_pinioN_text_off</code></td><td>Text shown when User N switch is inactive (use <code>-</code> to hide)</td></tr>
+<tr><td><code>kiwi_osd_pinioN_pos</code></td><td>OSD screen position (341 = hidden)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Where N is 1–4 corresponding to PINIO1–PINIO4.</p>
+<h4 id="example-setup"><a class="header" href="#example-setup">Example Setup</a></h4>
+<pre><code># Show SAFE/ARMED on OSD driven by User 2 switch
+set kiwi_osd_pinio2_text_on = ARMED
+set kiwi_osd_pinio2_text_off = SAFE
+set kiwi_osd_pinio2_pos = 2242
+
+# Show PARACHUTE only when User 3 switch is active, hidden when off
+set kiwi_osd_pinio3_text_on = PARACHUTE
+set kiwi_osd_pinio3_text_off = -
+set kiwi_osd_pinio3_pos = 2274
+
+# Assign User 2 to AUX3 switch (high position)
+aux 3 41 3 1700 2100 0 0
+
+# Assign User 3 to AUX2 switch (high position)
+aux 4 42 2 1700 2100 0 0
+
+save
+</code></pre>
+<h4 id="hardware-notes"><a class="header" href="#hardware-notes">Hardware Notes</a></h4>
+<p>On the KIWI F405 12S, only PINIO4 (PA4 / RELAY1) has a physical GPIO pin. PINIO1–3 are defined as NONE in the hardware config, but the OSD elements still work — the User box toggles the logical state, and the OSD text updates accordingly. No physical pin is needed for OSD-only use.</p>
+<h3 id="kiwi-flyaway-protection-reset-betaflight-202512"><a class="header" href="#kiwi-flyaway-protection-reset-betaflight-202512">Kiwi Flyaway Protection Reset (Betaflight 2025.12+)</a></h3>
+<p>Allows re-arming your UAV after flying by resetting the flyaway protection on disarm. This premium feature provides enhanced safety and convenience for long-range and autonomous flights.</p>
+<h4 id="cli-settings-1"><a class="header" href="#cli-settings-1">CLI Settings</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Setting</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kiwi_runaway_reset_on_disarm = ON</code></td><td>Resets protection on disarm (allows re-arming after flying)</td></tr>
+<tr><td><code>kiwi_runaway_reset_on_disarm = OFF</code></td><td>Keeps original behavior (standard Betaflight protection)</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="usage"><a class="header" href="#usage">Usage</a></h4>
+<p>The flyaway protection in Betaflight prevents arming when the drone has been moved significantly since it was last armed. This is a safety feature to prevent accidental arming after transport. However, for certain use cases like:</p>
+<ul>
+<li>Long-range missions where you need to re-arm at a different location</li>
+<li>Search and rescue operations requiring multiple takeoffs</li>
+<li>Delivery drones that need to re-arm after landing</li>
+</ul>
+<p>The Kiwi flyaway protection reset feature allows you to reset this protection when disarming, enabling re-arming without power cycling.</p>
+<h4 id="example-setup-1"><a class="header" href="#example-setup-1">Example Setup</a></h4>
+<pre><code># Enable flyaway protection reset on disarm
+set kiwi_runaway_reset_on_disarm = ON
+
+# Save configuration
+save
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> This feature requires Betaflight 2025.12 or later with Kiwi custom firmware.</p>
+</blockquote>
+<hr>
+<h2 id="camera-gimbal-support"><a class="header" href="#camera-gimbal-support">Camera Gimbal Support</a></h2>
+<p>KIWI F405 supports camera gimbals out of the box — both servo-based and MAVLink protocol gimbals (CADDX GM3 V2 and compatible).</p>
+<h3 id="mavlink-gimbal"><a class="header" href="#mavlink-gimbal">MAVLink Gimbal</a></h3>
+<p>Wire gimbal UART to any free serial port (gimbal TX → FC RX, gimbal RX → FC TX, GND).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>SERIALx_PROTOCOL</code></td><td>2</td><td>MAVLink2</td></tr>
+<tr><td><code>SERIALx_BAUD</code></td><td>115</td><td>115200 bps</td></tr>
+<tr><td><code>MNT1_TYPE</code></td><td>6</td><td>Gremsy (reboot after setting)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-120</td><td>GM3 V2 spec: ±120°</td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>120</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-160</td><td>GM3 V2 spec: ±160°</td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>160</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="rc-control"><a class="header" href="#rc-control">RC Control</a></h4>
+<p>Assign RC channels to control gimbal axes:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>RC6_OPTION</code></td><td>213</td><td>Mount1 Pitch</td></tr>
+<tr><td><code>RC7_OPTION</code></td><td>214</td><td>Mount1 Yaw</td></tr>
+<tr><td><code>RC8_OPTION</code></td><td>212</td><td>Mount1 Roll (3-axis gimbals only)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Example: with <code>MNT1_RC_RATE=60</code>, moving the RC6 stick deflects pitch at 60°/s. Set <code>MNT1_RC_RATE=0</code> for direct angle control (stick position = gimbal angle).</p>
+<blockquote>
+<p>Gimbal firmware must be V2.0 or higher.</p>
+</blockquote>
+<h3 id="servo-gimbal"><a class="header" href="#servo-gimbal">Servo Gimbal</a></h3>
+<p>Connect pitch/yaw servos to AUX PWM outputs (PWM5–PWM8).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Param</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>MNT1_TYPE</code></td><td>1</td><td>Servo</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>6</td><td>Mount1 Pitch (assign to desired output)</td></tr>
+<tr><td><code>SERVOx_FUNCTION</code></td><td>8</td><td>Mount1 Yaw (assign to desired output)</td></tr>
+<tr><td><code>MNT1_PITCH_MIN</code></td><td>-90</td><td></td></tr>
+<tr><td><code>MNT1_PITCH_MAX</code></td><td>90</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MIN</code></td><td>-170</td><td></td></tr>
+<tr><td><code>MNT1_YAW_MAX</code></td><td>170</td><td></td></tr>
+<tr><td><code>MNT1_RC_RATE</code></td><td>60</td><td>deg/s for rate control, 0 for angle</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="default-parameters"><a class="header" href="#default-parameters">Default Parameters</a></h2>
+<ul>
+<li>Frame: Quadcopter (FRAME_CLASS=1, FRAME_TYPE=3 BetaFlight X reversed)</li>
+<li>Motor protocol: DShot (MOT_PWM_TYPE=5)</li>
+<li>BLHeli passthrough: enabled (SERVO_BLH_AUTO=1, mask=15)</li>
+<li>Flight mode channel: CH8</li>
+<li>VTX: enabled, band 6, channel 4, freq 1240</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="07-mine1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="02.4-kiwih743.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="07-mine1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="02.4-kiwih743.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-025d9952.js"></script>
+        <script src="buy-button-14d2813c.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

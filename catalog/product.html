@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kiwi Flight Systems — Catalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="css/catalog.css" />
+</head>
+<body>
+
+  <header class="site-head" data-stagger="0">
+    <h1 class="logotype">Kiwi <em>Flight Systems</em></h1>
+    <nav>
+      <a href="index.html">Catalog</a>
+      <a href="/">Documentation</a>
+      <a href="https://kiwidrone.com.ua" target="_blank" rel="noopener">Shop</a>
+    </nav>
+  </header>
+
+  <article class="product" id="product" data-stagger="1">
+    <a class="crumb" href="index.html">Back to catalog</a>
+
+    <header class="product-head">
+      <div>
+        <p class="kicker" id="prodKicker">—</p>
+        <h1 id="prodName">—</h1>
+      </div>
+      <p class="tagline" id="prodTagline">—</p>
+    </header>
+
+    <section class="gallery">
+      <figure class="hero">
+        <img id="heroImage" alt="" />
+      </figure>
+      <div class="strip" id="thumbs"></div>
+    </section>
+
+    <section class="product-grid">
+      <div class="narrative">
+        <h2>About the unit</h2>
+        <p id="prodDescription"></p>
+        <div class="actions">
+          <a class="link-buy" id="buyBtn" href="#" target="_blank" rel="noopener">Buy on kiwidrone.com.ua</a>
+          <a class="link-more" id="docsLink" href="#" target="_blank" rel="noopener">Read the documentation</a>
+        </div>
+      </div>
+
+      <aside class="spec-sheet">
+        <p class="label">Specifications</p>
+        <table id="specTable"><tbody></tbody></table>
+      </aside>
+    </section>
+  </article>
+
+  <footer class="site-foot">
+    <span>© Kiwi Flight Systems</span>
+    <span class="spacer"></span>
+    <a href="/">Documentation</a>
+    <a href="https://kiwidrone.com.ua" target="_blank" rel="noopener">Shop</a>
+    <a href="mailto:hello@kiwidrone.com.ua">Contact</a>
+  </footer>
+
+  <script src="js/product.js"></script>
+</body>
+</html>
