@@ -11,7 +11,7 @@
   <a href="#перемикачі-rc--rc-mode-boxes">RC Boxes</a>
   <a href="#налаштування-польотного-контролера--fc-side-settings">FC Settings</a>
   <a href="#довідник-cli-команд--cli-command-reference">CLI Commands</a>
-  <a href="#довідник-фаултів--fault-code-reference">Fault Codes</a>
+  <a href="#довідник-кодів-відмов--fault-code-reference">Fault Codes</a>
   <a href="#osd-індикація--osd-display">OSD</a>
   <a href="#поведінка-при-втраті-звязку--failsafe--link-loss">Failsafe</a>
   <a href="#діагностика--troubleshooting">Troubleshooting</a>
@@ -22,11 +22,12 @@
 
 ## Overview
 
-**SmartESAD** (Electronic Safe-Arm Device protocol) — двосторонній серійний
-протокол між польотним контролером і піротехнічним пристроєм що замінює класичні PWM-сигнали ARM/FIRE.
-Замість двох однонаправлених ліній SmartESAD дає польотному контролеру
-повний контроль над послідовністю безпеки і повертає назад стан пристрою,
-залишковий час таймерів і телеметрію.
+**SmartESAD** (Electronic Safe-Arm Device protocol) — двосторонній
+послідовний протокол між польотним контролером і піротехнічним пристроєм,
+який замінює класичну пару PWM-сигналів ARM/FIRE.
+Замість двох односпрямованих ліній SmartESAD дає польотному контролеру
+повний контроль над послідовністю безпеки, а у відповідь отримує стан
+пристрою, залишок таймерів і телеметрію.
 
 **SmartESAD** is a bidirectional serial protocol between the flight
 controller and pyrotechnic device,
@@ -50,9 +51,9 @@ covers **smartESAD v1.1** and the KIWI Betaflight 2025.12 firmware line.
 | 2 дроти (ARM + FIRE) | UART, 2 дроти (TX/RX) |
 | Контроль цілісності відсутній | CRC-16 на кожному кадрі, відхиляє пошкоджені |
 | Сплутування ARM/FIRE можливе | Кожна команда має власний 4-байтовий ASCII-код (`ARM!`, `FIRE`, `COLD`…) |
-| Втрата сигналу — невизначена поведінка | Link-watchdog блокує постріл; опційна автодемоція стану (`safe_on_lostconnection`) |
-| Фіксовані часи | Налаштовувані таймери (timer, self-destruct, поріг удару), зберігаються у флеші пристрою |
-| Тільки одна гілка спрацювання | Дублюючі канали FIRE1+FIRE2 синхронно ведуть незалежні підривники |
+| Втрата сигналу — невизначена поведінка | Link-watchdog блокує постріл; опційне автоповернення у безпечний стан (`safe_on_lostconnection`) |
+| Фіксовані інтервали | Налаштовувані таймери (timer, self-destruct, поріг удару), зберігаються у флеші пристрою |
+| Тільки одна гілка спрацювання | Дубльовані канали FIRE1+FIRE2 синхронно ведуть незалежні підривники |
 
 ---
 
@@ -69,24 +70,24 @@ below must hold simultaneously for the initiator to receive energy.
 | Гейт / Gate | Що гарантує / What it guarantees |
 |---|---|
 | Стан машини станів = `Armed` | Команди надходили у правильному порядку (`Timer` → `Safe` → `Arm`) |
-| 4-байтовий ASCII-код у кожній safety-команді | Випадкове співпадіння за бітовим шумом ~2⁻³² на команду |
-| CRC-16-CCITT по всьому кадру | Спотворені фрейми відхиляються до обробки |
+| 4-байтовий ASCII-код у кожній safety-команді | Імовірність випадкового збігу через бітовий шум ~2⁻³² на команду |
+| CRC-16-CCITT по всьому кадру | Спотворені кадри відхиляються до обробки |
 | Версія протоколу (`Ver` byte) збігається | Несумісні FC отримують `Fault::BadVersion` до досягнення SM |
 | Link-watchdog | Постріл не вмикається, якщо UART мовчав довше за watchdog-вікно |
 | Окремі `fire_command_latched` і `state` | Помилка пам'яті, що псує одне з двох, не призводить до пострілу |
-| Дублюючі лінії FIRE1+FIRE2 | Один обірваний/закорочений драйвер не вимикає весь пристрій |
-| FC-side FIRE gate | Betaflight не відправляє `Fire`, поки стан пристрою ≠ `Armed` (захист у глибину, не покладається лише на відмову пристрою) |
+| Дубльовані лінії FIRE1+FIRE2 | Один обірваний/закорочений драйвер не вимикає весь пристрій |
+| FC-side FIRE gate | Betaflight не відправляє `Fire`, поки стан пристрою ≠ `Armed` (ешелонований захист: FC не покладається лише на те, що пристрій відхилить команду) |
 
 Протокол додатково передбачає GPIO co-sign (`IN_ARM`, `IN_BLAST`) —
-окрему фізичну лінію підтвердження. На платах KIWI підключення чисто
-серійне (без GPIO), тому цей гейт опційний і залежить від конкретного
+окрему фізичну лінію підтвердження. На платах KIWI підключення суто
+послідовне (без GPIO), тому цей гейт опційний і залежить від конкретного
 виробу.
 
 ---
 
 ## Стани системи / System States
 
-SmartESAD керує пристроєм через послідовність безпекових станів. Перехід
+SmartESAD керує пристроєм через послідовність станів безпеки. Перехід
 між основними станами — лише вперед:
 
 The FC drives SmartESAD through this safety state progression. Forward
@@ -98,7 +99,7 @@ START ──Version──▶ DEACTIVATED ──Activate──▶ COLD ──Time
                         │                     │                │  countdown)
                    Deactivate            Cold cmd*             ▼
                  (з будь-якого       (*таймер продовжує      SAFE ──Arm──▶ [CHARGE_UP] ──▶ ARMED ──Fire──▶ FIRED
-                  стану крім Fired)    тикати, правило R1)         (лише плати з                (термінальний
+                  стану крім Fired)    цокати, правило R1)         (лише плати з                (термінальний
                                                                     конденсатором)               стан)
 ```
 
@@ -107,7 +108,7 @@ START ──Version──▶ DEACTIVATED ──Activate──▶ COLD ──Time
 | **Start** | `ESAD INIT` | Пристрій щойно завантажився, мовчить. Чекає на `Version` від FC. |
 | **Deactivated** | `ESAD CFG.` | Конфігураційний / maintenance режим. `Set*`/`Save` приймаються, arm/fire відхиляються. Вихід — лише команда `Activate`. |
 | **Cold** | `ESAD COLD` | Передпольотне очікування. Ланцюг озброєння скинуто, `Arm` відхиляється. Приймаються налаштування. |
-| **Timer** | `ESAD T-NN` | Йде countdown. **Не скасовується** (правило R1): команда `Cold` повертає стан, але таймер тикає далі (OSD: `COLD T-NNN`). Автоматичний перехід у `Safe` при нулі. |
+| **Timer** | `ESAD T-NN` | Йде countdown. **Не скасовується** (правило R1): команда `Cold` повертає стан, але таймер цокає далі (OSD: `COLD T-NNN`). Автоматичний перехід у `Safe` при нулі. |
 | **Safe** | `ESAD SAFE` / `SD T-NNNN` | Countdown вичерпано, self-destruct таймер запущено. Готовий приймати `Arm`. OSD чергує напис стану та SD-countdown з частотою 1 Гц. |
 | **ChargeUp** | `ESAD CHRG` | Транзит `Safe → Armed` на платах з конденсатором (заряджання 1–3 с). Якщо заряд застряг — авто-повернення у `Safe` через ~10 с. |
 | **Armed** | `ESAD !ARM` | Заряджено. Команда `Fire` ініціює постріл. Імпакт-детектор активний. |
@@ -122,7 +123,7 @@ SmartESAD веде два **незалежні** таймери:
 
 | Таймер / Timer | За замовч. / Default | Призначення / Purpose |
 |---|---|---|
-| **Timer** (pre-arm countdown) | 420 с (7 хв) | Мандатний час між командою `Timer` і станом `Safe`. **Не скасовується** командою `Cold` (правило R1). |
+| **Timer** (pre-arm countdown) | 420 с (7 хв) | Обов'язкова затримка між командою `Timer` і станом `Safe`. **Не скасовується** командою `Cold` (правило R1). |
 | **Self-destruct** | 7200 с (2 год) | Час від `Safe` до автоматичного пострілу. Failure-mode-of-last-resort: пристрій, що перетнув лінію бойового зіткнення, не має лишитися у руках супротивника. |
 
 Обидва налаштовуються через CLI (`kiwi_esad set timer` /
@@ -148,13 +149,13 @@ falls back to compiled defaults — never to `Armed`.
 | `destruct_delay` | 2…65535 с | 7200 | Self-destruct: час від `Safe` до автопострілу. Має бути > `timer`. |
 | `impact_threshold` | 50…32767 | 120 (~15 g) | Поріг імпакт-пострілу в стані `Armed` (метрика \|a\|²×64) |
 | `takeoff_required` | 0 / 1 | 0 | `Arm` приймається лише після детекції зльоту акселерометром (AOP-4187 §3.1.2.d) |
-| `safe_on_lostconnection` | 0 / 1 | 0 | Автодемоція `Timer/Safe/Armed → Cold` після ~1 с тиші на UART |
+| `safe_on_lostconnection` | 0 / 1 | 0 | Автоповернення `Timer/Safe/Armed → Cold` після ~1 с тиші на UART |
 | `det_check` | 0 / 1 | 1 | Перевірка цілісності ланцюга підривника перед `Arm` (плати з det-check апаратурою) |
-| `accel_rate` | 400 / 800 / 1600 / 3300 Гц | 400 | Частота семплування акселерометра. Застосовується після `save` (перезавантаження пристрою). |
+| `accel_rate` | 400 / 800 / 1600 / 3300 Гц | 400 | Частота вибірки акселерометра. Застосовується після `save` (перезавантаження пристрою). |
 
 Опційний імпакт-постріл працює завжди, коли пристрій у стані `Armed`:
 акселерометр виявляє удар понад поріг і пристрій переходить
-`Armed → Fired` без серійної команди.
+`Armed → Fired` без жодної команди з UART.
 
 ---
 
@@ -168,7 +169,7 @@ falls back to compiled defaults — never to `Armed`.
 - FC RX → ESAD TX
 - спільний GND
 
-Швидкість фіксована: **57600 8N1**, без апаратного потоку.
+Швидкість фіксована: **57600 8N1**, без апаратного керування потоком.
 
 ### 2. CLI у Betaflight
 
@@ -279,7 +280,7 @@ aux 3 58 3 1725 2100 0 57    # FIRE діє лише поки ATAK (57) теж HI
 | `kiwi_esad_poll_interval_ms` | 20…1000 | 100 | Період опитування стану пристрою (keep-alive) |
 | `kiwi_esad_fault_threshold` | 1…50 | 3 | Кількість пропущених відповідей поспіль до статусу `ESAD LOST` |
 | `kiwi_esad_activate_on_boot` | 0 / 1 | 0 | Автоматично відправити `Timer` щойно з'явився зв'язок; тримається доки пристрій не повернеться у Cold |
-| `kiwi_esad_activation_delay_s` | 0…600 | 0 | FC-side вікно відміни: при ARM польотника — countdown на OSD, потім авто-`Timer`. 0 = вимкнено |
+| `kiwi_esad_activation_delay_s` | 0…600 | 0 | Вікно скасування на боці FC: після ARM польотника — countdown на OSD, потім авто-`Timer`. 0 = вимкнено |
 | `kiwi_esad_expected_identifier` | рядок ≤ 4 | "" | Перевірка ідентифікатора пристрою для boot-latch |
 | `kiwi_osd_esad_status_pos` | — | — | Позиція основного OSD елемента стану |
 | `kiwi_osd_esad_debug_pos` | — | 341 (сховано) | Позиція діагностичного OSD рядка (телеметрія: det-check, напруги, peak-metric) |
@@ -290,7 +291,7 @@ aux 3 58 3 1725 2100 0 57    # FIRE діє лише поки ATAK (57) теж HI
 |---|---|---|
 | 0 | 0 | Повністю ручне керування (бокси / CLI). Найсуворіший контроль — за замовчуванням. |
 | 0 | >0 | ARM польотника → countdown на OSD → авто-`Timer`. Disarm → `Cold`. |
-| 1 | 0 | Залочено з увімкнення: щойно зв'язок живий, FC відправляє `Timer` і не заважає далі. |
+| 1 | 0 | Фіксується з увімкнення: щойно зв'язок живий, FC відправляє `Timer` і далі не втручається. |
 | 1 | >0 | Обидва шляхи працюють одночасно. |
 
 ---
@@ -308,7 +309,7 @@ debugging the device straight from the Betaflight CLI.
 
 | Команда / Command | Дія / Effect |
 |---|---|
-| `kiwi_esad` або `kiwi_esad status` | Повний рантайм-статус: стан, залишок таймера, зв'язок, останній фаулт, версія прошивки пристрою, фази автоактивації, телеметрія (det_check, напруги, peak-metric). |
+| `kiwi_esad` або `kiwi_esad status` | Повний рантайм-статус: стан, залишок таймера, зв'язок, остання відмова, версія прошивки пристрою, фази автоактивації, телеметрія (det_check, напруги, peak-metric). |
 | `kiwi_esad settings` | Живий запит `GetSettings` до пристрою (~100 мс). Друкує блок готових `kiwi_esad set …` рядків — можна скопіювати з однієї плати і вставити на іншу. |
 
 Приклад виводу `kiwi_esad status`:
@@ -342,12 +343,12 @@ cfg_mode: off
 | `remaining_secs` | Залишок активного countdown (pre-arm або self-destruct, залежно від стану) |
 | `configured_timer_s` | (лише у DEACTIVATED) значення таймера, з яким `Activate` продовжить роботу |
 | `det_check_ok` | Ланцюг підривника цілий (плати з det-check) |
-| `vcap_mv` / `vbat_mv` | Напруга конденсатора пострілу / батареї, мВ. `0` = немає апаратури |
-| `peak_metric` | Пікова метрика прискорення \|a\|²×64 від останнього `Arm` (~64 = 1 g спокою; кліпується на ±16 g) |
+| `vcap_mv` / `vbat_mv` | Напруга конденсатора пострілу та напруга батареї, мВ. `0` — на платі немає відповідного вимірювання |
+| `peak_metric` | Пікова метрика прискорення \|a\|²×64 від останнього `Arm` (~64 = 1 g спокою; обмежується ±16 g) |
 | `link_alive` / `misses` | Стан UART-зв'язку і лічильник пропущених відповідей |
-| `last_fault` | **Останній** побачений фаулт (липкий, діагностичний) — не поточний стан. Розшифровку див. у [довіднику фаултів](#довідник-фаултів--fault-code-reference) |
+| `last_fault` | **Остання** зафіксована відмова. Код зберігається для діагностики і не відображає поточний стан — розшифровка у [довіднику кодів відмов](#довідник-кодів-відмов--fault-code-reference) |
 | `firmware_version` | Версія прошивки пристрою (u32; `0x01010000` = v1.1.0.0) |
-| `auto_phase` / `boot_phase` / `cfg_mode` | Стан FC-side автоактиваційних циклів і CFG-режиму |
+| `auto_phase` / `boot_phase` / `cfg_mode` | Стан циклів автоактивації та CFG-режиму на боці польотного контролера |
 
 ### Команди керування / Action commands
 
@@ -359,7 +360,7 @@ cfg_mode: off
 
 | Результат / Result | Значення / Meaning |
 |---|---|
-| `OK` | Пристрій відповів нормальним стан-кадром |
+| `OK` | Пристрій відповів звичайним кадром стану |
 | `FAULT` | Пристрій відповів `StateFault` — причина у `fault: 0xCC/0xSS` |
 | `TIMEOUT` | Запит відправлено, відповіді немає протягом 500 мс |
 | `BUSY` | Не вдалося відправити (порт зайнятий попереднім запитом) |
@@ -368,9 +369,9 @@ cfg_mode: off
 |---|---|---|---|
 | `kiwi_esad version` | `Version` | будь-який | Хендшейк. Перший `Version` після ввімкнення переводить пристрій Start → Deactivated. |
 | `kiwi_esad activate` | `Activate` (`ACTV`) | Deactivated | Вихід з maintenance у Cold. |
-| `kiwi_esad deactivate` | `Deactivate` (`DACT`) | будь-який крім Fired | Вхід у maintenance (CFG). Скидає countdown до налаштованих значень і всі firing-затвори. |
+| `kiwi_esad deactivate` | `Deactivate` (`DACT`) | будь-який крім Fired | Вхід у maintenance (CFG). Скидає countdown до налаштованих значень і знімає всі фіксатори пострілу. |
 | `kiwi_esad timer` | `Timer` (`TIMR`) | Cold | Старт pre-arm countdown. |
-| `kiwi_esad cold` | `Cold` (`COLD`) | будь-який крім Deactivated | Повернення у Cold. Запущений countdown **продовжує тикати** (правило R1). З Deactivated відхиляється — використовуйте `activate`. |
+| `kiwi_esad cold` | `Cold` (`COLD`) | будь-який крім Deactivated | Повернення у Cold. Запущений countdown **продовжує цокати** (правило R1). З Deactivated відхиляється — використовуйте `activate`. |
 | `kiwi_esad safe` | — | — | Псевдонім `cold` (ті самі байти на дроті). |
 | `kiwi_esad disarm` | — | — | Псевдонім `cold`. |
 | `kiwi_esad arm` | `Arm` (`ARM!`) | Safe | Озброєння. На платах з конденсатором — через транзит ChargeUp. |
@@ -391,7 +392,7 @@ Cold / Deactivated.
 | `kiwi_esad set destruct_delay <N>` | 2…65535 с | Self-destruct таймер |
 | `kiwi_esad set impact_threshold <N>` | 50…32767 | Поріг імпакт-пострілу |
 | `kiwi_esad set takeoff_required <0\|1>` | 0/1 | `Arm` лише після детекції зльоту |
-| `kiwi_esad set safe_on_lostconnection <0\|1>` | 0/1 | Автодемоція у Cold при втраті зв'язку |
+| `kiwi_esad set safe_on_lostconnection <0\|1>` | 0/1 | Автоповернення у Cold при втраті зв'язку |
 | `kiwi_esad set det_check <0\|1>` | 0/1 | Перевірка цілісності ланцюга підривника |
 | `kiwi_esad set accel_rate <N>` | 400, 800, 1600, 3300 | Частота акселерометра (застосовується після `save`) |
 | `kiwi_esad save` | — | Запис у флеш пристрою. Пристрій м'яко перезавантажується (~50 мс): `-> OK  saved, device rebooting (~50 ms)` |
@@ -427,17 +428,17 @@ state: SAFE  remaining_secs: 7189
 
 ---
 
-## Довідник фаултів / Fault code reference
+## Довідник кодів відмов / Fault code reference
 
 `last_fault: code=0xCC subcode=0xSS` у виводі `kiwi_esad status` та
-`fault: 0xCC/0xSS` після команд. Код липкий — тримає **останню**
-причину відмови, а не поточний стан.
+`fault: 0xCC/0xSS` після команд. Код не скидається автоматично —
+тримає **останню** причину відмови, а не поточний стан.
 
 Top-level codes:
 
 | Код / Code | Назва / Name | Значення / Meaning |
 |---|---|---|
-| `0x00` | (none) | Немає фаултів |
+| `0x00` | (none) | Відмов немає |
 | `0x01` | BadCrc | CRC-16 кадру не зійшовся |
 | `0x02` | BadVersion | Байт версії кадру ≠ `0x01` — несумісна прошивка FC або пристрою |
 | `0x03` | UnknownCommand | Невідомий байт команди (напр., нова команда до старої прошивки пристрою) |
@@ -453,8 +454,8 @@ Subcodes для `PreconditionFailed` (0x06):
 | `0x01` | WrongState | Команда не дозволена у поточному стані (напр., `arm` з Cold) |
 | `0x02` | InArmLow | `Arm` відхилено — GPIO IN_ARM низький (плати з co-sign) |
 | `0x03` | InBlastLow | `Fire` відхилено — GPIO IN_BLAST низький (плати з co-sign) |
-| `0x04` | TimerRunning | Операція заблокована — pre-arm countdown ще тикає |
-| `0x05` | SelfDestructRunning | Операція заблокована — self-destruct countdown тикає |
+| `0x04` | TimerRunning | Операція заблокована — pre-arm countdown ще цокає |
+| `0x05` | SelfDestructRunning | Операція заблокована — self-destruct countdown цокає |
 | `0x06` | OutOfBounds | Значення `set` поза діапазоном, або порушено інваріант `destruct_delay > timer` |
 | `0x07` | PreLaunchNotDetected | `Arm` відхилено — `takeoff_required=1`, а зльоту ще не зафіксовано. OSD: `ESAD NOLT` |
 | `0x08` | DetCheckOpen | `Arm` відхилено — ланцюг підривника розімкнутий. OSD: `ESAD NODT` |
@@ -471,13 +472,13 @@ Subcodes для `PreconditionFailed` (0x06):
 | Зв'язок був і зник (misses ≥ `fault_threshold`) | `ESAD LOST` |
 | Хендшейк | `ESAD INIT` |
 | Cold, без countdown | `ESAD COLD` |
-| Cold, countdown ще тикає (R1) | `COLD T-NNN` |
+| Cold, countdown ще цокає (R1) | `COLD T-NNN` |
 | Timer | `ESAD T-NN` / `ESD T-NNN` / `ESDT-NNNN` (префікс скорочується зі зростанням цифр) |
 | Safe | `ESAD SAFE` ↔ `SD T-NNNN` чергуються з частотою 1 Гц. Чергування — сигнал безпеки: оператор кожні пів секунди бачить і стан, і SD-countdown до автономного пострілу. |
 | ChargeUp | `ESAD CHRG` ↔ `SD T-NNNN` (1 Гц) |
 | Armed | `ESAD !ARM` ↔ `SD T-NNNN` (1 Гц, обидві половини без блимання) |
 | Fired | `ESAD !FIR` (блимає 4 Гц) |
-| Fault | `ESAD F-NN` (hex-код фаулту) |
+| Fault | `ESAD F-NN` (hex-код відмови) |
 | Deactivated | `ESAD CFG.` |
 | SafetyPin (зарезервовано) | `ESAD PIN.` |
 | Останній `Arm` відхилено DetCheckOpen | `ESAD NODT` (блимає 4 Гц; тримається до успішного Arm або скидання хендшейком) |
@@ -501,9 +502,9 @@ Subcodes для `PreconditionFailed` (0x06):
   `ESAD LOST`, стан UNKNOWN. Опитування продовжується; перша успішна
   відповідь відновлює все.
 - **Device-side `safe_on_lostconnection`**: коли увімкнено, пристрій
-  сам демотує `Timer`/`Safe`/`Armed` → `Cold` після ~1 с тиші від FC.
-- **Регресія стану** (перезавантаження пристрою, стан впав нижче
-  попереднього): FC скидає автоактиваційні затвори — оператор мусить
+  сам переводить `Timer`/`Safe`/`Armed` → `Cold` після ~1 с тиші від FC.
+- **Відкат стану** (пристрій перезавантажився, стан опустився нижче
+  попереднього): FC скидає фіксатори автоактивації — оператор мусить
   явно повторити послідовність озброєння.
 - **FC ніколи не стріляє сам.** Прошивка лише передає намір оператора;
   фінальний гейт пострілу — власна логіка пристрою.
@@ -523,11 +524,11 @@ Subcodes для `PreconditionFailed` (0x06):
 | `set kiwi_esad_* = …` → unknown setting | Прошивка зібрана без `USE_KIWI_ESAD` — це не KIWI збірка. |
 | `set kiwi_esad_arm_delay` / `kiwi_esad_sd_delay` не існують | Застаріла інструкція: ці параметри переїхали у флеш пристрою. Використовуйте `kiwi_esad set timer …` / `kiwi_esad set destruct_delay …` + `kiwi_esad save`. |
 | `-> TIMEOUT` після кожної команди | Пристрій не відповідає: перевірте живлення ESAD і проводку; `kiwi_esad status` → `link_alive`. |
-| `-> BUSY` | Попередній запит ще у польоті — зачекайте пів секунди і повторіть. |
-| `-> FAULT … 0x04/…` (BadMagic) | Несумісні версії протоколу FC ↔ пристрій (напр., прошивка пристрою старша за v1.1). Оновіть прошивку пристрою. |
+| `-> BUSY` | Попередній запит ще виконується — зачекайте пів секунди і повторіть. |
+| `-> FAULT … 0x04/…` (BadMagic) | Несумісні версії протоколу FC ↔ пристрій (напр., прошивка пристрою давніша за v1.1). Оновіть прошивку пристрою. |
 | `-> FAULT … 0x06/0x01` (WrongState) після `arm` | Пристрій ще у TIMER — дочекайтеся стану SAFE (`kiwi_esad status`) і повторіть. |
 | `-> FAULT … 0x06/0x01` після `set`/`save` | Пристрій не у Cold/Deactivated. Шлях: `kiwi_esad deactivate` → `set …` → `save` → `activate`. |
-| `-> FAULT … 0x06/0x06` (OutOfBounds) | Значення поза діапазоном, або `destruct_delay ≤ timer`. Спершу підніміть `destruct_delay`. |
+| `-> FAULT … 0x06/0x06` (OutOfBounds) | Значення поза діапазоном, або `destruct_delay ≤ timer`. Спершу збільште `destruct_delay`. |
 | `-> FAULT … 0x06/0x08`, OSD `ESAD NODT` | Ланцюг підривника розімкнутий — перевірте лінії і контакт. Для стенду без підривника: `kiwi_esad deactivate` → `kiwi_esad set det_check 0` → `save` → `activate`. |
 | OSD `ESAD NOLT`, `-> FAULT … 0x06/0x07` | `takeoff_required=1`, а зльоту не було. Для стенду: `kiwi_esad set takeoff_required 0` (у Cold/Deactivated) + `save`. |
 | OSD `ESAD CHRG` висить > 5 с | Заряд конденсатора застряг (низька батарея, несправність). Пристрій сам повернеться у SAFE через ~10 с; повторіть `arm`. |
@@ -560,9 +561,13 @@ Subcodes для `PreconditionFailed` (0x06):
 
 ## Протокол / Protocol summary
 
+Нижче — стислий підсумок. Повна специфікація інтерфейсу:
+[smartESAD v1.2 Protocol Specification](smartesad-v1.2-protocol.md).
+Full interface specification linked above.
+
 | Параметр / Property | Значення / Value |
 |---|---|
-| Транспорт / Transport | UART, 57600 8N1, без потоку |
+| Транспорт / Transport | UART, 57600 8N1, без керування потоком |
 | Кадр / Frame | `AA 55 VER CMD SEQ LEN DATA[…] CRC_hi CRC_lo` |
 | Цілісність / Integrity | CRC-16-CCITT-FALSE (poly `0x1021`, init `0xFFFF`); тест-вектор `crc16("123456789") == 0x29B1` |
 | Replay-захист / Replay protection | 8-бітний seq nonce, відповідь повертає `(seq+1) mod 256` |

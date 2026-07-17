@@ -22,6 +22,8 @@ For feedback, corrections, or suggestions, please contact us at support@kaponga.
 - [Antenna Tracker - KIWI AT](./kiwi-antenna-tracker.md)
 - [DroboDrone](./06-drobodrone.md)
 - [SmartESAD System](./05-smartesad.md)
+  - [smartESAD v1.2 Protocol Specification](./smartesad-v1.2-protocol.md)
+  - [Picatinny CLIK v3.0 Payload Protocol](./clik-v3.0-protocol.md)
 
 ### Sensors
 

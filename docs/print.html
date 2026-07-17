@@ -45,10 +45,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-48aed808.js";
+            window.path_to_searchindex_js = "searchindex-ecc7f954.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d358959a.js"></script>
+        <script src="toc-bb561228.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -203,7 +203,12 @@ is designed to support your development process from start to finish.</p>
 <li><a href="#kiwi-ground-station-kit">Ground Station - KIWI GCS Kit</a></li>
 <li><a href="#kiwi-antenna-tracker">Antenna Tracker - KIWI AT</a></li>
 <li><a href="#drobodrone-плата-для-керування-піротехнічними-системами">DroboDrone</a></li>
-<li><a href="#smartesad">SmartESAD System</a></li>
+<li><a href="#smartesad">SmartESAD System</a>
+<ul>
+<li><a href="#smartesad-v12--serial-control-protocol">smartESAD v1.2 Protocol Specification</a></li>
+<li><a href="#picatinny-clik-v30--payload-serial-control-protocol">Picatinny CLIK v3.0 Payload Protocol</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="sensors"><a class="header" href="#sensors">Sensors</a></h3>
 <ul>
@@ -677,7 +682,7 @@ is designed to support your development process from start to finish.</p>
   <a href="#перемикачі-rc--rc-mode-boxes">RC Boxes</a>
   <a href="#налаштування-польотного-контролера--fc-side-settings">FC Settings</a>
   <a href="#довідник-cli-команд--cli-command-reference">CLI Commands</a>
-  <a href="#довідник-фаултів--fault-code-reference">Fault Codes</a>
+  <a href="#довідник-кодів-відмов--fault-code-reference">Fault Codes</a>
   <a href="#osd-індикація--osd-display">OSD</a>
   <a href="#поведінка-при-втраті-звязку--failsafe--link-loss">Failsafe</a>
   <a href="#діагностика--troubleshooting">Troubleshooting</a>
@@ -686,11 +691,12 @@ is designed to support your development process from start to finish.</p>
   <a href="#стандарти--standards">Standards</a>
 </nav>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p><strong>SmartESAD</strong> (Electronic Safe-Arm Device protocol) — двосторонній серійний
-протокол між польотним контролером і піротехнічним пристроєм що замінює класичні PWM-сигнали ARM/FIRE.
-Замість двох однонаправлених ліній SmartESAD дає польотному контролеру
-повний контроль над послідовністю безпеки і повертає назад стан пристрою,
-залишковий час таймерів і телеметрію.</p>
+<p><strong>SmartESAD</strong> (Electronic Safe-Arm Device protocol) — двосторонній
+послідовний протокол між польотним контролером і піротехнічним пристроєм,
+який замінює класичну пару PWM-сигналів ARM/FIRE.
+Замість двох односпрямованих ліній SmartESAD дає польотному контролеру
+повний контроль над послідовністю безпеки, а у відповідь отримує стан
+пристрою, залишок таймерів і телеметрію.</p>
 <p><strong>SmartESAD</strong> is a bidirectional serial protocol between the flight
 controller and pyrotechnic device,
 replacing the classic PWM ARM/FIRE signal pair. Instead of two
@@ -713,9 +719,9 @@ covers <strong>smartESAD v1.1</strong> and the KIWI Betaflight 2025.12 firmware 
 <tr><td>2 дроти (ARM + FIRE)</td><td>UART, 2 дроти (TX/RX)</td></tr>
 <tr><td>Контроль цілісності відсутній</td><td>CRC-16 на кожному кадрі, відхиляє пошкоджені</td></tr>
 <tr><td>Сплутування ARM/FIRE можливе</td><td>Кожна команда має власний 4-байтовий ASCII-код (<code>ARM!</code>, <code>FIRE</code>, <code>COLD</code>…)</td></tr>
-<tr><td>Втрата сигналу — невизначена поведінка</td><td>Link-watchdog блокує постріл; опційна автодемоція стану (<code>safe_on_lostconnection</code>)</td></tr>
-<tr><td>Фіксовані часи</td><td>Налаштовувані таймери (timer, self-destruct, поріг удару), зберігаються у флеші пристрою</td></tr>
-<tr><td>Тільки одна гілка спрацювання</td><td>Дублюючі канали FIRE1+FIRE2 синхронно ведуть незалежні підривники</td></tr>
+<tr><td>Втрата сигналу — невизначена поведінка</td><td>Link-watchdog блокує постріл; опційне автоповернення у безпечний стан (<code>safe_on_lostconnection</code>)</td></tr>
+<tr><td>Фіксовані інтервали</td><td>Налаштовувані таймери (timer, self-destruct, поріг удару), зберігаються у флеші пристрою</td></tr>
+<tr><td>Тільки одна гілка спрацювання</td><td>Дубльовані канали FIRE1+FIRE2 синхронно ведуть незалежні підривники</td></tr>
 </tbody>
 </table>
 </div>
@@ -734,23 +740,23 @@ below must hold simultaneously for the initiator to receive energy.</p>
 </thead>
 <tbody>
 <tr><td>Стан машини станів = <code>Armed</code></td><td>Команди надходили у правильному порядку (<code>Timer</code> → <code>Safe</code> → <code>Arm</code>)</td></tr>
-<tr><td>4-байтовий ASCII-код у кожній safety-команді</td><td>Випадкове співпадіння за бітовим шумом ~2⁻³² на команду</td></tr>
-<tr><td>CRC-16-CCITT по всьому кадру</td><td>Спотворені фрейми відхиляються до обробки</td></tr>
+<tr><td>4-байтовий ASCII-код у кожній safety-команді</td><td>Імовірність випадкового збігу через бітовий шум ~2⁻³² на команду</td></tr>
+<tr><td>CRC-16-CCITT по всьому кадру</td><td>Спотворені кадри відхиляються до обробки</td></tr>
 <tr><td>Версія протоколу (<code>Ver</code> byte) збігається</td><td>Несумісні FC отримують <code>Fault::BadVersion</code> до досягнення SM</td></tr>
 <tr><td>Link-watchdog</td><td>Постріл не вмикається, якщо UART мовчав довше за watchdog-вікно</td></tr>
 <tr><td>Окремі <code>fire_command_latched</code> і <code>state</code></td><td>Помилка пам’яті, що псує одне з двох, не призводить до пострілу</td></tr>
-<tr><td>Дублюючі лінії FIRE1+FIRE2</td><td>Один обірваний/закорочений драйвер не вимикає весь пристрій</td></tr>
-<tr><td>FC-side FIRE gate</td><td>Betaflight не відправляє <code>Fire</code>, поки стан пристрою ≠ <code>Armed</code> (захист у глибину, не покладається лише на відмову пристрою)</td></tr>
+<tr><td>Дубльовані лінії FIRE1+FIRE2</td><td>Один обірваний/закорочений драйвер не вимикає весь пристрій</td></tr>
+<tr><td>FC-side FIRE gate</td><td>Betaflight не відправляє <code>Fire</code>, поки стан пристрою ≠ <code>Armed</code> (ешелонований захист: FC не покладається лише на те, що пристрій відхилить команду)</td></tr>
 </tbody>
 </table>
 </div>
 <p>Протокол додатково передбачає GPIO co-sign (<code>IN_ARM</code>, <code>IN_BLAST</code>) —
-окрему фізичну лінію підтвердження. На платах KIWI підключення чисто
-серійне (без GPIO), тому цей гейт опційний і залежить від конкретного
+окрему фізичну лінію підтвердження. На платах KIWI підключення суто
+послідовне (без GPIO), тому цей гейт опційний і залежить від конкретного
 виробу.</p>
 <hr>
 <h2 id="стани-системи--system-states"><a class="header" href="#стани-системи--system-states">Стани системи / System States</a></h2>
-<p>SmartESAD керує пристроєм через послідовність безпекових станів. Перехід
+<p>SmartESAD керує пристроєм через послідовність станів безпеки. Перехід
 між основними станами — лише вперед:</p>
 <p>The FC drives SmartESAD through this safety state progression. Forward
 transitions only:</p>
@@ -759,7 +765,7 @@ transitions only:</p>
                         │                     │                │  countdown)
                    Deactivate            Cold cmd*             ▼
                  (з будь-якого       (*таймер продовжує      SAFE ──Arm──▶ [CHARGE_UP] ──▶ ARMED ──Fire──▶ FIRED
-                  стану крім Fired)    тикати, правило R1)         (лише плати з                (термінальний
+                  стану крім Fired)    цокати, правило R1)         (лише плати з                (термінальний
                                                                     конденсатором)               стан)
 </code></pre>
 <div class="table-wrapper">
@@ -771,7 +777,7 @@ transitions only:</p>
 <tr><td><strong>Start</strong></td><td><code>ESAD INIT</code></td><td>Пристрій щойно завантажився, мовчить. Чекає на <code>Version</code> від FC.</td></tr>
 <tr><td><strong>Deactivated</strong></td><td><code>ESAD CFG.</code></td><td>Конфігураційний / maintenance режим. <code>Set*</code>/<code>Save</code> приймаються, arm/fire відхиляються. Вихід — лише команда <code>Activate</code>.</td></tr>
 <tr><td><strong>Cold</strong></td><td><code>ESAD COLD</code></td><td>Передпольотне очікування. Ланцюг озброєння скинуто, <code>Arm</code> відхиляється. Приймаються налаштування.</td></tr>
-<tr><td><strong>Timer</strong></td><td><code>ESAD T-NN</code></td><td>Йде countdown. <strong>Не скасовується</strong> (правило R1): команда <code>Cold</code> повертає стан, але таймер тикає далі (OSD: <code>COLD T-NNN</code>). Автоматичний перехід у <code>Safe</code> при нулі.</td></tr>
+<tr><td><strong>Timer</strong></td><td><code>ESAD T-NN</code></td><td>Йде countdown. <strong>Не скасовується</strong> (правило R1): команда <code>Cold</code> повертає стан, але таймер цокає далі (OSD: <code>COLD T-NNN</code>). Автоматичний перехід у <code>Safe</code> при нулі.</td></tr>
 <tr><td><strong>Safe</strong></td><td><code>ESAD SAFE</code> / <code>SD T-NNNN</code></td><td>Countdown вичерпано, self-destruct таймер запущено. Готовий приймати <code>Arm</code>. OSD чергує напис стану та SD-countdown з частотою 1 Гц.</td></tr>
 <tr><td><strong>ChargeUp</strong></td><td><code>ESAD CHRG</code></td><td>Транзит <code>Safe → Armed</code> на платах з конденсатором (заряджання 1–3 с). Якщо заряд застряг — авто-повернення у <code>Safe</code> через ~10 с.</td></tr>
 <tr><td><strong>Armed</strong></td><td><code>ESAD !ARM</code></td><td>Заряджено. Команда <code>Fire</code> ініціює постріл. Імпакт-детектор активний.</td></tr>
@@ -789,7 +795,7 @@ transitions only:</p>
 <tr><th>Таймер / Timer</th><th>За замовч. / Default</th><th>Призначення / Purpose</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>Timer</strong> (pre-arm countdown)</td><td>420 с (7 хв)</td><td>Мандатний час між командою <code>Timer</code> і станом <code>Safe</code>. <strong>Не скасовується</strong> командою <code>Cold</code> (правило R1).</td></tr>
+<tr><td><strong>Timer</strong> (pre-arm countdown)</td><td>420 с (7 хв)</td><td>Обов’язкова затримка між командою <code>Timer</code> і станом <code>Safe</code>. <strong>Не скасовується</strong> командою <code>Cold</code> (правило R1).</td></tr>
 <tr><td><strong>Self-destruct</strong></td><td>7200 с (2 год)</td><td>Час від <code>Safe</code> до автоматичного пострілу. Failure-mode-of-last-resort: пристрій, що перетнув лінію бойового зіткнення, не має лишитися у руках супротивника.</td></tr>
 </tbody>
 </table>
@@ -816,15 +822,15 @@ falls back to compiled defaults — never to <code>Armed</code>.</p>
 <tr><td><code>destruct_delay</code></td><td>2…65535 с</td><td>7200</td><td>Self-destruct: час від <code>Safe</code> до автопострілу. Має бути &gt; <code>timer</code>.</td></tr>
 <tr><td><code>impact_threshold</code></td><td>50…32767</td><td>120 (~15 g)</td><td>Поріг імпакт-пострілу в стані <code>Armed</code> (метрика |a|²×64)</td></tr>
 <tr><td><code>takeoff_required</code></td><td>0 / 1</td><td>0</td><td><code>Arm</code> приймається лише після детекції зльоту акселерометром (AOP-4187 §3.1.2.d)</td></tr>
-<tr><td><code>safe_on_lostconnection</code></td><td>0 / 1</td><td>0</td><td>Автодемоція <code>Timer/Safe/Armed → Cold</code> після ~1 с тиші на UART</td></tr>
+<tr><td><code>safe_on_lostconnection</code></td><td>0 / 1</td><td>0</td><td>Автоповернення <code>Timer/Safe/Armed → Cold</code> після ~1 с тиші на UART</td></tr>
 <tr><td><code>det_check</code></td><td>0 / 1</td><td>1</td><td>Перевірка цілісності ланцюга підривника перед <code>Arm</code> (плати з det-check апаратурою)</td></tr>
-<tr><td><code>accel_rate</code></td><td>400 / 800 / 1600 / 3300 Гц</td><td>400</td><td>Частота семплування акселерометра. Застосовується після <code>save</code> (перезавантаження пристрою).</td></tr>
+<tr><td><code>accel_rate</code></td><td>400 / 800 / 1600 / 3300 Гц</td><td>400</td><td>Частота вибірки акселерометра. Застосовується після <code>save</code> (перезавантаження пристрою).</td></tr>
 </tbody>
 </table>
 </div>
 <p>Опційний імпакт-постріл працює завжди, коли пристрій у стані <code>Armed</code>:
 акселерометр виявляє удар понад поріг і пристрій переходить
-<code>Armed → Fired</code> без серійної команди.</p>
+<code>Armed → Fired</code> без жодної команди з UART.</p>
 <hr>
 <h2 id="швидке-налаштування--quick-setup"><a class="header" href="#швидке-налаштування--quick-setup">Швидке налаштування / Quick setup</a></h2>
 <h3 id="1-підключення--wiring"><a class="header" href="#1-підключення--wiring">1. Підключення / Wiring</a></h3>
@@ -834,7 +840,7 @@ falls back to compiled defaults — never to <code>Armed</code>.</p>
 <li>FC RX → ESAD TX</li>
 <li>спільний GND</li>
 </ul>
-<p>Швидкість фіксована: <strong>57600 8N1</strong>, без апаратного потоку.</p>
+<p>Швидкість фіксована: <strong>57600 8N1</strong>, без апаратного керування потоком.</p>
 <h3 id="2-cli-у-betaflight"><a class="header" href="#2-cli-у-betaflight">2. CLI у Betaflight</a></h3>
 <pre><code class="language-text"># Призначити UART для SmartESAD (приклад: UART1 = serial 0)
 serial 0 1048576 57600 57600 0 57600
@@ -934,7 +940,7 @@ FIRE:</p>
 <tr><td><code>kiwi_esad_poll_interval_ms</code></td><td>20…1000</td><td>100</td><td>Період опитування стану пристрою (keep-alive)</td></tr>
 <tr><td><code>kiwi_esad_fault_threshold</code></td><td>1…50</td><td>3</td><td>Кількість пропущених відповідей поспіль до статусу <code>ESAD LOST</code></td></tr>
 <tr><td><code>kiwi_esad_activate_on_boot</code></td><td>0 / 1</td><td>0</td><td>Автоматично відправити <code>Timer</code> щойно з’явився зв’язок; тримається доки пристрій не повернеться у Cold</td></tr>
-<tr><td><code>kiwi_esad_activation_delay_s</code></td><td>0…600</td><td>0</td><td>FC-side вікно відміни: при ARM польотника — countdown на OSD, потім авто-<code>Timer</code>. 0 = вимкнено</td></tr>
+<tr><td><code>kiwi_esad_activation_delay_s</code></td><td>0…600</td><td>0</td><td>Вікно скасування на боці FC: після ARM польотника — countdown на OSD, потім авто-<code>Timer</code>. 0 = вимкнено</td></tr>
 <tr><td><code>kiwi_esad_expected_identifier</code></td><td>рядок ≤ 4</td><td>“”</td><td>Перевірка ідентифікатора пристрою для boot-latch</td></tr>
 <tr><td><code>kiwi_osd_esad_status_pos</code></td><td>—</td><td>—</td><td>Позиція основного OSD елемента стану</td></tr>
 <tr><td><code>kiwi_osd_esad_debug_pos</code></td><td>—</td><td>341 (сховано)</td><td>Позиція діагностичного OSD рядка (телеметрія: det-check, напруги, peak-metric)</td></tr>
@@ -950,7 +956,7 @@ FIRE:</p>
 <tbody>
 <tr><td>0</td><td>0</td><td>Повністю ручне керування (бокси / CLI). Найсуворіший контроль — за замовчуванням.</td></tr>
 <tr><td>0</td><td>&gt;0</td><td>ARM польотника → countdown на OSD → авто-<code>Timer</code>. Disarm → <code>Cold</code>.</td></tr>
-<tr><td>1</td><td>0</td><td>Залочено з увімкнення: щойно зв’язок живий, FC відправляє <code>Timer</code> і не заважає далі.</td></tr>
+<tr><td>1</td><td>0</td><td>Фіксується з увімкнення: щойно зв’язок живий, FC відправляє <code>Timer</code> і далі не втручається.</td></tr>
 <tr><td>1</td><td>&gt;0</td><td>Обидва шляхи працюють одночасно.</td></tr>
 </tbody>
 </table>
@@ -969,7 +975,7 @@ debugging the device straight from the Betaflight CLI.</p>
 <tr><th>Команда / Command</th><th>Дія / Effect</th></tr>
 </thead>
 <tbody>
-<tr><td><code>kiwi_esad</code> або <code>kiwi_esad status</code></td><td>Повний рантайм-статус: стан, залишок таймера, зв’язок, останній фаулт, версія прошивки пристрою, фази автоактивації, телеметрія (det_check, напруги, peak-metric).</td></tr>
+<tr><td><code>kiwi_esad</code> або <code>kiwi_esad status</code></td><td>Повний рантайм-статус: стан, залишок таймера, зв’язок, остання відмова, версія прошивки пристрою, фази автоактивації, телеметрія (det_check, напруги, peak-metric).</td></tr>
 <tr><td><code>kiwi_esad settings</code></td><td>Живий запит <code>GetSettings</code> до пристрою (~100 мс). Друкує блок готових <code>kiwi_esad set …</code> рядків — можна скопіювати з однієї плати і вставити на іншу.</td></tr>
 </tbody>
 </table>
@@ -1005,12 +1011,12 @@ cfg_mode: off
 <tr><td><code>remaining_secs</code></td><td>Залишок активного countdown (pre-arm або self-destruct, залежно від стану)</td></tr>
 <tr><td><code>configured_timer_s</code></td><td>(лише у DEACTIVATED) значення таймера, з яким <code>Activate</code> продовжить роботу</td></tr>
 <tr><td><code>det_check_ok</code></td><td>Ланцюг підривника цілий (плати з det-check)</td></tr>
-<tr><td><code>vcap_mv</code> / <code>vbat_mv</code></td><td>Напруга конденсатора пострілу / батареї, мВ. <code>0</code> = немає апаратури</td></tr>
-<tr><td><code>peak_metric</code></td><td>Пікова метрика прискорення |a|²×64 від останнього <code>Arm</code> (~64 = 1 g спокою; кліпується на ±16 g)</td></tr>
+<tr><td><code>vcap_mv</code> / <code>vbat_mv</code></td><td>Напруга конденсатора пострілу та напруга батареї, мВ. <code>0</code> — на платі немає відповідного вимірювання</td></tr>
+<tr><td><code>peak_metric</code></td><td>Пікова метрика прискорення |a|²×64 від останнього <code>Arm</code> (~64 = 1 g спокою; обмежується ±16 g)</td></tr>
 <tr><td><code>link_alive</code> / <code>misses</code></td><td>Стан UART-зв’язку і лічильник пропущених відповідей</td></tr>
-<tr><td><code>last_fault</code></td><td><strong>Останній</strong> побачений фаулт (липкий, діагностичний) — не поточний стан. Розшифровку див. у <a href="#довідник-фаултів--fault-code-reference">довіднику фаултів</a></td></tr>
+<tr><td><code>last_fault</code></td><td><strong>Остання</strong> зафіксована відмова. Код зберігається для діагностики і не відображає поточний стан — розшифровка у <a href="#довідник-кодів-відмов--fault-code-reference">довіднику кодів відмов</a></td></tr>
 <tr><td><code>firmware_version</code></td><td>Версія прошивки пристрою (u32; <code>0x01010000</code> = v1.1.0.0)</td></tr>
-<tr><td><code>auto_phase</code> / <code>boot_phase</code> / <code>cfg_mode</code></td><td>Стан FC-side автоактиваційних циклів і CFG-режиму</td></tr>
+<tr><td><code>auto_phase</code> / <code>boot_phase</code> / <code>cfg_mode</code></td><td>Стан циклів автоактивації та CFG-режиму на боці польотного контролера</td></tr>
 </tbody>
 </table>
 </div>
@@ -1024,7 +1030,7 @@ cfg_mode: off
 <tr><th>Результат / Result</th><th>Значення / Meaning</th></tr>
 </thead>
 <tbody>
-<tr><td><code>OK</code></td><td>Пристрій відповів нормальним стан-кадром</td></tr>
+<tr><td><code>OK</code></td><td>Пристрій відповів звичайним кадром стану</td></tr>
 <tr><td><code>FAULT</code></td><td>Пристрій відповів <code>StateFault</code> — причина у <code>fault: 0xCC/0xSS</code></td></tr>
 <tr><td><code>TIMEOUT</code></td><td>Запит відправлено, відповіді немає протягом 500 мс</td></tr>
 <tr><td><code>BUSY</code></td><td>Не вдалося відправити (порт зайнятий попереднім запитом)</td></tr>
@@ -1039,9 +1045,9 @@ cfg_mode: off
 <tbody>
 <tr><td><code>kiwi_esad version</code></td><td><code>Version</code></td><td>будь-який</td><td>Хендшейк. Перший <code>Version</code> після ввімкнення переводить пристрій Start → Deactivated.</td></tr>
 <tr><td><code>kiwi_esad activate</code></td><td><code>Activate</code> (<code>ACTV</code>)</td><td>Deactivated</td><td>Вихід з maintenance у Cold.</td></tr>
-<tr><td><code>kiwi_esad deactivate</code></td><td><code>Deactivate</code> (<code>DACT</code>)</td><td>будь-який крім Fired</td><td>Вхід у maintenance (CFG). Скидає countdown до налаштованих значень і всі firing-затвори.</td></tr>
+<tr><td><code>kiwi_esad deactivate</code></td><td><code>Deactivate</code> (<code>DACT</code>)</td><td>будь-який крім Fired</td><td>Вхід у maintenance (CFG). Скидає countdown до налаштованих значень і знімає всі фіксатори пострілу.</td></tr>
 <tr><td><code>kiwi_esad timer</code></td><td><code>Timer</code> (<code>TIMR</code>)</td><td>Cold</td><td>Старт pre-arm countdown.</td></tr>
-<tr><td><code>kiwi_esad cold</code></td><td><code>Cold</code> (<code>COLD</code>)</td><td>будь-який крім Deactivated</td><td>Повернення у Cold. Запущений countdown <strong>продовжує тикати</strong> (правило R1). З Deactivated відхиляється — використовуйте <code>activate</code>.</td></tr>
+<tr><td><code>kiwi_esad cold</code></td><td><code>Cold</code> (<code>COLD</code>)</td><td>будь-який крім Deactivated</td><td>Повернення у Cold. Запущений countdown <strong>продовжує цокати</strong> (правило R1). З Deactivated відхиляється — використовуйте <code>activate</code>.</td></tr>
 <tr><td><code>kiwi_esad safe</code></td><td>—</td><td>—</td><td>Псевдонім <code>cold</code> (ті самі байти на дроті).</td></tr>
 <tr><td><code>kiwi_esad disarm</code></td><td>—</td><td>—</td><td>Псевдонім <code>cold</code>.</td></tr>
 <tr><td><code>kiwi_esad arm</code></td><td><code>Arm</code> (<code>ARM!</code>)</td><td>Safe</td><td>Озброєння. На платах з конденсатором — через транзит ChargeUp.</td></tr>
@@ -1065,7 +1071,7 @@ Cold / Deactivated.</p>
 <tr><td><code>kiwi_esad set destruct_delay &lt;N&gt;</code></td><td>2…65535 с</td><td>Self-destruct таймер</td></tr>
 <tr><td><code>kiwi_esad set impact_threshold &lt;N&gt;</code></td><td>50…32767</td><td>Поріг імпакт-пострілу</td></tr>
 <tr><td><code>kiwi_esad set takeoff_required &lt;0|1&gt;</code></td><td>0/1</td><td><code>Arm</code> лише після детекції зльоту</td></tr>
-<tr><td><code>kiwi_esad set safe_on_lostconnection &lt;0|1&gt;</code></td><td>0/1</td><td>Автодемоція у Cold при втраті зв’язку</td></tr>
+<tr><td><code>kiwi_esad set safe_on_lostconnection &lt;0|1&gt;</code></td><td>0/1</td><td>Автоповернення у Cold при втраті зв’язку</td></tr>
 <tr><td><code>kiwi_esad set det_check &lt;0|1&gt;</code></td><td>0/1</td><td>Перевірка цілісності ланцюга підривника</td></tr>
 <tr><td><code>kiwi_esad set accel_rate &lt;N&gt;</code></td><td>400, 800, 1600, 3300</td><td>Частота акселерометра (застосовується після <code>save</code>)</td></tr>
 <tr><td><code>kiwi_esad save</code></td><td>—</td><td>Запис у флеш пристрою. Пристрій м’яко перезавантажується (~50 мс): <code>-&gt; OK  saved, device rebooting (~50 ms)</code></td></tr>
@@ -1096,10 +1102,10 @@ state: SAFE  remaining_secs: 7189
 -&gt; OK  state: FIRED  fault: 0x00/0x00
 </code></pre>
 <hr>
-<h2 id="довідник-фаултів--fault-code-reference"><a class="header" href="#довідник-фаултів--fault-code-reference">Довідник фаултів / Fault code reference</a></h2>
+<h2 id="довідник-кодів-відмов--fault-code-reference"><a class="header" href="#довідник-кодів-відмов--fault-code-reference">Довідник кодів відмов / Fault code reference</a></h2>
 <p><code>last_fault: code=0xCC subcode=0xSS</code> у виводі <code>kiwi_esad status</code> та
-<code>fault: 0xCC/0xSS</code> після команд. Код липкий — тримає <strong>останню</strong>
-причину відмови, а не поточний стан.</p>
+<code>fault: 0xCC/0xSS</code> після команд. Код не скидається автоматично —
+тримає <strong>останню</strong> причину відмови, а не поточний стан.</p>
 <p>Top-level codes:</p>
 <div class="table-wrapper">
 <table>
@@ -1107,7 +1113,7 @@ state: SAFE  remaining_secs: 7189
 <tr><th>Код / Code</th><th>Назва / Name</th><th>Значення / Meaning</th></tr>
 </thead>
 <tbody>
-<tr><td><code>0x00</code></td><td>(none)</td><td>Немає фаултів</td></tr>
+<tr><td><code>0x00</code></td><td>(none)</td><td>Відмов немає</td></tr>
 <tr><td><code>0x01</code></td><td>BadCrc</td><td>CRC-16 кадру не зійшовся</td></tr>
 <tr><td><code>0x02</code></td><td>BadVersion</td><td>Байт версії кадру ≠ <code>0x01</code> — несумісна прошивка FC або пристрою</td></tr>
 <tr><td><code>0x03</code></td><td>UnknownCommand</td><td>Невідомий байт команди (напр., нова команда до старої прошивки пристрою)</td></tr>
@@ -1128,8 +1134,8 @@ state: SAFE  remaining_secs: 7189
 <tr><td><code>0x01</code></td><td>WrongState</td><td>Команда не дозволена у поточному стані (напр., <code>arm</code> з Cold)</td></tr>
 <tr><td><code>0x02</code></td><td>InArmLow</td><td><code>Arm</code> відхилено — GPIO IN_ARM низький (плати з co-sign)</td></tr>
 <tr><td><code>0x03</code></td><td>InBlastLow</td><td><code>Fire</code> відхилено — GPIO IN_BLAST низький (плати з co-sign)</td></tr>
-<tr><td><code>0x04</code></td><td>TimerRunning</td><td>Операція заблокована — pre-arm countdown ще тикає</td></tr>
-<tr><td><code>0x05</code></td><td>SelfDestructRunning</td><td>Операція заблокована — self-destruct countdown тикає</td></tr>
+<tr><td><code>0x04</code></td><td>TimerRunning</td><td>Операція заблокована — pre-arm countdown ще цокає</td></tr>
+<tr><td><code>0x05</code></td><td>SelfDestructRunning</td><td>Операція заблокована — self-destruct countdown цокає</td></tr>
 <tr><td><code>0x06</code></td><td>OutOfBounds</td><td>Значення <code>set</code> поза діапазоном, або порушено інваріант <code>destruct_delay &gt; timer</code></td></tr>
 <tr><td><code>0x07</code></td><td>PreLaunchNotDetected</td><td><code>Arm</code> відхилено — <code>takeoff_required=1</code>, а зльоту ще не зафіксовано. OSD: <code>ESAD NOLT</code></td></tr>
 <tr><td><code>0x08</code></td><td>DetCheckOpen</td><td><code>Arm</code> відхилено — ланцюг підривника розімкнутий. OSD: <code>ESAD NODT</code></td></tr>
@@ -1149,13 +1155,13 @@ state: SAFE  remaining_secs: 7189
 <tr><td>Зв’язок був і зник (misses ≥ <code>fault_threshold</code>)</td><td><code>ESAD LOST</code></td></tr>
 <tr><td>Хендшейк</td><td><code>ESAD INIT</code></td></tr>
 <tr><td>Cold, без countdown</td><td><code>ESAD COLD</code></td></tr>
-<tr><td>Cold, countdown ще тикає (R1)</td><td><code>COLD T-NNN</code></td></tr>
+<tr><td>Cold, countdown ще цокає (R1)</td><td><code>COLD T-NNN</code></td></tr>
 <tr><td>Timer</td><td><code>ESAD T-NN</code> / <code>ESD T-NNN</code> / <code>ESDT-NNNN</code> (префікс скорочується зі зростанням цифр)</td></tr>
 <tr><td>Safe</td><td><code>ESAD SAFE</code> ↔ <code>SD T-NNNN</code> чергуються з частотою 1 Гц. Чергування — сигнал безпеки: оператор кожні пів секунди бачить і стан, і SD-countdown до автономного пострілу.</td></tr>
 <tr><td>ChargeUp</td><td><code>ESAD CHRG</code> ↔ <code>SD T-NNNN</code> (1 Гц)</td></tr>
 <tr><td>Armed</td><td><code>ESAD !ARM</code> ↔ <code>SD T-NNNN</code> (1 Гц, обидві половини без блимання)</td></tr>
 <tr><td>Fired</td><td><code>ESAD !FIR</code> (блимає 4 Гц)</td></tr>
-<tr><td>Fault</td><td><code>ESAD F-NN</code> (hex-код фаулту)</td></tr>
+<tr><td>Fault</td><td><code>ESAD F-NN</code> (hex-код відмови)</td></tr>
 <tr><td>Deactivated</td><td><code>ESAD CFG.</code></td></tr>
 <tr><td>SafetyPin (зарезервовано)</td><td><code>ESAD PIN.</code></td></tr>
 <tr><td>Останній <code>Arm</code> відхилено DetCheckOpen</td><td><code>ESAD NODT</code> (блимає 4 Гц; тримається до успішного Arm або скидання хендшейком)</td></tr>
@@ -1179,9 +1185,9 @@ boot-latch не активний). Запущені countdown при цьому 
 <code>ESAD LOST</code>, стан UNKNOWN. Опитування продовжується; перша успішна
 відповідь відновлює все.</li>
 <li><strong>Device-side <code>safe_on_lostconnection</code></strong>: коли увімкнено, пристрій
-сам демотує <code>Timer</code>/<code>Safe</code>/<code>Armed</code> → <code>Cold</code> після ~1 с тиші від FC.</li>
-<li><strong>Регресія стану</strong> (перезавантаження пристрою, стан впав нижче
-попереднього): FC скидає автоактиваційні затвори — оператор мусить
+сам переводить <code>Timer</code>/<code>Safe</code>/<code>Armed</code> → <code>Cold</code> після ~1 с тиші від FC.</li>
+<li><strong>Відкат стану</strong> (пристрій перезавантажився, стан опустився нижче
+попереднього): FC скидає фіксатори автоактивації — оператор мусить
 явно повторити послідовність озброєння.</li>
 <li><strong>FC ніколи не стріляє сам.</strong> Прошивка лише передає намір оператора;
 фінальний гейт пострілу — власна логіка пристрою.</li>
@@ -1202,11 +1208,11 @@ boot-latch не активний). Запущені countdown при цьому 
 <tr><td><code>set kiwi_esad_* = …</code> → unknown setting</td><td>Прошивка зібрана без <code>USE_KIWI_ESAD</code> — це не KIWI збірка.</td></tr>
 <tr><td><code>set kiwi_esad_arm_delay</code> / <code>kiwi_esad_sd_delay</code> не існують</td><td>Застаріла інструкція: ці параметри переїхали у флеш пристрою. Використовуйте <code>kiwi_esad set timer …</code> / <code>kiwi_esad set destruct_delay …</code> + <code>kiwi_esad save</code>.</td></tr>
 <tr><td><code>-&gt; TIMEOUT</code> після кожної команди</td><td>Пристрій не відповідає: перевірте живлення ESAD і проводку; <code>kiwi_esad status</code> → <code>link_alive</code>.</td></tr>
-<tr><td><code>-&gt; BUSY</code></td><td>Попередній запит ще у польоті — зачекайте пів секунди і повторіть.</td></tr>
-<tr><td><code>-&gt; FAULT … 0x04/…</code> (BadMagic)</td><td>Несумісні версії протоколу FC ↔ пристрій (напр., прошивка пристрою старша за v1.1). Оновіть прошивку пристрою.</td></tr>
+<tr><td><code>-&gt; BUSY</code></td><td>Попередній запит ще виконується — зачекайте пів секунди і повторіть.</td></tr>
+<tr><td><code>-&gt; FAULT … 0x04/…</code> (BadMagic)</td><td>Несумісні версії протоколу FC ↔ пристрій (напр., прошивка пристрою давніша за v1.1). Оновіть прошивку пристрою.</td></tr>
 <tr><td><code>-&gt; FAULT … 0x06/0x01</code> (WrongState) після <code>arm</code></td><td>Пристрій ще у TIMER — дочекайтеся стану SAFE (<code>kiwi_esad status</code>) і повторіть.</td></tr>
 <tr><td><code>-&gt; FAULT … 0x06/0x01</code> після <code>set</code>/<code>save</code></td><td>Пристрій не у Cold/Deactivated. Шлях: <code>kiwi_esad deactivate</code> → <code>set …</code> → <code>save</code> → <code>activate</code>.</td></tr>
-<tr><td><code>-&gt; FAULT … 0x06/0x06</code> (OutOfBounds)</td><td>Значення поза діапазоном, або <code>destruct_delay ≤ timer</code>. Спершу підніміть <code>destruct_delay</code>.</td></tr>
+<tr><td><code>-&gt; FAULT … 0x06/0x06</code> (OutOfBounds)</td><td>Значення поза діапазоном, або <code>destruct_delay ≤ timer</code>. Спершу збільште <code>destruct_delay</code>.</td></tr>
 <tr><td><code>-&gt; FAULT … 0x06/0x08</code>, OSD <code>ESAD NODT</code></td><td>Ланцюг підривника розімкнутий — перевірте лінії і контакт. Для стенду без підривника: <code>kiwi_esad deactivate</code> → <code>kiwi_esad set det_check 0</code> → <code>save</code> → <code>activate</code>.</td></tr>
 <tr><td>OSD <code>ESAD NOLT</code>, <code>-&gt; FAULT … 0x06/0x07</code></td><td><code>takeoff_required=1</code>, а зльоту не було. Для стенду: <code>kiwi_esad set takeoff_required 0</code> (у Cold/Deactivated) + <code>save</code>.</td></tr>
 <tr><td>OSD <code>ESAD CHRG</code> висить &gt; 5 с</td><td>Заряд конденсатора застряг (низька батарея, несправність). Пристрій сам повернеться у SAFE через ~10 с; повторіть <code>arm</code>.</td></tr>
@@ -1239,13 +1245,16 @@ serialpassthrough usart1 57600
 </ol>
 <hr>
 <h2 id="протокол--protocol-summary"><a class="header" href="#протокол--protocol-summary">Протокол / Protocol summary</a></h2>
+<p>Нижче — стислий підсумок. Повна специфікація інтерфейсу:
+<a href="#smartesad-v12--serial-control-protocol">smartESAD v1.2 Protocol Specification</a>.
+Full interface specification linked above.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Параметр / Property</th><th>Значення / Value</th></tr>
 </thead>
 <tbody>
-<tr><td>Транспорт / Transport</td><td>UART, 57600 8N1, без потоку</td></tr>
+<tr><td>Транспорт / Transport</td><td>UART, 57600 8N1, без керування потоком</td></tr>
 <tr><td>Кадр / Frame</td><td><code>AA 55 VER CMD SEQ LEN DATA[…] CRC_hi CRC_lo</code></td></tr>
 <tr><td>Цілісність / Integrity</td><td>CRC-16-CCITT-FALSE (poly <code>0x1021</code>, init <code>0xFFFF</code>); тест-вектор <code>crc16("123456789") == 0x29B1</code></td></tr>
 <tr><td>Replay-захист / Replay protection</td><td>8-бітний seq nonce, відповідь повертає <code>(seq+1) mod 256</code></td></tr>
@@ -1278,6 +1287,944 @@ serialpassthrough usart1 57600
 <p>Це не сертифікація; зазначені стандарти — джерело правил дизайну.
 Цільовий ризик передчасного озброєння — менше 1 на 1 000 000 пристроїв
 (<code>MIL-STD-1316F §4.3</code>).</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="smartesad-v12--serial-control-protocol"><a class="header" href="#smartesad-v12--serial-control-protocol">smartESAD v1.2 — Serial Control Protocol</a></h1>
+<p>Description of the smartESAD serial control
+interface between a flight controller / host integrator and a
+smartESAD-compatible Electronic Safe-Arm Device (ESAD) for one-way-attack
+UAV payloads. It covers the electrical interface, frame format, message
+set, safety state model, timing, telemetry, and status indication.</p>
+<p>This document revision is <strong>v1.2</strong>; it describes <strong>wire protocol
+version 1</strong> (frame byte 2 <code>Ver = 0x01</code>). “v1.2” is the interface-control
+revision, not the on-wire version field — an FC still sends and expects
+<code>Ver = 0x01</code>.</p>
+<p>Values a device vendor assigns per program build are marked <strong>[vendor]</strong>;
+behaviour the base interface leaves to the integration profile is marked
+<strong>[profile]</strong> and summarised in §13. Nothing here identifies a specific
+manufacturer, board, or part number.</p>
+<hr>
+<h2 id="1-overview"><a class="header" href="#1-overview">1. Overview</a></h2>
+<p>The ESAD is a <strong>command server</strong>: it transmits only in response to a
+received command frame and, with a single documented exception (§4.2), it
+never sends unsolicited traffic. A host reads the device’s status and
+identity, brings it through a mandatory arming-delay countdown, and drives
+it through a safety state machine gated by serial commands.</p>
+<pre><code>                          UART serial (smartESAD v1)
+  Flight Controller ─────────────────────►  smartESAD ── FIRE1 / FIRE2 ──►  initiator
+  / Host Integrator                         Device     ── LED(s) / buzzer ──►  operator
+  DC Power ──────────── V+ / Return ─────►
+</code></pre>
+<p>The device is the <strong>last line of defence</strong> between an operator mistake or
+wiring fault and a premature detonation. Two independent safety features
+gate the terminal action: the ordered command sequence and a mandatory
+non-cancellable arming-delay countdown. A forged or corrupted serial
+command alone cannot fire the warhead.</p>
+<hr>
+<h2 id="2-physical--electrical-interface"><a class="header" href="#2-physical--electrical-interface">2. Physical &amp; electrical interface</a></h2>
+<h3 id="21-serial-link"><a class="header" href="#21-serial-link">2.1 Serial link</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Electrical</td><td>UART, TTL levels <strong>[vendor]</strong></td></tr>
+<tr><td>Baud rate</td><td>57,600</td></tr>
+<tr><td>Data / parity / stop</td><td>8 / None / 1</td></tr>
+<tr><td>Flow control</td><td>None</td></tr>
+<tr><td>Host cadence</td><td>50 Hz (a frame every 20 ms) recommended</td></tr>
+<tr><td>Device response</td><td>within 10 ms of a valid received frame (except after a settings commit, §3.4)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Signal names are from the device’s perspective: <strong>Rx</strong> is driven by the
+host, <strong>Tx</strong> is driven by the device.</p>
+<hr>
+<h2 id="3-frame-format"><a class="header" href="#3-frame-format">3. Frame format</a></h2>
+<p>Every message (command and response) uses one frame. All multi-byte
+fields are <strong>big-endian</strong>.</p>
+<pre><code>byte:  0     1     2     3     4     5     6 ........ L-3   L-2  L-1
+      +-----+-----+-----+-----+-----+-----+----- ... -----+-----+-----+
+      | AA  | 55  | Ver | Cmd | Seq | Len |     Data      | CRC | CRC |
+      +-----+-----+-----+-----+-----+-----+----- ... -----+-----+-----+
+                                                            MSB   LSB
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Size</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Sync</td><td>2</td><td>Fixed <code>0xAA 0x55</code>. A maximum-transition bit pattern for UART clock recovery; frame uniqueness comes from <code>Ver</code> + CRC, not the sync bytes.</td></tr>
+<tr><td>Ver</td><td>1</td><td>Protocol version. v1 = <code>0x01</code>. Unknown version → Fault.</td></tr>
+<tr><td>Cmd</td><td>1</td><td>Command (host→device, <code>0x00–0x7F</code>) or state/reply (device→host, <code>0x80–0xFF</code>). See §4.</td></tr>
+<tr><td>Seq</td><td>1</td><td>8-bit nonce chosen by the host per request. The device echoes <code>(Seq + 1) mod 256</code>.</td></tr>
+<tr><td>Len</td><td>1</td><td>Number of <code>Data</code> bytes <code>N</code> that follow (0..=255).</td></tr>
+<tr><td>Data</td><td>N</td><td>Message-specific payload.</td></tr>
+<tr><td>CRC</td><td>2</td><td>CRC-16/CCITT-FALSE over all preceding bytes, big-endian.</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Total frame size is <code>8 + N</code> bytes (minimum 8, maximum 263).</li>
+<li><strong>CRC-16/CCITT-FALSE</strong>: polynomial <code>0x1021</code>, init <code>0xFFFF</code>, no
+reflection, no final XOR. Check value for ASCII <code>"123456789"</code> is
+<code>0x29B1</code>.</li>
+</ul>
+<h3 id="31-sequence-nonce"><a class="header" href="#31-sequence-nonce">3.1 Sequence nonce</a></h3>
+<p>The host chooses any 8-bit value per request; the device reply carries
+<code>(Seq + 1) mod 256</code>. The host verifies the reply nonce equals its request
+nonce plus one — proving the reply is fresh and matches the request (not a
+verbatim echo).</p>
+<h3 id="32-framing--error-handling"><a class="header" href="#32-framing--error-handling">3.2 Framing &amp; error handling</a></h3>
+<ul>
+<li>A frame that fails CRC is reported back as a Fault (<code>BadCrc</code>, §4.4)
+rather than silently dropped — this aids host-side diagnostics.
+Whether a device silently drops malformed frames instead is a profile
+choice. <strong>[profile]</strong></li>
+<li>Bad-frame conditions never change device state (§8, R6).</li>
+</ul>
+<hr>
+<h2 id="4-message-set"><a class="header" href="#4-message-set">4. Message set</a></h2>
+<h3 id="41-host--device-commands-cmd-0x000x7f"><a class="header" href="#41-host--device-commands-cmd-0x000x7f">4.1 Host → device commands (<code>Cmd</code> <code>0x00–0x7F</code>)</a></h3>
+<p>Read-only / housekeeping:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Cmd</th><th>Name</th><th>Data len</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x00</code></td><td>StatusPoll</td><td>0</td><td>current state card</td></tr>
+<tr><td><code>0x01</code></td><td>Version</td><td>0</td><td>current state card + firmware version (drives boot handshake, §4.2)</td></tr>
+<tr><td><code>0x02</code></td><td>Identifier</td><td>0</td><td>current state card + identity body <strong>[vendor]</strong></td></tr>
+<tr><td><code>0x03</code></td><td>GetCounters</td><td>0</td><td>current state card + event counters <strong>[profile]</strong></td></tr>
+<tr><td><code>0x23</code></td><td>GetSettings</td><td>0</td><td>current persistent-settings payload (§4.5)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Safety state-machine commands — each carries a <strong>distinct 4-byte guard
+payload [vendor]</strong> in <code>Data</code>; a wrong or missing guard → <code>BadMagic</code>
+(§4.4). The guard is an integrity/anti-corruption token (false-positive
+resistance ≈ 2⁻³² against bit-flip noise), <strong>not</strong> a secret — the safety
+case rests on the arming-delay gate, not guard secrecy.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Cmd</th><th>Name</th><th>Guard</th><th>Extra precondition</th><th>Effect</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x10</code></td><td>Cold</td><td>[vendor]</td><td>none</td><td>state ← Cold (countdowns keep running, §8 R1)</td></tr>
+<tr><td><code>0x11</code></td><td>Timer</td><td>[vendor]</td><td>from Cold</td><td>state ← Timer, start arm-delay countdown</td></tr>
+<tr><td><code>0x12</code></td><td>Safe</td><td>[vendor]</td><td>from Timer, countdown = 0</td><td>state ← Safe, start self-destruct countdown</td></tr>
+<tr><td><code>0x13</code></td><td>Arm</td><td>[vendor]</td><td>from Safe</td><td>state ← Armed (or ChargeUp, §8 R10)</td></tr>
+<tr><td><code>0x14</code></td><td>Fire</td><td>[vendor]</td><td>from Armed</td><td>state ← Fired, assert FIRE1 + FIRE2</td></tr>
+<tr><td><code>0x15</code></td><td>Reboot</td><td>[vendor]</td><td>none</td><td>soft reset (test/debug)</td></tr>
+<tr><td><code>0x16</code></td><td>Deactivate</td><td>[vendor]</td><td>any state ≠ Fired</td><td>state ← Deactivated; stop timers, clear fire latches, restore countdowns to configured values</td></tr>
+<tr><td><code>0x17</code></td><td>Activate</td><td>[vendor]</td><td>from Deactivated</td><td>state ← Cold; enable the arming chain</td></tr>
+</tbody>
+</table>
+</div>
+<p>Configuration commands — accepted <strong>only in Cold or Deactivated</strong>; they
+update RAM and reply with the current state card. Values persist across
+reboot only after a <code>SaveSettings</code> commit (§3.4).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Cmd</th><th>Name</th><th>Data</th><th>Range</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x20</code></td><td>SetTimer</td><td>u16 BE seconds</td><td>1..=65535</td></tr>
+<tr><td><code>0x21</code></td><td>SetSelfDestructDelay</td><td>u16 BE seconds</td><td>(timer+1)..=65535</td></tr>
+<tr><td><code>0x22</code></td><td>SetImpactThreshold</td><td>u16 BE</td><td>50..=32767 (accelerometer raw LSB)</td></tr>
+<tr><td><code>0x24</code></td><td>SetTakeoffRequired</td><td>u8</td><td>0 / 1 — gate Arm on a detected launch signature</td></tr>
+<tr><td><code>0x25</code></td><td>SaveSettings</td><td>4 B guard [vendor]</td><td>commit RAM → flash, then soft reset (§3.4)</td></tr>
+<tr><td><code>0x26</code></td><td>SetSafeOnLostLink</td><td>u8</td><td>0 / 1 — opt-in link-loss demote (§8 R9)</td></tr>
+<tr><td><code>0x28</code></td><td>SetAccelRate</td><td>u16 BE Hz</td><td>∈ {400, 800, 1600, 3300} nominal preset</td></tr>
+<tr><td><code>0x30</code></td><td>SetBroadcast</td><td>u8 rate code</td><td>0 = off, 1 = 1 Hz, 2 = 10 Hz (§4.3)</td></tr>
+</tbody>
+</table>
+</div>
+<p>A device may omit configuration and safety features it does not
+physically support; unsupported commands reply <code>UnknownCommand</code>. Which
+features a given unit implements is a capability profile (§12). <strong>[profile]</strong></p>
+<h3 id="42-boot-handshake"><a class="header" href="#42-boot-handshake">4.2 Boot handshake</a></h3>
+<p>The device is a strict server and does <strong>not</strong> announce its own boot (a
+one-shot boot frame would be lost while the host’s serial port is not yet
+open — the device boots in milliseconds, a host OS in seconds). Instead:</p>
+<ol>
+<li>Device powers up into state <strong>Start</strong> and silently opens its Rx.</li>
+<li>Host polls <strong>Version (<code>0x01</code>)</strong> at its cadence from its own boot.</li>
+<li>The first <code>Version</code> the device receives returns a <strong>StateStart
+(<code>0x80</code>)</strong> card (firmware version + reset cause), <strong>immediately
+followed by one unsolicited Settings (<code>0x87</code>)</strong> frame carrying the
+persisted configuration. This is the <strong>only</strong> unsolicited frame, emitted
+exactly once per boot.</li>
+<li>The device transitions <strong>Start → Deactivated</strong>. To enable the arming
+chain the host must then send <strong>Activate (<code>0x17</code>)</strong> → Cold.</li>
+</ol>
+<p>Routing boot through Deactivated is deliberate: an outdated or misbehaving
+host that only polls <code>Version</code> but never sends <code>Activate</code> can never
+accidentally arm.</p>
+<h3 id="43-optional-periodic-broadcast"><a class="header" href="#43-optional-periodic-broadcast">4.3 Optional periodic broadcast</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Cmd</th><th>Name</th><th>When</th><th>Data</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x89</code></td><td>StatusBroadcast</td><td>if <code>SetBroadcast</code> ≠ 0</td><td>same body as the current state card</td></tr>
+</tbody>
+</table>
+</div>
+<p>Opt-in (<code>SetBroadcast(0)</code> = default, off). Useful for passive monitors /
+flight recorders. Broadcast frames coexist with normal request/reply
+traffic and are identified by their <code>0x89</code> Cmd.</p>
+<hr>
+<h2 id="5-command-payloads"><a class="header" href="#5-command-payloads">5. Command payloads</a></h2>
+<h3 id="51-guard-word-safety-commands"><a class="header" href="#51-guard-word-safety-commands">5.1 Guard-word safety commands</a></h3>
+<p>Each safety command (<code>0x10</code>–<code>0x17</code>, and <code>0x25</code>) carries a fixed 4-byte
+guard payload <strong>[vendor]</strong> that must match exactly. Wrong length →
+<code>BadLength</code>; correct length with a mismatched guard → <code>BadMagic</code>. Guards
+are per-command distinct so a corrupted Cmd byte cannot alias one safety
+action onto another.</p>
+<hr>
+<h2 id="6-device--host-state-replies-cmd-0x800xff"><a class="header" href="#6-device--host-state-replies-cmd-0x800xff">6. Device → host state replies (<code>Cmd</code> <code>0x80–0xFF</code>)</a></h2>
+<p>A device reply <code>Cmd</code> reflects the device’s <strong>current state</strong>, not an ack
+of the received command. Sending <code>Arm</code> while the arm-delay is still
+running therefore returns a <code>StateTimer</code> card with the remaining seconds,
+not an error about <code>Arm</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Cmd</th><th>State card</th><th>Body (before telemetry tail)</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x80</code></td><td>StateStart</td><td>u32 BE firmware version, u8 reset cause</td></tr>
+<tr><td><code>0x81</code></td><td>StateCold</td><td>u32 BE arm-delay seconds remaining (0 if not running)</td></tr>
+<tr><td><code>0x82</code></td><td>StateTimer</td><td>u32 BE arm-delay seconds remaining</td></tr>
+<tr><td><code>0x83</code></td><td>StateSafe</td><td>u32 BE self-destruct seconds remaining</td></tr>
+<tr><td><code>0x84</code></td><td>StateArmed</td><td>(none)</td></tr>
+<tr><td><code>0x85</code></td><td>StateFired</td><td>(none)</td></tr>
+<tr><td><code>0x86</code></td><td>StateFault</td><td>u8 fault code + optional detail (§4.4) — <strong>no tail</strong></td></tr>
+<tr><td><code>0x87</code></td><td>Settings</td><td>persistent-settings payload (§4.5) — <strong>no tail</strong></td></tr>
+<tr><td><code>0x88</code></td><td>StateDeactivated</td><td>u32 BE configured arm-delay seconds</td></tr>
+<tr><td><code>0x8A</code></td><td>StateChargeUp</td><td>(none) — transit state while the firing capacitor charges (§8 R10); capacitor-equipped devices only [profile]</td></tr>
+<tr><td><code>0x8B</code></td><td>StateSafetyPin</td><td>(none) — physically safed by a hardware shunt pin; shunt-sense devices only [profile]</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="61-trailing-telemetry-tail"><a class="header" href="#61-trailing-telemetry-tail">6.1 Trailing telemetry tail</a></h3>
+<p>Every state card <strong>except</strong> <code>StateFault (0x86)</code> and <code>Settings (0x87)</code>
+carries a fixed 7-byte telemetry tail after its body, so the host renders
+a uniform view across device variants:</p>
+<pre><code>[ peak_metric: u16 BE ][ status_byte: u8 ][ vcap_mv: u16 BE ][ vbat_mv: u16 BE ]
+</code></pre>
+<ul>
+<li><strong>peak_metric</strong> — running-max acceleration metric observed since the
+most recent Arm (reset to 0 on Arm and at boot). Units follow the impact
+detector; <strong>saturation dominates</strong> on a hard impact, so it is
+informative mainly in the marginal band. <code>0</code> = no data / no
+accelerometer. On <code>StateFired</code> it doubles as the trigger-time
+acceleration.</li>
+<li><strong>status_byte</strong> — boolean health flags. Readers <strong>must mask</strong> to known
+bits; reserved bits are not guaranteed 0 in future revisions.</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Bit</th><th>Mask</th><th>Name</th><th>Meaning when 1</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>0x01</td><td>det_check_ok</td><td>initiator-loop continuity check passed [profile]</td></tr>
+<tr><td>2</td><td>0x04</td><td>pin_present</td><td>safety shunt pin inserted / firing path physically interrupted [profile]</td></tr>
+<tr><td>others</td><td>—</td><td>reserved</td><td>sender writes 0</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>vcap_mv</strong> — firing-capacitor voltage, mV. <code>0</code> on devices with no
+firing capacitor.</li>
+<li><strong>vbat_mv</strong> — battery-rail voltage, mV. <code>0</code> on devices without battery
+sense.</li>
+</ul>
+<p>Which fields are live vs zero depends on the device capability profile
+(§12); the tail is <strong>always emitted at full size</strong>, so a host parser stays
+device-agnostic.</p>
+<hr>
+<h2 id="7-reserved"><a class="header" href="#7-reserved">7. (reserved)</a></h2>
+<hr>
+<h2 id="8-safety-state-model"><a class="header" href="#8-safety-state-model">8. Safety state model</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>State</th><th>Meaning</th><th>FIRE1 / FIRE2</th></tr>
+</thead>
+<tbody>
+<tr><td>Start</td><td>power-on, pre-handshake</td><td>OFF / OFF</td></tr>
+<tr><td>Cold</td><td>disarmed; configuration accepted here</td><td>OFF / OFF</td></tr>
+<tr><td>Timer</td><td>arm-delay countdown running; not yet armable</td><td>OFF / OFF</td></tr>
+<tr><td>Safe</td><td>past arm-delay; self-destruct running; armable</td><td>OFF / OFF</td></tr>
+<tr><td>ChargeUp</td><td>firing capacitor charging (capacitor devices only)</td><td>OFF / OFF</td></tr>
+<tr><td>Armed</td><td>fire-ready; terminal action or impact auto-fire will detonate</td><td>OFF / OFF</td></tr>
+<tr><td>Fired</td><td>initiators energised, pins latched</td><td><strong>ON / ON</strong></td></tr>
+<tr><td>Deactivated</td><td>maintenance / pre-Activate; arming chain locked out</td><td>OFF / OFF</td></tr>
+<tr><td>SafetyPin</td><td>physically safed by shunt pin (shunt-sense devices only)</td><td>OFF / OFF</td></tr>
+</tbody>
+</table>
+</div>
+<pre><code>[Start] --Version handshake--&gt; [Deactivated] --Activate--&gt; [Cold]
+[Cold]  --Timer-------------&gt; [Timer]     starts arm-delay countdown
+[Timer] --auto @ countdown=0-&gt; [Safe]      starts self-destruct countdown
+[Safe]  --Arm---------------&gt; [Armed]      (via [ChargeUp] on capacitor devices)
+[Armed] --Fire--------------&gt; [Fired]      FIRE1/FIRE2 latched ON
+</code></pre>
+<h3 id="transition-rules-non-negotiable-mil-std-1316f-42"><a class="header" href="#transition-rules-non-negotiable-mil-std-1316f-42">Transition rules (non-negotiable; MIL-STD-1316F §4.2)</a></h3>
+<ul>
+<li><strong>R1 — arm-delay is non-cancellable.</strong> Once started, a <code>Cold</code> command
+masks the state back to Cold but does <strong>not</strong> stop or reset the
+countdown; re-entry to Timer cannot extend it. Same for self-destruct.
+Prevents an operator mistake or RF glitch from endlessly resetting the
+arming timer.</li>
+<li><strong>R2 — Arm/Fire require the ordered sequence.</strong> Arm outside Safe, or
+Fire outside Armed → <code>PreconditionFailed</code>.
+An optional launch-detect gate (<code>SetTakeoffRequired</code>) can additionally
+require a detected launch signature before Arm.</li>
+<li><strong>R3 — handshake routes Start → Deactivated; Activate required to arm.</strong>
+A <code>Version</code> from Start replies StateStart and transitions to
+Deactivated. The host must then Activate to reach Cold. A <code>Version</code> in
+any other non-terminal state resets the countdowns to configured values
+and returns to Deactivated (FC-reboot recovery).</li>
+<li><strong>R5 — Fire is one-way.</strong> Once Fired, the device stays Fired; fire pins
+are latched. Only a reboot resets it.</li>
+<li><strong>R7 — impact auto-fire (Armed only).</strong> An accelerometer impact ≥ the
+configured threshold while Armed latches the fire path independent of
+link state (the terminal-impact case routinely severs the host link).
+Impact in non-Armed states is recorded but does <strong>not</strong> transition.
+[profile]</li>
+<li><strong>R8 — settings changes require Cold and survive only via Save.</strong> <code>Set*</code>
+commands update RAM and are lost on reboot unless committed by
+<code>SaveSettings</code> (§3.4).</li>
+<li><strong>R9 — opt-in link-loss demote (<code>safe_on_lost_link</code>).</strong> When the
+operator has persisted this flag, a silent link for ≥ 1 s demotes
+{Timer, Safe, Armed} → Cold and cancels both countdowns. Default off:
+link-loss handling is otherwise host-driven. Note this is deliberately
+<strong>opt-in</strong> — the one-way-attack mission profile normally requires the
+device to remain committed through link loss to impact. [profile]</li>
+<li><strong>R10 — ChargeUp transit (capacitor devices).</strong> On devices with a firing
+capacitor, Arm routes Safe → ChargeUp; the device reaches Armed only
+after the capacitor holds fire voltage for a settle window, and reverts
+to Safe on a charge timeout. Self-destruct expiry on such devices also
+routes through ChargeUp (best-effort fire on timeout). Devices without a
+capacitor go Safe → Armed and (on SD) → Fired directly. [profile]</li>
+<li><strong>R11 — SafetyPin (shunt-sense devices).</strong> A hardware shunt pin that
+shorts the initiator leads may drive a dedicated safed state (or, on
+some devices, act purely as a fire inhibit). All state-advancing
+commands are rejected while safed. [profile]</li>
+<li><strong>R6 — bad frames don’t transition.</strong> Any CRC / version / command /
+guard / length / precondition error replies StateFault (§4.4) with no
+state change.</li>
+</ul>
+<h3 id="countdowns"><a class="header" href="#countdowns">Countdowns</a></h3>
+<p>Two independent countdowns (MIL-STD-1316F §4.2.5 independence):</p>
+<ul>
+<li><strong>Arm-delay</strong> — default 420 s <strong>[vendor]</strong>. Starts on the first <code>Timer</code>
+from Cold; decrements in real time regardless of state; auto-advances
+Timer → Safe at 0. Reset only by <code>Version</code> or reboot.</li>
+<li><strong>Self-destruct</strong> — default 7200 s <strong>[vendor]</strong>. Starts when the
+arm-delay expires; decrements <strong>only while committed to arm</strong> (Armed /
+Fired, and ChargeUp on capacitor devices) and pauses otherwise,
+preserving remaining seconds across de-arm. On expiry the device fires
+automatically (the failure-mode-of-last-resort so a crossed-over UAV is
+not recoverable in enemy territory). Reset only by <code>Version</code> or reboot.</li>
+</ul>
+<h3 id="fire-pin-gate-independent-of-the-state-variable"><a class="header" href="#fire-pin-gate-independent-of-the-state-variable">Fire-pin gate (independent of the state variable)</a></h3>
+<pre><code>assert_fire = (state == Fired) AND fire_command_latched AND (link_alive OR sd_expired)
+FIRE1 = FIRE2 = assert_fire
+</code></pre>
+<p>FIRE1 and FIRE2 drive two independent initiator channels asserted
+together; a single stuck/failed driver still leaves the surviving channel
+functional (MIL-STD-1316F §4.2.1 two independent safety features / §4.2.5
+non-subvertibility). The fire pins are driven LOW in hardware as the first
+action after power-on, before any code that could panic.</p>
+<hr>
+<h2 id="9-timing"><a class="header" href="#9-timing">9. Timing</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th><th>Effect</th></tr>
+</thead>
+<tbody>
+<tr><td>Host cadence</td><td>20 ms (50 Hz)</td><td>recommended request interval</td></tr>
+<tr><td>Device reply latency</td><td>≤ 10 ms</td><td>except after a settings commit</td></tr>
+<tr><td>Link-alive gate</td><td>~25 ms</td><td>fire-pin gate requires a recent valid frame to assert</td></tr>
+<tr><td>Link-loss demote (R9)</td><td>1000 ms</td><td>opt-in state demote on silent link [profile]</td></tr>
+<tr><td>Arm-delay</td><td>420 s default <strong>[vendor]</strong></td><td>Timer → Safe</td></tr>
+<tr><td>Self-destruct</td><td>7200 s default <strong>[vendor]</strong></td><td>auto-fire from committed-to-arm states</td></tr>
+<tr><td>Settings-commit silence</td><td>~40–60 ms</td><td>the only window a device may exceed 10 ms — see §3.4</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="34-persistent-settings--commit-sequence"><a class="header" href="#34-persistent-settings--commit-sequence">3.4 Persistent settings &amp; commit sequence</a></h2>
+<p>A small set of operator-tunable parameters (arm-delay, self-destruct
+delay, impact threshold, launch-required, safe-on-lost-link,
+accelerometer rate) is held in RAM and updated by the <code>Set*</code> commands.
+They persist across reboot only after a <strong>SaveSettings (<code>0x25</code>)</strong> commit,
+which is Cold-only and re-validates bounds:</p>
+<ol>
+<li>Device ACKs with the StateCold card.</li>
+<li>Device writes flash (host Rx may be masked briefly during the erase).</li>
+<li>Device soft-resets.</li>
+<li>After boot the device is back in Start; the host’s next <code>Version</code>
+handshake returns StateStart <strong>and</strong> the unsolicited Settings frame
+with the freshly loaded values — the end-to-end confirmation that the
+commit succeeded.</li>
+</ol>
+<p>Host-visible silence between the ACK and the post-reboot reply is
+~40–60 ms; the host must tolerate this <strong>only</strong> on <code>SaveSettings</code>. Every
+other command replies within 10 ms.</p>
+<hr>
+<h2 id="44-fault-codes-in-data0-of-statefault-0x86"><a class="header" href="#44-fault-codes-in-data0-of-statefault-0x86">4.4 Fault codes (in <code>Data[0]</code> of StateFault <code>0x86</code>)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Code</th><th>Name</th><th>Cause</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x01</code></td><td>BadCrc</td><td>CRC mismatch</td></tr>
+<tr><td><code>0x02</code></td><td>BadVersion</td><td><code>Ver</code> ≠ <code>0x01</code></td></tr>
+<tr><td><code>0x03</code></td><td>UnknownCommand</td><td>Cmd not in the catalog / not supported by this device</td></tr>
+<tr><td><code>0x04</code></td><td>BadMagic</td><td>safety command with wrong / missing guard</td></tr>
+<tr><td><code>0x05</code></td><td>BadLength</td><td><code>Len</code> wrong for the command</td></tr>
+<tr><td><code>0x06</code></td><td>PreconditionFailed</td><td>state precondition unmet</td></tr>
+<tr><td><code>0x07</code></td><td>InternalError</td><td>self-test / peripheral error</td></tr>
+</tbody>
+</table>
+</div>
+<p>When <code>0x06</code>, <code>Data[1]</code> sub-codes the failed precondition: <code>0x01</code> wrong
+state, <code>0x02</code>/<code>0x03</code> reserved, <code>0x04</code> arm-delay still running, <code>0x05</code>
+self-destruct still running, <code>0x06</code> value out of bounds, <code>0x07</code> launch
+not yet detected.</p>
+<hr>
+<h2 id="45-settings-payload-cmd--0x87"><a class="header" href="#45-settings-payload-cmd--0x87">4.5 Settings payload (<code>Cmd = 0x87</code>)</a></h2>
+<p>10 bytes, fixed layout (same struct on the wire and in flash):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Offset</th><th>Type</th><th>Field</th><th>Range</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>u16 BE</td><td>timer_s</td><td>1..=65535</td></tr>
+<tr><td>2</td><td>u16 BE</td><td>sd_delay_s</td><td>(timer_s+1)..=65535</td></tr>
+<tr><td>4</td><td>u16 BE</td><td>impact_threshold</td><td>50..=32767</td></tr>
+<tr><td>6</td><td>u8</td><td>takeoff_required</td><td>0 / 1</td></tr>
+<tr><td>7</td><td>u8</td><td>safe_on_lost_link</td><td>0 / 1</td></tr>
+<tr><td>8</td><td>u16 BE</td><td>accel_rate_hz</td><td>∈ {400, 800, 1600, 3300}</td></tr>
+</tbody>
+</table>
+</div>
+<p>Emitted as the reply to <code>GetSettings (0x23)</code> (any state) and once per boot
+piggybacked on the first handshake (§4.2).</p>
+<hr>
+<h2 id="10-status-indication"><a class="header" href="#10-status-indication">10. Status indication</a></h2>
+<p>Devices carry one or more indicators — commonly a two-LED panel
+(green + red) and optionally a buzzer. A power-on lamp-test lights all
+indicators solid for ~1 s to prove them before the per-state pattern
+shows. LED patterns derive from a single 8 Hz tick base.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>State</th><th>Green</th><th>Red</th></tr>
+</thead>
+<tbody>
+<tr><td>Start / Cold</td><td>solid</td><td>off</td></tr>
+<tr><td>Timer (arm-delay running)</td><td>1 Hz blink</td><td>off</td></tr>
+<tr><td>Safe (armable)</td><td>2 Hz blink</td><td>off</td></tr>
+<tr><td>ChargeUp</td><td>off</td><td>4 Hz blink</td></tr>
+<tr><td>Armed</td><td>off</td><td>2 Hz blink</td></tr>
+<tr><td>Fired</td><td>solid</td><td>solid</td></tr>
+<tr><td>Fault</td><td>1 Hz blink</td><td>1 Hz blink</td></tr>
+<tr><td>SafetyPin / physically safed</td><td>solid</td><td>solid</td></tr>
+</tbody>
+</table>
+</div>
+<p>Buzzer-equipped devices <strong>[profile]</strong> add: a boot chime (ready), a
+distinct impact alert, a pitch-tracking tone that rises with
+firing-capacitor voltage during ChargeUp, and a soft periodic
+“capacitor-hot” reminder while the cap holds energy. Exact tones are
+vendor detail <strong>[vendor]</strong>; the semantic mapping (ready / impact /
+charging / cap-hot) is the interface-relevant part.</p>
+<hr>
+<h2 id="11-integration-sequence"><a class="header" href="#11-integration-sequence">11. Integration sequence</a></h2>
+<ol>
+<li><strong>Apply power.</strong> From your own boot, poll <code>Version (0x01)</code> at ~50 Hz
+until a StateStart reply arrives (covers the boot race). Capture the
+firmware version and the one unsolicited Settings frame.</li>
+<li><strong>Verify.</strong> Check the <code>Ver</code> byte and firmware version;
+<code>Identifier (0x02)</code> for identity; <code>GetSettings (0x23)</code> if you did not
+capture the boot Settings frame.</li>
+<li><strong>Activate.</strong> Send <code>Activate (0x17)</code> → Cold. (Without this, the arming
+chain stays locked out — by design.)</li>
+<li><strong>Configure (optional).</strong> In Cold, <code>Set*</code> the arm-delay / self-destruct
+/ threshold, then <code>SaveSettings (0x25)</code> to persist; tolerate the
+~40–60 ms reboot silence and re-handshake.</li>
+<li><strong>Arm the timeline.</strong> <code>Timer (0x11)</code> starts the mandatory arm-delay;
+the device auto-advances to Safe at 0.</li>
+<li><strong>Arm.</strong> Send <code>Arm (0x13)</code> → Armed (via ChargeUp on capacitor
+devices).</li>
+<li><strong>Fire.</strong> Send <code>Fire (0x14)</code> → Fired.</li>
+<li><strong>Abort / safe.</strong> <code>Cold (0x10)</code> drops the state (countdowns persist per
+R1); <code>Deactivate (0x16)</code> returns to the maintenance lock-out.</li>
+</ol>
+<p>Host invariants:</p>
+<ul>
+<li>Poll continuously — status polling is the only liveness signal, and the
+fire-pin gate requires a recent valid frame (~25 ms).</li>
+<li>The arm-delay and self-destruct countdowns are <strong>not</strong> cancellable once
+started (R1); design the mission timeline around them.</li>
+<li>Loss of link does <strong>not</strong> auto-disarm by default; the device is built to
+remain committed through terminal link loss. Opt into R9
+(<code>safe_on_lost_link</code>) only if your concept of operations wants a
+link-loss safe-down.</li>
+</ul>
+<hr>
+<h2 id="12-capability-profiles"><a class="header" href="#12-capability-profiles">12. Capability profiles</a></h2>
+<p>Devices share one wire protocol but differ in physical capability. The
+telemetry tail and state set are single-source (absent fields sent as
+zero, unsupported states never entered), so a host parser stays
+device-agnostic. Typical capability axes <strong>[profile]</strong>:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Capability</th><th>Meaning for the host</th></tr>
+</thead>
+<tbody>
+<tr><td>firing capacitor / charge control</td><td>ChargeUp state (<code>0x8A</code>) is used; vcap_mv is live</td></tr>
+<tr><td>vcap monitor</td><td>vcap_mv is a real reading (else 0)</td></tr>
+<tr><td>battery sense</td><td>vbat_mv is a real reading (else 0)</td></tr>
+<tr><td>initiator continuity check</td><td>status bit 0 (det_check_ok) is meaningful</td></tr>
+<tr><td>shunt-pin sense</td><td>status bit 2 (pin_present) is meaningful; SafetyPin (<code>0x8B</code>) may be used</td></tr>
+<tr><td>buzzer</td><td>audio cues per §10</td></tr>
+</tbody>
+</table>
+</div>
+<p>The base interface currently exposes these <strong>only out-of-band</strong> — there is
+no runtime capability-query command. An integrator supporting multiple
+device variants must know the target unit’s profile in advance. A future
+protocol revision may add a runtime capability descriptor. <strong>[profile]</strong></p>
+<hr>
+<h2 id="13-points-requiring-profile--vendor-agreement"><a class="header" href="#13-points-requiring-profile--vendor-agreement">13. Points requiring profile / vendor agreement</a></h2>
+<p>Behaviours the base v1.2 interface leaves to the integration profile
+(<strong>[profile]</strong>), collected:</p>
+<ol>
+<li>Whether malformed frames are answered with <code>BadCrc</code> or silently
+dropped.</li>
+<li>Exact <code>GetCounters (0x03)</code> body layout.</li>
+<li>Which optional features a unit implements (capacitor / vcap / vbat /
+continuity / shunt / buzzer) — the capability profile of §12.</li>
+<li>R7 impact-auto-fire threshold semantics and non-Armed recording.</li>
+<li>R9 link-loss demote timing and whether it is enabled.</li>
+<li>R10 ChargeUp settle/timeout values and the self-destruct-through-charge
+contract.</li>
+<li>R11 shunt-pin behaviour (dedicated safed state vs. fire inhibit).</li>
+<li>Buzzer tone details and any additional indicators.</li>
+</ol>
+<p>Vendor-assigned values (<strong>[vendor]</strong>): the 4-byte command guard payloads,
+identity/version strings, default arm-delay and self-destruct times, board
+pinouts, and electrical thresholds.</p>
+<hr>
+<p><em>This is a manufacturer-neutral interface description. The authoritative
+wire behaviour is defined by the vendor’s codec implementation and its
+conformance test vectors; where this document and a conformant device
+disagree, the device’s tested behaviour governs the wire, and this
+document should be corrected.</em></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="picatinny-clik-v30--payload-serial-control-protocol"><a class="header" href="#picatinny-clik-v30--payload-serial-control-protocol">Picatinny CLIK v3.0 — Payload Serial Control Protocol</a></h1>
+<p>A manufacturer-neutral description of the CLIK v3.0 serial control
+interface between a host/integrator (carrier platform, fire-control
+system) and a CLIK-compatible payload module. It covers the electrical
+interface, frame format, message set, function-state model, timing, and
+status indication.</p>
+<p>Values that a payload vendor assigns per program build are marked
+<strong>[vendor]</strong>; behaviour the base interface leaves to the integration
+profile is marked <strong>[profile]</strong> and summarised in §12. Nothing here
+identifies a specific manufacturer or part number.</p>
+<hr>
+<h2 id="1-overview-1"><a class="header" href="#1-overview-1">1. Overview</a></h2>
+<p>The module is a <strong>command server</strong>: it transmits only in response to a
+received command frame and never sends unsolicited traffic. A host reads
+the module’s status/identity, activates it, and drives it through a
+safety state machine gated by two hardware discretes plus serial
+commands.</p>
+<pre><code>                        RS-232 serial (CLIK v3.0)
+  Host / Fire-Control ── SAFETY ENABLE  (discrete) ──►  CLIK Payload ── Firing/actuation output ──►
+  System              ── SAFETY EXECUTE (discrete) ──►  Module        ── Status indicator (RGB) ──►
+  DC Power ────────────── V+ / Return ───────────────►
+</code></pre>
+<hr>
+<h2 id="2-physical--electrical-interface-1"><a class="header" href="#2-physical--electrical-interface-1">2. Physical &amp; electrical interface</a></h2>
+<h3 id="21-serial-link-1"><a class="header" href="#21-serial-link-1">2.1 Serial link</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Electrical</td><td>RS-232 (TIA/EIA-232-F)</td></tr>
+<tr><td>Baud rate</td><td>115,200</td></tr>
+<tr><td>Data / parity / stop</td><td>8 / None / 1</td></tr>
+<tr><td>Flow control</td><td>None</td></tr>
+</tbody>
+</table>
+</div>
+<p>Signal names are from the module’s perspective: RS-232 <strong>Rx</strong> is driven
+by the host, <strong>Tx</strong> is driven by the module.</p>
+<h3 id="22-power"><a class="header" href="#22-power">2.2 Power</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Nominal supply</td><td>28 VDC</td></tr>
+<tr><td>Tolerance</td><td>±5 % (26.6 – 29.4 VDC)</td></tr>
+<tr><td>Connector current limit</td><td>10 A max through the connector</td></tr>
+<tr><td>Overcurrent protection</td><td>Module limits its own draw to its rated Maximum Possible Current (MPC) under normal and failure modes</td></tr>
+<tr><td>Module MPC</td><td><strong>[vendor]</strong> — reported at runtime via GetPayloadSystemConfig (<code>0x0002</code>)</td></tr>
+<tr><td>Back-feed</td><td>Module does not feed current back to the platform</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="23-safety-discretes"><a class="header" href="#23-safety-discretes">2.3 Safety discretes</a></h3>
+<p>Two isolated discrete inputs form the hardware side of a two-key
+interlock:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Discrete</th><th>Role</th><th>Electrical</th></tr>
+</thead>
+<tbody>
+<tr><td>SAFETY ENABLE</td><td>Hardware enable for arming</td><td>true ≥3.5 V, false ≤1.5 V, ≤5 mA</td></tr>
+<tr><td>SAFETY EXECUTE</td><td>Hardware enable for the terminal action</td><td>true ≥3.5 V, false ≤1.5 V, ≤5 mA</td></tr>
+</tbody>
+</table>
+</div>
+<p>Both discretes share a dedicated isolated return. Arming and the
+terminal action each require the serial command <strong>and</strong> the matching
+discrete — neither alone advances the state (§8).</p>
+<h3 id="24-connector-9-19-insert"><a class="header" href="#24-connector-9-19-insert">2.4 Connector (9-19 insert)</a></h3>
+<p>The module mates through a single Picatinny CLIK payload connector
+(micro-miniature dual-start, “Mighty Mouse” class; receptacle; shell
+9-19; size #23 male contacts; keying Configuration A). Pins used by a
+given module are marked in its wiring drawing; unused/reserved pins
+shall not be repurposed.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Pin</th><th>Signal</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>RS-232 Tx</td><td>module → host</td></tr>
+<tr><td>2</td><td>RS-232 Rx</td><td>host → module</td></tr>
+<tr><td>3</td><td>RS-232 Return</td><td>serial reference</td></tr>
+<tr><td>4–7</td><td>Ethernet (Tx±/Rx±)</td><td>optional; often not implemented</td></tr>
+<tr><td>8, 9</td><td>Power In (28 VDC)</td><td>platform supplies</td></tr>
+<tr><td>10</td><td>Chassis</td><td>structural / shield bond</td></tr>
+<tr><td>11, 12</td><td>Power Return</td><td>current return</td></tr>
+<tr><td>13</td><td>SAFETY ENABLE</td><td>discrete in</td></tr>
+<tr><td>14</td><td>SAFETY EXECUTE</td><td>discrete in</td></tr>
+<tr><td>15</td><td>Safety Return</td><td>isolated return for pins 13/14</td></tr>
+<tr><td>16</td><td>Loopback</td><td>tied to Power Return inside the module for presence detection</td></tr>
+<tr><td>17–19</td><td>Reserved</td><td>do not use</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="3-frame-format-1"><a class="header" href="#3-frame-format-1">3. Frame format</a></h2>
+<p>Every message (command and response) uses one frame. All multi-byte
+fields are <strong>big-endian</strong>.</p>
+<pre><code>+-----+-----+----------+----------+--------+-----+----------+-----------+
+| AA  | 55  | MsgID hi | MsgID lo | Sync   | Len | Data...  | CRC16 be  |
++-----+-----+----------+----------+--------+-----+----------+-----------+
+  0     1      2          3         4       5     6..6+N     6+N, 7+N
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Size</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Header</td><td>2</td><td>Fixed <code>0xAA 0x55</code></td></tr>
+<tr><td>Message ID</td><td>2</td><td>Command / response identifier (§4)</td></tr>
+<tr><td>Sync</td><td>1</td><td>Opaque byte; the module echoes it unchanged in the response</td></tr>
+<tr><td>Length</td><td>1</td><td>Number of data bytes <code>N</code> that follow</td></tr>
+<tr><td>Data</td><td>N</td><td>Message-specific payload</td></tr>
+<tr><td>CRC</td><td>2</td><td>CRC-16/CCITT-FALSE over all preceding bytes, big-endian</td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>CRC-16/CCITT-FALSE</strong>: polynomial <code>0x1021</code>, init <code>0xFFFF</code>, no
+reflection, no final XOR. Check value for ASCII <code>"123456789"</code> is
+<code>0x29B1</code>.</li>
+<li>Total frame size is <code>8 + N</code> bytes.</li>
+</ul>
+<p><strong>Framing rules</strong></p>
+<ul>
+<li>After a valid <code>0xAA 0x55</code> header the module waits up to <strong>500 ms</strong> for
+the rest of the frame, then discards the buffer and resynchronises on
+the next header.</li>
+<li>Frames that fail the CRC are <strong>ignored</strong> — the module does not reply
+to a frame it cannot trust (msg_id/sync are unverifiable on a corrupt
+frame). A <code>Bad checksum</code> result code exists for host-side decode but
+is not transmitted by the module. <strong>[profile]</strong></li>
+</ul>
+<hr>
+<h2 id="4-message-set-1"><a class="header" href="#4-message-set-1">4. Message set</a></h2>
+<h3 id="41-standard-messages"><a class="header" href="#41-standard-messages">4.1 Standard messages</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Msg ID</th><th>Name</th><th>Type</th><th>Data len</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x0000</code></td><td>GetPayloadStatus</td><td>GET</td><td>0</td><td>health, discrete levels, function state</td></tr>
+<tr><td><code>0x0001</code></td><td>GetPayloadIdentifier</td><td>GET</td><td>0</td><td>UID, identifier string, version</td></tr>
+<tr><td><code>0x0002</code></td><td>GetPayloadSystemConfig</td><td>GET</td><td>0</td><td>max current, max weight, discretes-monitored flag</td></tr>
+<tr><td><code>0x0003</code></td><td>GetFunctionStateIdentifiers</td><td>GET</td><td>0</td><td>supported state IDs and names</td></tr>
+<tr><td><code>0x0004</code></td><td>SetFunctionState</td><td>SET</td><td>2</td><td>activate / deactivate a function</td></tr>
+</tbody>
+</table>
+</div>
+<p>A <strong>GET</strong> response returns a multi-byte data structure. A <strong>command/SET</strong>
+response returns a single data byte (a result code, §7); this is how a
+host distinguishes a data response from a result code.</p>
+<h3 id="42-application-vendor-command-range"><a class="header" href="#42-application-vendor-command-range">4.2 Application (vendor) command range</a></h3>
+<p>Message IDs <code>0x8000</code>–<code>0xFFFF</code> are reserved for <strong>payload-specific</strong>
+commands. A safety payload typically defines a three-command guard
+group; the IDs and guard payloads below are an <strong>[vendor]</strong> example
+assignment, not part of the base interface:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>Msg ID (example)</th><th>Data len</th><th>Concurrent discrete</th></tr>
+</thead>
+<tbody>
+<tr><td>Arm</td><td><code>0x8111</code> <strong>[vendor]</strong></td><td>4</td><td>SAFETY ENABLE</td></tr>
+<tr><td>Disarm</td><td><code>0x8222</code> <strong>[vendor]</strong></td><td>4</td><td>—</td></tr>
+<tr><td>Fire / execute</td><td><code>0x8765</code> <strong>[vendor]</strong></td><td>4</td><td>SAFETY EXECUTE</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="5-command-payloads-1"><a class="header" href="#5-command-payloads-1">5. Command payloads</a></h2>
+<h3 id="51-setfunctionstate-0x0004"><a class="header" href="#51-setfunctionstate-0x0004">5.1 SetFunctionState (<code>0x0004</code>)</a></h3>
+<p>Data: <code>[channel, state]</code>. <code>channel = 1</code> (single-function modules).
+<code>state</code>: <code>0x00</code> = De-Activate, <code>0x01</code> = Activate. Wrong length →
+<code>0x03</code>; unknown channel or state value → <code>0x04</code>.</p>
+<h3 id="52-guard-word-safety-commands"><a class="header" href="#52-guard-word-safety-commands">5.2 Guard-word safety commands</a></h3>
+<p>Each application safety command carries a fixed guard payload (a
+vendor-defined constant that must match exactly) to reduce the chance of
+an accidental or corrupted command being acted on. The guard word is
+typically 4 bytes <strong>[vendor]</strong>. Wrong length → <code>0x03</code>; correct length
+with a mismatched guard → <code>0x04</code>.</p>
+<p>“Concurrent discrete” means the serial command must arrive within the
+discrete-to-serial window (§9) after the corresponding discrete’s rising
+edge.</p>
+<hr>
+<h2 id="6-get-responses"><a class="header" href="#6-get-responses">6. GET responses</a></h2>
+<p>Each success response echoes the request’s Msg ID and Sync, sets
+<code>Data[0] = 0x00</code>, and appends:</p>
+<h3 id="61-getpayloadstatus-0x0000"><a class="header" href="#61-getpayloadstatus-0x0000">6.1 GetPayloadStatus (<code>0x0000</code>)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Byte</th><th>Field</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>Status bits (below)</td></tr>
+<tr><td>1</td><td>Available network interfaces (0 if none)</td></tr>
+<tr><td>2</td><td>Enabled network interfaces (0 if none)</td></tr>
+<tr><td>3</td><td>Number of functions (1 for single-function modules)</td></tr>
+<tr><td>4…</td><td>Function state ID, one per function (§8)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Status bits: <code>bit0</code> Health (1 = OK), <code>bit1</code> SAFETY ENABLE level, <code>bit2</code>
+SAFETY EXECUTE level, <code>bit3</code> Functions Available, <code>bit4</code> Functions
+Activated, <code>bit5</code> Functions Armed.</p>
+<h3 id="62-getpayloadidentifier-0x0001"><a class="header" href="#62-getpayloadidentifier-0x0001">6.2 GetPayloadIdentifier (<code>0x0001</code>)</a></h3>
+<p><code>uid:u16-BE</code>, then a null-terminated ASCII identifier string
+<strong>[vendor]</strong>, then a null-terminated ASCII version string. Identifier
+≤32 chars, version ≤16 chars.</p>
+<h3 id="63-getpayloadsystemconfig-0x0002"><a class="header" href="#63-getpayloadsystemconfig-0x0002">6.3 GetPayloadSystemConfig (<code>0x0002</code>)</a></h3>
+<p><code>max_power_cpu:u8</code> (units of 250 mA @ 28 V), <code>max_weight:u16-BE</code> (0.1 lb
+units), <code>monitors_discretes:u8</code> (boolean — whether the module enforces
+the safety discretes). These are fixed device properties; there is no
+<code>Set*</code> counterpart. A host uses them as a pre-flight compatibility check
+(bay power budget, mass/CG update, interlock enforcement).</p>
+<h3 id="64-getfunctionstateidentifiers-0x0003"><a class="header" href="#64-getfunctionstateidentifiers-0x0003">6.4 GetFunctionStateIdentifiers (<code>0x0003</code>)</a></h3>
+<p>The supported state IDs and their names. Byte layout is <strong>[profile]</strong>; a
+common encoding is <code>count:u8</code>, then per state <code>{id:u8, name ASCII, 0x00}</code>.</p>
+<hr>
+<h2 id="7-result-codes"><a class="header" href="#7-result-codes">7. Result codes</a></h2>
+<p>A rejected message returns exactly one data byte:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Code</th><th>Name</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>0x00</code></td><td>Success</td><td>accepted</td></tr>
+<tr><td><code>0x01</code></td><td>Bad checksum</td><td>defined for host decode; not transmitted by the module (§3) <strong>[profile]</strong></td></tr>
+<tr><td><code>0x02</code></td><td>Invalid command</td><td>unknown message ID</td></tr>
+<tr><td><code>0x03</code></td><td>Invalid data length</td><td>wrong number of data bytes</td></tr>
+<tr><td><code>0x04</code></td><td>Invalid parameter</td><td>bad guard word / bad SetState value</td></tr>
+<tr><td><code>0x05</code></td><td>Not valid in current state</td><td>command not permitted from the current state</td></tr>
+<tr><td><code>0x80</code></td><td>Safety-validation reject</td><td>internal safety check failed (e.g. discrete window missed) — re-verify state/discretes rather than blind-retry <strong>[profile]</strong></td></tr>
+<tr><td><code>0x81</code></td><td>Confirm timeout</td><td>command not confirmed within the allowed time — re-issue <strong>[profile]</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>A <code>0x00</code> result confirms acceptance; a host should always confirm the
+resulting state with GetPayloadStatus.</p>
+<hr>
+<h2 id="8-function-state-model"><a class="header" href="#8-function-state-model">8. Function-state model</a></h2>
+<p>State IDs are sparse — 4 and 5 are unassigned in v3.0:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>ID</th><th>State</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>Unavailable</td><td>not ready (power-on delay) or safed-out / locked out</td></tr>
+<tr><td>1</td><td>Faulted</td><td>internal fault; power cycle required</td></tr>
+<tr><td>2</td><td>Not Activated</td><td>ready, safe</td></tr>
+<tr><td>3</td><td>Activated</td><td>live, awaiting arm</td></tr>
+<tr><td>6</td><td>Armed</td><td>first safety removed, awaiting execute</td></tr>
+<tr><td>7</td><td>Firing</td><td>terminal action in progress</td></tr>
+<tr><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<pre><code>        (power on)
+            │
+            ▼  power-on delay elapsed
+       Unavailable ───────────────────► NotActivated
+            ▲  idle lockout                 │ ▲
+            │  ┌─────────────────────────────┘ │ SetFunctionState(De-Activate)
+            │  │ SetFunctionState(Activate)     │
+            │  ▼                                │
+            └ Activated ◄─────────────────────┘
+              │  ▲ ▲
+   ENABLE+Arm │  │ └ Disarm / ENABLE released / armed-inactivity timeout
+   (in window)│  │
+              ▼  │
+            Armed │
+              │   │ Disarm
+ EXECUTE+Fire │   │
+ (in window)  ▼   │
+            Firing ┘   (Firing exits only via Disarm — not on a discrete drop)
+</code></pre>
+<p>Key rules:</p>
+<ul>
+<li><strong>Edge-triggered arm/execute.</strong> Arm requires Activated + SAFETY ENABLE
+asserted within the discrete-to-serial window of its rising edge;
+Fire/execute requires Armed + SAFETY EXECUTE the same way. Missing the
+window → <code>0x80</code>.</li>
+<li><strong>ENABLE release</strong> while Armed demotes to Activated. Firing is not
+exited by a discrete drop — only Disarm.</li>
+<li><strong>Disarm</strong> returns Armed or Firing to Activated.</li>
+<li><strong>Two-key principle</strong>: arm and execute each need both the serial
+command and the matching physical discrete.</li>
+</ul>
+<p>If the module reports <code>monitors_discretes = false</code>, it does not enforce
+the discretes and the serial commands alone drive the states (a
+bench/test posture; a safety regression for field use).</p>
+<hr>
+<h2 id="9-timing-1"><a class="header" href="#9-timing-1">9. Timing</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Typical value</th><th>Effect</th></tr>
+</thead>
+<tbody>
+<tr><td>Power-on safety delay</td><td>~30 s</td><td>Module is Unavailable and rejects Activate/Arm/Fire until it elapses</td></tr>
+<tr><td>Discrete-to-serial window</td><td>50 ms</td><td>Arm/Fire command must arrive within this time of the corresponding discrete’s rising edge</td></tr>
+<tr><td>Armed inactivity timeout</td><td>30 s</td><td>Armed with no further command auto-reverts to Activated <strong>[profile]</strong></td></tr>
+<tr><td>Idle lockout</td><td>20 min</td><td>No state change for this long → Unavailable, power cycle to clear <strong>[profile]</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p>Timer reset behaviour is <strong>[profile]</strong>: a common resolution is that the
+armed-inactivity timer resets on any valid frame (status polls keep it
+alive) while the idle-lockout timer resets only on actual state
+transitions.</p>
+<hr>
+<h2 id="10-status-indicator"><a class="header" href="#10-status-indicator">10. Status indicator</a></h2>
+<p>The module drives an RGB indicator:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Indication</th><th>State</th></tr>
+</thead>
+<tbody>
+<tr><td>Solid green</td><td>Safe — Not Activated / Activated</td></tr>
+<tr><td>Solid red</td><td>Armed</td></tr>
+<tr><td>Flashing red</td><td>Firing</td></tr>
+<tr><td>Flashing blue</td><td>Not ready (power-on delay)</td></tr>
+<tr><td>Solid blue</td><td>Fault or idle lockout — power cycle required</td></tr>
+</tbody>
+</table>
+</div>
+<p>Modules with only a two-colour indicator approximate the two “blue”
+states with a distinct pattern (e.g. alternating colours for power-on
+delay, both solid for fault/lockout). <strong>[profile]</strong></p>
+<hr>
+<h2 id="11-integration-sequence-1"><a class="header" href="#11-integration-sequence-1">11. Integration sequence</a></h2>
+<ol>
+<li><strong>Apply power.</strong> Poll GetPayloadStatus until state = Not Activated (2)
+— this covers the power-on delay.</li>
+<li><strong>Discover.</strong> GetPayloadIdentifier and GetPayloadSystemConfig; verify
+identity, bay power budget, mass/CG, and that discretes are monitored.</li>
+<li><strong>Activate.</strong> SetFunctionState(Activate) → Activated (3).</li>
+<li><strong>Arm.</strong> Assert SAFETY ENABLE, then send Arm within the window → Armed
+(6). Keep SAFETY ENABLE asserted while armed.</li>
+<li><strong>Execute.</strong> With SAFETY ENABLE still asserted, assert SAFETY EXECUTE,
+then send Fire within the window → Firing (7).</li>
+<li><strong>Safe / abort.</strong> Disarm (→ Activated), or de-assert the discretes;
+SetFunctionState(De-Activate) to return to Not Activated.</li>
+</ol>
+<p>Host invariants:</p>
+<ul>
+<li>Drive the discrete GPIO and the serial command from the same task so
+the 50 ms window is met.</li>
+<li>Loss of comms does not auto-disarm; the safest abort is to drop the
+discrete (hardware-authoritative) then Disarm when comms return.</li>
+<li>Status polling is the only liveness signal — the module is server-only.</li>
+</ul>
+<hr>
+<h2 id="12-points-requiring-profile-agreement"><a class="header" href="#12-points-requiring-profile-agreement">12. Points requiring profile agreement</a></h2>
+<p>The base v3.0 interface leaves several behaviours to the integration
+profile / vendor. The items marked <strong>[profile]</strong> above, collected:</p>
+<ol>
+<li>Whether the module ever transmits <code>0x01</code> or silently drops all
+malformed frames.</li>
+<li>Exact use of <code>0x80</code> vs <code>0x81</code>, and the retry contract for each.</li>
+<li>Whether a successful arm/execute consumes its discrete edge (so a
+held-high discrete needs a fresh drop-and-raise to re-arm).</li>
+<li>Timer reset semantics (armed-inactivity vs idle-lockout).</li>
+<li>State/command legality matrix at the edges (arm-while-armed,
+disarm-from-other-states, deactivate-while-armed).</li>
+<li>Whether Disarm from Firing de-energises the actuation output, and
+whether that output latches.</li>
+<li>Byte layout of the GetFunctionStateIdentifiers (<code>0x0003</code>) response.</li>
+<li>Entry conditions for the Faulted state.</li>
+<li>Two-colour indicator substitution for the RGB “blue” states.</li>
+</ol>
+<p>Vendor-assigned values (<strong>[vendor]</strong>): identifier/version strings, UID,
+MPC/MPW, and the application (<code>0x8000</code>–<code>0xFFFF</code>) command IDs and guard
+payloads.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="kiwi-rm3100-can-compass"><a class="header" href="#kiwi-rm3100-can-compass">Kiwi-RM3100 CAN Compass</a></h1>
 <h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
