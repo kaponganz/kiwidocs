@@ -49,7 +49,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-ecc7f954.js";
+            window.path_to_searchindex_js = "searchindex-ab573f1f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bb561228.js"></script>
@@ -433,9 +433,9 @@
 <tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th><th>DShot Bidir</th></tr>
 </thead>
 <tbody>
-<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td><td>No</td></tr>
-<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td><td>No</td></tr>
-<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td><td>No</td></tr>
+<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td><td>Yes</td></tr>
+<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td><td>Yes</td></tr>
+<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td><td>Yes</td></tr>
 <tr><td>SERVO 4</td><td>PD15</td><td>53</td><td>TIM4_CH4</td><td>Servo 1</td><td>No</td></tr>
 <tr><td>SERVO 5</td><td>PD14</td><td>54</td><td>TIM4_CH3</td><td>Servo 2</td><td>No</td></tr>
 <tr><td>SERVO 6</td><td>PD13</td><td>55</td><td>TIM4_CH2</td><td>Servo 3</td><td>No</td></tr>
@@ -452,6 +452,7 @@
 </table>
 </div>
 <p>PWM pins can be reassigned to GPIO via <code>SERVOn_FUNCTION=0</code> + <code>RELAYn_PIN=&lt;gpio&gt;</code>.</p>
+<p>Bidirectional DShot (ESC RPM telemetry) is available on outputs 1–3 (TIM1). Enable with <code>SERVO_BLH_BDMASK=7</code> and use DShot300/600 on those outputs.</p>
 <h3 id="relay-usage"><a class="header" href="#relay-usage">Relay Usage</a></h3>
 <p><strong>MAVProxy:</strong></p>
 <pre><code>param set RELAY2_PIN 101
@@ -492,6 +493,18 @@ relay set 5 0   # release reset
 </tbody>
 </table>
 </div>
+<h3 id="current"><a class="header" href="#current">Current</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>BATT_MONITOR</code></td><td>4</td><td>Analog Voltage and Current</td></tr>
+<tr><td><code>BATT_AMP_PERVLT</code></td><td>45.45</td><td>Sensor calibration</td></tr>
+</tbody>
+</table>
+</div>
 <h3 id="sensor-calibration"><a class="header" href="#sensor-calibration">Sensor Calibration</a></h3>
 <div class="table-wrapper">
 <table>
@@ -500,7 +513,7 @@ relay set 5 0   # release reset
 </thead>
 <tbody>
 <tr><td>Voltage scale</td><td><code>BATT_VOLT_MULT</code> = 21.0</td><td><code>voltage_meter_scale</code> = 210</td></tr>
-<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 142.9</td><td><code>current_meter_scale</code> = 100</td></tr>
+<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 45.45</td><td><code>current_meter_scale</code> = 100</td></tr>
 </tbody>
 </table>
 </div>

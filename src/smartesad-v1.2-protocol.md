@@ -281,7 +281,7 @@ device-agnostic.
 [Armed] --Fire--------------> [Fired]      FIRE1/FIRE2 latched ON
 ```
 
-### Transition rules (non-negotiable; MIL-STD-1316F §4.2)
+### Transition rules
 
 - **R1 — arm-delay is non-cancellable.** Once started, a `Cold` command
   masks the state back to Cold but does **not** stop or reset the
@@ -329,7 +329,7 @@ device-agnostic.
 
 ### Countdowns
 
-Two independent countdowns (MIL-STD-1316F §4.2.5 independence):
+Two independent countdowns:
 
 - **Arm-delay** — default 420 s **[vendor]**. Starts on the first `Timer`
   from Cold; decrements in real time regardless of state; auto-advances
@@ -350,8 +350,7 @@ FIRE1 = FIRE2 = assert_fire
 
 FIRE1 and FIRE2 drive two independent initiator channels asserted
 together; a single stuck/failed driver still leaves the surviving channel
-functional (MIL-STD-1316F §4.2.1 two independent safety features / §4.2.5
-non-subvertibility). The fire pins are driven LOW in hardware as the first
+functional. The fire pins are driven LOW in hardware as the first
 action after power-on, before any code that could panic.
 
 ---

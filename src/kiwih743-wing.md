@@ -203,9 +203,9 @@ Port connection diagram for cable assembly. Pin order in each connector matches 
 
 | Output   | Pin  | GPIO | Timer    | Function | DShot Bidir |
 |----------|------|------|----------|----------|-------------|
-| SERVO 1  | PA10 | 50   | TIM1_CH3 | Motor 1  | No          |
-| SERVO 2  | PA9  | 51   | TIM1_CH2 | Motor 2  | No          |
-| SERVO 3  | PA8  | 52   | TIM1_CH1 | Motor 3  | No          |
+| SERVO 1  | PA10 | 50   | TIM1_CH3 | Motor 1  | Yes         |
+| SERVO 2  | PA9  | 51   | TIM1_CH2 | Motor 2  | Yes         |
+| SERVO 3  | PA8  | 52   | TIM1_CH1 | Motor 3  | Yes         |
 | SERVO 4  | PD15 | 53   | TIM4_CH4 | Servo 1  | No          |
 | SERVO 5  | PD14 | 54   | TIM4_CH3 | Servo 2  | No          |
 | SERVO 6  | PD13 | 55   | TIM4_CH2 | Servo 3  | No          |
@@ -220,6 +220,8 @@ Port connection diagram for cable assembly. Pin order in each connector matches 
 | SERVO 15 | PA0  | 64   | TIM5_CH1 | Servo N  | No          |
 
 PWM pins can be reassigned to GPIO via `SERVOn_FUNCTION=0` + `RELAYn_PIN=<gpio>`.
+
+Bidirectional DShot (ESC RPM telemetry) is available on outputs 1–3 (TIM1). Enable with `SERVO_BLH_BDMASK=7` and use DShot300/600 on those outputs.
 
 ### Relay Usage
 
@@ -268,12 +270,19 @@ relay set 5 0   # release reset
 | ADC 2 | PC0 | ADC1 IN10 |
 | ADC 3 | PC2_C | ADC3 IN0 |
 
+### Current
+
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| `BATT_MONITOR` | 4 | Analog Voltage and Current |
+| `BATT_AMP_PERVLT` | 45.45 | Sensor calibration |
+
 ### Sensor Calibration
 
 | Parameter | ArduPilot | Betaflight |
 |-----------|-----------|------------|
 | Voltage scale | `BATT_VOLT_MULT` = 21.0 | `voltage_meter_scale` = 210 |
-| Current scale | `BATT_AMP_PERVLT` = 142.9 | `current_meter_scale` = 100 |
+| Current scale | `BATT_AMP_PERVLT` = 45.45 | `current_meter_scale` = 100 |
 
 ### Battery Voltage Thresholds (ArduPilot)
 

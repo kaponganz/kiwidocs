@@ -50,7 +50,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-ecc7f954.js";
+            window.path_to_searchindex_js = "searchindex-ab573f1f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bb561228.js"></script>
@@ -1583,7 +1583,7 @@ device-agnostic.</p>
 [Safe]  --Arm---------------&gt; [Armed]      (via [ChargeUp] on capacitor devices)
 [Armed] --Fire--------------&gt; [Fired]      FIRE1/FIRE2 latched ON
 </code></pre>
-<h3 id="transition-rules-non-negotiable-mil-std-1316f-42"><a class="header" href="#transition-rules-non-negotiable-mil-std-1316f-42">Transition rules (non-negotiable; MIL-STD-1316F §4.2)</a></h3>
+<h3 id="transition-rules"><a class="header" href="#transition-rules">Transition rules</a></h3>
 <ul>
 <li><strong>R1 — arm-delay is non-cancellable.</strong> Once started, a <code>Cold</code> command
 masks the state back to Cold but does <strong>not</strong> stop or reset the
@@ -1630,7 +1630,7 @@ guard / length / precondition error replies StateFault (§4.4) with no
 state change.</li>
 </ul>
 <h3 id="countdowns"><a class="header" href="#countdowns">Countdowns</a></h3>
-<p>Two independent countdowns (MIL-STD-1316F §4.2.5 independence):</p>
+<p>Two independent countdowns:</p>
 <ul>
 <li><strong>Arm-delay</strong> — default 420 s <strong>[vendor]</strong>. Starts on the first <code>Timer</code>
 from Cold; decrements in real time regardless of state; auto-advances
@@ -1648,8 +1648,7 @@ FIRE1 = FIRE2 = assert_fire
 </code></pre>
 <p>FIRE1 and FIRE2 drive two independent initiator channels asserted
 together; a single stuck/failed driver still leaves the surviving channel
-functional (MIL-STD-1316F §4.2.1 two independent safety features / §4.2.5
-non-subvertibility). The fire pins are driven LOW in hardware as the first
+functional. The fire pins are driven LOW in hardware as the first
 action after power-on, before any code that could panic.</p>
 <hr>
 <h2 id="9-timing"><a class="header" href="#9-timing">9. Timing</a></h2>
@@ -3063,6 +3062,18 @@ relay:off(1)     -- RELAY2 OFF
 <li>Battery Current: PB1 (ADC1 IN5)</li>
 <li>Default monitor type: Analog</li>
 </ul>
+<h3 id="current"><a class="header" href="#current">Current</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>BATT_MONITOR</code></td><td>4</td><td>Analog Voltage and Current</td></tr>
+<tr><td><code>BATT_AMP_PERVLT</code></td><td>45.45</td><td>Sensor calibration</td></tr>
+</tbody>
+</table>
+</div>
 <h3 id="sensor-calibration-1"><a class="header" href="#sensor-calibration-1">Sensor Calibration</a></h3>
 <div class="table-wrapper">
 <table>
@@ -3071,7 +3082,7 @@ relay:off(1)     -- RELAY2 OFF
 </thead>
 <tbody>
 <tr><td>Voltage scale</td><td><code>BATT_VOLT_MULT</code> = 21.0</td><td><code>voltage_meter_scale</code> = 210</td></tr>
-<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 142.9</td><td><code>current_meter_scale</code> = 100</td></tr>
+<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 45.45</td><td><code>current_meter_scale</code> = 100</td></tr>
 </tbody>
 </table>
 </div>
@@ -3442,9 +3453,9 @@ relay:off(1)     -- RELAY2 OFF
 <tr><th>Output</th><th>Pin</th><th>GPIO</th><th>Timer</th><th>Function</th><th>DShot Bidir</th></tr>
 </thead>
 <tbody>
-<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td><td>No</td></tr>
-<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td><td>No</td></tr>
-<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td><td>No</td></tr>
+<tr><td>SERVO 1</td><td>PA10</td><td>50</td><td>TIM1_CH3</td><td>Motor 1</td><td>Yes</td></tr>
+<tr><td>SERVO 2</td><td>PA9</td><td>51</td><td>TIM1_CH2</td><td>Motor 2</td><td>Yes</td></tr>
+<tr><td>SERVO 3</td><td>PA8</td><td>52</td><td>TIM1_CH1</td><td>Motor 3</td><td>Yes</td></tr>
 <tr><td>SERVO 4</td><td>PD15</td><td>53</td><td>TIM4_CH4</td><td>Servo 1</td><td>No</td></tr>
 <tr><td>SERVO 5</td><td>PD14</td><td>54</td><td>TIM4_CH3</td><td>Servo 2</td><td>No</td></tr>
 <tr><td>SERVO 6</td><td>PD13</td><td>55</td><td>TIM4_CH2</td><td>Servo 3</td><td>No</td></tr>
@@ -3461,6 +3472,7 @@ relay:off(1)     -- RELAY2 OFF
 </table>
 </div>
 <p>PWM pins can be reassigned to GPIO via <code>SERVOn_FUNCTION=0</code> + <code>RELAYn_PIN=&lt;gpio&gt;</code>.</p>
+<p>Bidirectional DShot (ESC RPM telemetry) is available on outputs 1–3 (TIM1). Enable with <code>SERVO_BLH_BDMASK=7</code> and use DShot300/600 on those outputs.</p>
 <h3 id="relay-usage-2"><a class="header" href="#relay-usage-2">Relay Usage</a></h3>
 <p><strong>MAVProxy:</strong></p>
 <pre><code>param set RELAY2_PIN 101
@@ -3501,6 +3513,18 @@ relay set 5 0   # release reset
 </tbody>
 </table>
 </div>
+<h3 id="current-1"><a class="header" href="#current-1">Current</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>BATT_MONITOR</code></td><td>4</td><td>Analog Voltage and Current</td></tr>
+<tr><td><code>BATT_AMP_PERVLT</code></td><td>45.45</td><td>Sensor calibration</td></tr>
+</tbody>
+</table>
+</div>
 <h3 id="sensor-calibration-2"><a class="header" href="#sensor-calibration-2">Sensor Calibration</a></h3>
 <div class="table-wrapper">
 <table>
@@ -3509,7 +3533,7 @@ relay set 5 0   # release reset
 </thead>
 <tbody>
 <tr><td>Voltage scale</td><td><code>BATT_VOLT_MULT</code> = 21.0</td><td><code>voltage_meter_scale</code> = 210</td></tr>
-<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 142.9</td><td><code>current_meter_scale</code> = 100</td></tr>
+<tr><td>Current scale</td><td><code>BATT_AMP_PERVLT</code> = 45.45</td><td><code>current_meter_scale</code> = 100</td></tr>
 </tbody>
 </table>
 </div>
