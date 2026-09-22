@@ -2,7 +2,15 @@
 
 ## ArduPilot
 
-Two branches are maintained in parallel: 4.6 (current) and 4.5 (Plane-4.5.7 LTS). The 4.5 LTS branch only carries H7 boards. Files are suffixed `-4.5.zip` for the 4.5 branch; no suffix for 4.6.
+Three branches are maintained in parallel: 4.7, 4.6 (current), and 4.5 (Plane-4.5.7 LTS). The 4.5 and 4.7 branches only carry H7 boards. Files are suffixed `-4.5.zip` / `-4.7.zip` for those branches; no suffix for 4.6.
+
+### Flight Controllers — ArduPilot 4.7
+
+| Board | Version | Updated | Download |
+|---|---|---|---|
+| KiwiH743 | 4.7.1-dev (4776a3fb) | 2026-09-04 | [KiwiH743-4.7.zip](download/KiwiH743-4.7.zip) |
+| KiwiH743 (SD card) | 4.7.1-dev (4776a3fb) | 2026-09-04 | [KiwiH743-sdcard-4.7.zip](download/KiwiH743-sdcard-4.7.zip) |
+| KiwiH743-wing | 4.7.1-dev (4776a3fb) | 2026-09-04 | [KiwiH743-wing-4.7.zip](download/KiwiH743-wing-4.7.zip) |
 
 ### Flight Controllers — ArduPilot 4.6
 
@@ -13,15 +21,13 @@ Two branches are maintained in parallel: 4.6 (current) and 4.5 (Plane-4.5.7 LTS)
 | KiwiH743 | 4.6.3-dev (e4a1d2cc) | 2026-06-26 | [KiwiH743.zip](download/KiwiH743.zip) |
 | KiwiH743 (SD card) | 4.6.3-dev (e4a1d2cc) | 2026-06-26 | [KiwiH743-sdcard.zip](download/KiwiH743-sdcard.zip) |
 | KiwiH743-wing | 4.6.3-dev (e4a1d2cc) | 2026-06-26 | [KiwiH743-wing.zip](download/KiwiH743-wing.zip) |
-| KiwiH743-wing, no IMU CLKIN | 4.6.3-dev (5436f451) | 2026-05-15 | [KiwiH743-wing-noclkin.zip](download/KiwiH743-wing-noclkin.zip) |
 
 ### Flight Controllers — ArduPilot 4.5 LTS
 
 | Board | Version | Updated | Download |
 |---|---|---|---|
 | KiwiH743 | TBD | TBD | TBD (`KiwiH743-4.5.zip`) |
-| KiwiH743-wing | 4.5.7-dev (0edb016a) | 2026-06-28 | [KiwiH743-wing-4.5.zip](download/KiwiH743-wing-4.5.zip) |
-| KiwiH743-wing, no IMU CLKIN | TBD | TBD | TBD (`KiwiH743-wing-noclkin-4.5.zip`) |
+| KiwiH743-wing | 4.5.7-dev (a6bb8227) | 2026-08-20 | [KiwiH743-wing-4.5.zip](download/KiwiH743-wing-4.5.zip) |
 
 ### Ground Station / Peripherals
 

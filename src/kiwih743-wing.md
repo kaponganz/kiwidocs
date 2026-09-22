@@ -37,21 +37,20 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
+| ArduPilot 4.7 | 4.7.1-dev (4776a3fb) | 2026-09-04 | [KiwiH743-wing-4.7.zip](download/KiwiH743-wing-4.7.zip) |
 | ArduPilot 4.6 | 4.6.3-dev (e4a1d2cc) | 2026-06-26 | [KiwiH743-wing.zip](download/KiwiH743-wing.zip) |
-| ArduPilot 4.5 | 4.5.7-dev (0edb016a) | 2026-06-28 | [KiwiH743-wing-4.5.zip](download/KiwiH743-wing-4.5.zip) |
-| ArduPilot 4.6, no IMU CLKIN | 4.6.3-dev (5436f451) | 2026-05-15 | [KiwiH743-wing-noclkin.zip](download/KiwiH743-wing-noclkin.zip) |
-| ArduPilot 4.5, no IMU CLKIN | TBD | TBD | TBD (`KiwiH743-wing-noclkin-4.5.zip`) |
+| ArduPilot 4.5 | 4.5.7-dev (a6bb8227) | 2026-08-20 | [KiwiH743-wing-4.5.zip](download/KiwiH743-wing-4.5.zip) |
 | Betaflight | — | — | TBD |
 
-The `noclkin` build is an A/B test control with the external 32.768 kHz IMU clock disabled — IMUs run on their internal oscillators. Same `APJ_BOARD_ID`, loads with the same bootloader.
-
-> Both 4.5 (Plane-4.5.7 LTS) and 4.6 (current) ArduPilot branches are maintained in parallel. Pick the one that matches your fleet.
+> Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet.
 
 ### Previous versions
 
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
 | ArduPilot 4.6 | 4.6.3-dev (5436f451) | 2026-05-20 | [KiwiH743-wing-2026-05-20.zip](download/old/KiwiH743-wing-2026-05-20.zip) |
+| ArduPilot 4.6, no IMU CLKIN | 4.6.3-dev (5436f451) | 2026-05-15 | [KiwiH743-wing-noclkin-2026-05-15.zip](download/old/KiwiH743-wing-noclkin-2026-05-15.zip) |
+| ArduPilot 4.5 | 4.5.7-dev (0edb016a) | 2026-06-28 | [KiwiH743-wing-4.5-2026-06-28.zip](download/old/KiwiH743-wing-4.5-2026-06-28.zip) |
 | ArduPilot 4.5 | 4.5.7-dev (79b1a19b) | 2026-06-20 | [KiwiH743-wing-4.5-2026-06-20.zip](download/old/KiwiH743-wing-4.5-2026-06-20.zip) |
 
 ---

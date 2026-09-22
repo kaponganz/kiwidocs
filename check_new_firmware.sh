@@ -8,3 +8,7 @@ ls -l /Users/chexov/code/ardupilot/KiwiH743.zip
 
 ls -l ~/code/betaflight_chexov/*.zip
 
+ls -l /Users/chexov/code/ardupilot_47/Kiwi*.zip
+
+
+
