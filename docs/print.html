@@ -8,11 +8,6 @@
 
 
         <!-- Custom HTML head -->
-        <!-- Fonts: Play (display), Golos Text (body), JetBrains Mono (data) — all include Cyrillic -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-        
         <!-- Google Analytics (GA4) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-2L7L7FPTWR"></script>
         <script>
@@ -42,7 +37,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/css/custom-cb40cd09.css">
+        <link rel="stylesheet" href="theme/css/custom-cd0bb76b.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -50,10 +45,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-87081db3.js";
+            window.path_to_searchindex_js = "searchindex-1c0fcb7b.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-bb561228.js"></script>
+        <script src="toc-1fe4d9c1.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -152,7 +147,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title"><a class="brand" href="index.html" title="KIWI Flight Systems"><span class="brand-mark">KIWI</span><span class="brand-sub">Flight&nbsp;Systems</span></a></h1>
+                    <h1 class="menu-title">KIWI Flight Systems</h1>
 
                     <div class="right-buttons">
                         <a href="https://kiwidrone.com.ua/" target="_blank" class="header-nav-link" title="Shop" aria-label="Shop">Shop</a>
@@ -235,6 +230,10 @@ is designed to support your development process from start to finish.</p>
 <ul>
 <li><a href="icm-42688p-hxy/README.html">ICM-42688P (HXY) Datasheet</a></li>
 <li><a href="#uiux-guidelines-for-software-applications">MIL-STD-1472H UI/UX Guidelines</a></li>
+</ul>
+<h3 id="company"><a class="header" href="#company">Company</a></h3>
+<ul>
+<li><a href="#compliance">Compliance</a></li>
 </ul>
 <hr><div style="break-before: page; page-break-before: always;"></div>
 <h1 id="kiwi-ground-station-kit"><a class="header" href="#kiwi-ground-station-kit">Kiwi Ground Station Kit</a></h1>
@@ -5334,6 +5333,67 @@ Slave: – → – → SAK → – → SAK → – → – → SAK → DATA → 
 </tbody>
 </table>
 </div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="compliance"><a class="header" href="#compliance">Compliance</a></h1>
+<h2 id="ndaa-and-blue-uas-compliance-statement"><a class="header" href="#ndaa-and-blue-uas-compliance-statement">NDAA and Blue UAS Compliance Statement</a></h2>
+<p>KIWI Flight Systems products — flight controllers, ground station kits, antenna trackers, sensors, and the smartESAD
+system — are designed, manufactured, and supplied in compliance with applicable provisions of the National Defense
+Authorization Act (NDAA), including Section 889 of the FY2019 NDAA, as amended and carried forward in subsequent NDAA
+authorizations. Furthermore these products comply with NDAA FY2023 Section 817 and the American Security Drone Act of
+2023 (enacted as part of the FY2024 NDAA).</p>
+<h3 id="section-889-a1a--b-compliance"><a class="header" href="#section-889-a1a--b-compliance">Section 889 (a)(1)(A) &amp; (B) Compliance</a></h3>
+<p>KIWI Drone certifies that KIWI Flight Systems products:</p>
+<ul>
+<li>Do not contain covered telecommunications equipment or services as defined in Section 889(a)(1)(A) of the NDAA.</li>
+<li>Are not produced using covered telecommunications equipment or services as defined in Section 889(a)(1)(B) of the
+NDAA.</li>
+<li>Do not include components, modules, firmware, or embedded services from prohibited entities, including but not
+limited to:
+<ul>
+<li>Huawei Technologies Company</li>
+<li>ZTE Corporation</li>
+<li>Hytera Communications Corporation</li>
+<li>Hangzhou Hikvision Digital Technology Company</li>
+<li>Dahua Technology Company</li>
+<li>Any subsidiaries or affiliates of the foregoing.</li>
+</ul>
+</li>
+</ul>
+<h3 id="supply-chain-and-manufacturing-controls"><a class="header" href="#supply-chain-and-manufacturing-controls">Supply Chain and Manufacturing Controls</a></h3>
+<ul>
+<li>Designed in <strong>Ukraine</strong> — all PCB design, control logic, and firmware designs are owned and controlled by
+KIWI Drone.</li>
+<li>Supplier vetting and component traceability controls are maintained to ensure ongoing NDAA compliance.</li>
+<li>No restricted-origin processing, communications, networking, or telemetry silicon is used in the KIWI platform. Core
+components are sourced from non-covered vendors (STMicroelectronics MCUs, TDK InvenSense and Bosch sensors,
+PNI RM3100 magnetometers).</li>
+</ul>
+<h3 id="software-and-firmware"><a class="header" href="#software-and-firmware">Software and Firmware</a></h3>
+<ul>
+<li>KIWI firmware is built from open-source ArduPilot and Betaflight sources and does not incorporate proprietary cloud
+services, telemetry backhauls, or remote access mechanisms from prohibited entities.</li>
+<li>Operation and configuration do not require connectivity to non-compliant infrastructure.</li>
+<li>All command and telemetry links operate locally between the ground control and air vehicle segments.</li>
+</ul>
+<h3 id="applicability-to-uas-programs"><a class="header" href="#applicability-to-uas-programs">Applicability to UAS Programs</a></h3>
+<p>KIWI Flight Systems products are suitable for integration into NDAA-compliant UAS platforms, including:</p>
+<ul>
+<li>Government and defense programs</li>
+<li>Federal, state, and local agency procurements</li>
+<li>Defense contractors and system integrators</li>
+<li>Enterprise and critical-infrastructure unmanned systems</li>
+</ul>
+<h3 id="ongoing-compliance"><a class="header" href="#ongoing-compliance">Ongoing Compliance</a></h3>
+<p>KIWI Drone actively monitors NDAA updates and applicable FAR/DFARS requirements and will take appropriate action to
+maintain compliance should statutory or regulatory requirements change.</p>
+<p><strong>Manufacturer:</strong>
+KIWI Drone</p>
+<p>For compliance documentation, supplier attestations, or program-specific certifications, contact
+<a href="https://kiwidrone.com.ua/">kiwidrone.com.ua</a>.</p>
+<h2 id="safety-and-legal-notice"><a class="header" href="#safety-and-legal-notice">Safety and Legal Notice</a></h2>
+<p>KIWI Flight Systems products are intended for professional unmanned systems integration. Improper configuration,
+installation, or operation may result in loss of vehicle control or communications. Always follow applicable
+regulations, spectrum use requirements, and program-specific safety guidelines.</p>
 
                     </main>
 
