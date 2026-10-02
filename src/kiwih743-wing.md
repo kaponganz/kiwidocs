@@ -40,9 +40,10 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 | ArduPilot 4.7 | 4.7.1-dev (4776a3fb) | 2026-09-04 | [KiwiH743-wing-4.7.zip](download/KiwiH743-wing-4.7.zip) |
 | ArduPilot 4.6 | 4.6.3-dev (e4a1d2cc) | 2026-06-26 | [KiwiH743-wing.zip](download/KiwiH743-wing.zip) |
 | ArduPilot 4.5 | 4.5.7-dev (a6bb8227) | 2026-08-20 | [KiwiH743-wing-4.5.zip](download/KiwiH743-wing-4.5.zip) |
+| INAV 9.1 | 9.1.1-dev (6944bd5c) | 2026-10-01 | [KiwiH743-wing-inav.zip](download/KiwiH743-wing-inav.zip) |
 | Betaflight | — | — | TBD |
 
-> Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet.
+> Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet. The INAV zip contains a single `.hex` (target `KIWIH743WING`) — flash it via the INAV Configurator "Load Firmware [Local]" button.
 
 ### Previous versions
 
