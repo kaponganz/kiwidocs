@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--
+  Brand: KIWI ARC. Contact email is still a placeholder (contact@example.com).
+  All compliance references (MIL-STD-1316, STANAG 4187) and claims are draft marketing
+  copy — verify before publishing.
+-->
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIWI ARC — Initiation &amp; Fuzing Systems</title>
+    <meta name="description" content="Electronic safe-and-arm devices, fuzing and fire-chain control electronics. Designed and built in Ukraine. ITAR-free. Supplying government and defense integrators in Ukraine and the EU.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="#" class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-name">KIWI ARC</span>
+            <span class="brand-sub">
+                <span lang="en">Initiation Systems</span><span lang="uk">Системи ініціації</span>
+            </span>
+        </a>
+        <nav class="site-nav">
+            <a href="#capabilities"><span lang="en">Capabilities</span><span lang="uk">Можливості</span></a>
+            <a href="#why-digital"><span lang="en">Why digital</span><span lang="uk">Чому цифрове керування</span></a>
+            <a href="#safety"><span lang="en">Safety</span><span lang="uk">Безпека</span></a>
+            <a href="#contact"><span lang="en">Contact</span><span lang="uk">Контакти</span></a>
+        </nav>
+        <div class="header-actions">
+            <div class="lang-switch" role="group" aria-label="Language">
+                <button type="button" data-set-lang="en" class="lang-btn" aria-label="English">EN</button>
+                <button type="button" data-set-lang="uk" class="lang-btn" aria-label="Українська">УКР</button>
+            </div>
+            <a href="#contact" class="btn btn-primary btn-sm">
+                <span lang="en">Contact us</span><span lang="uk">Зворотний зв'язок</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+        <span lang="en">DIGITAL FIRE-CHAIN CONTROL&emsp;//&emsp;DESIGNED AND BUILT IN UKRAINE&emsp;//&emsp;ITAR-FREE SUPPLY CHAIN&emsp;//&emsp;</span>
+        <span lang="uk">ЦИФРОВЕ КЕРУВАННЯ ЛАНЦЮГОМ ІНІЦІАЦІЇ&emsp;//&emsp;РОЗРОБЛЕНО ТА ВИГОТОВЛЕНО В УКРАЇНІ&emsp;//&emsp;БЕЗ КОМПОНЕНТІВ, ЩО ПІДПАДАЮТЬ ПІД ITAR&emsp;//&emsp;</span>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="container">
+        <p class="hero-kicker reveal">
+            <span lang="en">Electronic Safe &amp; Arm&ensp;·&ensp;Fuzing&ensp;·&ensp;Fire-Chain Control</span>
+            <span lang="uk">Електронні запобіжно-виконавчі механізми&ensp;·&ensp;Підривники&ensp;·&ensp;Системи керування ланцюгом ініціації</span>
+        </p>
+        <h1 class="reveal">
+            <span lang="en">The fire chain,<br><em>digitized.</em></span>
+            <span lang="uk">Цифрове керування<br><em>ланцюгом ініціації</em></span>
+        </h1>
+        <p class="hero-sub reveal">
+            <span lang="en">KIWI ARC builds electronic safe-and-arm devices and initiation electronics for unmanned systems — engineered in Ukraine, shaped by combat feedback, ready for European integration.</span>
+            <span lang="uk">KIWI ARC розробляє електронні запобіжно-виконавчі пристрої та системи керування ініціацією для безпілотних платформ. Розроблено в Україні з урахуванням реального досвіду застосування та вимог до інтеграції з європейськими оборонними системами.</span>
+        </p>
+        <div class="hero-cta reveal">
+            <a href="#contact" class="btn btn-primary">
+                <span lang="en">Contact us</span><span lang="uk">Зворотний зв'язок</span>
+            </a>
+            <a href="#capabilities" class="btn btn-ghost">
+                <span lang="en">View capabilities</span><span lang="uk">Можливості</span>
+            </a>
+        </div>
+        <figure class="chain-diagram reveal" aria-label="Safe-arm fire chain diagram">
+            <svg viewBox="0 0 920 240" xmlns="http://www.w3.org/2000/svg" role="img">
+                <line class="cd-wire" x1="150" y1="120" x2="290" y2="120"/>
+                <line class="cd-wire" x1="640" y1="120" x2="770" y2="120"/>
+                <text class="cd-buslabel" x="220" y="104" text-anchor="middle">UART + CRC</text>
+                <text class="cd-buslabel" x="705" y="104" text-anchor="middle">FIRE LINE</text>
+                <polygon class="cd-arrow" points="282,114 294,120 282,126"/>
+                <polygon class="cd-arrow" points="762,114 774,120 762,126"/>
+                <polygon class="cd-arrow cd-arrow-back" points="158,126 146,120 158,114"/>
+
+                <rect class="cd-box" x="30" y="85" width="120" height="70" rx="2"/>
+                <text class="cd-label" x="90" y="115" text-anchor="middle">AUTOPILOT</text>
+                <text class="cd-small" x="90" y="136" text-anchor="middle">FC / GCS</text>
+
+                <rect class="cd-box cd-box-main" x="295" y="45" width="345" height="150" rx="2"/>
+                <text class="cd-label cd-label-main" x="467" y="72" text-anchor="middle">ESAD</text>
+                <rect class="cd-gate" x="320" y="95" width="90" height="70" rx="2"/>
+                <text class="cd-small" x="365" y="124" text-anchor="middle">GATE 1</text>
+                <text class="cd-tiny" x="365" y="142" text-anchor="middle">LINK</text>
+                <rect class="cd-gate" x="422" y="95" width="90" height="70" rx="2"/>
+                <text class="cd-small" x="467" y="124" text-anchor="middle">GATE 2</text>
+                <text class="cd-tiny" x="467" y="142" text-anchor="middle">ENV</text>
+                <rect class="cd-gate cd-gate-hot" x="524" y="95" width="90" height="70" rx="2"/>
+                <text class="cd-small" x="569" y="124" text-anchor="middle">GATE 3</text>
+                <text class="cd-tiny" x="569" y="142" text-anchor="middle">CMD</text>
+
+                <rect class="cd-box cd-box-fire" x="775" y="85" width="115" height="70" rx="2"/>
+                <text class="cd-label cd-label-fire" x="832" y="115" text-anchor="middle">EFFECTOR</text>
+                <text class="cd-small" x="832" y="136" text-anchor="middle">INITIATOR</text>
+
+                <text class="cd-tiny" x="467" y="222" text-anchor="middle">ALL GATES INDEPENDENT — ANY FAILURE BLOCKS FIRE</text>
+            </svg>
+            <figcaption class="chain-legend">
+                <ul lang="en">
+                    <li><strong>GATE 1 — LINK:</strong> link integrity — the autopilot–ESAD channel is alive and CRC checks pass</li>
+                    <li><strong>GATE 2 — ENV:</strong> environmental conditions — the platform is actually airborne / physical conditions are met</li>
+                    <li><strong>GATE 3 — CMD:</strong> explicit operator command</li>
+                </ul>
+                <ul lang="uk">
+                    <li><strong>GATE 1 — LINK:</strong> цілісність зв'язку (чи живий канал між автопілотом та ESAD, CRC проходить)</li>
+                    <li><strong>GATE 2 — ENV:</strong> параметри середовища (платформа реально в повітрі / виконані фізичні умови)</li>
+                    <li><strong>GATE 3 — CMD:</strong> явна команда оператора</li>
+                </ul>
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="stats-bar">
+    <div class="container">
+        <p class="stats-heading">
+            <span lang="en">Key figures</span><span lang="uk">Ключові характеристики</span>
+        </p>
+        <div class="stats-grid">
+            <div class="stat">
+                <div class="stat-value">5</div>
+                <div class="stat-label"><span lang="en">Independent safety states</span><span lang="uk">Незалежних станів безпеки</span></div>
+            </div>
+            <div class="stat">
+                <div class="stat-value"><span lang="en">50&nbsp;Hz</span><span lang="uk">50&nbsp;Гц</span></div>
+                <div class="stat-label"><span lang="en">Status telemetry</span><span lang="uk">Частота телеметрії стану</span></div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">CRC</div>
+                <div class="stat-label"><span lang="en">On every fire command</span><span lang="uk">Контрольна сума в кожній команді</span></div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label"><span lang="en">ITAR components</span><span lang="uk">Компонентів, що підпадають під ITAR</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="capabilities">
+    <div class="container">
+        <p class="section-kicker"><span lang="en">01 — Capabilities</span><span lang="uk">01 — Можливості</span></p>
+        <h2><span lang="en">What we build</span><span lang="uk">Що ми створюємо</span></h2>
+        <div class="cap-grid">
+            <div class="cap-card">
+                <div class="cap-index">A</div>
+                <h3><span lang="en">Electronic Safe &amp; Arm Devices</span><span lang="uk">Електронні запобіжно-виконавчі пристрої</span></h3>
+                <div class="cap-body" lang="en">
+                    <p>Multi-barrier arming logic with independent link, environment, and command gates. Designed around MIL-STD-1316 / STANAG 4187 safe-arm principles. No single point of failure between operator and initiator.</p>
+                </div>
+                <div class="cap-body" lang="uk">
+                    <p>Багаторівнева логіка переведення в бойовий стан із незалежними умовами контролю:</p>
+                    <ul>
+                        <li>цілісність зв'язку;</li>
+                        <li>параметри середовища;</li>
+                        <li>команда оператора.</li>
+                    </ul>
+                    <p>Архітектуру розроблено з урахуванням принципів MIL-STD-1316 та STANAG 4187.</p>
+                    <p>Між оператором та ініціатором відсутня єдина точка відмови, здатна самостійно спричинити небезпечний стан.</p>
+                </div>
+            </div>
+            <div class="cap-card">
+                <div class="cap-index">B</div>
+                <h3><span lang="en">Fuzing &amp; Fire-Chain Controllers</span><span lang="uk">Підривники та контролери ланцюга ініціації</span></h3>
+                <div class="cap-body" lang="en">
+                    <p>Impact, timer, and command initiation modes with field-configurable delays, thresholds, and abort behavior. One controller family across FPV strike, fixed-wing, and ground effectors.</p>
+                </div>
+                <div class="cap-body" lang="uk">
+                    <p>Підтримуються різні сценарії ініціації:</p>
+                    <ul>
+                        <li>за фактом удару;</li>
+                        <li>за таймером;</li>
+                        <li>за командою оператора.</li>
+                    </ul>
+                    <p>Затримки, порогові значення та умови спрацювання налаштовуються відповідно до конкретної платформи й завдання.</p>
+                    <p>Єдина лінійка контролерів призначена для інтеграції з FPV-платформами, безпілотними літаками та наземними роботизованими комплексами.</p>
+                </div>
+            </div>
+            <div class="cap-card">
+                <div class="cap-index">C</div>
+                <h3><span lang="en">Digital Initiation Bus</span><span lang="uk">Цифрова шина керування ініціацією</span></h3>
+                <div class="cap-body" lang="en">
+                    <p>Two-way serial protocol between autopilot and effector: checksummed commands, live state on the pilot's OSD, explicit error reporting. Open integration spec for partner autopilots.</p>
+                    <p class="doc-link"><a href="./smartesad-v1.2.html">smartESAD v1.2 — protocol specification &rarr;</a></p>
+                </div>
+                <div class="cap-body" lang="uk">
+                    <p>Двосторонній послідовний протокол забезпечує обмін даними між автопілотом і виконавчим пристроєм.</p>
+                    <p>Система підтримує:</p>
+                    <ul>
+                        <li>команди з контрольною сумою;</li>
+                        <li>відображення стану пристрою на OSD оператора;</li>
+                        <li>явні повідомлення про несправності;</li>
+                        <li>контроль цілісності зв'язку;</li>
+                        <li>інтеграцію з автопілотами партнерів.</li>
+                    </ul>
+                    <p>Специфікація протоколу може бути надана партнерам для інтеграції.</p>
+                    <p class="doc-link"><a href="./smartesad-v1.2.html">smartESAD v1.2 — специфікація протоколу &rarr;</a></p>
+                </div>
+            </div>
+            <div class="cap-card">
+                <div class="cap-index">D</div>
+                <h3><span lang="en">Custom Integration</span><span lang="uk">Індивідуальна інтеграція</span></h3>
+                <div class="cap-body" lang="en">
+                    <p>Adaptation to your airframe, autopilot, and payload — from requirements to field trials in weeks, not quarters. Firmware, wiring, and OSD support delivered as one package.</p>
+                </div>
+                <div class="cap-body" lang="uk">
+                    <p>Ми адаптуємо систему до конкретного:</p>
+                    <ul>
+                        <li>планера або платформи;</li>
+                        <li>автопілота;</li>
+                        <li>корисного навантаження;</li>
+                        <li>сценарію застосування.</li>
+                    </ul>
+                    <p>Повний цикл — від формування вимог до польових випробувань — може тривати кілька тижнів, а не кварталів.</p>
+                    <p>Прошивка, схема підключення та підтримка відображення стану на OSD постачаються як єдиний інтеграційний пакет.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="why-digital" class="section-alt">
+    <div class="container">
+        <p class="section-kicker"><span lang="en">02 — Why digital</span><span lang="uk">02 — Чому цифрове керування</span></p>
+        <h2><span lang="en">Retire the blind wire pair</span><span lang="uk">Відмовтеся від «сліпого» керування двома дротами</span></h2>
+        <div class="comparison">
+            <div class="comparison-col old">
+                <h3><span lang="en">Legacy PWM initiation</span><span lang="uk">Традиційне керування через PWM</span></h3>
+                <ul lang="en">
+                    <li>Two blind wires — ARM and FIRE, one-way only</li>
+                    <li>Operator never sees the device state</li>
+                    <li>No error control — a failure is silence</li>
+                    <li>Fixed logic, nothing configurable in the field</li>
+                </ul>
+                <ul lang="uk">
+                    <li>Дві односторонні лінії: ARM і FIRE.</li>
+                    <li>Оператор не отримує інформації про фактичний стан пристрою.</li>
+                    <li>Відсутній контроль цілісності команд.</li>
+                    <li>У разі несправності система не повідомляє про причину.</li>
+                    <li>Логіка роботи є фіксованою та майже не налаштовується в польових умовах.</li>
+                </ul>
+            </div>
+            <div class="comparison-col new">
+                <h3><span lang="en">Digital fire chain</span><span lang="uk">Цифровий ланцюг ініціації</span></h3>
+                <ul lang="en">
+                    <li>Full-duplex serial link over a single pair</li>
+                    <li>State on the pilot's OSD at all times</li>
+                    <li>Checksum on every frame — an error is a warning, not silence</li>
+                    <li>Safety timers, thresholds, and delays configurable per mission</li>
+                </ul>
+                <ul lang="uk">
+                    <li>Двосторонній послідовний зв'язок через одну сигнальну пару.</li>
+                    <li>Поточний стан пристрою відображається на OSD оператора.</li>
+                    <li>Кожен пакет захищено контрольною сумою.</li>
+                    <li>Помилка зв'язку перетворюється на явне попередження, а не залишається непоміченою.</li>
+                    <li>Таймери безпеки, порогові значення та затримки налаштовуються відповідно до завдання.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="safety">
+    <div class="container">
+        <p class="section-kicker"><span lang="en">03 — Safety architecture</span><span lang="uk">03 — Архітектура безпеки</span></p>
+        <h2><span lang="en">Five states. One direction of trust.</span><span lang="uk">П'ять станів. Лише контрольовані переходи</span></h2>
+        <div class="section-subtitle">
+            <div lang="en">
+                <p>Transitions between the main states are forward-only. Every step requires an explicit command and independent conditions: correct command sequence, a mandatory non-cancellable pre-arm countdown, link watchdog and CRC on every frame. Any failed condition blocks initiation.</p>
+            </div>
+            <div lang="uk">
+                <p>Перехід між основними станами — лише вперед. Кожен крок вимагає окремої команди та виконання незалежних умов:</p>
+                <ul>
+                    <li>правильна послідовність команд;</li>
+                    <li>обов'язковий pre-arm таймер, який не можна скасувати;</li>
+                    <li>контроль зв'язку та контрольна сума в кожному кадрі.</li>
+                </ul>
+                <p>У разі порушення будь-якої умови постріл блокується. Самовільна ескалація станів архітектурно неможлива.</p>
+            </div>
+        </div>
+        <p class="states-label"><span lang="en">System states</span><span lang="uk">Стани системи</span></p>
+        <div class="state-flow">
+            <div class="state-card state-cold">
+                <div class="state-name">COLD</div>
+                <div class="state-desc"><span lang="en">Pre-flight standby, arming chain reset</span><span lang="uk">Передпольотне очікування. Ланцюг озброєння скинуто, команда Arm відхиляється.</span></div>
+            </div>
+            <div class="state-card state-timer">
+                <div class="state-name">TIMER</div>
+                <div class="state-desc"><span lang="en">Mandatory pre-arm countdown, non-cancellable</span><span lang="uk">Обов'язковий відлік перед готовністю. Не скасовується.</span></div>
+            </div>
+            <div class="state-card state-safe">
+                <div class="state-name">SAFE</div>
+                <div class="state-desc"><span lang="en">Countdown complete, ready to accept Arm</span><span lang="uk">Пристрій готовий прийняти команду Arm.</span></div>
+            </div>
+            <div class="state-card state-armed">
+                <div class="state-name">ARMED</div>
+                <div class="state-desc"><span lang="en">Charged, awaiting the fire command</span><span lang="uk">Заряджено. Очікує команду Fire; кінетичний детектор активний.</span></div>
+            </div>
+            <div class="state-card state-fire">
+                <div class="state-name">FIRED</div>
+                <div class="state-desc"><span lang="en">Initiation — terminal state</span><span lang="uk">Постріл відбувся.</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="trust">
+    <div class="container trust-grid">
+        <div class="trust-item">
+            <div class="trust-title"><span lang="en">Made in Ukraine</span><span lang="uk">Розроблено та виготовлено в Україні</span></div>
+            <div lang="en"><p>Design, firmware, and production in-country.</p></div>
+            <div lang="uk"><p>Апаратна частина, прошивка, інтеграція та виробництво виконуються в Україні.</p></div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-title"><span lang="en">Combat-informed</span><span lang="uk">Досвід реального застосування</span></div>
+            <div lang="en"><p>Iterated on direct feedback from active units.</p></div>
+            <div lang="uk"><p>Продукти вдосконалюються на основі безпосереднього зворотного зв'язку від підрозділів та інтеграторів.</p></div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-title"><span lang="en">ITAR-free</span><span lang="uk">Без компонентів, що підпадають під ITAR</span></div>
+            <div lang="en"><p>No US-controlled components in the supply chain.</p></div>
+            <div lang="uk"><p>У конструкції та ланцюгу постачання не використовуються компоненти, експорт яких контролюється відповідно до американських правил ITAR.</p></div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-title"><span lang="en">EU-ready</span><span lang="uk">Готовність до співпраці з партнерами в ЄС</span></div>
+            <div lang="en"><p>Open to licensed production and co-development with EU partners.</p></div>
+            <div lang="uk">
+                <p>Ми відкриті до:</p>
+                <ul>
+                    <li>ліцензійного виробництва;</li>
+                    <li>локалізації продукції;</li>
+                    <li>спільних дослідно-конструкторських робіт;</li>
+                    <li>інтеграції з платформами європейських партнерів.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="cta">
+    <div class="container">
+        <p class="section-kicker"><span lang="en">04 — Contact</span><span lang="uk">04 — Контакти</span></p>
+        <h2><span lang="en">Request a call back</span><span lang="uk">Передзвонити вам?</span></h2>
+        <p class="cta-sub">
+            <span lang="en">Tell us about your platform and integration needs — we'll get back with a technical briefing.</span>
+            <span lang="uk">Розкажіть про вашу платформу та завдання інтеграції — ми повернемось із технічним брифінгом.</span>
+        </p>
+        <div class="cta-buttons">
+            <a href="mailto:contact@example.com?subject=Contact%20request" class="btn btn-primary btn-lg">
+                <span lang="en">Contact us</span><span lang="uk">Зворотний зв'язок</span>
+            </a>
+            <a href="./smartesad-v1.2.html" class="btn btn-ghost btn-lg">
+                <span lang="en">smartESAD v1.2 spec</span><span lang="uk">Специфікація smartESAD v1.2</span>
+            </a>
+        </div>
+        <p class="microcopy">
+            <span lang="en">Response within one business day.</span><span lang="uk">Відповідаємо протягом одного робочого дня.</span>
+        </p>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <span>© 2026 KIWI ARC</span>
+        <span class="footer-note">
+            <span lang="en">Initiation &amp; fuzing systems · Ukraine</span>
+            <span lang="uk">Системи ініціації та підривники · Україна</span>
+        </span>
+    </div>
+</footer>
+
+<script>
+(function () {
+    var saved = localStorage.getItem('kiwiarc-lang');
+    if (saved === 'uk' || saved === 'en') setLang(saved);
+    else if ((navigator.language || '').toLowerCase().indexOf('uk') === 0) setLang('uk');
+    else setLang('en');
+
+    document.querySelectorAll('[data-set-lang]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            setLang(btn.getAttribute('data-set-lang'));
+            localStorage.setItem('kiwiarc-lang', btn.getAttribute('data-set-lang'));
+        });
+    });
+
+    function setLang(lang) {
+        document.documentElement.setAttribute('data-lang', lang);
+        document.documentElement.setAttribute('lang', lang === 'uk' ? 'uk' : 'en');
+        document.querySelectorAll('.lang-btn').forEach(function (b) {
+            b.classList.toggle('active', b.getAttribute('data-set-lang') === lang);
+        });
+    }
+})();
+</script>
+
+</body>
+</html>
