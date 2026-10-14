@@ -43,13 +43,12 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 | INAV 9.1 | 9.1.1-dev (6944bd5c) | 2026-10-14 | [KiwiH743-wing-inav.zip](download/KiwiH743-wing-inav.zip) |
 | Betaflight | — | — | TBD |
 
-> Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet. The INAV zip contains the `.hex` (target `KIWIH743WING`) plus the target sources, a README, and a small core patch that keeps MSP DisplayPort OSD active — flash the hex via the INAV Configurator "Load Firmware [Local]" button.
+> Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet. The INAV zip contains the `.hex` (target `KIWIH743WING`) plus the target sources and a README — flash the hex via the INAV Configurator "Load Firmware [Local]" button.
 
 ### Previous versions
 
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
-| INAV 9.1 | 9.1.1-dev (6944bd5c) | 2026-10-01 | [KiwiH743-wing-inav-2026-10-01.zip](download/old/KiwiH743-wing-inav-2026-10-01.zip) |
 | ArduPilot 4.6 | 4.6.3-dev (5436f451) | 2026-05-20 | [KiwiH743-wing-2026-05-20.zip](download/old/KiwiH743-wing-2026-05-20.zip) |
 | ArduPilot 4.6, no IMU CLKIN | 4.6.3-dev (5436f451) | 2026-05-15 | [KiwiH743-wing-noclkin-2026-05-15.zip](download/old/KiwiH743-wing-noclkin-2026-05-15.zip) |
 | ArduPilot 4.5 | 4.5.7-dev (0edb016a) | 2026-06-28 | [KiwiH743-wing-4.5-2026-06-28.zip](download/old/KiwiH743-wing-4.5-2026-06-28.zip) |
@@ -434,6 +433,76 @@ param set SERIAL8_BAUD 115
 param set SERIAL8_OPTIONS 0
 param set SERIAL8_PROTOCOL 42
 ```
+
+### OSD under INAV
+
+The onboard STM32G4 OSD is a character OSD driven over MSP DisplayPort on UART8, the same link ArduPilot uses. INAV draws a 30x16 character grid onto the analog video.
+
+How it works:
+
+1. INAV opens UART8 as an MSP DisplayPort port (function `MSP DisplayPort` in the Ports tab, 115200 baud).
+2. `osd_video_system` defaults to `BF43COMPAT`, which matches the font built into the OSD module. INAV draws all symbols, the artificial horizon and the direction arrows with that font.
+3. Font upload from the INAV Configurator is not used on this board. Keep the OSD module's built-in font.
+
+Factory defaults, applied on `defaults` or first boot:
+
+| Setting | Value | Purpose |
+|---|---|---|
+| UART8 function | MSP DisplayPort, 115200 | OSD link |
+| `osd_video_system` | `BF43COMPAT` | Matches the OSD module font, 30x16 grid |
+| `feature OSD` | on | Enables the OSD task |
+
+Equivalent CLI, if the settings were changed or a config from another board was loaded:
+
+```
+serial 7 33554432 115200 115200 0 115200
+set osd_video_system = BF43COMPAT
+feature OSD
+save
+```
+
+Options you may want to change:
+
+| Setting | Values | Notes |
+|---|---|---|
+| `osd_video_system` | `BF43COMPAT` (default), `AUTO`, `PAL`, `NTSC` | Keep `BF43COMPAT`. `AUTO` or `PAL` use the INAV font layout and show letters instead of the horizon line. `NTSC` gives 30x13. |
+| `osd_row_shiftdown` | 0 to 1 | Moves all elements down one row when the top row is cut off by the camera. Not needed with the layout below. |
+| `osd_units` | `METRIC`, `METRIC_MPH`, `IMPERIAL`, `UK`, `GA` | Display units. |
+| `osd_msp_displayport_fullframe_interval` | deciseconds, default 10 | How often INAV resends the whole screen. Raise it only if the link is noisy. |
+| `osd_ahi_style` | `DEFAULT`, `LINE` | Horizon drawing style. |
+| `osd_crosshairs_style` | `DEFAULT`, `AIRCRAFT`, ... | Centre marker. Off in the factory layout. |
+
+Element positions are set in the Configurator OSD tab or with `osd_layout`. The layout below keeps every element inside columns 1 to 28 and rows 1 to 12 so nothing is lost to analog overscan. Column and row are zero based, `V` is visible, `H` is hidden:
+
+```
+osd_layout 0 14 2 1 V      # satellites
+osd_layout 0 0 7 1 V       # RSSI
+osd_layout 0 24 13 1 V     # heading
+osd_layout 0 1 22 1 V      # battery voltage
+osd_layout 0 15 22 3 V     # altitude
+osd_layout 0 26 22 4 V     # vertical speed
+osd_layout 0 13 22 5 V     # ground speed
+osd_layout 0 3 8 6 V       # artificial horizon
+osd_layout 0 9 2 6 V       # throttle
+osd_layout 0 11 2 7 V      # current
+osd_layout 0 12 2 8 V      # mAh used
+osd_layout 0 10 2 9 V      # VTX channel
+osd_layout 0 22 14 9 V     # home arrow
+osd_layout 0 7 2 10 V      # flight mode
+osd_layout 0 23 13 10 V    # home distance
+osd_layout 0 28 20 11 V    # on time / fly time
+osd_layout 0 30 1 12 V     # messages
+```
+
+Checks in the CLI:
+
+```
+status
+```
+
+The `OSD:` line must read `MSP DisplayPort: DJI Compatability mode [30 x 16]`. Any other OSD line means the port function or `osd_video_system` was changed.
+
+VTX control under INAV uses IRC Tramp on UART2 (function `VTX Tramp`). Only the two Tramp bands that overlap the module's factory table are reachable from INAV: INAV band `A` is vendor band `I`, INAV band `E` is vendor band `K`. Power levels are 25 mW, 2 W and 4 W.
 
 ---
 

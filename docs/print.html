@@ -45,7 +45,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-c998dbec.js";
+            window.path_to_searchindex_js = "searchindex-15ddec1f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-1fe4d9c1.js"></script>
@@ -3253,7 +3253,7 @@ relay:off(1)     -- RELAY2 OFF
 </table>
 </div>
 <blockquote>
-<p>Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet. The INAV zip contains the <code>.hex</code> (target <code>KIWIH743WING</code>) plus the target sources, a README, and a small core patch that keeps MSP DisplayPort OSD active — flash the hex via the INAV Configurator “Load Firmware [Local]” button.</p>
+<p>Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet. The INAV zip contains the <code>.hex</code> (target <code>KIWIH743WING</code>) plus the target sources and a README — flash the hex via the INAV Configurator “Load Firmware [Local]” button.</p>
 </blockquote>
 <h3 id="previous-versions-4"><a class="header" href="#previous-versions-4">Previous versions</a></h3>
 <div class="table-wrapper">
@@ -3262,7 +3262,6 @@ relay:off(1)     -- RELAY2 OFF
 <tr><th>Firmware</th><th>Version</th><th>Updated</th><th>Download</th></tr>
 </thead>
 <tbody>
-<tr><td>INAV 9.1</td><td>9.1.1-dev (6944bd5c)</td><td>2026-10-01</td><td><a href="download/old/KiwiH743-wing-inav-2026-10-01.zip">KiwiH743-wing-inav-2026-10-01.zip</a></td></tr>
 <tr><td>ArduPilot 4.6</td><td>4.6.3-dev (5436f451)</td><td>2026-05-20</td><td><a href="download/old/KiwiH743-wing-2026-05-20.zip">KiwiH743-wing-2026-05-20.zip</a></td></tr>
 <tr><td>ArduPilot 4.6, no IMU CLKIN</td><td>4.6.3-dev (5436f451)</td><td>2026-05-15</td><td><a href="download/old/KiwiH743-wing-noclkin-2026-05-15.zip">KiwiH743-wing-noclkin-2026-05-15.zip</a></td></tr>
 <tr><td>ArduPilot 4.5</td><td>4.5.7-dev (0edb016a)</td><td>2026-06-28</td><td><a href="download/old/KiwiH743-wing-4.5-2026-06-28.zip">KiwiH743-wing-4.5-2026-06-28.zip</a></td></tr>
@@ -3715,6 +3714,73 @@ param set SERIAL8_BAUD 115
 param set SERIAL8_OPTIONS 0
 param set SERIAL8_PROTOCOL 42
 </code></pre>
+<h3 id="osd-under-inav"><a class="header" href="#osd-under-inav">OSD under INAV</a></h3>
+<p>The onboard STM32G4 OSD is a character OSD driven over MSP DisplayPort on UART8, the same link ArduPilot uses. INAV draws a 30x16 character grid onto the analog video.</p>
+<p>How it works:</p>
+<ol>
+<li>INAV opens UART8 as an MSP DisplayPort port (function <code>MSP DisplayPort</code> in the Ports tab, 115200 baud).</li>
+<li><code>osd_video_system</code> defaults to <code>BF43COMPAT</code>, which matches the font built into the OSD module. INAV draws all symbols, the artificial horizon and the direction arrows with that font.</li>
+<li>Font upload from the INAV Configurator is not used on this board. Keep the OSD module’s built-in font.</li>
+</ol>
+<p>Factory defaults, applied on <code>defaults</code> or first boot:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Setting</th><th>Value</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td>UART8 function</td><td>MSP DisplayPort, 115200</td><td>OSD link</td></tr>
+<tr><td><code>osd_video_system</code></td><td><code>BF43COMPAT</code></td><td>Matches the OSD module font, 30x16 grid</td></tr>
+<tr><td><code>feature OSD</code></td><td>on</td><td>Enables the OSD task</td></tr>
+</tbody>
+</table>
+</div>
+<p>Equivalent CLI, if the settings were changed or a config from another board was loaded:</p>
+<pre><code>serial 7 33554432 115200 115200 0 115200
+set osd_video_system = BF43COMPAT
+feature OSD
+save
+</code></pre>
+<p>Options you may want to change:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Setting</th><th>Values</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>osd_video_system</code></td><td><code>BF43COMPAT</code> (default), <code>AUTO</code>, <code>PAL</code>, <code>NTSC</code></td><td>Keep <code>BF43COMPAT</code>. <code>AUTO</code> or <code>PAL</code> use the INAV font layout and show letters instead of the horizon line. <code>NTSC</code> gives 30x13.</td></tr>
+<tr><td><code>osd_row_shiftdown</code></td><td>0 to 1</td><td>Moves all elements down one row when the top row is cut off by the camera. Not needed with the layout below.</td></tr>
+<tr><td><code>osd_units</code></td><td><code>METRIC</code>, <code>METRIC_MPH</code>, <code>IMPERIAL</code>, <code>UK</code>, <code>GA</code></td><td>Display units.</td></tr>
+<tr><td><code>osd_msp_displayport_fullframe_interval</code></td><td>deciseconds, default 10</td><td>How often INAV resends the whole screen. Raise it only if the link is noisy.</td></tr>
+<tr><td><code>osd_ahi_style</code></td><td><code>DEFAULT</code>, <code>LINE</code></td><td>Horizon drawing style.</td></tr>
+<tr><td><code>osd_crosshairs_style</code></td><td><code>DEFAULT</code>, <code>AIRCRAFT</code>, …</td><td>Centre marker. Off in the factory layout.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Element positions are set in the Configurator OSD tab or with <code>osd_layout</code>. The layout below keeps every element inside columns 1 to 28 and rows 1 to 12 so nothing is lost to analog overscan. Column and row are zero based, <code>V</code> is visible, <code>H</code> is hidden:</p>
+<pre><code>osd_layout 0 14 2 1 V      # satellites
+osd_layout 0 0 7 1 V       # RSSI
+osd_layout 0 24 13 1 V     # heading
+osd_layout 0 1 22 1 V      # battery voltage
+osd_layout 0 15 22 3 V     # altitude
+osd_layout 0 26 22 4 V     # vertical speed
+osd_layout 0 13 22 5 V     # ground speed
+osd_layout 0 3 8 6 V       # artificial horizon
+osd_layout 0 9 2 6 V       # throttle
+osd_layout 0 11 2 7 V      # current
+osd_layout 0 12 2 8 V      # mAh used
+osd_layout 0 10 2 9 V      # VTX channel
+osd_layout 0 22 14 9 V     # home arrow
+osd_layout 0 7 2 10 V      # flight mode
+osd_layout 0 23 13 10 V    # home distance
+osd_layout 0 28 20 11 V    # on time / fly time
+osd_layout 0 30 1 12 V     # messages
+</code></pre>
+<p>Checks in the CLI:</p>
+<pre><code>status
+</code></pre>
+<p>The <code>OSD:</code> line must read <code>MSP DisplayPort: DJI Compatability mode [30 x 16]</code>. Any other OSD line means the port function or <code>osd_video_system</code> was changed.</p>
+<p>VTX control under INAV uses IRC Tramp on UART2 (function <code>VTX Tramp</code>). Only the two Tramp bands that overlap the module’s factory table are reachable from INAV: INAV band <code>A</code> is vendor band <code>I</code>, INAV band <code>E</code> is vendor band <code>K</code>. Power levels are 25 mW, 2 W and 4 W.</p>
 <hr>
 <h2 id="flight-controller"><a class="header" href="#flight-controller">Flight Controller</a></h2>
 <p>Built around the STM32H743, the flight controller provides dual IMUs with hardware signal filtering, dual switchable camera inputs, and relay-controlled power outputs.</p>
