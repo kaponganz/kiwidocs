@@ -38,7 +38,7 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
 | ArduPilot 4.7 | 4.7.1-dev (4776a3fb) | 2026-09-04 | [KiwiH743-wing-4.7.zip](download/KiwiH743-wing-4.7.zip) |
-| ArduPilot 4.6 | 4.6.3-dev (e4a1d2cc) | 2026-06-26 | [KiwiH743-wing.zip](download/KiwiH743-wing.zip) |
+| ArduPilot 4.6 | 4.6.3-dev (3a7e5083) | 2026-10-14 | [KiwiH743-wing.zip](download/KiwiH743-wing.zip) |
 | ArduPilot 4.5 | 4.5.7-dev (a6bb8227) | 2026-08-20 | [KiwiH743-wing-4.5.zip](download/KiwiH743-wing-4.5.zip) |
 | INAV 9.1 | 9.1.1-dev (6944bd5c) | 2026-10-14 | [KiwiH743-wing-inav.zip](download/KiwiH743-wing-inav.zip) |
 | Betaflight | — | — | TBD |
@@ -49,6 +49,7 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
+| ArduPilot 4.6 | 4.6.3-dev (e4a1d2cc) | 2026-06-26 | [KiwiH743-wing-2026-06-26.zip](download/old/KiwiH743-wing-2026-06-26.zip) |
 | ArduPilot 4.6 | 4.6.3-dev (5436f451) | 2026-05-20 | [KiwiH743-wing-2026-05-20.zip](download/old/KiwiH743-wing-2026-05-20.zip) |
 | ArduPilot 4.6, no IMU CLKIN | 4.6.3-dev (5436f451) | 2026-05-15 | [KiwiH743-wing-noclkin-2026-05-15.zip](download/old/KiwiH743-wing-noclkin-2026-05-15.zip) |
 | ArduPilot 4.5 | 4.5.7-dev (0edb016a) | 2026-06-28 | [KiwiH743-wing-4.5-2026-06-28.zip](download/old/KiwiH743-wing-4.5-2026-06-28.zip) |
@@ -64,7 +65,7 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 - ICM-42688P and ICM-45686 with power and hardware signal filtering
 - BMP388 barometer
 - Dual camera input, switchable
-- 8 motors + 7 servos (15 PWM outputs)
+- 12 PWM outputs + 3 GPIO/PINIO outputs (servo 13-15)
 - 5 UARTs, UART7 with flow control
 - 1 SPI, 1 I2C, FDCAN
 - 5 GPIOs, 2 relay outputs, 9/12V switch
@@ -177,6 +178,49 @@ Port connection diagram for cable assembly. Pin order in each connector matches 
 
 > **Note:** Wire colors are intended to simplify cable assembly and connector identification. Signal names printed on the PCB always take precedence over wire color. On the VTX cable, `5V` is the video 5V rail (blue) — distinct from `12V` (red).
 
+### AUX, RELAY and ADC Connectors (bottom side)
+
+Three JST-SH 1 mm connectors on the bottom of the FC board. Pin order follows the silkscreen next to each connector.
+
+**AUX** (8-pin). 3.3 V logic straight from the MCU, no driver, no series resistor. `5V` is a supply output.
+
+| Silk | Signal | MCU pin | ArduPilot |
+|------|--------|---------|-----------|
+| G  | GND | | |
+| U4 | AUX4 GPIO | PC14 | GPIO 108 |
+| U3 | AUX3 GPIO | PE5 | GPIO 107 |
+| U2 | AUX2 GPIO | PB3 | GPIO 106 |
+| U1 | AUX1 GPIO | PD7 | GPIO 105 |
+| R3 | UART3 RX | PD9 | SERIAL3 |
+| T3 | UART3 TX | PD8 | SERIAL3 |
+| 5V | 5 V out | | |
+
+U1-U4 are outputs, low at boot. Use them with `RELAYn_PIN=105/106/107/108` and `RELAYn_FUNCTION=1`. From Lua, use `gpio:write(105, 1)`. All six ArduPilot relays have a default pin, so free one first. Example: `RELAY6_PIN=105` if servo 15 is not needed as GPIO.
+
+**RELAY** (4-pin). Two high-side switched power outputs from the board's 12 V rail (9 V when the rail is set to 9 V). Each output is a P-channel MOSFET (IRLML5203) driven through a level shifter with a 10 k gate pulldown. The output is off while the MCU is in reset or unprogrammed. Off = open circuit, not 0 V. Rate each output at 2 A continuous.
+
+| Silk | Signal | Control pin | ArduPilot |
+|------|--------|-------------|-----------|
+| G  | GND | | |
+| G  | GND | | |
+| X2 | switched 12 V | PD4, GPIO 102 | RELAY3 (`RELAY3_PIN=102`, default) |
+| X1 | switched 12 V | PD3, GPIO 101 | RELAY2 (`RELAY2_PIN=101`, default) |
+
+The X1/X2 connector pins are the same outputs as the RELAY 1 / RELAY 2 pads listed under [GPIOs, Relays, and AUX](#gpios-relays-and-aux).
+
+**ADC** (6-pin). Analog inputs, each with an ESD diode and 100 nF to ground. A1-A3 are 0 to 3.3 V direct. B2 is a battery voltage input with a 100 k / 5.1 k divider, ratio 20.6. Full scale 3.3 V is about 68 V at the pin. `5V` is a supply output.
+
+| Silk | Signal | MCU pin | ADC | ArduPilot pin |
+|------|--------|---------|-----|---------------|
+| G  | GND | | | |
+| B2 | battery 2 voltage, divider 20.6:1 | PC3 | ADC1 ch13 | 13 |
+| A3 | analog in, 0-3.3 V | PC2 | ADC1 ch12 | 12 |
+| A2 | analog in, 0-3.3 V | PC0 | ADC1 ch10 | 10 |
+| A1 | analog in, 0-3.3 V | PC1 | ADC1 ch11 | 11 |
+| 5V | 5 V out | | | |
+
+Second battery monitor on B2: set `BATT2_MONITOR=3`, the firmware defaults `BATT2_VOLT_PIN=13` and `BATT2_VOLT_MULT=20.6` (firmware after 2026-10-14). A1/A2/A3 suit an analog airspeed sensor (`ARSPD_PIN=11`) or RSSI (`RSSI_TYPE=1`, `RSSI_ANA_PIN=10`).
+
 ---
 
 ## GPIOs, Relays, and AUX
@@ -186,18 +230,18 @@ Port connection diagram for cable assembly. Pin order in each connector matches 
 | Pad      | Pin  | GPIO | Default    | ArduPilot Relay Config                |
 |----------|------|------|------------|---------------------------------------|
 | CAM SW   | PE2  | 100  | RELAY1     | `RELAY1_PIN=100` (hwdef default)      |
-| RELAY 1  | PD3  | 101  | Output LOW | `RELAY2_PIN=101`, `RELAY2_FUNC=1`     |
-| RELAY 2  | PD4  | 102  | Output LOW | `RELAY3_PIN=102`, `RELAY3_FUNC=1`     |
-| AUX 1    | PD7  | 105  | Output LOW | `RELAY4_PIN=105`, `RELAY4_FUNC=1`     |
-| AUX 2    | PB3  | 106  | Output LOW | `RELAY5_PIN=106`, `RELAY5_FUNC=1`     |
+| RELAY 1  | PD3  | 101  | RELAY2     | `RELAY2_PIN=101` (default, enabled)   |
+| RELAY 2  | PD4  | 102  | RELAY3     | `RELAY3_PIN=102` (default, enabled)   |
+| AUX 1    | PD7  | 105  | Output LOW | —                                     |
+| AUX 2    | PB3  | 106  | Output LOW | —                                     |
 | AUX 3    | PE5  | 107  | Output LOW | —                                     |
-| AUX 4    | PC13 | 103  | Output LOW | Shared with VIDEO BOOT                |
-| VID NRST | PE3  | 104  | Output LOW | `RELAY6_PIN=104` (hwdef default), inverted |
+| AUX 4    | PC14 | 108  | Output LOW | U4 on AUX connector (firmware after 2026-10-14) |
+| VID NRST | PE3  | 104  | Input PULLUP | `RELAY6_PIN=104`, inverted (takes RELAY6 from servo 15) |
 | CAN SIL  | PE4  | 70   | Output LOW | CAN silent mode                       |
 | BUZZER   | PA15 | 32   | Alarm      | —                                     |
 | LED      | PD11 | 90   | Status LED | —                                     |
 
-> **Note:** `RELAY1_PIN` defaults to GPIO 100 (Camera Switch, PE2). `RELAY6_PIN` defaults to GPIO 104 (VIDEO_NRST, PE3 — STM32G4 OSD reset, active low). RELAY 1/2 pads are 9/12V switched outputs.
+> **Note:** pad silkscreen numbers and ArduPilot relay numbers are off by one. ArduPilot RELAY1 is the camera switch (`RELAY1_PIN=100`, PE2, hwdef default). Pad **RELAY 1** (PD3) is ArduPilot **RELAY2**, pad **RELAY 2** (PD4) is ArduPilot **RELAY3**. Both are enabled by default, off at boot. RELAY4-6 default to servo outputs 13-15, see below. RELAY 1/2 pads are 9/12V switched outputs.
 
 ### PWM Outputs
 
@@ -215,20 +259,58 @@ Port connection diagram for cable assembly. Pin order in each connector matches 
 | SERVO 10 | PB4  | 59   | TIM3_CH1 | Servo N  | No          |
 | SERVO 11 | PB5  | 60   | TIM3_CH2 | Servo N  | No          |
 | SERVO 12 | PA3  | 61   | TIM5_CH4 | Servo N  | No          |
-| SERVO 13 | PA2  | 62   | TIM5_CH3 | Servo N  | No          |
-| SERVO 14 | PA1  | 63   | TIM5_CH2 | Servo N  | No          |
-| SERVO 15 | PA0  | 64   | TIM5_CH1 | Servo N  | No          |
+| SERVO 13 | PA2  | 62   | TIM5_CH3 | GPIO, RELAY4 | No      |
+| SERVO 14 | PA1  | 63   | TIM5_CH2 | GPIO, RELAY5 | No      |
+| SERVO 15 | PA0  | 64   | TIM5_CH1 | GPIO, RELAY6 | No      |
 
-PWM pins can be reassigned to GPIO via `SERVOn_FUNCTION=0` + `RELAYn_PIN=<gpio>`.
+Any PWM pin can be turned into a GPIO with `SERVOn_FUNCTION=-1` + `RELAYn_PIN=<gpio>`. Reboot after changing the function.
 
 Bidirectional DShot (ESC RPM telemetry) is available on outputs 1–3 (TIM1). Enable with `SERVO_BLH_BDMASK=7` and use DShot300/600 on those outputs.
+
+### Servo 13-15 as GPIO (PINIO)
+
+Servo outputs 13, 14 and 15 ship as GPIO outputs, not PWM. The firmware defaults set `SERVO13-15_FUNCTION = -1` and map the pins to RELAY4-6, off at boot.
+
+| Output   | Pin | GPIO | Relay  | RC switch         | Relay index (MAVProxy / Lua / `DO_SET_RELAY`) |
+|----------|-----|------|--------|-------------------|-----------------------------------------------|
+| SERVO 13 | PA2 | 62   | RELAY4 | `RCx_OPTION = 36` | 3                                             |
+| SERVO 14 | PA1 | 63   | RELAY5 | `RCx_OPTION = 66` | 4                                             |
+| SERVO 15 | PA0 | 64   | RELAY6 | `RCx_OPTION = 67` | 5                                             |
+
+Signal level is 3.3 V through a 220 R series resistor, active high. The pin drives up to 15 mA, enough for a logic input or an opto, not for a coil.
+
+To drive one from a transmitter switch, put the option value on an RC channel, for example `RC9_OPTION = 36` for RELAY4 on servo 13. Switch low (< 1200 us) = off, high (> 1800 us) = on.
+
+```
+param set RC9_OPTION 36     # RC9 switches RELAY4 (servo 13)
+relay set 3 1               # RELAY4 ON from MAVProxy
+relay set 3 0               # RELAY4 OFF
+```
+
+To get a PWM output back, set `SERVOn_FUNCTION` to the wanted function and `RELAYn_FUNCTION = 0`. No firmware rebuild is needed.
+
+#### Pyrotechnic and one-shot loads
+
+These three outputs are the ones to use for a parachute, cutter or other load that must never see a stray pulse:
+
+- The bootloader drives them low from the first milliseconds. The firmware presets the output latch low. There is no pulse during startup or relay init.
+- The pins are high impedance only while the MCU is held in reset or in DFU mode. If the load input is a bare MOSFET gate with no pulldown, fit a pulldown at the load. Use 4.7 k to 100 k from signal to GND. A module with an opto input, a base resistor or its own pulldown does not need it. Check with a meter: resistance from the module input to GND below 1 M means a pulldown is there.
+- Keep `RELAYn_DEFAULT = 0`. Value 2 restores the last state after a reboot and can re-fire the load.
+- Do not change `SERVO13-15_FUNCTION` on a channel wired to a pyro load. A servo function puts 50 Hz pulses on the pin.
+
+For a parachute, prefer the built-in parachute function over a raw relay switch. It adds the disarmed lockout, `CHUTE_ALT_MIN` and a timed pulse instead of a held level:
+
+```
+param set RELAY4_FUNCTION 3   # Parachute on servo 13
+param set CHUTE_ENABLED 1
+param set CHUTE_TYPE 10        # relay
+param set RC9_OPTION 22        # parachute release switch
+```
 
 ### Relay Usage
 
 **MAVProxy:**
 ```
-param set RELAY2_PIN 101
-param set RELAY2_FUNC 1
 relay set 0 1    # RELAY1 ON (CAM SW HIGH)
 relay set 0 0    # RELAY1 OFF
 relay set 1 1    # RELAY2 ON (RELAY1 pad HIGH)
@@ -247,7 +329,7 @@ All GPIO pads default LOW on boot. Use `RELAY_DEFAULT` params to set initial sta
 
 **OSD Reset (RELAY6):**
 
-RELAY6 controls the STM32G4 OSD reset line (VID NRST). Active low — set `RELAY6_INVERTED=1` so that "relay on" pulls the line low (reset) and "relay off" releases it.
+RELAY6 defaults to servo output 15. To use it for the STM32G4 OSD reset line (VID NRST) instead, point it at GPIO 104. Active low — set `RELAY6_INVERTED=1` so that "relay on" pulls the line low (reset) and "relay off" releases it.
 
 ```
 param set RELAY6_PIN 104
