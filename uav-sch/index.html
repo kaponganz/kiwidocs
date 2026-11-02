@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIWI Wiring Editor</title>
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+</head>
+<body>
+  <div class="toolbar">
+    <span class="toolbar-title">KIWI Wiring Editor</span>
+    <div class="toolbar-actions">
+      <button id="btn-new" title="New diagram">New</button>
+      <button id="btn-open" title="Open YAML file">Open YAML</button>
+      <button id="btn-save" title="Save as YAML">Save YAML</button>
+      <input type="file" id="file-input" accept=".yaml,.yml" hidden>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Boards</div>
+        <div id="board-list" class="palette"></div>
+        <button class="sidebar-btn" id="btn-flip-board" style="display:none">Flip Board (Top/Bottom)</button>
+        <button class="sidebar-btn" id="btn-upload-board">Upload Board Image</button>
+        <input type="file" id="board-image-input" accept="image/*" hidden>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Devices</div>
+        <div id="device-list" class="palette"></div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Wire Color</div>
+        <div class="color-presets" id="color-presets"></div>
+        <input type="color" id="wire-color" value="#FF0000">
+      </div>
+    </div>
+
+    <div class="canvas-wrap">
+      <svg id="canvas" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  </div>
+
+  <div id="status-bar" class="status-bar">Ready</div>
+  <script src="app.js"></script>
+</body>
+</html>

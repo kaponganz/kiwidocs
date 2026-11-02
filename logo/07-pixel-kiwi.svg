@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="200" height="200" shape-rendering="crispEdges">
+  <!-- Concept 7: 16x16 pixel art kiwi bird with propeller -->
+  <!-- Palette: #1a1a1a body, #00b894 accent, #ffffff eye -->
+
+  <!-- Propeller blades (teal) -->
+  <rect x="7" y="1" width="1" height="1" fill="#00b894"/>
+  <rect x="6" y="2" width="1" height="1" fill="#00b894"/>
+  <rect x="8" y="2" width="1" height="1" fill="#00b894"/>
+  <rect x="9" y="3" width="1" height="1" fill="#00b894"/>
+  <rect x="5" y="3" width="1" height="1" fill="#00b894"/>
+
+  <!-- Head -->
+  <rect x="5" y="4" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="4" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="4" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="4" y="5" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="5" y="5" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="5" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="5" width="1" height="1" fill="#1a1a1a"/>
+  <!-- Eye -->
+  <rect x="5" y="5" width="1" height="1" fill="#ffffff"/>
+
+  <!-- Beak -->
+  <rect x="1" y="6" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="2" y="6" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="3" y="6" width="1" height="1" fill="#1a1a1a"/>
+
+  <!-- Body -->
+  <rect x="4" y="6" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="5" y="6" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="6" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="6" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="8" y="6" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="5" y="7" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="7" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="7" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="8" y="7" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="9" y="7" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="5" y="8" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="8" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="8" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="8" y="8" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="9" y="8" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="10" y="8" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="9" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="9" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="8" y="9" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="9" y="9" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="10" y="9" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="11" y="9" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="10" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="8" y="10" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="9" y="10" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="10" y="10" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="11" y="10" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="12" y="10" width="1" height="1" fill="#1a1a1a"/>
+
+  <!-- Tail taper -->
+  <rect x="11" y="11" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="12" y="11" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="13" y="11" width="1" height="1" fill="#1a1a1a"/>
+
+  <!-- Legs -->
+  <rect x="7" y="11" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="9" y="11" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="12" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="9" y="12" width="1" height="1" fill="#1a1a1a"/>
+  <!-- Feet -->
+  <rect x="6" y="13" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="13" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="8" y="13" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="9" y="13" width="1" height="1" fill="#1a1a1a"/>
+</svg>

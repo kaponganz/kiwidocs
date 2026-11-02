@@ -1,0 +1,33 @@
+[book]
+authors = ["Anton P. Linevich"]
+language = "en"
+src = "src"
+title = "KIWI Flight Systems"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+smart-punctuation = true
+mathjax-support = false
+no-section-label = true
+input-404 = "404.md"
+additional-css = ["theme/css/custom.css"]
+additional-js = ["mermaid.min.js", "mermaid-init.js", "buy-button.js"]
+
+[output.html.print]
+enable = true
+page-break = true
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"

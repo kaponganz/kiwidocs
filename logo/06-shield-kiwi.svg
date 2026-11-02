@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
+  <!-- Concept 6: Shield/badge shape with kiwi silhouette inside — "flight systems" feel -->
+  <defs>
+    <style>
+      .shield { fill: #1a2332; }
+      .bird { fill: #00b894; }
+      .ring { fill: none; stroke: #00b894; stroke-width: 2; }
+    </style>
+  </defs>
+  <!-- Shield shape -->
+  <path class="shield" d="
+    M100,10
+    L175,40
+    C180,42 185,55 185,70
+    L185,120
+    C185,155 155,185 100,210
+    C45,185 15,155 15,120
+    L15,70
+    C15,55 20,42 25,40
+    Z
+  "/>
+  <!-- Inner border -->
+  <path fill="none" stroke="#00b894" stroke-width="1.5" opacity="0.4" d="
+    M100,20
+    L168,46
+    C172,48 176,58 176,70
+    L176,118
+    C176,149 149,176 100,200
+    C51,176 24,149 24,118
+    L24,70
+    C24,58 28,48 32,46
+    Z
+  "/>
+  <!-- Kiwi silhouette centered -->
+  <g transform="translate(100,105) scale(0.9)">
+    <!-- Body -->
+    <ellipse class="bird" cx="5" cy="10" rx="42" ry="32"/>
+    <!-- Head -->
+    <circle class="bird" cx="-25" cy="-15" r="20"/>
+    <!-- Beak -->
+    <path class="bird" d="M-40,-10 L-72,0 Q-75,1 -72,3 L-38,-3 Z"/>
+    <!-- Eye -->
+    <circle cx="-32" cy="-20" r="4" fill="#1a2332"/>
+    <circle cx="-31" cy="-21" r="1.5" fill="#ffffff"/>
+    <!-- Legs -->
+    <line x1="0" y1="40" x2="-5" y2="58" stroke="#00b894" stroke-width="3" stroke-linecap="round"/>
+    <line x1="15" y1="40" x2="10" y2="58" stroke="#00b894" stroke-width="3" stroke-linecap="round"/>
+    <line x1="-5" y1="58" x2="-12" y2="58" stroke="#00b894" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="10" y1="58" x2="3" y2="58" stroke="#00b894" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <!-- Small propeller arcs at top of shield -->
+  <path fill="none" stroke="#00b894" stroke-width="1.5" stroke-linecap="round" opacity="0.6"
+    d="M85,30 Q100,18 115,30"/>
+  <path fill="none" stroke="#00b894" stroke-width="1.5" stroke-linecap="round" opacity="0.3"
+    d="M80,35 Q100,20 120,35"/>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Concept 1: Kiwi bird silhouette with propeller on back -->
+  <defs>
+    <style>
+      .body { fill: #1a1a1a; }
+      .prop { fill: #00b894; }
+      .eye { fill: #ffffff; }
+    </style>
+  </defs>
+  <!-- Propeller blades on top -->
+  <g transform="translate(95, 65)">
+    <ellipse class="prop" cx="0" cy="-20" rx="6" ry="22" transform="rotate(0)"/>
+    <ellipse class="prop" cx="0" cy="-20" rx="6" ry="22" transform="rotate(90)"/>
+    <ellipse class="prop" cx="0" cy="-20" rx="6" ry="22" transform="rotate(180)"/>
+    <ellipse class="prop" cx="0" cy="-20" rx="6" ry="22" transform="rotate(270)"/>
+    <circle cx="0" cy="0" r="5" fill="#1a1a1a"/>
+  </g>
+  <!-- Kiwi body — round blob -->
+  <ellipse class="body" cx="95" cy="110" rx="55" ry="45"/>
+  <!-- Kiwi head -->
+  <circle class="body" cx="70" cy="80" r="25"/>
+  <!-- Long beak pointing left-down -->
+  <path class="body" d="M52,88 L15,105 Q12,106 15,108 L55,95 Z"/>
+  <!-- Eye -->
+  <circle class="eye" cx="62" cy="76" r="4"/>
+  <circle cx="63" cy="75" r="2" fill="#1a1a1a"/>
+  <!-- Tiny legs -->
+  <line x1="85" y1="152" x2="80" y2="172" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+  <line x1="105" y1="152" x2="100" y2="172" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+  <!-- Feet -->
+  <line x1="80" y1="172" x2="72" y2="172" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="100" y1="172" x2="92" y2="172" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+</svg>

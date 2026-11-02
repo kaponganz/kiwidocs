@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --kiwi-accent: #0d9488;
+  --kiwi-accent-light: #14b8a6;
+  --kiwi-accent-dark: #0f766e;
+  --bg: #fff;
+  --text: #4B4646;
+  --text-muted: #908a8a;
+  --text-faint: #B7B1B1;
+  --border: #E8E4E4;
+  --surface: #F9F7F7;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 44px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.toolbar-title {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--kiwi-accent);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.toolbar-actions button {
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.toolbar-actions button:hover {
+  border-color: var(--kiwi-accent);
+  color: var(--kiwi-accent);
+}
+
+/* main layout */
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* sidebar */
+.sidebar {
+  width: 180px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-heading {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  transition: background 0.15s;
+  user-select: none;
+}
+
+.palette-item:hover {
+  background: var(--border);
+}
+
+.palette-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.color-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.color-preset {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, transform 0.1s;
+}
+
+.color-preset:hover {
+  transform: scale(1.15);
+}
+
+.color-preset.active {
+  border-color: var(--kiwi-accent);
+}
+
+.color-preset.color-preset-light {
+  border-color: var(--border);
+}
+
+.color-preset.color-preset-light.active {
+  border-color: var(--kiwi-accent);
+}
+
+#wire-color {
+  width: 100%;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--bg);
+}
+
+/* canvas */
+.canvas-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  background-image: radial-gradient(circle, #E8E4E4 0.6px, transparent 0.6px);
+  background-size: 10px 10px;
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* status bar */
+.status-bar {
+  height: 24px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 24px;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+/* SVG element styles */
+.port-dot {
+  cursor: crosshair;
+  transition: r 0.1s;
+}
+
+.port-dot:hover {
+  r: 7;
+}
+
+.port-dot.active {
+  r: 8;
+  stroke: var(--kiwi-accent);
+  stroke-width: 2;
+}
+
+.port-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  fill: var(--text-muted);
+  pointer-events: none;
+  user-select: none;
+}
+
+.component-group {
+  cursor: grab;
+}
+
+.component-group.dragging {
+  cursor: grabbing;
+}
+
+.component-rect {
+  stroke: var(--border);
+  stroke-width: 1;
+  rx: 6;
+  ry: 6;
+}
+
+.component-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--text);
+  pointer-events: none;
+  user-select: none;
+}
+
+.wire {
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  cursor: pointer;
+  fill: none;
+}
+
+.wire:hover {
+  stroke-width: 4;
+}
+
+.wire-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  fill: var(--text-muted);
+  pointer-events: none;
+}
+
+.selected {
+  outline: none;
+}
+
+.selected .component-rect {
+  stroke: var(--kiwi-accent);
+  stroke-width: 2;
+}
+
+.wire.selected {
+  stroke-width: 4;
+}
+
+.waypoint-handle {
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.15s, r 0.1s;
+}
+
+.waypoint-handle:hover {
+  opacity: 1;
+  r: 7;
+}
+
+/* sidebar buttons */
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.sidebar-btn:hover {
+  border-color: var(--kiwi-accent);
+  color: var(--kiwi-accent);
+}

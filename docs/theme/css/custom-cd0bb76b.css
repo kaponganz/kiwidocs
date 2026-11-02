@@ -1,0 +1,83 @@
+/* KIWI Flight Systems — minimal overrides on stock mdBook */
+
+:root {
+    --content-max-width: 900px;
+    --kiwi-accent: #0b6b63;
+    --kiwi-accent-light: #0d9488;
+    --kiwi-accent-dark: #095e56;
+}
+
+/* teal links and active sidebar item */
+.light, html:not(.js) {
+    --links: var(--kiwi-accent-dark);
+    --sidebar-active: var(--kiwi-accent);
+}
+.navy, .coal, .ayu {
+    --links: var(--kiwi-accent-light);
+    --sidebar-active: var(--kiwi-accent-light);
+}
+
+/* Shop link in the menu bar, aligned like the icon buttons */
+.header-nav-link {
+    padding: 0 12px;
+    line-height: var(--menu-bar-height);
+    color: var(--icons) !important;
+    text-decoration: none !important;
+}
+.header-nav-link:hover { color: var(--icons-hover) !important; }
+
+/* firmware zip links */
+.content a[href$=".zip"] { font-weight: 600; }
+
+/* Buy Online button, inline and sticky; cart icon via mask */
+.buy-online::before, .buy-online-sticky::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.45em;
+    vertical-align: -0.12em;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='21' r='1'/%3E%3Ccircle cx='20' cy='21' r='1'/%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/%3E%3C/svg%3E") no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='21' r='1'/%3E%3Ccircle cx='20' cy='21' r='1'/%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.buy-online, .buy-online-sticky {
+    display: inline-block;
+    padding: 0.6em 1.4em;
+    background-color: var(--sidebar-active);
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+.buy-online { margin: 0.6em 0 1em; }
+.buy-online:hover, .buy-online-sticky:hover { background-color: var(--kiwi-accent-dark); }
+.buy-online-sticky {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.buy-online-sticky.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* quick-nav bar under the title */
+.quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em 1.2em;
+    margin: 1em 0 2em;
+    padding: 0.6em 0;
+    border-top: 1px solid var(--table-border-color);
+    border-bottom: 1px solid var(--table-border-color);
+    font-size: 0.85em;
+}
+.quick-nav a { text-decoration: none; }
+.quick-nav a:hover { text-decoration: underline; }

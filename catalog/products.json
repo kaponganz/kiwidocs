@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "catalog_version": "2026.05",
+    "currency": "USD",
+    "currency_symbol": "$",
+    "origin": "NZ",
+    "api": {
+      "endpoint": null,
+      "note": "When ready, set endpoint to e.g. https://api.kiwidrone.com.ua/orders. While null, checkout.js stubs the response and logs the payload to console + localStorage."
+    },
+    "_note_prices": "Placeholder pricing — replace with real values."
+  },
+  "categories": [
+    { "id": "all", "label": "All" },
+    { "id": "multirotor", "label": "Multirotor" },
+    { "id": "fixed-wing", "label": "Fixed Wing" },
+    { "id": "accessory", "label": "Accessories" }
+  ],
+  "products": [
+    {
+      "sku": "K-F405-12S",
+      "slug": "kiwi-f405-12s",
+      "name": "Kiwi F405-12S",
+      "category": "multirotor",
+      "category_label": "Multirotor FC",
+      "tagline": "Compact F4 for high-voltage cinelifters and heavy quads.",
+      "price": 89,
+      "stock": "in_stock",
+      "lead_time": "Ships in 3 days",
+      "images": [
+        "images/kiwif405-12s.jpeg",
+        "images/f405-12s-topbot.png",
+        "images/kiwif405-top.png"
+      ],
+      "highlight_specs": [
+        { "label": "MCU", "value": "STM32F405" },
+        { "label": "Cells", "value": "3S–12S" },
+        { "label": "Outputs", "value": "8 PWM" }
+      ],
+      "specs": {
+        "MCU": "STM32F405RGT6 · 168 MHz",
+        "IMU": "ICM-42688-P",
+        "Barometer": "BMP280",
+        "OSD": "AT7456E (analog)",
+        "Black Box": "16 MB onboard flash",
+        "Input voltage": "3S–12S (≤ 50.4 V)",
+        "BEC": "5 V / 3 A, 9 V / 2 A",
+        "PWM outputs": "8 (DShot ready, bi-dir capable)",
+        "UARTs": "6",
+        "I2C / CAN": "1 / 1",
+        "Firmware": "ArduPilot · Betaflight · INAV",
+        "Dimensions": "36 × 36 mm (30.5 × 30.5 mounting)",
+        "Weight": "9 g"
+      },
+      "description": "A compact 30.5 × 30.5 mm F4 flight controller built for high-voltage builds — from 3S park flyers to 12S cinelifters. Native ArduPilot support, switchable to Betaflight or INAV, with 8 DShot-capable outputs, integrated 5 V/9 V BEC and onboard 16 MB blackbox.",
+      "docs_url": "/02.2-kiwif405-12S.html",
+      "shop_url": "https://kiwidrone.com.ua/kiwi-f405-flight-controller/"
+    },
+    {
+      "sku": "K-H743",
+      "slug": "kiwi-h743",
+      "name": "Kiwi H743",
+      "category": "multirotor",
+      "category_label": "Multirotor FC",
+      "tagline": "Flagship H7 for FPV, freestyle and long-range quads.",
+      "price": 129,
+      "stock": "in_stock",
+      "lead_time": "Ships in 3 days",
+      "images": [
+        "images/KiwiH743.jpg",
+        "images/h743-esc-pinout.png"
+      ],
+      "highlight_specs": [
+        { "label": "MCU", "value": "STM32H743" },
+        { "label": "Clock", "value": "480 MHz" },
+        { "label": "Outputs", "value": "12 PWM" }
+      ],
+      "specs": {
+        "MCU": "STM32H743VIT6 · 480 MHz",
+        "IMU": "Dual ICM-42688-P",
+        "Barometer": "DPS310",
+        "OSD": "AT7456E (analog) + HD via MSP",
+        "Black Box": "256 MB onboard flash",
+        "Input voltage": "3S–6S (≤ 25.2 V)",
+        "BEC": "5 V / 3 A, 9 V / 3 A",
+        "PWM outputs": "12 (DShot, bi-dir)",
+        "UARTs": "8",
+        "I2C / CAN": "1 / 2",
+        "Firmware": "ArduPilot · Betaflight · INAV",
+        "Dimensions": "36 × 36 mm (30.5 × 30.5 mounting)",
+        "Weight": "11 g"
+      },
+      "description": "The flagship Kiwi H7 — a 480 MHz STM32H743 flight controller with dual ICM-42688-P, twin CAN, eight UARTs and a 256 MB blackbox. Designed for FPV freestyle, racing and serious long-range quads where headroom for ArduCopter, Lua scripting and HD video stacks matters.",
+      "docs_url": "/02.4-kiwih743.html",
+      "shop_url": "https://kiwidrone.com.ua/kiwi-h743-fpv/"
+    },
+    {
+      "sku": "K-H743-WING",
+      "slug": "kiwi-h743-wing",
+      "name": "Kiwi H743-Wing",
+      "category": "fixed-wing",
+      "category_label": "Fixed Wing FC",
+      "tagline": "H7 platform for long-range fixed wing, VTOL and survey UAV.",
+      "price": 179,
+      "stock": "in_stock",
+      "lead_time": "Ships in 5 days",
+      "images": [
+        "images/h743-wing-fc.jpg",
+        "images/h743-wing-fc-bot.jpg",
+        "images/h743-wing-pdb.jpg"
+      ],
+      "highlight_specs": [
+        { "label": "MCU", "value": "STM32H743" },
+        { "label": "Cells", "value": "3S–12S" },
+        { "label": "I/O", "value": "Expanded" }
+      ],
+      "specs": {
+        "MCU": "STM32H743VIT6 · 480 MHz",
+        "IMU": "Dual ICM-42688-P (vibration isolated)",
+        "Barometer": "DPS310",
+        "Magnetometer": "external (RM3100 recommended)",
+        "Input voltage": "3S–12S (≤ 50.4 V)",
+        "BEC": "5 V / 5 A, 12 V / 3 A",
+        "PWM outputs": "14 (servo + ESC mix)",
+        "UARTs": "8",
+        "I2C / CAN": "2 / 2",
+        "Firmware": "ArduPilot Plane / Copter, INAV",
+        "Dimensions": "52 × 36 mm",
+        "Weight": "16 g"
+      },
+      "description": "Fixed-wing and VTOL platform built on the H7. Expanded I/O for full plane control surfaces, dual CAN for DroneCAN ESC/airspeed/GPS, vibration-isolated dual IMU, and a 12 S input range so the same board handles trainers, long-range survey planes and heavy VTOLs.",
+      "docs_url": "/kiwih743-wing.html",
+      "shop_url": "https://kiwidrone.com.ua/kiwi-pixwing-h743-12s/"
+    }
+  ]
+}
