@@ -6,12 +6,14 @@
 
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
-| ArduPilot Antenna Tracker (F405-12S) | 4.6.3-dev (5436f451) | 2026-05-20 | [KiwiF405-12S-Tracker.zip](download/KiwiF405-12S-Tracker.zip) |
+| ArduPilot Antenna Tracker (F405-12S) | 4.6.3-dev (1c2b6336) | 2026-11-03 | [KiwiF405-12S-Tracker.zip](download/KiwiF405-12S-Tracker.zip) |
 | ArduPilot VRX Control (F103) | 4.6.3-dev (5436f451) | 2026-05-01 | [KiwiF103-VRX.zip](download/KiwiF103-VRX.zip) |
 
 ### Previous versions
 
-_No previous versions archived yet._
+| Firmware | Version | Updated | Download |
+|---|---|---|---|
+| ArduPilot Antenna Tracker (F405-12S) | 4.6.3-dev (5436f451) | 2026-05-20 | [KiwiF405-12S-Tracker-2026-05-20.zip](download/old/KiwiF405-12S-Tracker-2026-05-20.zip) |
 
 ## Призначення
 
