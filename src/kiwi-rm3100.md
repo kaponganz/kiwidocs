@@ -10,7 +10,13 @@ The RM3100 sensor offers superior magnetic resolution and noise performance comp
 
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
-| ArduPilot AP_Periph | 4.6.3-dev (5436f451) | 2026-05-01 | [KiwiF103-RM3100.zip](download/KiwiF103-RM3100.zip) |
+| ArduPilot 4.7 (AP_Periph) | TBD | — | build fails: hwdef uses HAL_NO_GPIO_IRQ, removed in 4.7 ([#43](https://github.com/chexov/kiwi-boards/issues/43)) |
+| ArduPilot 4.6 (AP_Periph) | 4.6.3-dev (5436f451) | 2026-05-01 | [KiwiF103-RM3100.zip](download/KiwiF103-RM3100.zip) |
+| ArduPilot 4.5 (AP_Periph) | TBD | — | build fails: IMU CLKIN code not gated for F1/F4 ([#40](https://github.com/chexov/kiwi-boards/issues/40), [#41](https://github.com/chexov/kiwi-boards/issues/41)) |
+
+> Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet.
+
+The 4.6 build is the last one that builds: IMU CLKIN code does not compile on F103 yet ([#41](https://github.com/chexov/kiwi-boards/issues/41)).
 
 ### Previous versions
 

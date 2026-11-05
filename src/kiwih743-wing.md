@@ -37,31 +37,36 @@ The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of
 
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
-| ArduPilot 4.7 | 4.7.1-dev (e7bf0731) | 2026-09-22 | [KiwiH743-wing-4.7.zip](download/KiwiH743-wing-4.7.zip) |
+| ArduPilot 4.7 | 4.7.1-dev (e28ab786) | 2026-11-04 | [KiwiH743-wing-4.7.zip](download/KiwiH743-wing-4.7.zip) |
 | ArduPilot 4.6 | 4.6.3-dev (1c2b6336) | 2026-11-03 | [KiwiH743-wing.zip](download/KiwiH743-wing.zip) |
-| ArduPilot 4.6, no IMU CLKIN | 4.6.3-dev (1c2b6336) | 2026-11-03 | [KiwiH743-wing-noclkin.zip](download/KiwiH743-wing-noclkin.zip) |
 | ArduPilot 4.5 | 4.5.7-dev (92ab05ca) | 2026-11-03 | [KiwiH743-wing-4.5.zip](download/KiwiH743-wing-4.5.zip) |
+| ArduPilot 4.7 (no IMU CLKIN) | 4.7.1-dev (e28ab786) | 2026-11-04 | [KiwiH743-wing-noclkin-4.7.zip](download/KiwiH743-wing-noclkin-4.7.zip) |
+| ArduPilot 4.6 (no IMU CLKIN) | 4.6.3-dev (1c2b6336) | 2026-11-03 | [KiwiH743-wing-noclkin.zip](download/KiwiH743-wing-noclkin.zip) |
+| ArduPilot 4.5 (no IMU CLKIN) | 4.5.7-dev (92ab05ca) | 2026-11-03 | [KiwiH743-wing-noclkin-4.5.zip](download/KiwiH743-wing-noclkin-4.5.zip) |
 | INAV 9.1 | 9.1.1-dev (6944bd5c) | 2026-10-14 | [KiwiH743-wing-inav.zip](download/KiwiH743-wing-inav.zip) |
 | Betaflight | — | — | TBD |
 
-> Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet. The INAV zip contains the `.hex` (target `KIWIH743WING`) plus the target sources and a README — flash the hex via the INAV Configurator "Load Firmware [Local]" button.
+> Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet.
 
-The `noclkin` build is an A/B test control with the external 32.768 kHz IMU clock disabled — IMUs run on their internal oscillators. Same `APJ_BOARD_ID`, loads with the same bootloader.
+The `no IMU CLKIN` builds are an A/B test control with the external 32.768 kHz IMU clock disabled — IMUs run on their internal oscillators. Same `APJ_BOARD_ID`, loads with the same bootloader.
+
+The INAV zip contains the `.hex` (target `KIWIH743WING`) plus the target sources and a README — flash the hex via the INAV Configurator "Load Firmware [Local]" button.
 
 ### Previous versions
 
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
-| ArduPilot 4.6 | 4.6.3-dev (50cd24bd) | 2026-10-29 | [KiwiH743-wing-2026-10-29.zip](download/old/KiwiH743-wing-2026-10-29.zip) |
-| ArduPilot 4.6, no IMU CLKIN | 4.6.3-dev (50cd24bd) | 2026-10-29 | [KiwiH743-wing-noclkin-2026-10-29.zip](download/old/KiwiH743-wing-noclkin-2026-10-29.zip) |
-| ArduPilot 4.5 | 4.5.7-dev (a6bb8227) | 2026-08-20 | [KiwiH743-wing-4.5-2026-08-20.zip](download/old/KiwiH743-wing-4.5-2026-08-20.zip) |
+| ArduPilot 4.7 | 4.7.1-dev (e7bf0731) | 2026-09-22 | [KiwiH743-wing-4.7-2026-09-22.zip](download/old/KiwiH743-wing-4.7-2026-09-22.zip) |
 | ArduPilot 4.7 | 4.7.1-dev (4776a3fb) | 2026-09-04 | [KiwiH743-wing-4.7-2026-09-04.zip](download/old/KiwiH743-wing-4.7-2026-09-04.zip) |
+| ArduPilot 4.6 | 4.6.3-dev (50cd24bd) | 2026-10-29 | [KiwiH743-wing-2026-10-29.zip](download/old/KiwiH743-wing-2026-10-29.zip) |
 | ArduPilot 4.6 | 4.6.3-dev (3a7e5083) | 2026-10-14 | [KiwiH743-wing-2026-10-14.zip](download/old/KiwiH743-wing-2026-10-14.zip) |
 | ArduPilot 4.6 | 4.6.3-dev (e4a1d2cc) | 2026-06-26 | [KiwiH743-wing-2026-06-26.zip](download/old/KiwiH743-wing-2026-06-26.zip) |
 | ArduPilot 4.6 | 4.6.3-dev (5436f451) | 2026-05-20 | [KiwiH743-wing-2026-05-20.zip](download/old/KiwiH743-wing-2026-05-20.zip) |
-| ArduPilot 4.6, no IMU CLKIN | 4.6.3-dev (5436f451) | 2026-05-15 | [KiwiH743-wing-noclkin-2026-05-15.zip](download/old/KiwiH743-wing-noclkin-2026-05-15.zip) |
+| ArduPilot 4.5 | 4.5.7-dev (a6bb8227) | 2026-08-20 | [KiwiH743-wing-4.5-2026-08-20.zip](download/old/KiwiH743-wing-4.5-2026-08-20.zip) |
 | ArduPilot 4.5 | 4.5.7-dev (0edb016a) | 2026-06-28 | [KiwiH743-wing-4.5-2026-06-28.zip](download/old/KiwiH743-wing-4.5-2026-06-28.zip) |
 | ArduPilot 4.5 | 4.5.7-dev (79b1a19b) | 2026-06-20 | [KiwiH743-wing-4.5-2026-06-20.zip](download/old/KiwiH743-wing-4.5-2026-06-20.zip) |
+| ArduPilot 4.6 (no IMU CLKIN) | 4.6.3-dev (50cd24bd) | 2026-10-29 | [KiwiH743-wing-noclkin-2026-10-29.zip](download/old/KiwiH743-wing-noclkin-2026-10-29.zip) |
+| ArduPilot 4.6 (no IMU CLKIN) | 4.6.3-dev (5436f451) | 2026-05-15 | [KiwiH743-wing-noclkin-2026-05-15.zip](download/old/KiwiH743-wing-noclkin-2026-05-15.zip) |
 
 ---
 

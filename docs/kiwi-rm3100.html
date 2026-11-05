@@ -44,7 +44,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-27c3f972.js";
+            window.path_to_searchindex_js = "searchindex-b5011694.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c26ad55.js"></script>
@@ -195,10 +195,16 @@
 <tr><th>Firmware</th><th>Version</th><th>Updated</th><th>Download</th></tr>
 </thead>
 <tbody>
-<tr><td>ArduPilot AP_Periph</td><td>4.6.3-dev (5436f451)</td><td>2026-05-01</td><td><a href="download/KiwiF103-RM3100.zip">KiwiF103-RM3100.zip</a></td></tr>
+<tr><td>ArduPilot 4.7 (AP_Periph)</td><td>TBD</td><td>—</td><td>build fails: hwdef uses HAL_NO_GPIO_IRQ, removed in 4.7 (<a href="https://github.com/chexov/kiwi-boards/issues/43">#43</a>)</td></tr>
+<tr><td>ArduPilot 4.6 (AP_Periph)</td><td>4.6.3-dev (5436f451)</td><td>2026-05-01</td><td><a href="download/KiwiF103-RM3100.zip">KiwiF103-RM3100.zip</a></td></tr>
+<tr><td>ArduPilot 4.5 (AP_Periph)</td><td>TBD</td><td>—</td><td>build fails: IMU CLKIN code not gated for F1/F4 (<a href="https://github.com/chexov/kiwi-boards/issues/40">#40</a>, <a href="https://github.com/chexov/kiwi-boards/issues/41">#41</a>)</td></tr>
 </tbody>
 </table>
 </div>
+<blockquote>
+<p>Three ArduPilot branches are maintained in parallel: 4.5 (Plane-4.5.7 LTS), 4.6 (current), and 4.7. Pick the one that matches your fleet.</p>
+</blockquote>
+<p>The 4.6 build is the last one that builds: IMU CLKIN code does not compile on F103 yet (<a href="https://github.com/chexov/kiwi-boards/issues/41">#41</a>).</p>
 <h3 id="previous-versions"><a class="header" href="#previous-versions">Previous versions</a></h3>
 <p><em>No previous versions archived yet.</em></p>
 <hr>
