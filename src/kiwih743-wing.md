@@ -78,7 +78,7 @@ The INAV zip contains the `.hex` (target `KIWIH743WING`) plus the target sources
 - ICM-42688P and ICM-45686 with power and hardware signal filtering
 - BMP388 barometer
 - Dual camera input, switchable
-- 12 PWM outputs + 3 GPIO/PINIO outputs (servo 13-15)
+- 11 PWM outputs + 1 5V tolerant tacho input (servo 12) + 3 GPIO/PINIO outputs (servo 13-15)
 - 5 UARTs, UART7 with flow control
 - 1 SPI, 1 I2C, FDCAN
 - 5 GPIOs, 2 relay outputs, 9/12V switch
@@ -258,6 +258,8 @@ Second battery monitor on B2: set `BATT2_MONITOR=3`, the firmware defaults `BATT
 
 ### PWM Outputs
 
+<img src="h743-wing-servo-groups.svg" width="700" alt="KiwiH743-Wing servo header pin groups">
+
 | Output   | Pin  | GPIO | Timer    | Function | DShot Bidir |
 |----------|------|------|----------|----------|-------------|
 | SERVO 1  | PA10 | 50   | TIM1_CH3 | Motor 1  | Yes         |
@@ -271,7 +273,7 @@ Second battery monitor on B2: set `BATT2_MONITOR=3`, the firmware defaults `BATT
 | SERVO 9  | PB0  | 58   | TIM3_CH3 | Servo N  | No          |
 | SERVO 10 | PB4  | 59   | TIM3_CH1 | Servo N  | No          |
 | SERVO 11 | PB5  | 60   | TIM3_CH2 | Servo N  | No          |
-| SERVO 12 | PA3  | 61   | TIM5_CH4 | Servo N  | No          |
+| SERVO 12 | PA3  | 61   | TIM5_CH4 | GPIO IN, RPM1 | No     |
 | SERVO 13 | PA2  | 62   | TIM5_CH3 | GPIO, RELAY4 | No      |
 | SERVO 14 | PA1  | 63   | TIM5_CH2 | GPIO, RELAY5 | No      |
 | SERVO 15 | PA0  | 64   | TIM5_CH1 | GPIO, RELAY6 | No      |
@@ -279,6 +281,16 @@ Second battery monitor on B2: set `BATT2_MONITOR=3`, the firmware defaults `BATT
 Any PWM pin can be turned into a GPIO with `SERVOn_FUNCTION=-1` + `RELAYn_PIN=<gpio>`. Reboot after changing the function.
 
 Bidirectional DShot (ESC RPM telemetry) is available on outputs 1–3 (TIM1). Enable with `SERVO_BLH_BDMASK=7` and use DShot300/600 on those outputs.
+
+### Servo 12 as tacho input
+
+Servo output 12 ships as a GPIO input for a tacho or RPM sensor. The firmware defaults set `SERVO12_FUNCTION = -1`, `RPM1_TYPE = 2` (GPIO) and `RPM1_PIN = 61`. The RPM is counted on the rising edge.
+
+The pin (PA3) is 5 V tolerant. A sensor with a 5 V push-pull output, or an open-collector output with a pull-up to 5 V or 3.3 V, connects directly to S. Give an open-collector sensor an external pull-up. The firmware does not turn on the internal pull-up.
+
+Set `RPM1_SCALING = 1 / pulses per revolution`, for example `0.5` for a 2-pulse fan tacho. The readable range is 1 Hz to 10 kHz pulse rate. Read the value in `RPM.rpm1` or the OSD `OSD1_RPM_EN` element.
+
+To get a PWM output back, set `RPM1_TYPE = 0` and `SERVO12_FUNCTION` to the wanted function, then reboot.
 
 ### Servo 13-15 as GPIO (PINIO)
 

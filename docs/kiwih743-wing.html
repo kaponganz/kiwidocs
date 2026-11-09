@@ -44,7 +44,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-b5011694.js";
+            window.path_to_searchindex_js = "searchindex-b53048fd.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c26ad55.js"></script>
@@ -264,7 +264,7 @@
 <li>ICM-42688P and ICM-45686 with power and hardware signal filtering</li>
 <li>BMP388 barometer</li>
 <li>Dual camera input, switchable</li>
-<li>12 PWM outputs + 3 GPIO/PINIO outputs (servo 13-15)</li>
+<li>11 PWM outputs + 1 5V tolerant tacho input (servo 12) + 3 GPIO/PINIO outputs (servo 13-15)</li>
 <li>5 UARTs, UART7 with flow control</li>
 <li>1 SPI, 1 I2C, FDCAN</li>
 <li>5 GPIOs, 2 relay outputs, 9/12V switch</li>
@@ -488,6 +488,7 @@
 <p><strong>Note:</strong> pad silkscreen numbers and ArduPilot relay numbers are off by one. ArduPilot RELAY1 is the camera switch (<code>RELAY1_PIN=100</code>, PE2, hwdef default). Pad <strong>RELAY 1</strong> (PD3) is ArduPilot <strong>RELAY2</strong>, pad <strong>RELAY 2</strong> (PD4) is ArduPilot <strong>RELAY3</strong>. Both are enabled by default, off at boot. RELAY4-6 default to servo outputs 13-15, see below. RELAY 1/2 pads are 9/12V switched outputs.</p>
 </blockquote>
 <h3 id="pwm-outputs"><a class="header" href="#pwm-outputs">PWM Outputs</a></h3>
+<img src="h743-wing-servo-groups.svg" width="700" alt="KiwiH743-Wing servo header pin groups">
 <div class="table-wrapper">
 <table>
 <thead>
@@ -505,7 +506,7 @@
 <tr><td>SERVO 9</td><td>PB0</td><td>58</td><td>TIM3_CH3</td><td>Servo N</td><td>No</td></tr>
 <tr><td>SERVO 10</td><td>PB4</td><td>59</td><td>TIM3_CH1</td><td>Servo N</td><td>No</td></tr>
 <tr><td>SERVO 11</td><td>PB5</td><td>60</td><td>TIM3_CH2</td><td>Servo N</td><td>No</td></tr>
-<tr><td>SERVO 12</td><td>PA3</td><td>61</td><td>TIM5_CH4</td><td>Servo N</td><td>No</td></tr>
+<tr><td>SERVO 12</td><td>PA3</td><td>61</td><td>TIM5_CH4</td><td>GPIO IN, RPM1</td><td>No</td></tr>
 <tr><td>SERVO 13</td><td>PA2</td><td>62</td><td>TIM5_CH3</td><td>GPIO, RELAY4</td><td>No</td></tr>
 <tr><td>SERVO 14</td><td>PA1</td><td>63</td><td>TIM5_CH2</td><td>GPIO, RELAY5</td><td>No</td></tr>
 <tr><td>SERVO 15</td><td>PA0</td><td>64</td><td>TIM5_CH1</td><td>GPIO, RELAY6</td><td>No</td></tr>
@@ -514,6 +515,11 @@
 </div>
 <p>Any PWM pin can be turned into a GPIO with <code>SERVOn_FUNCTION=-1</code> + <code>RELAYn_PIN=&lt;gpio&gt;</code>. Reboot after changing the function.</p>
 <p>Bidirectional DShot (ESC RPM telemetry) is available on outputs 1–3 (TIM1). Enable with <code>SERVO_BLH_BDMASK=7</code> and use DShot300/600 on those outputs.</p>
+<h3 id="servo-12-as-tacho-input"><a class="header" href="#servo-12-as-tacho-input">Servo 12 as tacho input</a></h3>
+<p>Servo output 12 ships as a GPIO input for a tacho or RPM sensor. The firmware defaults set <code>SERVO12_FUNCTION = -1</code>, <code>RPM1_TYPE = 2</code> (GPIO) and <code>RPM1_PIN = 61</code>. The RPM is counted on the rising edge.</p>
+<p>The pin (PA3) is 5 V tolerant. A sensor with a 5 V push-pull output, or an open-collector output with a pull-up to 5 V or 3.3 V, connects directly to S. Give an open-collector sensor an external pull-up. The firmware does not turn on the internal pull-up.</p>
+<p>Set <code>RPM1_SCALING = 1 / pulses per revolution</code>, for example <code>0.5</code> for a 2-pulse fan tacho. The readable range is 1 Hz to 10 kHz pulse rate. Read the value in <code>RPM.rpm1</code> or the OSD <code>OSD1_RPM_EN</code> element.</p>
+<p>To get a PWM output back, set <code>RPM1_TYPE = 0</code> and <code>SERVO12_FUNCTION</code> to the wanted function, then reboot.</p>
 <h3 id="servo-13-15-as-gpio-pinio"><a class="header" href="#servo-13-15-as-gpio-pinio">Servo 13-15 as GPIO (PINIO)</a></h3>
 <p>Servo outputs 13, 14 and 15 ship as GPIO outputs, not PWM. The firmware defaults set <code>SERVO13-15_FUNCTION = -1</code> and map the pins to RELAY4-6, off at boot.</p>
 <div class="table-wrapper">
