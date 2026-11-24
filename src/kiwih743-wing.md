@@ -29,7 +29,7 @@
 
 The **KiwiH743-Wing** is a Pixhawk-format flight controller system consisting of two boards: a Flight Controller and a Power Distribution Board (PDB). Designed for expendable quadcopters and long-range fixed-wing drones. Ready to use with Rover, Wing, Quadcopter, and Hexacopter configurations.
 
-**Premium features:** GPS-less takeoff, IRC Tramp VTX control, VRX integration (TBS Fusion, Skyzone Steadyview), wind override from GCS.
+**Premium features:** GPS-less takeoff, FBWB heading hold, RTL heading mode, IRC Tramp VTX control, VRX integration (TBS Fusion, Skyzone Steadyview), wind override from GCS.
 
 ---
 
@@ -443,26 +443,106 @@ relay set 5 0   # release reset
 
 ### GPS-less Takeoff (ArduPlane)
 
-KIWI firmware supports autonomous takeoff without a GPS fix. Useful for hand launch or catapult deployment in GPS-denied environments.
+KIWI firmware can take off in TAKEOFF mode with no GPS fix. Use it for a hand launch or a catapult launch where GPS is not available.
 
-**Parameters:**
+Before the launch, the EKF must have a position. Two methods give it a fixed position on the ground, and both stop it at the launch. After the launch, the EKF calculates the position from airspeed, heading and wind (dead reckoning). An airspeed sensor is necessary.
+
+| | LaunchGPS | EKF takeoff with Groundpost |
+|---|---|---|
+| GCS | Not necessary | Groundpost connected until the launch |
+| Position on the ground | Fake GPS fix from the firmware, at `AHRS_ORIGIN_LAT/LON/ALT` | Groundpost sets origin and home and sends a fixed GPS fix (`GPS_INPUT`) |
+| GPS type | `GPS1_TYPE` = 69 | `GPS1_TYPE` = 14 (MAVLink) |
+| Fixed position stops | At the launch: a throw, or throttle above `TRIM_THROTTLE` | At the release airspeed (Groundpost setting, default 10 m/s) |
+
+**Takeoff parameters (both methods):**
 
 | Parameter | Value | Description |
 |-----------|-------|-------------|
-| `FLIGHT_OPTIONS` | 32768 | Enable GPS-less takeoff |
-| `ARMING_CHECK` | 0 | Disable arming checks |
+| `KW_TKOFF_NOGPS` | 1 | The takeoff can start without a 3D GPS fix (uses AHRS ground speed, home must be set) |
 | `TKOFF_ALT` | 50 | Target takeoff altitude (meters) |
 | `TKOFF_THR_MINACC` | 0 | No accelerometer trigger, timer only |
 | `TKOFF_THR_MINSPD` | 0 | No minimum ground speed required |
 | `TKOFF_THR_MAX` | 100 | Max throttle % during takeoff |
 | `TKOFF_THR_DELAY` | 2 | Delay before launch (0.2s) |
+| `ARSPD_USE` | 1 | Use the airspeed sensor |
+| `AHRS_OPTIONS` | 5 | No DCM fallback and no synthetic airspeed (bits 0 and 2) |
+| `GPS_AUTO_SWITCH` | 0 | Do not change to a second GPS |
+| `GPS_PRIMARY` | 0 | GPS 1 is the primary GPS |
+
+`KW_TKOFF_NOGPS` = 1 is necessary for a hand launch with `TKOFF_THR_MINACC` > 0: the throw stops the fixed position before the takeoff check ends.
+
+#### LaunchGPS (no GCS)
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `GPS1_TYPE` | 69 | LaunchGPS: fake GPS fix until the launch |
+| `AHRS_ORIGIN_LAT` | field latitude | Degrees, within about 10 km of the field |
+| `AHRS_ORIGIN_LON` | field longitude | Degrees |
+| `AHRS_ORIGIN_ALT` | field elevation | Meters above sea level |
 
 **Procedure:**
 
-1. Power on, wait for EKF convergence
-2. Set home (from GPS before loss, or manually via MAVLink)
-3. Arm in FBWA mode
-4. Switch to TAKEOFF mode
+1. Set the parameters and reboot.
+2. Wait for `EKF3 IMU0 is using GPS` (about 12 s after boot). The GPS shows a 3D fix with 69 satellites. Home is at `AHRS_ORIGIN`.
+3. Arm. A throttle check on the ground is permitted: throttle above `TRIM_THROTTLE` stops the fix (`LaunchGPS: off`). When the motor stops and the aircraft is at rest, the fix comes back (`LaunchGPS: on`). Wait for `LaunchGPS: on` before the launch.
+4. Switch to TAKEOFF and launch.
+
+| Status text | Meaning |
+|---|---|
+| `LaunchGPS: on` | The fake fix is on. Repeats every 30 s |
+| `LaunchGPS: off` | Launch detected. The fix stays off until disarm |
+| `LaunchGPS: set AHRS_ORIGIN` | `AHRS_ORIGIN_LAT/LON` are 0: no fix |
+
+- If `LaunchGPS: on` does not come back after a throttle check, disarm and arm again. This can occur when the airspeed sensor reads prop wash or wind during the check. Without a position for 15 s, the EKF stops aiding and does not recover in flight.
+- Home, RTL and loiter are correct relative to the launch point. Absolute waypoints are not, because the fake position is not the true position.
+- `AHRS_ORIGIN_LAT/LON` set the compass declination. If you use a default point such as 0.1, 0.1 (as in VB-GPS), also set `COMPASS_AUTODEC` = 0, `COMPASS_DEC` = local declination (radians) and `EK3_MAG_EF_LIM` = 0. If not, the heading error can be 10 to 17 deg.
+- LaunchGPS must be the GPS that the EKF uses. A second GPS can stay connected with `GPS_PRIMARY` = 0 and `GPS_AUTO_SWITCH` = 0.
+
+#### EKF takeoff with Groundpost (GCS)
+
+In Groundpost, open the Map tab and select **EKF TAKEOFF**. The wizard checks the parameters and can set them. It sets origin and home at the takeoff location that you select, then sends a fixed GPS fix at 5 Hz. The feed stops when the armed aircraft reaches the release airspeed.
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `GPS1_TYPE` | 14 | MAVLink GPS (Groundpost feed) |
+| `GPS1_RATE_MS` | 200 | Same rate as the 5 Hz feed |
+| `ARSPD_OPTIONS` | bits 0 and 3 clear | The airspeed sensor is not disabled when it does not agree with a stale GPS |
+
+**After the launch (both methods):** the flight controller does not warn about position drift. In AUTO or RTL the aircraft flies to the dead-reckoned position.
+
+### FBWB Heading Hold (ArduPlane)
+
+In FBWB, the autopilot holds the heading while the roll and rudder sticks are centered. GPS is not necessary: the hold uses the AHRS heading.
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `KW_FBWB_HDG_EN` | 1 | Enable heading hold in FBWB (0 = standard FBWB) |
+
+**Behavior:**
+
+- When the roll and rudder sticks return to center, the autopilot records the current heading. It sends the status text `Holding heading: <deg>`.
+- Roll or rudder stick input releases the hold. When the sticks are centered again, the autopilot records a new heading.
+- The autopilot holds the nose heading, not the ground track. In a crosswind, the aircraft drifts.
+- The bank angle is 1 deg for each 1 deg of heading error, maximum half of `ROLL_LIMIT_DEG`.
+- Altitude and airspeed control are the same as in standard FBWB.
+
+### RTL Heading Mode (ArduPlane)
+
+RTL does not fly to home. The autopilot flies a fixed heading at RTL altitude. GPS is not necessary: the heading comes from the AHRS.
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `KW_RTL_HDG_EN` | 1 | Enable heading mode in RTL (0 = standard RTL) |
+| `KW_RTL_HDG_CH` | 0 | Heading source. 0 = reverse of the heading at RTL start. 1 to 16 = RC channel: `RCn_MIN` is 0 deg, `RCn_MAX` is 360 deg |
+| `KW_RTL_HDG_TIME` | 0 | Time to fly the heading, seconds (0 to 3600). 0 = fly until the mode changes |
+
+**Behavior:**
+
+- At RTL start, the autopilot climbs to `RTL_ALTITUDE`. If the aircraft is higher, it keeps the current altitude. It sends the status text `RTL heading: <deg> alt: <m>`.
+- The autopilot reads `KW_RTL_HDG_EN` only when RTL starts.
+- With an RC channel, the pilot can change the heading during RTL. After RC loss, the channel keeps its last value only if the receiver holds its outputs or stops its pulses.
+- When `KW_RTL_HDG_TIME` expires, the motor stops and the aircraft glides at a fixed pitch of minus `STAB_PITCH_DOWN`. It continues to hold the heading. The status text is `RTL heading: glide`. The glide has no flare and does not disarm.
+- Failsafe RTL (RC loss, battery, GCS) also uses heading mode. The aircraft does not fly to home, also with a good GPS fix. `RTL_AUTOLAND` is not used.
 
 ### IRC Tramp VTX Control
 
