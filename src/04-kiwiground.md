@@ -7,7 +7,7 @@
 | Firmware | Version | Updated | Download |
 |---|---|---|---|
 | ArduPilot 4.7 (Antenna Tracker, F405-12S) | TBD | — | build fails: MT6701 compass driver not ported to 4.7 ([#27](https://github.com/chexov/kiwi-boards/issues/27)) |
-| ArduPilot 4.6 (Antenna Tracker, F405-12S) | 4.6.3-dev (1c2b6336) | 2026-11-04 | [KiwiF405-12S-Tracker.zip](download/KiwiF405-12S-Tracker.zip) |
+| ArduPilot 4.6 (Antenna Tracker, F405-12S) | 4.6.3-dev (35170aed) | 2026-11-24 | [KiwiF405-12S-Tracker.zip](download/KiwiF405-12S-Tracker.zip) |
 | ArduPilot 4.5 (Antenna Tracker, F405-12S) | TBD | — | build fails: IMU CLKIN code not gated for F1/F4 ([#40](https://github.com/chexov/kiwi-boards/issues/40)) |
 | ArduPilot 4.7 (VRX control, F103) | TBD | — | build fails: hwdef uses HAL_NO_GPIO_IRQ, removed in 4.7 ([#43](https://github.com/chexov/kiwi-boards/issues/43)) |
 | ArduPilot 4.6 (VRX control, F103) | 4.6.3-dev (5436f451) | 2026-05-01 | [KiwiF103-VRX.zip](download/KiwiF103-VRX.zip) |
@@ -21,10 +21,7 @@ The 2026-11-04 Antenna Tracker build has no IMU CLKIN: F4 boards use the IMU's i
 
 ### Previous versions
 
-| Firmware | Version | Updated | Download |
-|---|---|---|---|
-| ArduPilot 4.6 (Antenna Tracker, F405-12S) | 4.6.3-dev (1c2b6336), with IMU CLKIN | 2026-11-03 | [KiwiF405-12S-Tracker-2026-11-03.zip](download/old/KiwiF405-12S-Tracker-2026-11-03.zip) |
-| ArduPilot 4.6 (Antenna Tracker, F405-12S) | 4.6.3-dev (5436f451) | 2026-05-20 | [KiwiF405-12S-Tracker-2026-05-20.zip](download/old/KiwiF405-12S-Tracker-2026-05-20.zip) |
+_No previous versions archived yet._
 
 ## Призначення
 

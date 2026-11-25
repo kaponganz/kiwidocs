@@ -44,10 +44,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f67ae19e.js";
+            window.path_to_searchindex_js = "../searchindex-c4ea4c0a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-3c26ad55.js"></script>
+        <script src="../toc-eb5214c2.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -243,10 +243,10 @@
 </tbody>
 </table>
 </div>
-<p><img src="package-3d.jpg" alt="Package"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="package-3d.jpg" alt="Package"><span class="img-wrapper"><img src="package-3d.jpg" alt="Package"></span></label></p>
 <hr>
 <h2 id="internal-block-diagram"><a class="header" href="#internal-block-diagram">Internal Block Diagram</a></h2>
-<p><img src="block-diagram.png" alt="Block Diagram"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="block-diagram.png" alt="Block Diagram"><span class="img-wrapper"><img src="block-diagram.png" alt="Block Diagram"></span></label></p>
 <p>The internal architecture includes:</p>
 <ul>
 <li>MEMS gyroscope drive (CV, Demod, LPF, VCO, MUX/VGA) with quadrature compensation</li>
@@ -280,7 +280,7 @@
 <hr>
 <h2 id="pin-description"><a class="header" href="#pin-description">Pin Description</a></h2>
 <p>Package: LGA14-2.5x3x1.00mm3</p>
-<p><img src="package-dimensions.jpg" alt="Package Dimensions"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="package-dimensions.jpg" alt="Package Dimensions"><span class="img-wrapper"><img src="package-dimensions.jpg" alt="Package Dimensions"></span></label></p>
 <h3 id="acceleration-direction"><a class="header" href="#acceleration-direction">Acceleration Direction</a></h3>
 <p>X, Y, Z axes as marked on package (pin 1 indicator dot at corner).</p>
 <h3 id="gyroscope-direction-top-view"><a class="header" href="#gyroscope-direction-top-view">Gyroscope Direction (top view)</a></h3>
@@ -446,7 +446,7 @@
 </table>
 </div>
 <p><strong>Note:</strong> 10 MHz clock rate.</p>
-<p><img src="spi-timing-params.jpg" alt="SPI Timing Parameters"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="spi-timing-params.jpg" alt="SPI Timing Parameters"><span class="img-wrapper"><img src="spi-timing-params.jpg" alt="SPI Timing Parameters"></span></label></p>
 <hr>
 <h2 id="functional-description"><a class="header" href="#functional-description">Functional Description</a></h2>
 <h3 id="1-terminology"><a class="header" href="#1-terminology">1. Terminology</a></h3>
@@ -585,9 +585,9 @@ Slave: – → – → SAK → – → SAK → – → – → SAK → DATA → 
 </table>
 </div>
 <h4 id="321-spi-read"><a class="header" href="#321-spi-read">3.2.1 SPI Read</a></h4>
-<p><img src="spi-read-timing.png" alt="SPI Read Timing"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="spi-read-timing.png" alt="SPI Read Timing"><span class="img-wrapper"><img src="spi-read-timing.png" alt="SPI Read Timing"></span></label></p>
 <p>SPI read command completes in 16 clocks. Multi-byte reads add 8 more clock cycles per byte.</p>
-<p><img src="spi-multi-read.png" alt="SPI Multi-Byte Read"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="spi-multi-read.png" alt="SPI Multi-Byte Read"><span class="img-wrapper"><img src="spi-multi-read.png" alt="SPI Multi-Byte Read"></span></label></p>
 <ul>
 <li>Bit0: R/W control bit, set to 1</li>
 <li>Bit1-7: Address AD(6:0) is the register address</li>
@@ -595,9 +595,9 @@ Slave: – → – → SAK → – → SAK → – → – → SAK → DATA → 
 <li>Bit16-…: Data DO(…:8) (read mode), additional data (MSB first)</li>
 </ul>
 <h4 id="322-spi-write"><a class="header" href="#322-spi-write">3.2.2 SPI Write</a></h4>
-<p><img src="spi-write.png" alt="SPI Write Timing"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="spi-write.png" alt="SPI Write Timing"><span class="img-wrapper"><img src="spi-write.png" alt="SPI Write Timing"></span></label></p>
 <p>SPI single-byte write command completes in 16 clocks. Multi-byte writes add 8 more clock cycles per byte.</p>
-<p><img src="spi-multi-write.png" alt="SPI Multi-Byte Write"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="spi-multi-write.png" alt="SPI Multi-Byte Write"><span class="img-wrapper"><img src="spi-multi-write.png" alt="SPI Multi-Byte Write"></span></label></p>
 <ul>
 <li>Bit0: R/W control bit, set to 0</li>
 <li>Bit1-7: Address AD(6:0) is the register address</li>
@@ -605,7 +605,7 @@ Slave: – → – → SAK → – → SAK → – → – → SAK → DATA → 
 <li>Bit16-…: Data DI(…:8) (write mode), additional data written (MSB first)</li>
 </ul>
 <h4 id="323-spi-3-wire-mode-read"><a class="header" href="#323-spi-3-wire-mode-read">3.2.3 SPI 3-Wire Mode Read</a></h4>
-<p><img src="spi-3wire-read.png" alt="SPI 3-Wire Read"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="spi-3wire-read.png" alt="SPI 3-Wire Read"><span class="img-wrapper"><img src="spi-3wire-read.png" alt="SPI 3-Wire Read"></span></label></p>
 <p>3-wire mode is configured by writing 1 to the SIM bit. 4-wire write and 3-wire write use only 3 signal lines with identical logic and timing, so 4-wire write configures the slave device to 3-wire mode first, then 3-wire mode access is used.</p>
 <p>SPI read command completes in 16 clocks.</p>
 <ul>
@@ -872,9 +872,9 @@ Slave: – → – → SAK → – → SAK → – → – → SAK → DATA → 
 <hr>
 <hr>
 <h2 id="6d-orientation-detection"><a class="header" href="#6d-orientation-detection">6D Orientation Detection</a></h2>
-<p><img src="orientation-6d.jpg" alt="6D Orientation Detection"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="orientation-6d.jpg" alt="6D Orientation Detection"><span class="img-wrapper"><img src="orientation-6d.jpg" alt="6D Orientation Detection"></span></label></p>
 <h2 id="gyroscope-mounting-orientations"><a class="header" href="#gyroscope-mounting-orientations">Gyroscope Mounting Orientations</a></h2>
-<p><img src="gyro-mounting-orientations.png" alt="Gyroscope Mounting Orientations"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="gyro-mounting-orientations.png" alt="Gyroscope Mounting Orientations"><span class="img-wrapper"><img src="gyro-mounting-orientations.png" alt="Gyroscope Mounting Orientations"></span></label></p>
 <hr>
 <p><em>Translated from Chinese datasheet by HuaXuanYang (HXY) Electronics. This is NOT the original InvenSense/TDK ICM-42688-P datasheet — it is a compatible/clone part from HXY with similar register interface. Original document: ICM-42688P-HXY.pdf</em></p>
 
@@ -922,7 +922,7 @@ Slave: – → – → SAK → – → SAK → – → – → SAK → DATA → 
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
